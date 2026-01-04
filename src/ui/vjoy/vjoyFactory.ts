@@ -17,10 +17,10 @@ export default class VJoyFactory {
     }
 
     public getVJoySprite(): THREE.Sprite | null {
-        if (this.vJoySprite == null) {
+        if (this.vJoySprite != null) {
             return this.vJoySprite;
         }
-        console.log("inside get vJoySprite, in vJoyFactory, vjoy sprite is null");
+        console.error("inside get vJoySprite, in vJoyFactory, vjoy sprite is null");
         return null;
     }
 }

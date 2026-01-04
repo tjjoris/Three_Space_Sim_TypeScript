@@ -3,7 +3,9 @@ import './style.css'
 // import viteLogo from '/vite.svg'
 // import { setupCounter } from './counter.ts'
 import * as THREE from 'three'
-import VJoyFactory from './ui/vjoy/vjoyFactory.ts'
+import VJoyFactory from './ui/vjoy/vJoyFactory.ts'
+import VJoyUpdater from './ui/vjoy/vjoyUpdater.ts'
+import type { Tickable } from './game/tickable.ts'
 
 document.querySelector<HTMLImageElement>('#app')!.src = "./public/circle map.png"
 
@@ -23,12 +25,17 @@ const cube = new THREE.Mesh(geometry, material);
 
 //new vjoy factory
 const leftVJoyFactory = new VJoyFactory(scene);
+const leftVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, -5, 0) as Tickable;
 
+//add to scene
 scene.add(cube);
 
+let tickables: Tickable[] = [];
+tickables.push(leftVJoyUpdater);
 camera.position.z = 5;
 
 function animate() {
+  tickables.forEach(tick => { tick.tick(0.016); }); // assuming 60 FPS, so ~16ms per frame
   renderer.render(scene, camera);
 }
 
