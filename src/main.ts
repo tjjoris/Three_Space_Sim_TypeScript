@@ -23,7 +23,7 @@ import * as THREE from 'three'
 // `
 
 // setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
-
+document.querySelector<HTMLImageElement>('#app')!.src = "./public/circle map.png"
 
 const scene = new THREE.Scene();
 
