@@ -7,6 +7,7 @@ import VJoyFactory from './ui/vjoy/vJoyFactory.ts'
 import VJoyUpdater from './ui/vjoy/vJoyUpdater.ts'
 import type { Tickable } from './game/tickable.ts'
 import MultiTouch from './axes/multiTouch.ts'
+import ClickInput from './axes/clickInput.ts'
 
 const scene = new THREE.Scene();
 
@@ -22,9 +23,11 @@ const geometry = new THREE.BoxGeometry(1, 1, 1);
 const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 const cube = new THREE.Mesh(geometry, material);
 
-//new multitouch
+//new inputs
 const multiTouch = new MultiTouch(renderer);
 multiTouch;
+const clickInput = new ClickInput(renderer);
+clickInput;
 
 //new vjoy factory
 const leftVJoyFactory = new VJoyFactory(scene);
