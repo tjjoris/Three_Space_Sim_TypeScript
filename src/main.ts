@@ -23,15 +23,17 @@ const geometry = new THREE.BoxGeometry(1, 1, 1);
 const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 const cube = new THREE.Mesh(geometry, material);
 
-//new inputs
-const multiTouch = new MultiTouch(renderer);
-multiTouch;
-const clickInput = new ClickInput(renderer);
-clickInput;
 
 //new vjoy factory
 const leftVJoyFactory = new VJoyFactory(scene);
 const leftVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, -5, 0) as Tickable;
+
+
+//new inputs
+const multiTouch = new MultiTouch(renderer);
+multiTouch;
+const clickInput = new ClickInput(renderer, leftVJoyUpdater);
+clickInput;
 
 //add to scene
 scene.add(cube);
