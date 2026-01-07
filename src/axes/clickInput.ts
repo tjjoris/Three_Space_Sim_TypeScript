@@ -10,6 +10,7 @@ import VJoyUpdater from '../ui/vjoy/vJoyUpdater.ts';
 export default class ClickInput {
     private point: Point = { x: 0, y: 0 };
     private vJoyUpdater: VJoyUpdater;
+    private mouseDown: boolean = false;
 
     constructor(renderer: THREE.WebGLRenderer, vJoyUpdater: VJoyUpdater) {
         this.vJoyUpdater = vJoyUpdater;
@@ -24,27 +25,41 @@ export default class ClickInput {
     initClick(renderer: THREE.WebGLRenderer) {
         //variable to store renderer dom element.
         const rendererDom = renderer.domElement;
-        rendererDom.addEventListener("click", this.onClick.bind(this), false);
+        rendererDom.addEventListener("pointerdown", this.onClick.bind(this), false);
         rendererDom.addEventListener("pointermove", this.onPointerMove.bind(this), false);
+        rendererDom.addEventListener("pointerup", this.onPointerEnd.bind(this), false);
         console.log("ClickInput initialized");
     }
     /**
-     * call on click event, updates the point and passes it to the vJoy updater
+     * call on mousedown event, sets mouseDown to true, 
+     * and updates the point and passes it to the vJoy updater
      * @param event 
      */
     onClick(event: MouseEvent) {
+        this.mouseDown = true;
         this.point = { x: event.clientX, y: event.clientY };
         this.vJoyUpdater.setPoint(this.point);
-        console.log('click at:', event.clientX, event.clientY);
     }
 
     /**
-     * call on pointer move event, updates the point and passes it to the vJoy updater
+     * call on pointer move event, if mousedown is true, 
+     * updates the point and passes it to the vJoy updater
      * @param event 
      */
     onPointerMove(event: MouseEvent) {
-        this.point = { x: event.clientX, y: event.clientY };
-        this.vJoyUpdater.setPoint(this.point);
+        if (this.mouseDown === true) {
+            this.point = { x: event.clientX, y: event.clientY };
+            this.vJoyUpdater.setPoint(this.point);
+        }
+    }
+
+    /**
+     * call on pointer end event, sets the mouseDown boolean to false.
+     * @param event 
+     */
+    onPointerEnd(event: MouseEvent) {
+        event;
+        this.mouseDown = false;
     }
 
 
