@@ -9,7 +9,7 @@ export default class CastRay {
         this.camera = camera;
     }
 
-    castRay(point: THREE.Vector2): THREE.Vector3 {
+    castRay(point: THREE.Vector2): THREE.Vector2 {
         const rect = this.renderer.domElement.getBoundingClientRect();
         const normalizedDeviceCoords = new THREE.Vector2(
             ((point.x - rect.left) / rect.width) * 2 - 1,
@@ -22,9 +22,9 @@ export default class CastRay {
         const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
         const hit = new THREE.Vector3();
         if (raycaster.ray.intersectPlane(plane, hit)) {
-            return hit;
+            return new THREE.Vector2(hit.x, hit.y);
         }
 
-        return new THREE.Vector3(0, 0, 0);
+        return new THREE.Vector2(0, 0);
     }
 }

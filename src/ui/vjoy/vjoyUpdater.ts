@@ -31,6 +31,8 @@ export default class VJoyUpdater implements Tickable {
     setPoint(position: THREE.Vector2) {
         this.x = position.x;
         this.y = position.y;
+        // console.log('set point in world pos ', this.x, this.y);
+        // console.log('sprite before set ', this.vJoySprite?.position);
     }
 
     // positionVJoy(point: THREE.Vector2) {
