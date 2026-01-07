@@ -8,14 +8,14 @@ import CastRay from './castRay.ts';
  * coordinates to the vJoy handler.
  */
 export default class ClickInput {
-    private point: THREE.Vector2 = new THREE.Vector2(0, 0);
+    private worldPoint: THREE.Vector2 = new THREE.Vector2(0, 0);
     private vJoyUpdater: VJoyUpdater;
     private castRay: CastRay;
     private mouseDown: boolean = false;
 
     constructor(renderer: THREE.WebGLRenderer, vJoyUpdater: VJoyUpdater, castRay: CastRay) {
         this.vJoyUpdater = vJoyUpdater;
-        this.initClick(renderer);
+        this.initClick(renderer.domElement);
         this.castRay = castRay;
 
     }
@@ -23,11 +23,9 @@ export default class ClickInput {
     /**
      * initilize click event listeners by binding click functions to renderer 
      * dom element click events.
-     * @param renderer 
+     * @param rendererDOM html dom element
      */
-    initClick(renderer: THREE.WebGLRenderer) {
-        //variable to store renderer dom element.
-        const rendererDom = renderer.domElement;
+    initClick(rendererDom: HTMLElement) {
         rendererDom.addEventListener("pointerdown", this.onClick.bind(this), false);
         rendererDom.addEventListener("pointermove", this.onPointerMove.bind(this), false);
         rendererDom.addEventListener("pointerup", this.onPointerEnd.bind(this), false);
@@ -69,9 +67,8 @@ export default class ClickInput {
      */
     setPointUpdateVJoy(event: MouseEvent) {
         const pointOnScreenClicked = new THREE.Vector2(event.clientX, event.clientY);
-        this.point.copy(this.castRay.castRay(pointOnScreenClicked));
-        // this.point.set(event.clientX, event.clientY);
-        this.vJoyUpdater.setPoint(this.point);
+        this.worldPoint.copy(this.castRay.castRay(pointOnScreenClicked));
+        this.vJoyUpdater.setPoint(this.worldPoint);
     }
 
     /**
@@ -79,7 +76,7 @@ export default class ClickInput {
      */
     getPoint(): THREE.Vector2 {
 
-        return this.point;
+        return this.worldPoint;
     }
 
 }

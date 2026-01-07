@@ -9,6 +9,12 @@ export default class CastRay {
         this.camera = camera;
     }
 
+    /**
+     * cast a screen point ray onto a plane and return the world coordinates in
+     * 2D space.
+     * @param point 
+     * @returns 
+     */
     castRay(point: THREE.Vector2): THREE.Vector2 {
         const rect = this.renderer.domElement.getBoundingClientRect();
         const normalizedDeviceCoords = new THREE.Vector2(

@@ -27,7 +27,7 @@ const cube = new THREE.Mesh(geometry, material);
 
 //new vjoy factory
 const leftVJoyFactory = new VJoyFactory(scene);
-const leftVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camera, -14.9, 3.2);
+const leftVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camera, 0, 0);
 
 
 //cast ray for inputs to vjoy
@@ -49,10 +49,8 @@ tickables.push(leftVJoyUpdater as Tickable);
 camera.position.z = 5;
 
 function animate() {
+  camera.rotateX(0.01);
   tickables.forEach(tick => { tick.tick(0.016); }); // assuming 60 FPS, so ~16ms per frame
-  let newVJoyPoint = castRay.castRay(new THREE.Vector2(clickInput.getPoint().x, clickInput.getPoint().y));
-  // console.log("new vjoy point ", newVJoyPoint);
-  // leftVJoyUpdater.setPoint(new THREE.Vector2(newVJoyPoint.x, newVJoyPoint.y));
   renderer.render(scene, camera);
 }
 
