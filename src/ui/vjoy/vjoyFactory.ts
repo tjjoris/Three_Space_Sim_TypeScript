@@ -6,7 +6,7 @@ export default class VJoyFactory {
 
     constructor(scene: THREE.Scene) {
         this.scene = scene;
-        const texture = new THREE.TextureLoader().load('./public/circle map.png');
+        const texture = new THREE.TextureLoader().load(import.meta.env.BASE_URL + 'circleMap.png');
         const material = new THREE.SpriteMaterial({ map: texture, transparent: false, depthTest: false, depthWrite: false });
         this.vJoySprite = new THREE.Sprite(material);
         this.vJoySprite.center.set(0.5, 0.5);

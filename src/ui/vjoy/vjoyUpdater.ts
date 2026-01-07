@@ -16,6 +16,7 @@ export default class VJoyUpdater implements Tickable {
 
 
     tick(deltaTime: number) {
+        deltaTime;
         this.x += 0.001;
         if (this.vJoySprite) {
             this.vJoySprite.position.set(this.xPos + this.x, this.yPos + this.y, 0);

@@ -4,10 +4,9 @@ import './style.css'
 // import { setupCounter } from './counter.ts'
 import * as THREE from 'three'
 import VJoyFactory from './ui/vjoy/vJoyFactory.ts'
-import VJoyUpdater from './ui/vjoy/vjoyUpdater.ts'
+import VJoyUpdater from './ui/vjoy/vJoyUpdater.ts'
 import type { Tickable } from './game/tickable.ts'
-
-document.querySelector<HTMLImageElement>('#app')!.src = "./public/circle map.png"
+import MultiTouch from './axes/multiTouch.ts'
 
 const scene = new THREE.Scene();
 
@@ -22,6 +21,10 @@ document.body.appendChild(renderer.domElement);
 const geometry = new THREE.BoxGeometry(1, 1, 1);
 const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 const cube = new THREE.Mesh(geometry, material);
+
+//new multitouch
+const multiTouch = new MultiTouch(renderer);
+multiTouch;
 
 //new vjoy factory
 const leftVJoyFactory = new VJoyFactory(scene);
