@@ -26,7 +26,7 @@ const cube = new THREE.Mesh(geometry, material);
 
 //new vjoy factory
 const leftVJoyFactory = new VJoyFactory(scene);
-const leftVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, -5, 0) as Tickable;
+const leftVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, -5, 0);
 
 
 //new inputs
@@ -39,7 +39,7 @@ clickInput;
 scene.add(cube);
 
 let tickables: Tickable[] = [];
-tickables.push(leftVJoyUpdater);
+tickables.push(leftVJoyUpdater as Tickable);
 camera.position.z = 5;
 
 function animate() {

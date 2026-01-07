@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import type { Point } from './point.ts';
-import VJoyUpdater from '../ui/vjoy/vjoyUpdater.ts';
+import VJoyUpdater from '../ui/vjoy/vJoyUpdater.ts';
 
 /**
  * this class handles click input for the appplication.
