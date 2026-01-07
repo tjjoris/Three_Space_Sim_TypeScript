@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import type { Point } from './point.ts';
 import VJoyUpdater from '../ui/vjoy/vJoyUpdater.ts';
 
 /**
@@ -8,7 +7,7 @@ import VJoyUpdater from '../ui/vjoy/vJoyUpdater.ts';
  * coordinates to the vJoy handler.
  */
 export default class ClickInput {
-    private point: Point = { x: 0, y: 0 };
+    private point: THREE.Vector2 = new THREE.Vector2(0, 0);
     private vJoyUpdater: VJoyUpdater;
     private mouseDown: boolean = false;
 
@@ -37,8 +36,10 @@ export default class ClickInput {
      */
     onClick(event: MouseEvent) {
         this.mouseDown = true;
-        this.point = { x: event.clientX, y: event.clientY };
+        this.point.set(event.clientX, event.clientY);
         this.vJoyUpdater.setPoint(this.point);
+
+
     }
 
     /**
@@ -48,7 +49,7 @@ export default class ClickInput {
      */
     onPointerMove(event: MouseEvent) {
         if (this.mouseDown === true) {
-            this.point = { x: event.clientX, y: event.clientY };
+            this.point.set(event.clientX, event.clientY);
             this.vJoyUpdater.setPoint(this.point);
         }
     }
@@ -62,5 +63,12 @@ export default class ClickInput {
         this.mouseDown = false;
     }
 
+    /**
+     * get the point
+     */
+    getPoint(): THREE.Vector2 {
+
+        return this.point;
+    }
 
 }

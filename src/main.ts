@@ -8,6 +8,7 @@ import VJoyUpdater from './ui/vjoy/vJoyUpdater.ts'
 import type { Tickable } from './game/tickable.ts'
 import MultiTouch from './axes/multiTouch.ts'
 import ClickInput from './axes/clickInput.ts'
+import CastRay from './axes/castRay.ts'
 
 const scene = new THREE.Scene();
 
@@ -29,11 +30,16 @@ const leftVJoyFactory = new VJoyFactory(scene);
 const leftVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camera, -14.9, 3.2);
 
 
+//cast ray for inputs to vjoy
+const castRay = new CastRay(renderer, camera);
+
 //new inputs
 const multiTouch = new MultiTouch(renderer);
 multiTouch;
 const clickInput = new ClickInput(renderer, leftVJoyUpdater);
 clickInput;
+
+
 
 //add to scene
 scene.add(cube);
@@ -44,6 +50,8 @@ camera.position.z = 5;
 
 function animate() {
   tickables.forEach(tick => { tick.tick(0.016); }); // assuming 60 FPS, so ~16ms per frame
+  let newVJoyPoint = castRay.castRay(new THREE.Vector2(clickInput.getPoint().x, clickInput.getPoint().y));
+  leftVJoyUpdater.setPoint(new THREE.Vector2(newVJoyPoint.x, newVJoyPoint.y));
   renderer.render(scene, camera);
 }
 

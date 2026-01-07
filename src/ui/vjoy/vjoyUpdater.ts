@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import type { Tickable } from "../../game/tickable";
-import type { Point } from '../../axes/point.ts';
 
 export default class VJoyUpdater implements Tickable {
     private x: number = 0;
@@ -22,27 +21,27 @@ export default class VJoyUpdater implements Tickable {
         deltaTime;
         this.x += 0.001;
         if (this.vJoySprite) {
-            // this.vJoySprite.position.set(this.xPos + this.x, this.yPos + this.y, 0);
-            this.positionVJoy({ x: this.x, y: this.y });
+            this.vJoySprite.position.set(this.xOffset + this.x, this.yOffset + this.y, 0);
+            // this.positionVJoy({ x: this.x, y: this.y });
             return;
         }
         console.error("no vjoy sprite in vJoyUpdater");
     }
 
-    setPoint(point: Point) {
-        this.x = point.x;
-        this.y = point.y;
+    setPoint(position: THREE.Vector2) {
+        this.x = position.x;
+        this.y = position.y;
     }
 
-    positionVJoy(point: Point) {
-        const origionalPos = new THREE.Vector3(0, 0, 0);
-        const quaternion = this.camera.getWorldQuaternion(new THREE.Quaternion());
-        const position = new THREE.Vector3((this.x * 0.02) + this.xOffset, (-this.y * 0.02) + this.yOffset, 0);
-        const worldPos = origionalPos.clone().applyQuaternion(quaternion).add(position);
+    // positionVJoy(point: THREE.Vector2) {
+    //     const origionalPos = new THREE.Vector3(0, 0, 0);
+    //     const quaternion = this.camera.getWorldQuaternion(new THREE.Quaternion());
+    //     const position = new THREE.Vector3((this.x * 0.02) + this.xOffset, (-this.y * 0.02) + this.yOffset, 0);
+    //     const worldPos = origionalPos.clone().applyQuaternion(quaternion).add(position);
 
-        this.vJoySprite?.position.set(worldPos.x, worldPos.y, worldPos.z);
-        // console.log("new vjoy pos ", worldPos);
-        // this.vJoySprite?.position.set(this.xPos + (point.x * 0.01), this.yPos + (point.y * 0.01), -10);
-        // console.log("re positioned sprite to ", this.vJoySprite?.position);
-    }
+    //     // this.vJoySprite?.position.set(worldPos.x, worldPos.y, worldPos.z);
+    //     // console.log("new vjoy pos ", worldPos);
+    //     // this.vJoySprite?.position.set(this.xPos + (point.x * 0.01), this.yPos + (point.y * 0.01), -10);
+    //     // console.log("re positioned sprite to ", this.vJoySprite?.position);
+    // }
 }
