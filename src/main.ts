@@ -52,7 +52,7 @@ function animate() {
   tickables.forEach(tick => { tick.tick(0.016); }); // assuming 60 FPS, so ~16ms per frame
   let newVJoyPoint = castRay.castRay(new THREE.Vector2(clickInput.getPoint().x, clickInput.getPoint().y));
   // console.log("new vjoy point ", newVJoyPoint);
-  leftVJoyUpdater.setPoint(new THREE.Vector2(newVJoyPoint.x, newVJoyPoint.y));
+  // leftVJoyUpdater.setPoint(new THREE.Vector2(newVJoyPoint.x, newVJoyPoint.y));
   renderer.render(scene, camera);
 }
 
