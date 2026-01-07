@@ -16,15 +16,35 @@ export default class ClickInput {
         this.initClick(renderer);
     }
 
+    /**
+     * initilize click event listeners by binding click functions to renderer 
+     * dom element click events.
+     * @param renderer 
+     */
     initClick(renderer: THREE.WebGLRenderer) {
-        renderer.domElement.addEventListener("click", this.onClick.bind(this), false);
+        //variable to store renderer dom element.
+        const rendererDom = renderer.domElement;
+        rendererDom.addEventListener("click", this.onClick.bind(this), false);
+        rendererDom.addEventListener("pointermove", this.onPointerMove.bind(this), false);
         console.log("ClickInput initialized");
     }
-
+    /**
+     * call on click event, updates the point and passes it to the vJoy updater
+     * @param event 
+     */
     onClick(event: MouseEvent) {
         this.point = { x: event.clientX, y: event.clientY };
         this.vJoyUpdater.setPoint(this.point);
         console.log('click at:', event.clientX, event.clientY);
+    }
+
+    /**
+     * call on pointer move event, updates the point and passes it to the vJoy updater
+     * @param event 
+     */
+    onPointerMove(event: MouseEvent) {
+        this.point = { x: event.clientX, y: event.clientY };
+        this.vJoyUpdater.setPoint(this.point);
     }
 
 
