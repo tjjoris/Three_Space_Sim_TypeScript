@@ -1,6 +1,5 @@
 import * as THREE from 'three';
-
-type Point = { x: number, y: number };
+import type { Point } from './point.js';
 
 export default class MultiTouch {
     renderer: THREE.WebGLRenderer;
