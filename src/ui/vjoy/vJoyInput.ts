@@ -26,17 +26,17 @@ export default class VJoyInput {
      * @param y 
      * @param id 
      */
-    eventDownVJoy(x: number, y: number, id: number) {
+    eventDownVJoy(pos: THREE.Vector2, id: number) {
         const rect = this.renderer.domElement.getBoundingClientRect();
         // only register clicks in the click box area, click box size is the bounds, drag box size is how much further it 
         //extends so there is a margin for dragging.
-        if ((x > rect.width - this.clickBoxSize.x - this.dragBoxSize.x) &&
-            (y > rect.height - this.clickBoxSize.y - this.dragBoxSize.y) &&
-            (x < rect.width - this.dragBoxSize.x) &&
-            (y < rect.height - this.dragBoxSize.y)) {
-            this.origionalClickPoint.set(x, y);
+        if ((pos.x > rect.width - this.clickBoxSize.x - this.dragBoxSize.x) &&
+            (pos.y > rect.height - this.clickBoxSize.y - this.dragBoxSize.y) &&
+            (pos.x < rect.width - this.dragBoxSize.x) &&
+            (pos.y < rect.height - this.dragBoxSize.y)) {
+            this.origionalClickPoint.copy(pos);
             this.isDownId = id;
-            this.updateScreenPoint(new THREE.Vector2(x, y));
+            this.updateScreenPoint(pos);
         }
     }
 
@@ -44,12 +44,36 @@ export default class VJoyInput {
      * called when touch or mouse is released, passes the id for the event.
      * the isDownId is the mulittouch id, mouse is 10, -1 is it is not down.
      */
-    eventUpVjoy(id: number) {
+    eventUpVJoy(id: number) {
         if (id === this.isDownId) {
             //set to -1 to represent it is not down.
             this.isDownId = -1;
         }
     }
+
+    /**
+     * called when the touch or mouse is moved, is passed the id for the event, and the event, x and y.
+     * checks if the passed id matches the isDownId, and if it does, sets the x and y. 
+     * after doing so, it checks if they are within bounds, and if they are not, sets them to bounds.
+     */
+    eventMoveVJoy(pos: THREE.Vector2, id: number) {
+
+        if (this.isDownId == id) {
+            const rect = this.renderer.domElement.getBoundingClientRect();
+            if ((pos.x > rect.width - (this.dragBoxSize.x * 2) - this.clickBoxSize.x) &&
+                (pos.y > rect.height - (this.dragBoxSize.y * 2) - this.clickBoxSize.y)) {
+                this.updateScreenPoint(pos);
+            }
+        }
+    }
+
+    /**
+     * check if x and y are within bounds
+     */
+
+    /**
+     * set x and y to within bounds.
+     */
 
 
     /**

@@ -50,7 +50,7 @@ export default class ClickInput {
         //     this.mouseDown = true;
         //     this.updateScreenPoint(event);
         // }
-        this.leftVJoyInput.eventDownVJoy(event.clientX, event.clientY, 10);
+        this.leftVJoyInput.eventDownVJoy(new THREE.Vector2(event.clientX, event.clientY), 10);
     }
 
     /**
@@ -66,6 +66,7 @@ export default class ClickInput {
         //         this.updateScreenPoint(event);
         //     }
         // }
+        this.leftVJoyInput.eventMoveVJoy(new THREE.Vector2(event.clientX, event.clientY), 10);
     }
 
     /**
@@ -75,7 +76,7 @@ export default class ClickInput {
     onPointerEnd(event: MouseEvent) {
         event;
         // this.mouseDown = false;
-        this.leftVJoyInput.eventUpVjoy(10);
+        this.leftVJoyInput.eventUpVJoy(10);
     }
 
     /**
@@ -96,8 +97,8 @@ export default class ClickInput {
     /**
      * get the mouseDown boolean
      */
-    getMouseDown(): boolean {
-        return this.mouseDown;
-    }
+    // getMouseDown(): boolean {
+    //     return this.mouseDown;
+    // }
 
 }
