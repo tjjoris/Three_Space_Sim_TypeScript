@@ -8,8 +8,13 @@ import * as THREE from 'three';
 export default class ClickInput {
     private screenPoint: THREE.Vector2 = new THREE.Vector2(0, 0);
     private mouseDown: boolean = false;
+    private renderer: THREE.WebGLRenderer;
+    private origionalClickPoint: THREE.Vector2 = new THREE.Vector2(0, 0);
+    private clickBoxSize: THREE.Vector2 = new THREE.Vector2(300, 300);
+    private dragBoxSize: THREE.Vector2 = new THREE.Vector2(400, 400);
 
     constructor(renderer: THREE.WebGLRenderer) {
+        this.renderer = renderer;
         this.initClick(renderer.domElement);
     }
 
@@ -31,9 +36,12 @@ export default class ClickInput {
      * @param event 
      */
     onClick(event: MouseEvent) {
-        this.mouseDown = true;
-        this.updateScreenPoint(event);
-
+        const rect = this.renderer.domElement.getBoundingClientRect();
+        if ((event.x > rect.width - this.clickBoxSize.x) && (event.y > rect.height - this.clickBoxSize.y)) {
+            this.origionalClickPoint.set(event.x, event.y);
+            this.mouseDown = true;
+            this.updateScreenPoint(event);
+        }
     }
 
     /**
@@ -43,7 +51,10 @@ export default class ClickInput {
      */
     onPointerMove(event: MouseEvent) {
         if (this.mouseDown === true) {
-            this.updateScreenPoint(event);
+            const rect = this.renderer.domElement.getBoundingClientRect();
+            if ((event.x > rect.width - this.dragBoxSize.x) && (event.y > rect.height - this.dragBoxSize.y)) {
+                this.updateScreenPoint(event);
+            }
         }
     }
 
