@@ -10,8 +10,8 @@ export default class ClickInput {
     private mouseDown: boolean = false;
     private renderer: THREE.WebGLRenderer;
     private origionalClickPoint: THREE.Vector2 = new THREE.Vector2(0, 0);
-    private clickBoxSize: THREE.Vector2 = new THREE.Vector2(300, 300);
-    private dragBoxSize: THREE.Vector2 = new THREE.Vector2(400, 400);
+    private clickBoxSize: THREE.Vector2 = new THREE.Vector2(300, 200);
+    private dragBoxSize: THREE.Vector2 = new THREE.Vector2(50, 50);
 
     constructor(renderer: THREE.WebGLRenderer) {
         this.renderer = renderer;
@@ -37,7 +37,12 @@ export default class ClickInput {
      */
     onClick(event: MouseEvent) {
         const rect = this.renderer.domElement.getBoundingClientRect();
-        if ((event.x > rect.width - this.clickBoxSize.x) && (event.y > rect.height - this.clickBoxSize.y)) {
+        // only register clicks in the click box area, click box size is the bounds, drag box size is how much further it 
+        //extends so there is a margin for dragging.
+        if ((event.x > rect.width - this.clickBoxSize.x - this.dragBoxSize.x) &&
+            (event.y > rect.height - this.clickBoxSize.y - this.dragBoxSize.y) &&
+            (event.x < rect.width - this.dragBoxSize.x) &&
+            (event.y < rect.height - this.dragBoxSize.y)) {
             this.origionalClickPoint.set(event.x, event.y);
             this.mouseDown = true;
             this.updateScreenPoint(event);
@@ -52,7 +57,8 @@ export default class ClickInput {
     onPointerMove(event: MouseEvent) {
         if (this.mouseDown === true) {
             const rect = this.renderer.domElement.getBoundingClientRect();
-            if ((event.x > rect.width - this.dragBoxSize.x) && (event.y > rect.height - this.dragBoxSize.y)) {
+            if ((event.x > rect.width - (this.dragBoxSize.x * 2) - this.clickBoxSize.x) &&
+                (event.y > rect.height - (this.dragBoxSize.y * 2) - this.clickBoxSize.y)) {
                 this.updateScreenPoint(event);
             }
         }
