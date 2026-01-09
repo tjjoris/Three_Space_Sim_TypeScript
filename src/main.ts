@@ -27,7 +27,6 @@ const cube = new THREE.Mesh(geometry, material);
 
 //new vjoy factory
 const leftVJoyFactory = new VJoyFactory(scene);
-const leftVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camera, 0, 0);
 
 
 //cast ray for inputs to vjoy
@@ -36,8 +35,10 @@ const castRay = new CastRay(renderer, camera);
 //new inputs
 const multiTouch = new MultiTouch(renderer);
 multiTouch;
-const clickInput = new ClickInput(renderer, leftVJoyUpdater, castRay);
+const clickInput = new ClickInput(renderer);
 clickInput;
+
+const leftVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camera, castRay, clickInput, 0, 0);
 
 
 

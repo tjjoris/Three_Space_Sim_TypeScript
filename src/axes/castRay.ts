@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { ThreeMFLoader } from 'three/examples/jsm/Addons.js';
 
 export default class CastRay {
     renderer: THREE.WebGLRenderer;
@@ -15,7 +16,7 @@ export default class CastRay {
      * @param point 
      * @returns 
      */
-    castRay(point: THREE.Vector2): THREE.Vector2 {
+    castRay(point: THREE.Vector2): THREE.Vector3 {
         const rect = this.renderer.domElement.getBoundingClientRect();
         const normalizedDeviceCoords = new THREE.Vector2(
             ((point.x - rect.left) / rect.width) * 2 - 1,
@@ -25,12 +26,25 @@ export default class CastRay {
         raycaster.setFromCamera(normalizedDeviceCoords, this.camera);
 
         //intersect with plane z=0
-        const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+        // const plane = new THREE.Plane(new THREE.Vector3(0, 0, 0), 0);
+        //distance plane is in front of camera
+        const distance = 1;
+
+        //get camera front diretion
+        const cameraDirection = new THREE.Vector3();
+        this.camera.getWorldDirection(cameraDirection);
+        const cameraPosition = new THREE.Vector3();
+        this.camera.getWorldPosition(cameraPosition);
+        //point on plane in front of camera:
+        const pointOnPlane = cameraPosition.clone().add(cameraDirection.multiplyScalar(distance));
+
+        const plane = new THREE.Plane().setFromNormalAndCoplanarPoint(cameraDirection, pointOnPlane);
+
         const hit = new THREE.Vector3();
         if (raycaster.ray.intersectPlane(plane, hit)) {
-            return new THREE.Vector2(hit.x, hit.y);
+            return hit;
         }
 
-        return new THREE.Vector2(0, 0);
+        return new THREE.Vector3(0, 0, 0);
     }
 }

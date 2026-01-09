@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import VJoyUpdater from '../ui/vjoy/vJoyUpdater.ts';
 import CastRay from './castRay.ts';
 
 /**
@@ -9,14 +8,13 @@ import CastRay from './castRay.ts';
  */
 export default class ClickInput {
     private worldPoint: THREE.Vector2 = new THREE.Vector2(0, 0);
-    private vJoyUpdater: VJoyUpdater;
-    private castRay: CastRay;
+    private screenPoint: THREE.Vector2 = new THREE.Vector2(0, 0);
+    // private castRay: CastRay;
     private mouseDown: boolean = false;
 
-    constructor(renderer: THREE.WebGLRenderer, vJoyUpdater: VJoyUpdater, castRay: CastRay) {
-        this.vJoyUpdater = vJoyUpdater;
+    constructor(renderer: THREE.WebGLRenderer) {
         this.initClick(renderer.domElement);
-        this.castRay = castRay;
+        // this.castRay = castRay;
 
     }
 
@@ -33,23 +31,31 @@ export default class ClickInput {
     }
     /**
      * call on mousedown event, sets mouseDown to true, 
+     * and sets the screen point.
+     * old:
      * and updates the point and passes it to the vJoy updater
+     * 
      * @param event 
      */
     onClick(event: MouseEvent) {
         this.mouseDown = true;
-        this.setPointUpdateVJoy(event);
+        this.updateScreenPoint(event);
+        // this.setPointUpdateVJoy(event);
 
     }
 
     /**
      * call on pointer move event, if mousedown is true, 
+     * updates the screen point.
+     * 
+     * old:
      * updates the point and passes it to the vJoy updater
      * @param event 
      */
     onPointerMove(event: MouseEvent) {
         if (this.mouseDown === true) {
-            this.setPointUpdateVJoy(event);
+            this.updateScreenPoint(event);
+            // this.setPointUpdateVJoy(event);
         }
     }
 
@@ -63,20 +69,34 @@ export default class ClickInput {
     }
 
     /**
+     * update screen point
+     * 
+     */
+    updateScreenPoint(event: MouseEvent) {
+        this.screenPoint.set(event.clientX, event.clientY);
+    }
+    /**
      * set point and pass to vJoy updater
      */
-    setPointUpdateVJoy(event: MouseEvent) {
-        const pointOnScreenClicked = new THREE.Vector2(event.clientX, event.clientY);
-        this.worldPoint.copy(this.castRay.castRay(pointOnScreenClicked));
-        this.vJoyUpdater.setPoint(this.worldPoint);
+    // setPointUpdateVJoy(event: MouseEvent) {
+    //     const pointOnScreenClicked = new THREE.Vector2(event.clientX, event.clientY);
+    //     this.worldPoint.copy(this.castRay.castRay(pointOnScreenClicked));
+    //     // this.vJoyUpdater.setPoint(this.worldPoint);
+    // }
+
+    /**
+     * get the wrold point
+     */
+    getWorldPoint(): THREE.Vector2 {
+
+        return this.worldPoint;
     }
 
     /**
-     * get the point
+     * get the screen point
      */
-    getPoint(): THREE.Vector2 {
-
-        return this.worldPoint;
+    getScreenPoint(): THREE.Vector2 {
+        return this.screenPoint;
     }
 
 }
