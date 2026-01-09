@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import VJoyInput from '../ui/vjoy/vJoyInput';
 
 /**
  * this class handles click input for the appplication.
@@ -12,10 +13,12 @@ export default class ClickInput {
     private origionalClickPoint: THREE.Vector2 = new THREE.Vector2(0, 0);
     private clickBoxSize: THREE.Vector2 = new THREE.Vector2(300, 200);
     private dragBoxSize: THREE.Vector2 = new THREE.Vector2(50, 50);
+    private leftVJoyInput: VJoyInput;
 
-    constructor(renderer: THREE.WebGLRenderer) {
+    constructor(renderer: THREE.WebGLRenderer, leftVJoyInput: VJoyInput) {
         this.renderer = renderer;
         this.initClick(renderer.domElement);
+        this.leftVJoyInput = leftVJoyInput
     }
 
     /**
@@ -36,17 +39,18 @@ export default class ClickInput {
      * @param event 
      */
     onClick(event: MouseEvent) {
-        const rect = this.renderer.domElement.getBoundingClientRect();
-        // only register clicks in the click box area, click box size is the bounds, drag box size is how much further it 
-        //extends so there is a margin for dragging.
-        if ((event.x > rect.width - this.clickBoxSize.x - this.dragBoxSize.x) &&
-            (event.y > rect.height - this.clickBoxSize.y - this.dragBoxSize.y) &&
-            (event.x < rect.width - this.dragBoxSize.x) &&
-            (event.y < rect.height - this.dragBoxSize.y)) {
-            this.origionalClickPoint.set(event.x, event.y);
-            this.mouseDown = true;
-            this.updateScreenPoint(event);
-        }
+        // const rect = this.renderer.domElement.getBoundingClientRect();
+        // // only register clicks in the click box area, click box size is the bounds, drag box size is how much further it 
+        // //extends so there is a margin for dragging.
+        // if ((event.x > rect.width - this.clickBoxSize.x - this.dragBoxSize.x) &&
+        //     (event.y > rect.height - this.clickBoxSize.y - this.dragBoxSize.y) &&
+        //     (event.x < rect.width - this.dragBoxSize.x) &&
+        //     (event.y < rect.height - this.dragBoxSize.y)) {
+        //     this.origionalClickPoint.set(event.x, event.y);
+        //     this.mouseDown = true;
+        //     this.updateScreenPoint(event);
+        // }
+        this.leftVJoyInput.eventDownVJoy(event.clientX, event.clientY, 10);
     }
 
     /**
@@ -55,13 +59,13 @@ export default class ClickInput {
      * @param event 
      */
     onPointerMove(event: MouseEvent) {
-        if (this.mouseDown === true) {
-            const rect = this.renderer.domElement.getBoundingClientRect();
-            if ((event.x > rect.width - (this.dragBoxSize.x * 2) - this.clickBoxSize.x) &&
-                (event.y > rect.height - (this.dragBoxSize.y * 2) - this.clickBoxSize.y)) {
-                this.updateScreenPoint(event);
-            }
-        }
+        // if (this.mouseDown === true) {
+        //     const rect = this.renderer.domElement.getBoundingClientRect();
+        //     if ((event.x > rect.width - (this.dragBoxSize.x * 2) - this.clickBoxSize.x) &&
+        //         (event.y > rect.height - (this.dragBoxSize.y * 2) - this.clickBoxSize.y)) {
+        //         this.updateScreenPoint(event);
+        //     }
+        // }
     }
 
     /**
@@ -70,7 +74,8 @@ export default class ClickInput {
      */
     onPointerEnd(event: MouseEvent) {
         event;
-        this.mouseDown = false;
+        // this.mouseDown = false;
+        this.leftVJoyInput.eventUpVjoy(10);
     }
 
     /**

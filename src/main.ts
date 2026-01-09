@@ -9,6 +9,7 @@ import type { Tickable } from './game/tickable.ts'
 import MultiTouch from './axes/multiTouch.ts'
 import ClickInput from './axes/clickInput.ts'
 import CastRay from './axes/castRay.ts'
+import VJoyInput from './ui/vjoy/vJoyInput.ts'
 
 const scene = new THREE.Scene();
 
@@ -35,10 +36,12 @@ const castRay = new CastRay(renderer, camera);
 //new inputs
 const multiTouch = new MultiTouch(renderer);
 multiTouch;
-const clickInput = new ClickInput(renderer);
+const rightVJoyInput = new VJoyInput(renderer, new THREE.Vector2(300, 200), 1);
+rightVJoyInput;
+const clickInput = new ClickInput(renderer, rightVJoyInput);
 clickInput;
 
-const leftVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camera, castRay, clickInput, 0, 0);
+const rightVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camera, castRay, rightVJoyInput, 0, 0);
 
 
 
@@ -46,7 +49,7 @@ const leftVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camera
 scene.add(cube);
 
 let tickables: Tickable[] = [];
-tickables.push(leftVJoyUpdater as Tickable);
+tickables.push(rightVJoyUpdater as Tickable);
 camera.position.z = 5;
 
 function animate() {
