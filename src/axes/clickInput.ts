@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import CastRay from './castRay.ts';
 
 /**
  * this class handles click input for the appplication.
@@ -7,15 +6,11 @@ import CastRay from './castRay.ts';
  * coordinates to the vJoy handler.
  */
 export default class ClickInput {
-    private worldPoint: THREE.Vector2 = new THREE.Vector2(0, 0);
     private screenPoint: THREE.Vector2 = new THREE.Vector2(0, 0);
-    // private castRay: CastRay;
     private mouseDown: boolean = false;
 
     constructor(renderer: THREE.WebGLRenderer) {
         this.initClick(renderer.domElement);
-        // this.castRay = castRay;
-
     }
 
     /**
@@ -32,30 +27,23 @@ export default class ClickInput {
     /**
      * call on mousedown event, sets mouseDown to true, 
      * and sets the screen point.
-     * old:
-     * and updates the point and passes it to the vJoy updater
      * 
      * @param event 
      */
     onClick(event: MouseEvent) {
         this.mouseDown = true;
         this.updateScreenPoint(event);
-        // this.setPointUpdateVJoy(event);
 
     }
 
     /**
      * call on pointer move event, if mousedown is true, 
      * updates the screen point.
-     * 
-     * old:
-     * updates the point and passes it to the vJoy updater
      * @param event 
      */
     onPointerMove(event: MouseEvent) {
         if (this.mouseDown === true) {
             this.updateScreenPoint(event);
-            // this.setPointUpdateVJoy(event);
         }
     }
 
@@ -74,22 +62,6 @@ export default class ClickInput {
      */
     updateScreenPoint(event: MouseEvent) {
         this.screenPoint.set(event.clientX, event.clientY);
-    }
-    /**
-     * set point and pass to vJoy updater
-     */
-    // setPointUpdateVJoy(event: MouseEvent) {
-    //     const pointOnScreenClicked = new THREE.Vector2(event.clientX, event.clientY);
-    //     this.worldPoint.copy(this.castRay.castRay(pointOnScreenClicked));
-    //     // this.vJoyUpdater.setPoint(this.worldPoint);
-    // }
-
-    /**
-     * get the wrold point
-     */
-    getWorldPoint(): THREE.Vector2 {
-
-        return this.worldPoint;
     }
 
     /**

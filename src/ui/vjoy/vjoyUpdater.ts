@@ -4,8 +4,6 @@ import type CastRay from "../../axes/castRay";
 import type ClickInput from "../../axes/clickInput";
 
 export default class VJoyUpdater implements Tickable {
-    private x: number = 0;
-    private y: number = 0;
     private xOffset: number = 0;
     private yOffset: number = 0;
     private vJoySprite: THREE.Sprite | null = null;
@@ -29,14 +27,8 @@ export default class VJoyUpdater implements Tickable {
         if (this.vJoySprite) {
             const worldPos: THREE.Vector3 = this.castRay.castRay(this.clickInput.getScreenPoint());
             this.vJoySprite.position.copy(worldPos);
-            // this.vJoySprite.position.set(this.xOffset + this.x, this.yOffset + this.y, 0);
             return;
         }
         console.error("no vjoy sprite in vJoyUpdater");
-    }
-
-    setPoint(position: THREE.Vector2) {
-        this.x = position.x;
-        this.y = position.y;
     }
 }
