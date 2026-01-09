@@ -71,4 +71,11 @@ export default class ClickInput {
         return this.screenPoint;
     }
 
+    /**
+     * get the mouseDown boolean
+     */
+    getMouseDown(): boolean {
+        return this.mouseDown;
+    }
+
 }

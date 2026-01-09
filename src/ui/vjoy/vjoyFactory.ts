@@ -11,7 +11,7 @@ export default class VJoyFactory {
         this.vJoySprite = new THREE.Sprite(material);
         this.vJoySprite.center.set(0.5, 0.5);
         // this.vJoySprite.position.set(10, 10, 10);
-        this.vJoySprite.scale.set(1, 1, 1);
+        this.vJoySprite.scale.set(0.5, 0.5, 1);
         this.scene.add(this.vJoySprite);
         console.log("vjoy created");
     }

@@ -27,6 +27,12 @@ export default class VJoyUpdater implements Tickable {
         if (this.vJoySprite) {
             const worldPos: THREE.Vector3 = this.castRay.castRay(this.clickInput.getScreenPoint());
             this.vJoySprite.position.copy(worldPos);
+            if (this.clickInput.getMouseDown() === true) {
+                this.vJoySprite.visible = true;
+            }
+            else {
+                this.vJoySprite.visible = false;
+            }
             return;
         }
         console.error("no vjoy sprite in vJoyUpdater");
