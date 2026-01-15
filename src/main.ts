@@ -58,4 +58,8 @@ function animate() {
   renderer.render(scene, camera);
 }
 
+import CalcX1UsingPointSlopeForm from './helpers/calcX1UsingPointSlopeForm';
+let pos2 = new THREE.Vector2(0, 0);
+console.log("calculated x is ", CalcX1UsingPointSlopeForm(0.5, pos2, 1));
+
 renderer.setAnimationLoop(animate);
