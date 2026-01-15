@@ -5,6 +5,6 @@ import * as THREE from 'three';
  * @param pos2 
  * @returns 
  */
-export default function CalcSlope(pos1: THREE.Vector2, pos2: THREE.Vector2): number {
+export default function calcSlope(pos1: THREE.Vector2, pos2: THREE.Vector2): number {
     return (pos2.y - pos1.y) / (pos2.x - pos1.x);
 }

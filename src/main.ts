@@ -59,8 +59,10 @@ function animate() {
 }
 
 // import CalcX1UsingPointSlopeForm from './helpers/calcX1UsingPointSlopeForm';
-import CalcY1UsingPointSlopeForm from './helpers/calcY1UsingPointSlopeForm'
-let pos2 = new THREE.Vector2(-1, -1);
-console.log("calculated y is ", CalcY1UsingPointSlopeForm(0.5, pos2, 0));
+// import CalcY1UsingPointSlopeForm from './helpers/calcY1UsingPointSlopeForm'
+import calcSlope from './helpers/calcSlope';
+let pos1 = new THREE.Vector2(0, 0);
+let pos2 = new THREE.Vector2(1, 0);
+console.log("calc slope is ", calcSlope(pos1, pos2));
 
 renderer.setAnimationLoop(animate);
