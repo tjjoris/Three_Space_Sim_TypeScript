@@ -60,9 +60,10 @@ function animate() {
 
 // import CalcX1UsingPointSlopeForm from './helpers/calcX1UsingPointSlopeForm';
 // import CalcY1UsingPointSlopeForm from './helpers/calcY1UsingPointSlopeForm'
-import calcSlope from './helpers/calcSlope';
+// import calcSlope from './helpers/calcSlope';
+import clamp from './helpers/clamp.ts'
 let pos1 = new THREE.Vector2(0, 0);
 let pos2 = new THREE.Vector2(1, 0);
-console.log("calc slope is ", calcSlope(pos1, pos2));
+console.log("clamp is ", clamp(60, 40, 60));
 
 renderer.setAnimationLoop(animate);

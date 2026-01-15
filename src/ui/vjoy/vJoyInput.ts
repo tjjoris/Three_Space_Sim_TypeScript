@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import calcSlope from '../../helpers/calcSlope';
 import calcX1UsingPointSlopeForm from '../../helpers/calcX1UsingPointSlopeForm';
 import calcY1UsingPointSlopeForm from '../../helpers/calcY1UsingPointSlopeForm';
+import clamp from '../../helpers/clamp';
 
 export default class VJoyInput {
     private screenPoint: THREE.Vector2 = new THREE.Vector2(0, 0);
@@ -10,6 +11,7 @@ export default class VJoyInput {
     private origionalClickPoint: THREE.Vector2 = new THREE.Vector2(0, 0);
     private clickBoxSize: THREE.Vector2 = new THREE.Vector2(300, 200);
     private dragBoxSize: THREE.Vector2 = new THREE.Vector2(50, 50);
+    private maxDragDistance: number = 50;
     private screenWidthMultiplier: number = 1;
 
 
@@ -68,6 +70,7 @@ export default class VJoyInput {
         if (this.isDownId != id) {
             return;
         }
+        this.normalizeVJoy(pos);
         if (this.posWithinDragBounds(pos)) {
             //pos within bounds, just update screen point to pos.
             this.updateScreenPoint(pos);
@@ -77,10 +80,12 @@ export default class VJoyInput {
         let xPosAtBounds = calcX1UsingPointSlopeForm(slope, this.origionalClickPoint, this.calcInnerYBounds());
         if (this.isXWithinDragBounds(xPosAtBounds)) {
             this.updateScreenPoint(new THREE.Vector2(xPosAtBounds, this.calcInnerYBounds()));
+            // console.log(" within x drag bounds ", xPosAtBounds);
             return;
         }
         let yPosAtBounds = calcY1UsingPointSlopeForm(slope, this.origionalClickPoint, this.calcInnerXBounds());
         this.updateScreenPoint(new THREE.Vector2(this.calcInnerXBounds(), yPosAtBounds));
+        // console.log("within y drag bounds ", yPosAtBounds);
     }
 
 
@@ -101,7 +106,7 @@ export default class VJoyInput {
      * @returns 
      */
     isXWithinDragBounds(x: number): boolean {
-        if (x > this.calcInnerXBounds()) {
+        if ((x > this.calcInnerXBounds()) && (x < this.calcOuterXBounds())) {
             return true;
         }
         return false;
@@ -136,6 +141,16 @@ export default class VJoyInput {
         const rect = this.renderer.domElement.getBoundingClientRect();
         return (rect.width - this.clickBoxSize.x - (this.dragBoxSize.x * 2));
     }
+
+    /**
+     * calculates and returns the outer x bounds where the vjoy can be when dragging.
+     * @returns 
+     */
+    calcOuterXBounds(): number {
+        const rect = this.renderer.domElement.getBoundingClientRect();
+        return (rect.width);
+    }
+
 
     /**
      * calculate the slope for the x and y relative to the origional point.
@@ -199,6 +214,37 @@ export default class VJoyInput {
      */
     getDown(): boolean {
         return this.isDownId !== -1;
+    }
+
+    /**
+     * returns a normalized vector2 from the origion point to the 
+     * passed point. however if the distance is less than the max vjoy drag distance,
+     * that is length of the normalized vector.
+     * @param pos 
+     */
+    normalizeVJoy(pos: THREE.Vector2): THREE.Vector2 {
+        let zeroVector: THREE.Vector2 = new THREE.Vector2(0, 0);
+        let negativeBounds: THREE.Vector2 = this.dragBoxSize.negate();
+        // console.log("negative bounds ", negativeBounds);
+
+        let normalizedDistance: number = 1;
+        let vJoyDragVector = pos.sub(this.origionalClickPoint);
+        console.log("drag vector ", vJoyDragVector);
+        // let normalizedVector: THREE.Vector2 = vJoyDragVector.normalize();
+        // let clampedVector: THREE.Vector2 = vJoyDragVector.clamp(negativeBounds, this.dragBoxSize);
+        const clampedVector: THREE.Vector2 = new THREE.Vector2(clamp(vJoyDragVector.x, negativeBounds.x, this.dragBoxSize.x),
+            clamp(vJoyDragVector.y, negativeBounds.y, this.dragBoxSize.y));
+
+        console.log("clamped vector ", clampedVector);
+        let distance = clampedVector.length();
+        let normalizedDistanceOfSquareGateVJoy = clampedVector.divide(this.dragBoxSize);
+        // console.log("normalized ", normalizedDistanceOfSquareGateVJoy);
+
+        // let normalizedVector = vJoyDragVector.clampLength(0, this.maxDragDistance);
+        return normalizedDistanceOfSquareGateVJoy;
+        if (distance < normalizedDistance) {
+            return (pos.sub(this.origionalClickPoint));
+        }
     }
 
 }
