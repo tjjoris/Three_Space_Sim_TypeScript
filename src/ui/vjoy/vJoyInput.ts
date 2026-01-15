@@ -1,4 +1,7 @@
 import * as THREE from 'three';
+import calcSlope from '../../helpers/calcSlope';
+import calcX1UsingPointSlopeForm from '../../helpers/calcX1UsingPointSlopeForm';
+import calcY1UsingPointSlopeForm from '../../helpers/calcY1UsingPointSlopeForm';
 
 export default class VJoyInput {
     private screenPoint: THREE.Vector2 = new THREE.Vector2(0, 0);
@@ -53,19 +56,30 @@ export default class VJoyInput {
 
     /**
      * called when the touch or mouse is moved, is passed the id for the event, and the event, x and y.
-     * checks if the passed id matches the isDownId, and if it does, sets the x and y. 
-     * after doing so, it checks if they are within bounds, and if they are not, sets them to bounds.
+     * checks if the passed id matches the isDownId, if it does not ends the function.
+     * checks if the pos is within bounds, if it is it moves calls UpdateScreenPoint to move the vjoy.
+     * then it gets the slope of the vjoy from the origin point to the dragged point.
+     * then it calculates where x intercepts the inner bounds.
+     * then it checks if the x intercept is within the y bounds, if it is it moves the vjoy to the xy and ends.
+     * if not it calculates where y intercepts the x bounds and moves the vjoy to that xy.
      */
     eventMoveVJoy(pos: THREE.Vector2, id: number) {
 
-        if (this.isDownId == id) {
-            if (this.posWithinDragBounds(pos)) {
-                //pos within bounds, just update screen point to pos.
-                this.updateScreenPoint(pos);
-            }
-
+        if (this.isDownId != id) {
+            return;
+        }
+        if (this.posWithinDragBounds(pos)) {
+            //pos within bounds, just update screen point to pos.
+            this.updateScreenPoint(pos);
+            return;
+        }
+        let slope = calcSlope(pos, this.origionalClickPoint);
+        let xPosAtBounds = calcX1UsingPointSlopeForm(slope, this.origionalClickPoint, pos.y);
+        if (this.isXWithinDragBounds(xPosAtBounds)) {
+            this.updateScreenPoint(new THREE.Vector2(xPosAtBounds,))
         }
     }
+
 
     /**
      * check if x and y are within drag bounds
@@ -84,8 +98,7 @@ export default class VJoyInput {
      * @returns 
      */
     isXWithinDragBounds(x: number): boolean {
-        const rect = this.renderer.domElement.getBoundingClientRect();
-        if (x > rect.width - this.clickBoxSize.x - (this.dragBoxSize.x * 2)) {
+        if (x > this.calcInnerXBounds()) {
             return true;
         }
         return false;
@@ -97,11 +110,28 @@ export default class VJoyInput {
      * @returns 
      */
     isYWithinDragBounds(y: number): boolean {
-        const rect = this.renderer.domElement.getBoundingClientRect();
-        if (y > rect.height - this.clickBoxSize.y - (this.dragBoxSize.y * 2)) {
+        if (y > this.calcInnerYBounds()) {
             return true;
         }
         return false;
+    }
+
+    /**
+     * calculates and returns the inner y bounds where the vjoy can be within when dragging.
+     * @returns 
+     */
+    calcInnerYBounds(): number {
+        const rect = this.renderer.domElement.getBoundingClientRect();
+        return (rect.height - this.clickBoxSize.y - (this.dragBoxSize.y * 2))
+    }
+
+    /**
+     * calculates and returns the inner x bounds where the vJoy can be within when dragging.
+     * @returns 
+     */
+    calcInnerXBounds(): number {
+        const rect = this.renderer.domElement.getBoundingClientRect();
+        return (rect.width - this.clickBoxSize.x - (this.dragBoxSize.x * 2));
     }
 
     /**
