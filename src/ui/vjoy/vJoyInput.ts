@@ -70,7 +70,10 @@ export default class VJoyInput {
         if (this.isDownId != id) {
             return;
         }
-        this.normalizeVJoy(pos);
+        const clampedVJoy: THREE.Vector2 = this.clampVJoy(pos);
+        this.updateScreenPoint(this.origionalClickPoint.clone().add(clampedVJoy));
+        return;
+
         if (this.posWithinDragBounds(pos)) {
             //pos within bounds, just update screen point to pos.
             this.updateScreenPoint(pos);
@@ -217,38 +220,24 @@ export default class VJoyInput {
     }
 
     /**
-     * returns a normalized vector2 from the origion point to the 
-     * passed point. however if the distance is less than the max vjoy drag distance,
-     * that is length of the normalized vector.
+     * returns a clamped vector2 from the origion point to the 
+     * passed point. this vector is fitting within a square gate of bounds of this.dragboxSize.
      * @param pos 
      */
-    normalizeVJoy(pos: THREE.Vector2): THREE.Vector2 {
-        const zeroVector: THREE.Vector2 = new THREE.Vector2(0, 0);
-        // let copiedNegativeBounds: THREE.Vector2;
-        // copiedNegativeBounds.copy(this.dragBoxSize);
+    clampVJoy(pos: THREE.Vector2): THREE.Vector2 {
         const negativeBounds: THREE.Vector2 = this.dragBoxSize.clone().negate();
-        // console.log("negative bounds ", negativeBounds);
-
-        const normalizedDistance: number = 1;
         const vJoyDragVector: THREE.Vector2 = pos.sub(this.origionalClickPoint);
-        // console.log("drag vector ", vJoyDragVector);
-        // let normalizedVector: THREE.Vector2 = vJoyDragVector.normalize();
-        // let clampedVector: THREE.Vector2 = vJoyDragVector.clamp(negativeBounds, this.dragBoxSize);
-        const clampedX: number = clamp(vJoyDragVector.x, negativeBounds.x, this.dragBoxSize.x);
-        // console.log("vjoydragvectorx ", vJoyDragVector.x, "negative bounds ", negativeBounds.x, "drag box size ", this.dragBoxSize.x, "clamped x ", clampedX);
         const clampedVector: THREE.Vector2 = new THREE.Vector2(clamp(vJoyDragVector.x, negativeBounds.x, this.dragBoxSize.x),
             clamp(vJoyDragVector.y, negativeBounds.y, this.dragBoxSize.y));
+        return clampedVector;
+    }
 
-        console.log("clamped vector ", clampedVector);
-        let distance = clampedVector.length();
-        let normalizedDistanceOfSquareGateVJoy = clampedVector.divide(this.dragBoxSize);
-        // console.log("normalized ", normalizedDistanceOfSquareGateVJoy);
-
-        // let normalizedVector = vJoyDragVector.clampLength(0, this.maxDragDistance);
+    normalizeClampedVJoy(clampedVector: THREE.Vector2): THREE.Vector2 {
+        const normalizedDistanceOfSquareGateVJoy: THREE.Vector2 = new THREE.Vector2(
+            clampedVector.x / this.dragBoxSize.x,
+            clampedVector.y / this.dragBoxSize.y
+        );
         return normalizedDistanceOfSquareGateVJoy;
-        if (distance < normalizedDistance) {
-            return (pos.sub(this.origionalClickPoint));
-        }
     }
 
 }
