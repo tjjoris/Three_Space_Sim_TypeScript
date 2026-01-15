@@ -223,15 +223,19 @@ export default class VJoyInput {
      * @param pos 
      */
     normalizeVJoy(pos: THREE.Vector2): THREE.Vector2 {
-        let zeroVector: THREE.Vector2 = new THREE.Vector2(0, 0);
-        let negativeBounds: THREE.Vector2 = this.dragBoxSize.negate();
+        const zeroVector: THREE.Vector2 = new THREE.Vector2(0, 0);
+        // let copiedNegativeBounds: THREE.Vector2;
+        // copiedNegativeBounds.copy(this.dragBoxSize);
+        const negativeBounds: THREE.Vector2 = this.dragBoxSize.clone().negate();
         // console.log("negative bounds ", negativeBounds);
 
-        let normalizedDistance: number = 1;
-        let vJoyDragVector = pos.sub(this.origionalClickPoint);
-        console.log("drag vector ", vJoyDragVector);
+        const normalizedDistance: number = 1;
+        const vJoyDragVector: THREE.Vector2 = pos.sub(this.origionalClickPoint);
+        // console.log("drag vector ", vJoyDragVector);
         // let normalizedVector: THREE.Vector2 = vJoyDragVector.normalize();
         // let clampedVector: THREE.Vector2 = vJoyDragVector.clamp(negativeBounds, this.dragBoxSize);
+        const clampedX: number = clamp(vJoyDragVector.x, negativeBounds.x, this.dragBoxSize.x);
+        // console.log("vjoydragvectorx ", vJoyDragVector.x, "negative bounds ", negativeBounds.x, "drag box size ", this.dragBoxSize.x, "clamped x ", clampedX);
         const clampedVector: THREE.Vector2 = new THREE.Vector2(clamp(vJoyDragVector.x, negativeBounds.x, this.dragBoxSize.x),
             clamp(vJoyDragVector.y, negativeBounds.y, this.dragBoxSize.y));
 

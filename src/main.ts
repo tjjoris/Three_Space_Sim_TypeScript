@@ -64,6 +64,6 @@ function animate() {
 import clamp from './helpers/clamp.ts'
 let pos1 = new THREE.Vector2(0, 0);
 let pos2 = new THREE.Vector2(1, 0);
-console.log("clamp is ", clamp(60, 40, 60));
+console.log("clamp is ", clamp(1000, 40, 60));
 
 renderer.setAnimationLoop(animate);
