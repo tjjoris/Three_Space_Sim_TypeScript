@@ -74,10 +74,13 @@ export default class VJoyInput {
             return;
         }
         let slope = calcSlope(pos, this.origionalClickPoint);
-        let xPosAtBounds = calcX1UsingPointSlopeForm(slope, this.origionalClickPoint, pos.y);
+        let xPosAtBounds = calcX1UsingPointSlopeForm(slope, this.origionalClickPoint, this.calcInnerYBounds());
         if (this.isXWithinDragBounds(xPosAtBounds)) {
-            this.updateScreenPoint(new THREE.Vector2(xPosAtBounds,))
+            this.updateScreenPoint(new THREE.Vector2(xPosAtBounds, this.calcInnerYBounds()));
+            return;
         }
+        let yPosAtBounds = calcY1UsingPointSlopeForm(slope, this.origionalClickPoint, this.calcInnerXBounds());
+        this.updateScreenPoint(new THREE.Vector2(this.calcInnerXBounds(), yPosAtBounds));
     }
 
 
