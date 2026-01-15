@@ -27,7 +27,7 @@ export default class VJoyInput {
      * @param id 
      */
     eventDownVJoy(pos: THREE.Vector2, id: number) {
-        const rect = this.renderer.domElement.getBoundingClientRect();
+        const rect: DOMRect = this.renderer.domElement.getBoundingClientRect();
         // only register clicks in the click box area, click box size is the bounds, drag box size is how much further it 
         //extends so there is a margin for dragging.
         if ((pos.x > rect.width - this.clickBoxSize.x - this.dragBoxSize.x) &&
@@ -59,21 +59,63 @@ export default class VJoyInput {
     eventMoveVJoy(pos: THREE.Vector2, id: number) {
 
         if (this.isDownId == id) {
-            const rect = this.renderer.domElement.getBoundingClientRect();
-            if ((pos.x > rect.width - (this.dragBoxSize.x * 2) - this.clickBoxSize.x) &&
-                (pos.y > rect.height - (this.dragBoxSize.y * 2) - this.clickBoxSize.y)) {
+            if (this.posWithinDragBounds(pos)) {
+                //pos within bounds, just update screen point to pos.
                 this.updateScreenPoint(pos);
             }
+
         }
     }
 
     /**
-     * check if x and y are within bounds
+     * check if x and y are within drag bounds
      */
+    posWithinDragBounds(pos: THREE.Vector2): boolean {
+        const rect = this.renderer.domElement.getBoundingClientRect();
+        // console.log("y bounds ", this.calcYOutOfBounds(pos, rect));
+        return false;
+    }
+
+    /**
+     * calculate the slope for the x and y relative to the origional point.
+     */
+    calucSlope(pos: THREE.Vector2): number {
+        return (this.origionalClickPoint.y - pos.y) / (this.origionalClickPoint.x - pos.x);
+    }
+
+    /**
+     * calculate x for y and slope
+     */
+    calcXFromSlope(slope: number, y: number): number {
+        return (y / slope);
+    }
+    /**
+     * calculate y for x and the slope
+     */
+    calcYFromSlope(slope: number, x: number): number {
+        return (x * slope);
+    }
+
+    /**
+     * calculate the amount pos has passed the bounds on the y axis
+     */
+    calcYOutOfBounds(pos: THREE.Vector2, rect: DOMRect): number {
+        if (pos.y < (rect.height - (this.dragBoxSize.y * 2) - this.clickBoxSize.y)) {
+            return pos.y - (rect.height - (this.dragBoxSize.y * 2) - this.clickBoxSize.y);
+        }
+        return 0
+    }
 
     /**
      * set x and y to within bounds.
      */
+    getBoundsOfPos(pos: THREE.Vector2, rect: DOMRect): THREE.Vector2 {
+        //the slope of the vJoy.
+        this.calucSlope(pos);
+        console.log(this.calcYOutOfBounds(pos, rect));
+        return pos;
+
+    }
 
 
     /**
