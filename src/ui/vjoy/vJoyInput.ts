@@ -72,8 +72,33 @@ export default class VJoyInput {
      */
     posWithinDragBounds(pos: THREE.Vector2): boolean {
         const rect = this.renderer.domElement.getBoundingClientRect();
-        if ((pos.y > rect.height - this.clickBoxSize.y - (this.dragBoxSize.y * 2)) &&
-            (pos.x > rect.width - this.clickBoxSize.x - (this.dragBoxSize.x * 2))) {
+        if (this.isXWithinDragBounds(pos.x) && this.isYWithinDragBounds(pos.y)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * check if x is within the drag bounds box size.
+     * @param x 
+     * @returns 
+     */
+    isXWithinDragBounds(x: number): boolean {
+        const rect = this.renderer.domElement.getBoundingClientRect();
+        if (x > rect.width - this.clickBoxSize.x - (this.dragBoxSize.x * 2)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * check if y is within the drag bounds box size
+     * @param y 
+     * @returns 
+     */
+    isYWithinDragBounds(y: number): boolean {
+        const rect = this.renderer.domElement.getBoundingClientRect();
+        if (y > rect.height - this.clickBoxSize.y - (this.dragBoxSize.y * 2)) {
             return true;
         }
         return false;
