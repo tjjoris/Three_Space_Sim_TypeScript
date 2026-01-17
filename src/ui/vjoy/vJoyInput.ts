@@ -66,15 +66,26 @@ export default class VJoyInput {
      * if not it calculates where y intercepts the x bounds and moves the vjoy to that xy.
      */
     eventMoveVJoy(pos: THREE.Vector2, id: number) {
-
+        //end function if id of input for this vjoy does not match input
         if (this.isDownId != id) {
             return;
         }
+        //if within bounds move vjoy
+        if (this.isPosWithinDragBounds(pos)) {
+            this.updateScreenPoint(pos);
+            return;
+        }
+        //if above bounds check if it fits in top boundary.
+
+
+
+
+        return;
         const clampedVJoy: THREE.Vector2 = this.clampVJoy(pos);
         this.updateScreenPoint(this.origionalClickPoint.clone().add(clampedVJoy));
         return;
 
-        if (this.posWithinDragBounds(pos)) {
+        if (this.isPosWithinDragBounds(pos)) {
             //pos within bounds, just update screen point to pos.
             this.updateScreenPoint(pos);
             return;
@@ -91,11 +102,15 @@ export default class VJoyInput {
         // console.log("within y drag bounds ", yPosAtBounds);
     }
 
+    calcPosThroughLineIfAboveBounds(pos: THREE.Vector2, slope: number) {
+
+    }
+
 
     /**
      * check if x and y are within drag bounds
      */
-    posWithinDragBounds(pos: THREE.Vector2): boolean {
+    isPosWithinDragBounds(pos: THREE.Vector2): boolean {
         const rect = this.renderer.domElement.getBoundingClientRect();
         if (this.isXWithinDragBounds(pos.x) && this.isYWithinDragBounds(pos.y)) {
             return true;
@@ -109,7 +124,27 @@ export default class VJoyInput {
      * @returns 
      */
     isXWithinDragBounds(x: number): boolean {
-        if ((x > this.calcInnerXBounds()) && (x < this.calcOuterXBounds())) {
+        if ((this.isXWithinLeftDragBounds(x)) && (this.isXWithinRightDragBounds(x))) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * is x within left drag bounds
+     */
+    isXWithinLeftDragBounds(x: number): boolean {
+        if (x > this.calcInnerXBounds()) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * is x within right drag bounds
+     */
+    isXWithinRightDragBounds(x: number): boolean {
+        if (x < this.calcOuterXBounds()) {
             return true;
         }
         return false;
@@ -121,7 +156,27 @@ export default class VJoyInput {
      * @returns 
      */
     isYWithinDragBounds(y: number): boolean {
+        if (this.isYWithinTopDragBounds(y)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * is y within top bounds
+     */
+    isYWithinTopDragBounds(y: number): boolean {
         if (y > this.calcInnerYBounds()) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * is y within bottom drag bounds
+     */
+    isYWithinBottomDragBounds(y: number): boolean {
+        if (y < this.calcOuterYBounds()) {
             return true;
         }
         return false;
@@ -134,6 +189,14 @@ export default class VJoyInput {
     calcInnerYBounds(): number {
         const rect = this.renderer.domElement.getBoundingClientRect();
         return (rect.height - this.clickBoxSize.y - (this.dragBoxSize.y * 2))
+    }
+
+    /**
+     * calculate and returns the outer y bounds where vjoy can be within when dragging.
+     */
+    calcOuterYBounds(): number {
+        const rect = this.renderer.domElement.getBoundingClientRect();
+        return (rect.height)
     }
 
     /**
