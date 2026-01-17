@@ -18,13 +18,17 @@ export default class VJoyInput {
     private clickBoxSize: THREE.Vector2 = new THREE.Vector2(300, 200);
     private dragBoxSize: THREE.Vector2 = new THREE.Vector2(50, 50);
     private maxDragDistance: number = 50;
+    //used for math for comparing input positions to left or right vjoy, is 1 when on the right.
     private screenWidthMultiplier: number = 1;
+    //used for math for comparing input positions to left or right vjoy, is 0 when on the right.
+    private boxMultiplier: number = 0;
 
 
-    constructor(renderer: THREE.WebGLRenderer, clickBoxSize: THREE.Vector2, screenWidthMultiplier: number) {
+    constructor(renderer: THREE.WebGLRenderer, clickBoxSize: THREE.Vector2, screenWidthMultiplier: number, boxMultiplier: number) {
         this.renderer = renderer;
         this.clickBoxSize = clickBoxSize;
         this.screenWidthMultiplier = screenWidthMultiplier;
+        this.boxMultiplier = boxMultiplier;
     }
 
     /**
@@ -111,7 +115,7 @@ export default class VJoyInput {
             return null;
         }
         //calc y for the top bounds
-        const y = this.calcTopYBounds();
+        const y = this.calcTopYDragBounds();
         //calc x for the slope form originationg point intercepting with the top bounds.
         const x = calcX1UsingPointSlopeForm(slope, this.origionalClickPoint, y);
         //check if x, y fits within the drag bounds, and if so return the new pos.
@@ -134,7 +138,7 @@ export default class VJoyInput {
             return null;
         }
         //calc x for the left bounds
-        const x = this.calcLeftXBounds();
+        const x = this.calcLeftXDragBounds();
         //calc y for the slope from originating point and intercepting with left bounds.
         const y = calcY1UsingPointSlopeForm(slope, this.origionalClickPoint, x);
         //check if x, y fits within the drag bounds and if so returns the new pos.
@@ -172,7 +176,7 @@ export default class VJoyInput {
      * is x within left drag bounds
      */
     isXWithinLeftDragBounds(x: number): boolean {
-        if (x > this.calcLeftXBounds()) {
+        if (x > this.calcLeftXDragBounds()) {
             return true;
         }
         return false;
@@ -182,7 +186,7 @@ export default class VJoyInput {
      * is x within right drag bounds
      */
     isXWithinRightDragBounds(x: number): boolean {
-        if (x < this.calcRightXBounds()) {
+        if (x < this.calcRightXDragBounds()) {
             return true;
         }
         return false;
@@ -204,7 +208,7 @@ export default class VJoyInput {
      * is y within top bounds
      */
     isYWithinTopDragBounds(y: number): boolean {
-        if (y > this.calcTopYBounds()) {
+        if (y > this.calcTopYDragBounds()) {
             return true;
         }
         return false;
@@ -214,7 +218,7 @@ export default class VJoyInput {
      * is y within bottom drag bounds
      */
     isYWithinBottomDragBounds(y: number): boolean {
-        if (y < this.calcBottomYBounds()) {
+        if (y < this.calcBottomYDragBounds()) {
             return true;
         }
         return false;
@@ -224,7 +228,7 @@ export default class VJoyInput {
      * calculates and returns the inner y bounds where the vjoy can be within when dragging.
      * @returns 
      */
-    calcTopYBounds(): number {
+    calcTopYDragBounds(): number {
         const rect = this.renderer.domElement.getBoundingClientRect();
         return (rect.height - this.clickBoxSize.y - (this.dragBoxSize.y * 2))
     }
@@ -232,7 +236,7 @@ export default class VJoyInput {
     /**
      * calculate and returns the outer y bounds where vjoy can be within when dragging.
      */
-    calcBottomYBounds(): number {
+    calcBottomYDragBounds(): number {
         const rect = this.renderer.domElement.getBoundingClientRect();
         return (rect.height)
     }
@@ -241,7 +245,7 @@ export default class VJoyInput {
      * calculates and returns the inner x bounds where the vJoy can be within when dragging.
      * @returns 
      */
-    calcLeftXBounds(): number {
+    calcLeftXDragBounds(): number {
         const rect = this.renderer.domElement.getBoundingClientRect();
         return (rect.width - this.clickBoxSize.x - (this.dragBoxSize.x * 2));
     }
@@ -250,7 +254,7 @@ export default class VJoyInput {
      * calculates and returns the outer x bounds where the vjoy can be when dragging.
      * @returns 
      */
-    calcRightXBounds(): number {
+    calcRightXDragBounds(): number {
         const rect = this.renderer.domElement.getBoundingClientRect();
         return (rect.width);
     }

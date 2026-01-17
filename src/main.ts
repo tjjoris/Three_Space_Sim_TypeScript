@@ -36,7 +36,7 @@ const castRay = new CastRay(renderer, camera);
 //new inputs
 const multiTouch = new MultiTouch(renderer);
 multiTouch;
-const rightVJoyInput = new VJoyInput(renderer, new THREE.Vector2(300, 200), 1);
+const rightVJoyInput = new VJoyInput(renderer, new THREE.Vector2(300, 200), 1, 0);
 rightVJoyInput;
 const clickInput = new ClickInput(renderer, rightVJoyInput);
 clickInput;
