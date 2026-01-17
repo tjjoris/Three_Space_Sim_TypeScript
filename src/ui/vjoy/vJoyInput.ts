@@ -4,6 +4,12 @@ import calcX1UsingPointSlopeForm from '../../helpers/calcX1UsingPointSlopeForm';
 import calcY1UsingPointSlopeForm from '../../helpers/calcY1UsingPointSlopeForm';
 import clamp from '../../helpers/clamp';
 
+/**
+ * this class is used for moving hte vjoy based on inputs.
+ * the mouse or touch talks to this class, and each vjoy corresponds with an input, for example one of multiple
+ * touch.
+ * This class is responsible for making the vjoy fit within bounds when dragged out of bounds.
+ */
 export default class VJoyInput {
     private screenPoint: THREE.Vector2 = new THREE.Vector2(0, 0);
     private isDownId: number = -1;
@@ -76,7 +82,7 @@ export default class VJoyInput {
             return;
         }
         //calculate the slope
-        const slope = this.calucSlope(pos);
+        const slope = calcSlope(pos, this.origionalClickPoint);
         //if pos fits in top bounds when above.
         let newPos = this.calcPosWhenOutOfBoundsInTopBounds(pos, slope);
         if (newPos) {
@@ -89,29 +95,7 @@ export default class VJoyInput {
             this.updateScreenPoint(newPos);
             return;
         }
-
-
-
         return;
-        // const clampedVJoy: THREE.Vector2 = this.clampVJoy(pos);
-        // this.updateScreenPoint(this.origionalClickPoint.clone().add(clampedVJoy));
-        // return;
-
-        // if (this.isPosWithinDragBounds(pos)) {
-        //     //pos within bounds, just update screen point to pos.
-        //     this.updateScreenPoint(pos);
-        //     return;
-        // }
-        // let slope = calcSlope(pos, this.origionalClickPoint);
-        // let xPosAtBounds = calcX1UsingPointSlopeForm(slope, this.origionalClickPoint, this.calcInnerYBounds());
-        // if (this.isXWithinDragBounds(xPosAtBounds)) {
-        //     this.updateScreenPoint(new THREE.Vector2(xPosAtBounds, this.calcInnerYBounds()));
-        //     // console.log(" within x drag bounds ", xPosAtBounds);
-        //     return;
-        // }
-        // let yPosAtBounds = calcY1UsingPointSlopeForm(slope, this.origionalClickPoint, this.calcInnerXBounds());
-        // this.updateScreenPoint(new THREE.Vector2(this.calcInnerXBounds(), yPosAtBounds));
-        // // console.log("within y drag bounds ", yPosAtBounds);
     }
 
     /**
@@ -127,7 +111,7 @@ export default class VJoyInput {
             return null;
         }
         //calc y for the top bounds
-        const y = this.calcInnerYBounds();
+        const y = this.calcTopYBounds();
         //calc x for the slope form originationg point intercepting with the top bounds.
         const x = calcX1UsingPointSlopeForm(slope, this.origionalClickPoint, y);
         //check if x, y fits within the drag bounds, and if so return the new pos.
@@ -150,7 +134,7 @@ export default class VJoyInput {
             return null;
         }
         //calc x for the left bounds
-        const x = this.calcInnerXBounds();
+        const x = this.calcLeftXBounds();
         //calc y for the slope from originating point and intercepting with left bounds.
         const y = calcY1UsingPointSlopeForm(slope, this.origionalClickPoint, x);
         //check if x, y fits within the drag bounds and if so returns the new pos.
@@ -188,7 +172,7 @@ export default class VJoyInput {
      * is x within left drag bounds
      */
     isXWithinLeftDragBounds(x: number): boolean {
-        if (x > this.calcInnerXBounds()) {
+        if (x > this.calcLeftXBounds()) {
             return true;
         }
         return false;
@@ -198,7 +182,7 @@ export default class VJoyInput {
      * is x within right drag bounds
      */
     isXWithinRightDragBounds(x: number): boolean {
-        if (x < this.calcOuterXBounds()) {
+        if (x < this.calcRightXBounds()) {
             return true;
         }
         return false;
@@ -220,7 +204,7 @@ export default class VJoyInput {
      * is y within top bounds
      */
     isYWithinTopDragBounds(y: number): boolean {
-        if (y > this.calcInnerYBounds()) {
+        if (y > this.calcTopYBounds()) {
             return true;
         }
         return false;
@@ -230,7 +214,7 @@ export default class VJoyInput {
      * is y within bottom drag bounds
      */
     isYWithinBottomDragBounds(y: number): boolean {
-        if (y < this.calcOuterYBounds()) {
+        if (y < this.calcBottomYBounds()) {
             return true;
         }
         return false;
@@ -240,7 +224,7 @@ export default class VJoyInput {
      * calculates and returns the inner y bounds where the vjoy can be within when dragging.
      * @returns 
      */
-    calcInnerYBounds(): number {
+    calcTopYBounds(): number {
         const rect = this.renderer.domElement.getBoundingClientRect();
         return (rect.height - this.clickBoxSize.y - (this.dragBoxSize.y * 2))
     }
@@ -248,7 +232,7 @@ export default class VJoyInput {
     /**
      * calculate and returns the outer y bounds where vjoy can be within when dragging.
      */
-    calcOuterYBounds(): number {
+    calcBottomYBounds(): number {
         const rect = this.renderer.domElement.getBoundingClientRect();
         return (rect.height)
     }
@@ -257,7 +241,7 @@ export default class VJoyInput {
      * calculates and returns the inner x bounds where the vJoy can be within when dragging.
      * @returns 
      */
-    calcInnerXBounds(): number {
+    calcLeftXBounds(): number {
         const rect = this.renderer.domElement.getBoundingClientRect();
         return (rect.width - this.clickBoxSize.x - (this.dragBoxSize.x * 2));
     }
@@ -266,52 +250,12 @@ export default class VJoyInput {
      * calculates and returns the outer x bounds where the vjoy can be when dragging.
      * @returns 
      */
-    calcOuterXBounds(): number {
+    calcRightXBounds(): number {
         const rect = this.renderer.domElement.getBoundingClientRect();
         return (rect.width);
     }
 
 
-    /**
-     * calculate the slope for the x and y relative to the origional point.
-     */
-    calucSlope(pos: THREE.Vector2): number {
-        return (this.origionalClickPoint.y - pos.y) / (this.origionalClickPoint.x - pos.x);
-    }
-
-    /**
-     * calculate x for y and slope
-     */
-    calcXFromSlope(slope: number, y: number): number {
-        return (y / slope);
-    }
-    /**
-     * calculate y for x and the slope
-     */
-    calcYFromSlope(slope: number, x: number): number {
-        return (x * slope);
-    }
-
-    /**
-     * calculate the amount pos has passed the bounds on the y axis
-     */
-    calcYOutOfBounds(pos: THREE.Vector2, rect: DOMRect): number {
-        if (pos.y < (rect.height - (this.dragBoxSize.y * 2) - this.clickBoxSize.y)) {
-            return pos.y - (rect.height - (this.dragBoxSize.y * 2) - this.clickBoxSize.y);
-        }
-        return 0
-    }
-
-    /**
-     * set x and y to within bounds.
-     */
-    getBoundsOfPos(pos: THREE.Vector2, rect: DOMRect): THREE.Vector2 {
-        //the slope of the vJoy.
-        this.calucSlope(pos);
-        console.log(this.calcYOutOfBounds(pos, rect));
-        return pos;
-
-    }
 
 
     /**
@@ -337,6 +281,49 @@ export default class VJoyInput {
     }
 
     /**
+     * ==================
+     * DEPRECIATED FUNCTIONS
+     * ==================
+     */
+
+
+
+    /**
+     * calculate the slope for the x and y relative to the origional point.
+     */
+    calucSlope(pos: THREE.Vector2): number {
+        return (this.origionalClickPoint.y - pos.y) / (this.origionalClickPoint.x - pos.x);
+    }
+
+
+
+    /**
+     * calculate x for y and slope
+     */
+    calcXFromSlope(slope: number, y: number): number {
+        return (y / slope);
+    }
+    /**
+     * calculate y for x and the slope
+     */
+    calcYFromSlope(slope: number, x: number): number {
+        return (x * slope);
+    }
+
+
+    /**
+     * this function is depreciated.
+     * calculate the amount pos has passed the bounds on the y axis
+     */
+    calcYOutOfBounds(pos: THREE.Vector2, rect: DOMRect): number {
+        if (pos.y < (rect.height - (this.dragBoxSize.y * 2) - this.clickBoxSize.y)) {
+            return pos.y - (rect.height - (this.dragBoxSize.y * 2) - this.clickBoxSize.y);
+        }
+        return 0
+    }
+
+    /**
+     * this function is depreciated.
      * returns a clamped vector2 from the origion point to the 
      * passed point. this vector is fitting within a square gate of bounds of this.dragboxSize.
      * @param pos 
@@ -349,6 +336,12 @@ export default class VJoyInput {
         return clampedVector;
     }
 
+    /**
+     * this function is depreciated.
+     * used to convert a clamped vjoy to have a max x and y of 1.
+     * @param clampedVector 
+     * @returns 
+     */
     normalizeClampedVJoy(clampedVector: THREE.Vector2): THREE.Vector2 {
         const normalizedDistanceOfSquareGateVJoy: THREE.Vector2 = new THREE.Vector2(
             clampedVector.x / this.dragBoxSize.x,
