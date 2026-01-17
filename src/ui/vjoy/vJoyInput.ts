@@ -77,8 +77,14 @@ export default class VJoyInput {
         }
         //calculate the slope
         const slope = this.calucSlope(pos);
-        //if above bounds check if it fits in top boundary.
+        //if pos fits in top bounds when above.
         let newPos = this.calcPosWhenOutOfBoundsInTopBounds(pos, slope);
+        if (newPos) {
+            this.updateScreenPoint(newPos);
+            return;
+        }
+        //if pos fits in left bounds when to left.
+        newPos = this.calcPosWhenOutOfBoundsInLeftBounds(pos, slope);
         if (newPos) {
             this.updateScreenPoint(newPos);
             return;
@@ -126,6 +132,29 @@ export default class VJoyInput {
         const x = calcX1UsingPointSlopeForm(slope, this.origionalClickPoint, y);
         //check if x, y fits within the drag bounds, and if so return the new pos.
         if ((this.isXWithinDragBounds(x))) {
+            return new THREE.Vector2(x, y);
+        }
+        return null;
+    }
+
+    /**
+     * checks if pos is within the left bounds, if it is it ends, 
+     * if not it calculates the x of the left bounds, and the y where it intercepts.
+     * if the y fits within bounds, it returns the pos, else it returns null.
+     * @param pos 
+     * @param slope 
+     * @returns 
+     */
+    calcPosWhenOutOfBoundsInLeftBounds(pos: THREE.Vector2, slope: number): THREE.Vector2 | null {
+        if (this.isXWithinLeftDragBounds(pos.x)) {
+            return null;
+        }
+        //calc x for the left bounds
+        const x = this.calcInnerXBounds();
+        //calc y for the slope from originating point and intercepting with left bounds.
+        const y = calcY1UsingPointSlopeForm(slope, this.origionalClickPoint, x);
+        //check if x, y fits within the drag bounds and if so returns the new pos.
+        if (this.isYWithinDragBounds(y)) {
             return new THREE.Vector2(x, y);
         }
         return null;
