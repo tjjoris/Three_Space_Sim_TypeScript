@@ -59,11 +59,11 @@ export default class VJoyInput {
     /**
      * called when the touch or mouse is moved, is passed the id for the event, and the event, x and y.
      * checks if the passed id matches the isDownId, if it does not ends the function.
-     * checks if the pos is within bounds, if it is it moves calls UpdateScreenPoint to move the vjoy.
+     * checks if the pos is within bounds, if it is it moves calls UpdateScreenPoint to move the vjoy then ends.
      * then it gets the slope of the vjoy from the origin point to the dragged point.
-     * then it calculates where x intercepts the inner bounds.
-     * then it checks if the x intercept is within the y bounds, if it is it moves the vjoy to the xy and ends.
-     * if not it calculates where y intercepts the x bounds and moves the vjoy to that xy.
+     * then it checks if the pos is above the top bounds, and if it fits inside the top bounds if it is above.
+     * if it is it calls UpdateScreenPoint then ends.
+     * 
      */
     eventMoveVJoy(pos: THREE.Vector2, id: number) {
         //end function if id of input for this vjoy does not match input
@@ -75,35 +75,60 @@ export default class VJoyInput {
             this.updateScreenPoint(pos);
             return;
         }
+        //calculate the slope
+        const slope = this.calucSlope(pos);
         //if above bounds check if it fits in top boundary.
-
+        let newPos = this.calcPosWhenOutOfBoundsInTopBounds(pos, slope);
+        if (newPos) {
+            this.updateScreenPoint(newPos);
+            return;
+        }
 
 
 
         return;
-        const clampedVJoy: THREE.Vector2 = this.clampVJoy(pos);
-        this.updateScreenPoint(this.origionalClickPoint.clone().add(clampedVJoy));
-        return;
+        // const clampedVJoy: THREE.Vector2 = this.clampVJoy(pos);
+        // this.updateScreenPoint(this.origionalClickPoint.clone().add(clampedVJoy));
+        // return;
 
-        if (this.isPosWithinDragBounds(pos)) {
-            //pos within bounds, just update screen point to pos.
-            this.updateScreenPoint(pos);
-            return;
-        }
-        let slope = calcSlope(pos, this.origionalClickPoint);
-        let xPosAtBounds = calcX1UsingPointSlopeForm(slope, this.origionalClickPoint, this.calcInnerYBounds());
-        if (this.isXWithinDragBounds(xPosAtBounds)) {
-            this.updateScreenPoint(new THREE.Vector2(xPosAtBounds, this.calcInnerYBounds()));
-            // console.log(" within x drag bounds ", xPosAtBounds);
-            return;
-        }
-        let yPosAtBounds = calcY1UsingPointSlopeForm(slope, this.origionalClickPoint, this.calcInnerXBounds());
-        this.updateScreenPoint(new THREE.Vector2(this.calcInnerXBounds(), yPosAtBounds));
-        // console.log("within y drag bounds ", yPosAtBounds);
+        // if (this.isPosWithinDragBounds(pos)) {
+        //     //pos within bounds, just update screen point to pos.
+        //     this.updateScreenPoint(pos);
+        //     return;
+        // }
+        // let slope = calcSlope(pos, this.origionalClickPoint);
+        // let xPosAtBounds = calcX1UsingPointSlopeForm(slope, this.origionalClickPoint, this.calcInnerYBounds());
+        // if (this.isXWithinDragBounds(xPosAtBounds)) {
+        //     this.updateScreenPoint(new THREE.Vector2(xPosAtBounds, this.calcInnerYBounds()));
+        //     // console.log(" within x drag bounds ", xPosAtBounds);
+        //     return;
+        // }
+        // let yPosAtBounds = calcY1UsingPointSlopeForm(slope, this.origionalClickPoint, this.calcInnerXBounds());
+        // this.updateScreenPoint(new THREE.Vector2(this.calcInnerXBounds(), yPosAtBounds));
+        // // console.log("within y drag bounds ", yPosAtBounds);
     }
 
-    calcPosThroughLineIfAboveBounds(pos: THREE.Vector2, slope: number) {
-
+    /**
+     * checks if pos is above the top bounds, and if it fits in the top bounds when
+     * fittinmg it within the bounds it returns the new pos, otherwise
+     * returns null.
+     * @param pos 
+     * @param slope 
+     * @returns 
+     */
+    calcPosWhenOutOfBoundsInTopBounds(pos: THREE.Vector2, slope: number): THREE.Vector2 | null {
+        if (this.isYWithinTopDragBounds(pos.y)) {
+            return null;
+        }
+        //calc y for the top bounds
+        const y = this.calcInnerYBounds();
+        //calc x for the slope form originationg point intercepting with the top bounds.
+        const x = calcX1UsingPointSlopeForm(slope, this.origionalClickPoint, y);
+        //check if x, y fits within the drag bounds, and if so return the new pos.
+        if ((this.isXWithinDragBounds(x))) {
+            return new THREE.Vector2(x, y);
+        }
+        return null;
     }
 
 
