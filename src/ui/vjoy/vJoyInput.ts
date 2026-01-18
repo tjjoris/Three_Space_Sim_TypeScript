@@ -3,6 +3,7 @@ import calcSlope from '../../helpers/calcSlope';
 import calcX1UsingPointSlopeForm from '../../helpers/calcX1UsingPointSlopeForm';
 import calcY1UsingPointSlopeForm from '../../helpers/calcY1UsingPointSlopeForm';
 import clamp from '../../helpers/clamp';
+import type { ThreeMFLoader } from 'three/examples/jsm/Addons.js';
 
 /**
  * this class is used for moving hte vjoy based on inputs.
@@ -21,7 +22,7 @@ export default class VJoyInput {
     //used for math for comparing input positions to left or right vjoy, is 1 when on the right.
     private screenWidthMultiplier: number = 1;
     //used for math for comparing input positions to left or right vjoy, is 0 when on the right.
-    private boxMultiplier: number = 0;
+    private boxMultiplier: number = 1;
 
 
     constructor(renderer: THREE.WebGLRenderer, clickBoxSize: THREE.Vector2, screenWidthMultiplier: number, boxMultiplier: number) {
@@ -29,6 +30,10 @@ export default class VJoyInput {
         this.clickBoxSize = clickBoxSize;
         this.screenWidthMultiplier = screenWidthMultiplier;
         this.boxMultiplier = boxMultiplier;
+        //calling class variables to remove build errors:
+        this.maxDragDistance;
+        this.screenWidthMultiplier;
+        this.boxMultiplier;
     }
 
     /**
@@ -45,10 +50,11 @@ export default class VJoyInput {
         const rect: DOMRect = this.renderer.domElement.getBoundingClientRect();
         // only register clicks in the click box area, click box size is the bounds, drag box size is how much further it 
         //extends so there is a margin for dragging.
-        if ((pos.x > rect.width - this.clickBoxSize.x - this.dragBoxSize.x) &&
-            (pos.y > rect.height - this.clickBoxSize.y - this.dragBoxSize.y) &&
-            (pos.x < rect.width - this.dragBoxSize.x) &&
-            (pos.y < rect.height - this.dragBoxSize.y)) {
+        // if ((pos.x > rect.width - this.clickBoxSize.x - this.dragBoxSize.x) &&
+        //     (pos.y > rect.height - this.clickBoxSize.y - this.dragBoxSize.y) &&
+        //     (pos.x < rect.width - this.dragBoxSize.x) &&
+        //     (pos.y < rect.height - this.dragBoxSize.y)) {
+        if (this.isPosWithinClickBounds(pos)) {
             this.origionalClickPoint.copy(pos);
             this.isDownId = id;
             this.updateScreenPoint(pos);
@@ -153,7 +159,6 @@ export default class VJoyInput {
      * check if x and y are within drag bounds
      */
     isPosWithinDragBounds(pos: THREE.Vector2): boolean {
-        const rect = this.renderer.domElement.getBoundingClientRect();
         if (this.isXWithinDragBounds(pos.x) && this.isYWithinDragBounds(pos.y)) {
             return true;
         }
@@ -257,6 +262,59 @@ export default class VJoyInput {
     calcRightXDragBounds(): number {
         const rect = this.renderer.domElement.getBoundingClientRect();
         return (rect.width);
+    }
+
+    /**
+     *used for click bounds.
+     */
+
+    /**
+     * calculate if the pos is within the click bounds.
+     * @param pos 
+     * @returns 
+     */
+    isPosWithinClickBounds(pos: THREE.Vector2): boolean {
+        console.log("right click bounds ", this.calcRightClickBounds());
+        if ((pos.x > this.calcLeftClickBounds()) &&
+            (pos.x < this.calcRightClickBounds()) &&
+            (pos.y > this.calcTopClickBounds()) &&
+            (pos.y < this.calcBottomClickBounds())) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * calc top click bounds
+     */
+    calcTopClickBounds(): number {
+        const rect = this.renderer.domElement.getBoundingClientRect();
+        return (rect.height - this.clickBoxSize.y - this.dragBoxSize.y);
+    }
+
+    /**
+     * calc bottom click bounds
+     */
+    calcBottomClickBounds(): number {
+        const rect = this.renderer.domElement.getBoundingClientRect();
+        return (rect.height - this.dragBoxSize.y);
+    }
+
+    /**
+     * calc left click bounds
+     */
+    calcLeftClickBounds(): number {
+        const rect = this.renderer.domElement.getBoundingClientRect();
+        return ((rect.width * this.screenWidthMultiplier) - ((this.clickBoxSize.x + this.dragBoxSize.x) * this.boxMultiplier));
+    }
+
+
+    /**
+     * calc right click bounds
+     */
+    calcRightClickBounds(): number {
+        const rect = this.renderer.domElement.getBoundingClientRect();
+        return ((rect.width * this.screenWidthMultiplier) - (this.dragBoxSize.x * this.boxMultiplier));
     }
 
 

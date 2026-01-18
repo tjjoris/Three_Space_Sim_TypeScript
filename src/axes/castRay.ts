@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { ThreeMFLoader } from 'three/examples/jsm/Addons.js';
 
 export default class CastRay {
     renderer: THREE.WebGLRenderer;

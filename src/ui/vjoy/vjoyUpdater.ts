@@ -19,6 +19,9 @@ export default class VJoyUpdater implements Tickable {
         this.camera;
         this.castRay = castRay;
         this.vJoyInput = vJoyInput;
+        //calling class variables to remove build errors.
+        this.xOffset;
+        this.yOffset;
     }
 
 

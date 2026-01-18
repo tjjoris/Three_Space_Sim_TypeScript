@@ -36,7 +36,7 @@ const castRay = new CastRay(renderer, camera);
 //new inputs
 const multiTouch = new MultiTouch(renderer);
 multiTouch;
-const rightVJoyInput = new VJoyInput(renderer, new THREE.Vector2(300, 200), 1, 0);
+const rightVJoyInput = new VJoyInput(renderer, new THREE.Vector2(300, 200), 1, 1);
 rightVJoyInput;
 const clickInput = new ClickInput(renderer, rightVJoyInput);
 clickInput;
@@ -61,9 +61,9 @@ function animate() {
 // import CalcX1UsingPointSlopeForm from './helpers/calcX1UsingPointSlopeForm';
 // import CalcY1UsingPointSlopeForm from './helpers/calcY1UsingPointSlopeForm'
 // import calcSlope from './helpers/calcSlope';
-import clamp from './helpers/clamp.ts'
-let pos1 = new THREE.Vector2(0, 0);
-let pos2 = new THREE.Vector2(1, 0);
-console.log("clamp is ", clamp(1000, 40, 60));
+// import clamp from './helpers/clamp.ts'
+// let pos1 = new THREE.Vector2(0, 0);
+// let pos2 = new THREE.Vector2(1, 0);
+// console.log("clamp is ", clamp(1000, 40, 60));
 
 renderer.setAnimationLoop(animate);
