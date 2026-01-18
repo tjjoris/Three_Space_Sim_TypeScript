@@ -50,10 +50,6 @@ export default class VJoyInput {
         const rect: DOMRect = this.renderer.domElement.getBoundingClientRect();
         // only register clicks in the click box area, click box size is the bounds, drag box size is how much further it 
         //extends so there is a margin for dragging.
-        // if ((pos.x > rect.width - this.clickBoxSize.x - this.dragBoxSize.x) &&
-        //     (pos.y > rect.height - this.clickBoxSize.y - this.dragBoxSize.y) &&
-        //     (pos.x < rect.width - this.dragBoxSize.x) &&
-        //     (pos.y < rect.height - this.dragBoxSize.y)) {
         if (this.isPosWithinClickBounds(pos)) {
             this.origionalClickPoint.copy(pos);
             this.isDownId = id;
@@ -252,7 +248,7 @@ export default class VJoyInput {
      */
     calcLeftXDragBounds(): number {
         const rect = this.renderer.domElement.getBoundingClientRect();
-        return (rect.width - this.clickBoxSize.x - (this.dragBoxSize.x * 2));
+        return ((rect.width * this.screenWidthMultiplier) - ((this.clickBoxSize.x - (this.dragBoxSize.x * 2)) * this.boxMultiplier));
     }
 
     /**
@@ -261,7 +257,7 @@ export default class VJoyInput {
      */
     calcRightXDragBounds(): number {
         const rect = this.renderer.domElement.getBoundingClientRect();
-        return (rect.width);
+        return (rect.width * this.screenWidthMultiplier);
     }
 
     /**
