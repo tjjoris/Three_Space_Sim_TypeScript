@@ -105,7 +105,7 @@ export default abstract class VJoyInput {
             return;
         }
         //if pos fits in left bounds when to left.
-        newPos = this.calcPosWhenOutOfBoundsInLeftBounds(pos, slope);
+        newPos = this.calcPosWhenOutOfBoundsInSideBounds(pos, slope);
         if (newPos) {
             this.updateScreenPoint(newPos);
             return;
@@ -147,19 +147,33 @@ export default abstract class VJoyInput {
     }
 
     /**
-     * checks if pos is within the left bounds, if it is it ends, 
-     * if not it calculates the x of the left bounds, and the y where it intercepts.
+     * checks if dragging is outside the correct side for the sub class, 
+     * then returns the x value of the side bounds. 
+     * if not outside, returns null.
+     * @param pos 
+     * @returns 
+     */
+    calcSideBoundsIfDraggingOutSide(pos: THREE.Vector2): number | null {
+        if (this.isXWithinLeftDragBounds(pos.x)) {
+            return null;
+        }
+        //calc x for the left bounds
+        return this.calcLeftXDragBounds();
+    }
+
+    /**
+     * checks if pos is within the side bounds, if it is it ends, 
+     * if not it calculates the x of the side bounds, and the y where it intercepts.
      * if the y fits within bounds, it returns the pos, else it returns null.
      * @param pos 
      * @param slope 
      * @returns 
      */
-    calcPosWhenOutOfBoundsInLeftBounds(pos: THREE.Vector2, slope: number): THREE.Vector2 | null {
-        if (this.isXWithinLeftDragBounds(pos.x)) {
+    calcPosWhenOutOfBoundsInSideBounds(pos: THREE.Vector2, slope: number): THREE.Vector2 | null {
+        const x = this.calcSideBoundsIfDraggingOutSide(pos);
+        if (x === null) {
             return null;
         }
-        //calc x for the left bounds
-        const x = this.calcLeftXDragBounds();
         //calc y for the slope from originating point and intercepting with left bounds.
         const y = calcY1UsingPointSlopeForm(slope, this.origionalClickPoint, x);
         //check if x, y fits within the drag bounds and if so returns the new pos.
