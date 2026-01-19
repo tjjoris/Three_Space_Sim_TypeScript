@@ -11,7 +11,7 @@ import type { ThreeMFLoader } from 'three/examples/jsm/Addons.js';
  * touch.
  * This class is responsible for making the vjoy fit within bounds when dragged out of bounds.
  */
-export default class VJoyInput {
+export default abstract class VJoyInput {
     private screenPoint: THREE.Vector2 = new THREE.Vector2(0, 0);
     private isDownId: number = -1;
     private renderer: THREE.WebGLRenderer;
@@ -23,6 +23,13 @@ export default class VJoyInput {
     private screenWidthMultiplier: number = 1;
     //used for math for comparing input positions to left or right vjoy, is 0 when on the right.
     private boxMultiplier: number = 1;
+    /**
+     * class variables for the function which checks if the x is within click or drag bounds.
+     * these variables change depending on if it's a left or right vjoy and are set in the sub class.
+     */
+    protected boxLeftMult: number = 1;
+    protected innerBoundsMult: number = 1;
+    protected boxRightMult: number = 0;
 
 
     constructor(renderer: THREE.WebGLRenderer, clickBoxSize: THREE.Vector2, screenWidthMultiplier: number, boxMultiplier: number) {
@@ -102,6 +109,16 @@ export default class VJoyInput {
             return;
         }
         return;
+    }
+
+    /**
+     * this function is used by the sub methods to get the x pos of vjoy box or outer bounds(padding).
+     * @param boxMult 
+     * @param boundsMult 
+     */
+    calcXBoundsWithParams(rectMult: number, boxMult: number, paddingMult: number): number {
+        const rect = this.renderer.domElement.getBoundingClientRect();
+        return ((rect.width * rectMult) + (this.clickBoxSize.x * boxMult) + (this.dragBoxSize.x * paddingMult));
     }
 
     /**
