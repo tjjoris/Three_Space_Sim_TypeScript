@@ -11,6 +11,7 @@ import ClickInput from './axes/clickInput.ts'
 import CastRay from './axes/castRay.ts'
 import VJoyInput from './ui/vjoy/vJoyInput.ts'
 import RightVJoyInput from './ui/vjoy/rightVJoyInput.ts'
+import LeftVJoyInput from './ui/vjoy/leftVJoyInput.ts'
 
 const scene = new THREE.Scene();
 
@@ -37,12 +38,11 @@ const castRay = new CastRay(renderer, camera);
 //new inputs
 const multiTouch = new MultiTouch(renderer);
 multiTouch;
+const leftVJoyInput = new LeftVJoyInput(renderer, new THREE.Vector2(300, 200), 1, 1);
 const rightVJoyInput = new RightVJoyInput(renderer, new THREE.Vector2(300, 200), 1, 1);
 rightVJoyInput;
-const clickInput = new ClickInput(renderer, rightVJoyInput);
-clickInput;
-
-const rightVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camera, castRay, rightVJoyInput, 0, 0);
+const clickInput = new ClickInput(renderer, leftVJoyInput);
+clickInput; const rightVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camera, castRay, leftVJoyInput, 0, 0);
 
 
 

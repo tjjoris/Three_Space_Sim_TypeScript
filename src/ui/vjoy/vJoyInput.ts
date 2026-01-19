@@ -266,7 +266,7 @@ export default abstract class VJoyInput {
      * @returns 
      */
     calcLeftXDragBounds(): number {
-        return this.calcXBoundsWithParams(this.boxMultiplier, this.boxLeftMult, this.leftPaddingMult);
+        return this.calcXBoundsWithParams(this.screenWidthMultiplier, this.boxLeftMult, this.leftPaddingMult);
     }
 
     /**
@@ -274,7 +274,7 @@ export default abstract class VJoyInput {
      * @returns 
      */
     calcRightXDragBounds(): number {
-        return this.calcXBoundsWithParams(this.boxMultiplier, this.boxRightMult, this.rightPaddingMult);
+        return this.calcXBoundsWithParams(this.screenWidthMultiplier, this.boxRightMult, this.rightPaddingMult);
     }
 
     /**
@@ -287,7 +287,6 @@ export default abstract class VJoyInput {
      * @returns 
      */
     isPosWithinClickBounds(pos: THREE.Vector2): boolean {
-        console.log("right click bounds ", this.calcRightClickBounds());
         if ((pos.x > this.calcLeftClickBounds()) &&
             (pos.x < this.calcRightClickBounds()) &&
             (pos.y > this.calcTopClickBounds()) &&
@@ -317,7 +316,7 @@ export default abstract class VJoyInput {
      * calc left click bounds
      */
     calcLeftClickBounds(): number {
-        return this.calcXBoundsWithParams(this.boxMultiplier, this.boxLeftMult, this.innerPaddingMult);
+        return this.calcXBoundsWithParams(this.screenWidthMultiplier, this.boxLeftMult, this.innerPaddingMult);
     }
 
 
@@ -325,7 +324,7 @@ export default abstract class VJoyInput {
      * calc right click bounds
      */
     calcRightClickBounds(): number {
-        return this.calcXBoundsWithParams(this.boxMultiplier, this.boxRightMult, this.innerPaddingMult);
+        return this.calcXBoundsWithParams(this.screenWidthMultiplier, this.boxRightMult, this.innerPaddingMult);
     }
 
 
