@@ -20,7 +20,7 @@ export default abstract class VJoyInput {
     private dragBoxSize: THREE.Vector2 = new THREE.Vector2(50, 50);
     private maxDragDistance: number = 50;
     //used for math for comparing input positions to left or right vjoy, is 1 when on the right.
-    private screenWidthMultiplier: number = 1;
+    protected screenWidthMultiplier: number = 1;
     //used for math for comparing input positions to left or right vjoy, is 0 when on the right.
     private boxMultiplier: number = 1;
     /**
