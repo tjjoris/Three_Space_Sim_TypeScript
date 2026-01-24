@@ -2,8 +2,8 @@ import * as THREE from 'three';
 import calcSlope from '../../helpers/calcSlope';
 import calcX1UsingPointSlopeForm from '../../helpers/calcX1UsingPointSlopeForm';
 import calcY1UsingPointSlopeForm from '../../helpers/calcY1UsingPointSlopeForm';
-import clamp from '../../helpers/clamp';
-import type { ThreeMFLoader } from 'three/examples/jsm/Addons.js';
+// import clamp from '../../helpers/clamp';
+// import type { ThreeMFLoader } from 'three/examples/jsm/Addons.js';
 
 /**
  * this class is used for moving hte vjoy based on inputs.
@@ -56,7 +56,7 @@ export default abstract class VJoyInput {
      * @param id 
      */
     eventDownVJoy(pos: THREE.Vector2, id: number) {
-        const rect: DOMRect = this.renderer.domElement.getBoundingClientRect();
+        // const rect: DOMRect = this.renderer.domElement.getBoundingClientRect();
         // only register clicks in the click box area, click box size is the bounds, drag box size is how much further it 
         //extends so there is a margin for dragging.
         if (this.isPosWithinClickBounds(pos)) {
