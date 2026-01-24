@@ -8,10 +8,12 @@ import VJoyInput from '../ui/vjoy/vJoyInput';
  */
 export default class ClickInput {
     private leftVJoyInput: VJoyInput;
+    private rightVJoyInput: VJoyInput;
 
-    constructor(renderer: THREE.WebGLRenderer, leftVJoyInput: VJoyInput) {
+    constructor(renderer: THREE.WebGLRenderer, leftVJoyInput: VJoyInput, rightVJoyInput: VJoyInput) {
         this.initClick(renderer.domElement);
-        this.leftVJoyInput = leftVJoyInput
+        this.leftVJoyInput = leftVJoyInput;
+        this.rightVJoyInput = rightVJoyInput;
     }
 
     /**
@@ -31,6 +33,7 @@ export default class ClickInput {
      */
     onClick(event: MouseEvent) {
         this.leftVJoyInput.eventDownVJoy(new THREE.Vector2(event.clientX, event.clientY), 10);
+        this.rightVJoyInput.eventDownVJoy(new THREE.Vector2(event.clientX, event.clientY), 10);
     }
 
     /**
@@ -39,6 +42,7 @@ export default class ClickInput {
      */
     onPointerMove(event: MouseEvent) {
         this.leftVJoyInput.eventMoveVJoy(new THREE.Vector2(event.clientX, event.clientY), 10);
+        this.rightVJoyInput.eventMoveVJoy(new THREE.Vector2(event.clientX, event.clientY), 10);
     }
 
     /**
@@ -48,5 +52,6 @@ export default class ClickInput {
     onPointerEnd(event: MouseEvent) {
         event;
         this.leftVJoyInput.eventUpVJoy(10);
+        this.rightVJoyInput.eventUpVJoy(10);
     }
 }

@@ -4,24 +4,17 @@ import type CastRay from "../../axes/castRay";
 import VJoyInput from '../vjoy/vJoyInput';
 
 export default class VJoyUpdater implements Tickable {
-    private xOffset: number = 0;
-    private yOffset: number = 0;
     private vJoySprite: THREE.Sprite | null = null;
     private camera: THREE.Camera;
     private castRay: CastRay;
     private vJoyInput: VJoyInput;
 
-    constructor(vJoySprite: THREE.Sprite, camera: THREE.Camera, castRay: CastRay, vJoyInput: VJoyInput, xOffset: number = 0, yOffset: number = 0) {
+    constructor(vJoySprite: THREE.Sprite, camera: THREE.Camera, castRay: CastRay, vJoyInput: VJoyInput) {
         this.vJoySprite = vJoySprite;
-        this.xOffset = xOffset;
-        this.yOffset = yOffset;
         this.camera = camera;
         this.camera;
         this.castRay = castRay;
         this.vJoyInput = vJoyInput;
-        //calling class variables to remove build errors.
-        this.xOffset;
-        this.yOffset;
     }
 
 

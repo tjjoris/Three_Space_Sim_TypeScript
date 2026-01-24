@@ -10,6 +10,8 @@ import MultiTouch from './axes/multiTouch.ts'
 import ClickInput from './axes/clickInput.ts'
 import CastRay from './axes/castRay.ts'
 import VJoyInput from './ui/vjoy/vJoyInput.ts'
+import RightVJoyInput from './ui/vjoy/rightVJoyInput.ts'
+import LeftVJoyInput from './ui/vjoy/leftVJoyInput.ts'
 
 const scene = new THREE.Scene();
 
@@ -28,6 +30,7 @@ const cube = new THREE.Mesh(geometry, material);
 
 //new vjoy factory
 const leftVJoyFactory = new VJoyFactory(scene);
+const rightVJoyFactory = new VJoyFactory(scene);
 
 
 //cast ray for inputs to vjoy
@@ -36,12 +39,13 @@ const castRay = new CastRay(renderer, camera);
 //new inputs
 const multiTouch = new MultiTouch(renderer);
 multiTouch;
-const rightVJoyInput = new VJoyInput(renderer, new THREE.Vector2(300, 200), 1, 1);
+const leftVJoyInput = new LeftVJoyInput(renderer, new THREE.Vector2(300, 200), 1, 1);
+const rightVJoyInput = new RightVJoyInput(renderer, new THREE.Vector2(300, 200), 1, 1);
 rightVJoyInput;
-const clickInput = new ClickInput(renderer, rightVJoyInput);
+const clickInput = new ClickInput(renderer, leftVJoyInput, rightVJoyInput);
 clickInput;
-
-const rightVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camera, castRay, rightVJoyInput, 0, 0);
+const rightVJoyUpdater = new VJoyUpdater(rightVJoyFactory.getVJoySprite()!, camera, castRay, rightVJoyInput);
+const leftVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camera, castRay, leftVJoyInput);
 
 
 
@@ -49,6 +53,7 @@ const rightVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camer
 scene.add(cube);
 
 let tickables: Tickable[] = [];
+tickables.push(leftVJoyUpdater as Tickable);
 tickables.push(rightVJoyUpdater as Tickable);
 camera.position.z = 5;
 

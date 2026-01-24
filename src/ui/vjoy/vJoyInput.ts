@@ -11,7 +11,7 @@ import type { ThreeMFLoader } from 'three/examples/jsm/Addons.js';
  * touch.
  * This class is responsible for making the vjoy fit within bounds when dragged out of bounds.
  */
-export default class VJoyInput {
+export default abstract class VJoyInput {
     private screenPoint: THREE.Vector2 = new THREE.Vector2(0, 0);
     private isDownId: number = -1;
     private renderer: THREE.WebGLRenderer;
@@ -20,9 +20,18 @@ export default class VJoyInput {
     private dragBoxSize: THREE.Vector2 = new THREE.Vector2(50, 50);
     private maxDragDistance: number = 50;
     //used for math for comparing input positions to left or right vjoy, is 1 when on the right.
-    private screenWidthMultiplier: number = 1;
+    protected screenWidthMultiplier: number = 1;
     //used for math for comparing input positions to left or right vjoy, is 0 when on the right.
     private boxMultiplier: number = 1;
+    /**
+     * class variables for the function which checks if the x is within click or drag bounds.
+     * these variables change depending on if it's a left or right vjoy and are set in the sub class.
+     */
+    protected boxLeftMult: number = 1;
+    protected leftPaddingMult: number = 2;
+    protected innerPaddingMult: number = 1;
+    protected rightPaddingMult: number = 0;
+    protected boxRightMult: number = 0;
 
 
     constructor(renderer: THREE.WebGLRenderer, clickBoxSize: THREE.Vector2, screenWidthMultiplier: number, boxMultiplier: number) {
@@ -96,12 +105,22 @@ export default class VJoyInput {
             return;
         }
         //if pos fits in left bounds when to left.
-        newPos = this.calcPosWhenOutOfBoundsInLeftBounds(pos, slope);
+        newPos = this.calcPosWhenOutOfBoundsInSideBounds(pos, slope);
         if (newPos) {
             this.updateScreenPoint(newPos);
             return;
         }
         return;
+    }
+
+    /**
+     * this function is used by the sub methods to get the x pos of vjoy box or outer bounds(padding).
+     * @param boxMult 
+     * @param boundsMult 
+     */
+    calcXBoundsWithParams(rectMult: number, boxMult: number, paddingMult: number): number {
+        const rect = this.renderer.domElement.getBoundingClientRect();
+        return ((rect.width * rectMult) + (this.clickBoxSize.x * boxMult) + (this.dragBoxSize.x * paddingMult));
     }
 
     /**
@@ -128,19 +147,33 @@ export default class VJoyInput {
     }
 
     /**
-     * checks if pos is within the left bounds, if it is it ends, 
-     * if not it calculates the x of the left bounds, and the y where it intercepts.
+     * checks if dragging is outside the correct side for the sub class, 
+     * then returns the x value of the side bounds. 
+     * if not outside, returns null.
+     * @param pos 
+     * @returns 
+     */
+    calcSideBoundsIfDraggingOutSide(pos: THREE.Vector2): number | null {
+        if (this.isXWithinLeftDragBounds(pos.x)) {
+            return null;
+        }
+        //calc x for the left bounds
+        return this.calcLeftXDragBounds();
+    }
+
+    /**
+     * checks if pos is within the side bounds, if it is it ends, 
+     * if not it calculates the x of the side bounds, and the y where it intercepts.
      * if the y fits within bounds, it returns the pos, else it returns null.
      * @param pos 
      * @param slope 
      * @returns 
      */
-    calcPosWhenOutOfBoundsInLeftBounds(pos: THREE.Vector2, slope: number): THREE.Vector2 | null {
-        if (this.isXWithinLeftDragBounds(pos.x)) {
+    calcPosWhenOutOfBoundsInSideBounds(pos: THREE.Vector2, slope: number): THREE.Vector2 | null {
+        const x = this.calcSideBoundsIfDraggingOutSide(pos);
+        if (x === null) {
             return null;
         }
-        //calc x for the left bounds
-        const x = this.calcLeftXDragBounds();
         //calc y for the slope from originating point and intercepting with left bounds.
         const y = calcY1UsingPointSlopeForm(slope, this.origionalClickPoint, x);
         //check if x, y fits within the drag bounds and if so returns the new pos.
@@ -247,8 +280,7 @@ export default class VJoyInput {
      * @returns 
      */
     calcLeftXDragBounds(): number {
-        const rect = this.renderer.domElement.getBoundingClientRect();
-        return ((rect.width * this.screenWidthMultiplier) - ((this.clickBoxSize.x - (this.dragBoxSize.x * 2)) * this.boxMultiplier));
+        return this.calcXBoundsWithParams(this.screenWidthMultiplier, this.boxLeftMult, this.leftPaddingMult);
     }
 
     /**
@@ -256,8 +288,7 @@ export default class VJoyInput {
      * @returns 
      */
     calcRightXDragBounds(): number {
-        const rect = this.renderer.domElement.getBoundingClientRect();
-        return (rect.width * this.screenWidthMultiplier);
+        return this.calcXBoundsWithParams(this.screenWidthMultiplier, this.boxRightMult, this.rightPaddingMult);
     }
 
     /**
@@ -270,7 +301,6 @@ export default class VJoyInput {
      * @returns 
      */
     isPosWithinClickBounds(pos: THREE.Vector2): boolean {
-        console.log("right click bounds ", this.calcRightClickBounds());
         if ((pos.x > this.calcLeftClickBounds()) &&
             (pos.x < this.calcRightClickBounds()) &&
             (pos.y > this.calcTopClickBounds()) &&
@@ -300,8 +330,7 @@ export default class VJoyInput {
      * calc left click bounds
      */
     calcLeftClickBounds(): number {
-        const rect = this.renderer.domElement.getBoundingClientRect();
-        return ((rect.width * this.screenWidthMultiplier) - ((this.clickBoxSize.x + this.dragBoxSize.x) * this.boxMultiplier));
+        return this.calcXBoundsWithParams(this.screenWidthMultiplier, this.boxLeftMult, this.innerPaddingMult);
     }
 
 
@@ -309,8 +338,7 @@ export default class VJoyInput {
      * calc right click bounds
      */
     calcRightClickBounds(): number {
-        const rect = this.renderer.domElement.getBoundingClientRect();
-        return ((rect.width * this.screenWidthMultiplier) - (this.dragBoxSize.x * this.boxMultiplier));
+        return this.calcXBoundsWithParams(this.screenWidthMultiplier, this.boxRightMult, this.innerPaddingMult);
     }
 
 
@@ -337,75 +365,4 @@ export default class VJoyInput {
     getDown(): boolean {
         return this.isDownId !== -1;
     }
-
-    /**
-     * ==================
-     * DEPRECIATED FUNCTIONS
-     * ==================
-     */
-
-
-
-    /**
-     * calculate the slope for the x and y relative to the origional point.
-     */
-    calucSlope(pos: THREE.Vector2): number {
-        return (this.origionalClickPoint.y - pos.y) / (this.origionalClickPoint.x - pos.x);
-    }
-
-
-
-    /**
-     * calculate x for y and slope
-     */
-    calcXFromSlope(slope: number, y: number): number {
-        return (y / slope);
-    }
-    /**
-     * calculate y for x and the slope
-     */
-    calcYFromSlope(slope: number, x: number): number {
-        return (x * slope);
-    }
-
-
-    /**
-     * this function is depreciated.
-     * calculate the amount pos has passed the bounds on the y axis
-     */
-    calcYOutOfBounds(pos: THREE.Vector2, rect: DOMRect): number {
-        if (pos.y < (rect.height - (this.dragBoxSize.y * 2) - this.clickBoxSize.y)) {
-            return pos.y - (rect.height - (this.dragBoxSize.y * 2) - this.clickBoxSize.y);
-        }
-        return 0
-    }
-
-    /**
-     * this function is depreciated.
-     * returns a clamped vector2 from the origion point to the 
-     * passed point. this vector is fitting within a square gate of bounds of this.dragboxSize.
-     * @param pos 
-     */
-    clampVJoy(pos: THREE.Vector2): THREE.Vector2 {
-        const negativeBounds: THREE.Vector2 = this.dragBoxSize.clone().negate();
-        const vJoyDragVector: THREE.Vector2 = pos.sub(this.origionalClickPoint);
-        const clampedVector: THREE.Vector2 = new THREE.Vector2(clamp(vJoyDragVector.x, negativeBounds.x, this.dragBoxSize.x),
-            clamp(vJoyDragVector.y, negativeBounds.y, this.dragBoxSize.y));
-        return clampedVector;
-    }
-
-    /**
-     * this function is depreciated.
-     * used to convert a clamped vjoy to have a max x and y of 1.
-     * @param clampedVector 
-     * @returns 
-     */
-    normalizeClampedVJoy(clampedVector: THREE.Vector2): THREE.Vector2 {
-        const normalizedDistanceOfSquareGateVJoy: THREE.Vector2 = new THREE.Vector2(
-            clampedVector.x / this.dragBoxSize.x,
-            clampedVector.y / this.dragBoxSize.y
-        );
-        return normalizedDistanceOfSquareGateVJoy;
-    }
-
 }
