@@ -37,13 +37,14 @@ const rightVJoyFactory = new VJoyFactory(scene);
 const castRay = new CastRay(renderer, camera);
 
 //new inputs
-const multiTouch = new MultiTouch(renderer);
-multiTouch;
+
 const leftVJoyInput = new LeftVJoyInput(renderer, new THREE.Vector2(300, 200), 1, 1);
 const rightVJoyInput = new RightVJoyInput(renderer, new THREE.Vector2(300, 200), 1, 1);
 rightVJoyInput;
 const clickInput = new ClickInput(renderer, leftVJoyInput, rightVJoyInput);
 clickInput;
+const multiTouch = new MultiTouch(renderer, leftVJoyInput, rightVJoyInput);
+multiTouch;
 const rightVJoyUpdater = new VJoyUpdater(rightVJoyFactory.getVJoySprite()!, camera, castRay, rightVJoyInput);
 const leftVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camera, castRay, leftVJoyInput);
 
