@@ -3,8 +3,8 @@ import VJoyInput from "./vJoyInput";
 
 export default class LeftVJoyInput extends VJoyInput {
 
-    constructor(renderer: THREE.WebGLRenderer, clickBoxSize: THREE.Vector2, screenWidthMultiplier: number, boxMultiplier: number) {
-        super(renderer, clickBoxSize, screenWidthMultiplier, boxMultiplier);
+    constructor(renderer: THREE.WebGLRenderer, screenWidthMultiplier: number, boxMultiplier: number) {
+        super(renderer, screenWidthMultiplier, boxMultiplier);
 
         this.screenWidthMultiplier = 0;
         this.boxLeftMult = 0;

@@ -16,8 +16,8 @@ export default abstract class VJoyInput {
     private isDownId: number = -1;
     private renderer: THREE.WebGLRenderer;
     private origionalClickPoint: THREE.Vector2 = new THREE.Vector2(0, 0);
-    private clickBoxSize: THREE.Vector2 = new THREE.Vector2(300, 200);
-    private dragBoxSize: THREE.Vector2 = new THREE.Vector2(50, 50);
+    private clickBoxSize: THREE.Vector2 = new THREE.Vector2(0.2, 0.2);
+    private dragBoxSize: THREE.Vector2 = new THREE.Vector2(0.05, 0.05);
     private maxDragDistance: number = 50;
     //used for math for comparing input positions to left or right vjoy, is 1 when on the right.
     protected screenWidthMultiplier: number = 1;
@@ -34,9 +34,8 @@ export default abstract class VJoyInput {
     protected boxRightMult: number = 0;
 
 
-    constructor(renderer: THREE.WebGLRenderer, clickBoxSize: THREE.Vector2, screenWidthMultiplier: number, boxMultiplier: number) {
+    constructor(renderer: THREE.WebGLRenderer, screenWidthMultiplier: number, boxMultiplier: number) {
         this.renderer = renderer;
-        this.clickBoxSize = clickBoxSize;
         this.screenWidthMultiplier = screenWidthMultiplier;
         this.boxMultiplier = boxMultiplier;
         //calling class variables to remove build errors:
@@ -120,7 +119,7 @@ export default abstract class VJoyInput {
      */
     calcXBoundsWithParams(rectMult: number, boxMult: number, paddingMult: number): number {
         const rect = this.renderer.domElement.getBoundingClientRect();
-        return ((rect.width * rectMult) + (this.clickBoxSize.x * boxMult) + (this.dragBoxSize.x * paddingMult));
+        return ((rect.width * rectMult) + (this.calcClickBoxWidth() * boxMult) + (this.calcDragBoxWidth() * paddingMult));
     }
 
     /**
@@ -264,7 +263,7 @@ export default abstract class VJoyInput {
      */
     calcTopYDragBounds(): number {
         const rect = this.renderer.domElement.getBoundingClientRect();
-        return (rect.height - this.clickBoxSize.y - (this.dragBoxSize.y * 2))
+        return (rect.height - this.calcClickBoxHeight() - (this.calcDragBoxHeight() * 2))
     }
 
     /**
@@ -315,7 +314,7 @@ export default abstract class VJoyInput {
      */
     calcTopClickBounds(): number {
         const rect = this.renderer.domElement.getBoundingClientRect();
-        return (rect.height - this.clickBoxSize.y - this.dragBoxSize.y);
+        return (rect.height - this.calcClickBoxHeight() - this.calcDragBoxHeight());
     }
 
     /**

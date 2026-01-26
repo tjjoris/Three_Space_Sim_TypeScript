@@ -38,8 +38,8 @@ const castRay = new CastRay(renderer, camera);
 
 //new inputs
 
-const leftVJoyInput = new LeftVJoyInput(renderer, new THREE.Vector2(300, 200), 1, 1);
-const rightVJoyInput = new RightVJoyInput(renderer, new THREE.Vector2(300, 200), 1, 1);
+const leftVJoyInput = new LeftVJoyInput(renderer, 1, 1);
+const rightVJoyInput = new RightVJoyInput(renderer, 1, 1);
 rightVJoyInput;
 const clickInput = new ClickInput(renderer, leftVJoyInput, rightVJoyInput);
 clickInput;
