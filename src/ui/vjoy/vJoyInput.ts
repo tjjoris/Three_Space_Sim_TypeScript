@@ -365,4 +365,38 @@ export default abstract class VJoyInput {
     getDown(): boolean {
         return this.isDownId !== -1;
     }
+
+    /**
+     * calculate the click box width based on the rect.
+     */
+    calcClickBoxWidth(): number {
+        const rect = this.renderer.domElement.getBoundingClientRect();
+        return rect.width * this.clickBoxSize.x;
+    }
+
+    /**
+     * calculate the click box height based on the rect.
+     * 
+     */
+
+    calcClickBoxHeight(): number {
+        const rect = this.renderer.domElement.getBoundingClientRect();
+        return rect.height * this.clickBoxSize.y;
+    }
+
+    /**
+     * calculate the drag box width based on the rect.
+     */
+    calcDragBoxWidth(): number {
+        const rect = this.renderer.domElement.getBoundingClientRect();
+        return rect.width * this.dragBoxSize.x;
+    }
+
+    /**
+     * calculate the drag box height based on the rect.
+     */
+    calcDragBoxHeight(): number {
+        const rect = this.renderer.domElement.getBoundingClientRect();
+        return rect.height = this.dragBoxSize.y;
+    }
 }
