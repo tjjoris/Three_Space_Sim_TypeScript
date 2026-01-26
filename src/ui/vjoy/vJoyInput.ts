@@ -369,8 +369,8 @@ export default abstract class VJoyInput {
      * calculate the click box width based on the rect.
      */
     calcClickBoxWidth(): number {
-        const rect = this.renderer.domElement.getBoundingClientRect();
-        return rect.width * this.clickBoxSize.x;
+        const widthOrHeight: number = this.findRectWidthOrHeightWhatsGreater();
+        return widthOrHeight * this.clickBoxSize.x;
     }
 
     /**
@@ -379,23 +379,34 @@ export default abstract class VJoyInput {
      */
 
     calcClickBoxHeight(): number {
-        const rect = this.renderer.domElement.getBoundingClientRect();
-        return rect.height * this.clickBoxSize.y;
+        const widthOrHeight: number = this.findRectWidthOrHeightWhatsGreater();
+        return widthOrHeight * this.clickBoxSize.y;
     }
 
     /**
      * calculate the drag box width based on the rect.
      */
     calcDragBoxWidth(): number {
-        const rect = this.renderer.domElement.getBoundingClientRect();
-        return rect.width * this.dragBoxSize.x;
+        const widthOrHeight: number = this.findRectWidthOrHeightWhatsGreater();
+        return widthOrHeight * this.dragBoxSize.x;
     }
 
     /**
      * calculate the drag box height based on the rect.
      */
     calcDragBoxHeight(): number {
+        const widthOrHeight: number = this.findRectWidthOrHeightWhatsGreater();
+        return widthOrHeight * this.dragBoxSize.y;
+    }
+
+    /**
+     * return rect width or height, whatever is greater or equal.
+     */
+    findRectWidthOrHeightWhatsGreater(): number {
         const rect = this.renderer.domElement.getBoundingClientRect();
-        return rect.height = this.dragBoxSize.y;
+        if (rect.height >= rect.width) {
+            return rect.height;
+        }
+        return rect.width;
     }
 }
