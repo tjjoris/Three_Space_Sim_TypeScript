@@ -13,6 +13,7 @@ import CastRay from './axes/castRay.ts'
 import RightVJoyInput from './ui/vjoy/rightVJoyInput.ts'
 import LeftVJoyInput from './ui/vjoy/leftVJoyInput.ts'
 import Axis from './axes/axis.ts';
+import DustHandler from './spaceDust/dustHandler.ts'
 
 const scene = new THREE.Scene();
 
