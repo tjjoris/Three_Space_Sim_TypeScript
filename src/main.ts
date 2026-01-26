@@ -12,6 +12,7 @@ import CastRay from './axes/castRay.ts'
 // import VJoyInput from './ui/vjoy/vJoyInput.ts'
 import RightVJoyInput from './ui/vjoy/rightVJoyInput.ts'
 import LeftVJoyInput from './ui/vjoy/leftVJoyInput.ts'
+import Axis from './axes/axis.ts';
 
 const scene = new THREE.Scene();
 
@@ -36,10 +37,16 @@ const rightVJoyFactory = new VJoyFactory(scene);
 //cast ray for inputs to vjoy
 const castRay = new CastRay(renderer, camera);
 
+//new axes
+const pitchAxis = new Axis();
+const rollAxis = new Axis();
+const verticalAxis = new Axis();
+const horizontalAxis = new Axis();
+
 //new inputs
 
-const leftVJoyInput = new LeftVJoyInput(renderer, 1, 1);
-const rightVJoyInput = new RightVJoyInput(renderer, 1, 1);
+const leftVJoyInput = new LeftVJoyInput(renderer, 1, 1, horizontalAxis, verticalAxis);
+const rightVJoyInput = new RightVJoyInput(renderer, 1, 1, rollAxis, pitchAxis);
 rightVJoyInput;
 const clickInput = new ClickInput(renderer, leftVJoyInput, rightVJoyInput);
 clickInput;

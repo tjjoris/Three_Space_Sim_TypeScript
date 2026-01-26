@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import calcSlope from '../../helpers/calcSlope';
 import calcX1UsingPointSlopeForm from '../../helpers/calcX1UsingPointSlopeForm';
 import calcY1UsingPointSlopeForm from '../../helpers/calcY1UsingPointSlopeForm';
+import Axis from '../../axes/axis';
+import ConvertVJoyToNormalizedAxis from '../../axes/convertVJoyToNormalizedAxis';
 // import clamp from '../../helpers/clamp';
 // import type { ThreeMFLoader } from 'three/examples/jsm/Addons.js';
 
@@ -32,9 +34,11 @@ export default abstract class VJoyInput {
     protected innerPaddingMult: number = 1;
     protected rightPaddingMult: number = 0;
     protected boxRightMult: number = 0;
+    private axisX: Axis;
+    private axisY: Axis;
 
 
-    constructor(renderer: THREE.WebGLRenderer, screenWidthMultiplier: number, boxMultiplier: number) {
+    constructor(renderer: THREE.WebGLRenderer, screenWidthMultiplier: number, boxMultiplier: number, axisX: Axis, axisY: Axis) {
         this.renderer = renderer;
         this.screenWidthMultiplier = screenWidthMultiplier;
         this.boxMultiplier = boxMultiplier;
@@ -42,6 +46,8 @@ export default abstract class VJoyInput {
         this.maxDragDistance;
         this.screenWidthMultiplier;
         this.boxMultiplier;
+        this.axisX = axisX;
+        this.axisY = axisY;
     }
 
     /**
@@ -61,7 +67,7 @@ export default abstract class VJoyInput {
         if (this.isPosWithinClickBounds(pos)) {
             this.origionalClickPoint.copy(pos);
             this.isDownId = id;
-            this.updateScreenPoint(pos);
+            this.updateScreenPointAndAxes(pos);
         }
     }
 
@@ -92,7 +98,7 @@ export default abstract class VJoyInput {
         }
         //if within bounds move vjoy
         if (this.isPosWithinDragBounds(pos)) {
-            this.updateScreenPoint(pos);
+            this.updateScreenPointAndAxes(pos);
             return;
         }
         //calculate the slope
@@ -100,13 +106,13 @@ export default abstract class VJoyInput {
         //if pos fits in top bounds when above.
         let newPos = this.calcPosWhenOutOfBoundsInTopBounds(pos, slope);
         if (newPos) {
-            this.updateScreenPoint(newPos);
+            this.updateScreenPointAndAxes(newPos);
             return;
         }
         //if pos fits in left bounds when to left.
         newPos = this.calcPosWhenOutOfBoundsInSideBounds(pos, slope);
         if (newPos) {
-            this.updateScreenPoint(newPos);
+            this.updateScreenPointAndAxes(newPos);
             return;
         }
         return;
@@ -341,13 +347,14 @@ export default abstract class VJoyInput {
     }
 
 
-
-
     /**
+     * update the axes on the axis objects
      * update screen point
      * 
      */
-    updateScreenPoint(pos: THREE.Vector2) {
+    updateScreenPointAndAxes(pos: THREE.Vector2) {
+        this.axisX.setValue(ConvertVJoyToNormalizedAxis(this.origionalClickPoint.x, pos.x, this.calcMaxDeflectionX()));
+        this.axisY.setValue(ConvertVJoyToNormalizedAxis(this.origionalClickPoint.y, pos.y, this.calcMaxDeflectionY()));
         this.screenPoint.set(pos.x, pos.y);
     }
 
