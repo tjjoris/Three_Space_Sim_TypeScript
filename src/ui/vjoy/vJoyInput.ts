@@ -359,10 +359,38 @@ export default abstract class VJoyInput {
     }
 
     /**
+     * get screen point x
+     */
+    getScreenPointX(): number {
+        return this.screenPoint.x;
+    }
+
+    /**
+     * get screen point y
+     */
+    get screenPointY(): number {
+        return this.screenPoint.y;
+    }
+
+    /**
      * return if this vjoy is held down, if it is not -1 it is held down.
      */
     getDown(): boolean {
         return this.isDownId !== -1;
+    }
+
+    /**
+     * get max deflection for x (half the click box width)
+     */
+    calcMaxDeflectionX(): number {
+        return (this.calcRightClickBounds() - this.calcLeftClickBounds()) * 0.5;
+    }
+
+    /**
+     * calc max deflection for y (half th eclick box height)
+     */
+    calcMaxDeflectionY(): number {
+        return (this.calcTopClickBounds() - this.calcBottomClickBounds()) * 0.5;
     }
 
     /**
