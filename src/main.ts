@@ -15,6 +15,7 @@ import LeftVJoyInput from './ui/vjoy/leftVJoyInput.ts'
 import Axis from './axes/axis.ts';
 import DustHandler from './spaceDust/dustHandler.ts'
 import Mover from './ship/mover.ts'
+import CameraRig from './camera/cameraRig.ts'
 
 const scene = new THREE.Scene();
 
@@ -22,6 +23,9 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 //mover for camera (ship)
 const mover = new Mover();
+//camera rig.
+const cameraRig = new CameraRig(camera, mover);
+
 
 const renderer = new THREE.WebGLRenderer();
 
@@ -73,10 +77,10 @@ scene.add(cube);
 let tickables: Tickable[] = [];
 tickables.push(leftVJoyUpdater as Tickable);
 tickables.push(rightVJoyUpdater as Tickable);
-camera.position.z = 5;
+tickables.push(cameraRig as Tickable);
+
 
 function animate() {
-  camera.rotateX(0.01);
   tickables.forEach(tick => { tick.tick(0.016); }); // assuming 60 FPS, so ~16ms per frame
   renderer.render(scene, camera);
 }
