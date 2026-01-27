@@ -16,6 +16,8 @@ import Axis from './axes/axis.ts';
 import DustHandler from './spaceDust/dustHandler.ts'
 import Mover from './ship/mover.ts'
 import CameraRig from './camera/cameraRig.ts'
+import AxisToMoverRig from './axes/axisToMoverRig.ts';
+import axis from './axes/axis.ts'
 
 const scene = new THREE.Scene();
 
@@ -52,6 +54,9 @@ const rollAxis = new Axis();
 const verticalAxis = new Axis();
 const horizontalAxis = new Axis();
 
+//axis to mover rig for linking axes to player mover
+const axisToMoverRig: AxisToMoverRig = new AxisToMoverRig(mover, pitchAxis, rollAxis, verticalAxis, horizontalAxis);
+
 //new inputs
 
 const leftVJoyInput = new LeftVJoyInput(renderer, 1, 1, horizontalAxis, verticalAxis);
@@ -78,6 +83,7 @@ let tickables: Tickable[] = [];
 tickables.push(leftVJoyUpdater as Tickable);
 tickables.push(rightVJoyUpdater as Tickable);
 tickables.push(cameraRig as Tickable);
+tickables.push(axisToMoverRig as Tickable);
 
 
 function animate() {
