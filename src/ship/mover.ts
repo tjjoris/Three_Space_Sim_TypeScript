@@ -1,6 +1,7 @@
 import * as THREE from 'three';
+import type { Tickable } from '../game/tickable';
 
-export default class Mover extends THREE.Object3D {
+export default class Mover extends THREE.Object3D implements Tickable {
     _rotation: THREE.Vector3;
     _rotationRate: THREE.Vector3;
     _rotationSpeed: THREE.Vector3;
@@ -24,9 +25,9 @@ export default class Mover extends THREE.Object3D {
         this._rotationRate.z = 0;
 
         //set rotations speed
-        this._rotationSpeed.x = 0.5;
-        this._rotationSpeed.y = 0.5;
-        this._rotationSpeed.z = 0.5;
+        this._rotationSpeed.x = 100;
+        this._rotationSpeed.y = 100;
+        this._rotationSpeed.z = 100;
 
         //set velocity speed
         this._velocitySpeed.x = 0.5;

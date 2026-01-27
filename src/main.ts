@@ -84,6 +84,7 @@ tickables.push(leftVJoyUpdater as Tickable);
 tickables.push(rightVJoyUpdater as Tickable);
 tickables.push(cameraRig as Tickable);
 tickables.push(axisToMoverRig as Tickable);
+tickables.push(mover as Tickable);
 
 
 function animate() {
