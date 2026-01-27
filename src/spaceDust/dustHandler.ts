@@ -94,11 +94,12 @@ export default class DustHandler {
         const forward = new THREE.Vector3();
         this.mover.getWorldDirection(forward);
         //create a dust particle in front of the forward vector
-        const distanceInFront = ((Math.random() - 5) * 5) + expectedDistanceInFront//expectedDistanceInFront + (Math.random() * 1);
+        // const distanceInFront = ((Math.random() - 5) * 5) + expectedDistanceInFront//expectedDistanceInFront + (Math.random() * 1);
+        const distanceInFront = 0;
         const randomOffset = new THREE.Vector3(
-            (Math.random() - 0.5) * 10,
-            (Math.random() - 0.5) * 10,
-            (Math.random() - 0.5) * 10
+            (Math.random() - 0.5) * 20,
+            (Math.random() - 0.5) * 20,
+            (Math.random() - 0.5) * 20
         );
         dustParticle.position.copy(this.mover.position).add(forward.multiplyScalar(distanceInFront)).add(randomOffset);
         // console.log("created distance from mover", dustParticle.position.distanceTo(this.mover.position));
