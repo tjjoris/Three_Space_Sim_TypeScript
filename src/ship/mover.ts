@@ -25,9 +25,9 @@ export default class Mover extends THREE.Object3D implements Tickable {
         this._rotationRate.z = 0;
 
         //set rotations speed
-        this._rotationSpeed.x = 100;
-        this._rotationSpeed.y = 100;
-        this._rotationSpeed.z = 100;
+        this._rotationSpeed.x = 600;
+        this._rotationSpeed.y = 800;
+        this._rotationSpeed.z = 1000;
 
         //set velocity speed
         this._velocitySpeed.x = 0.5;
