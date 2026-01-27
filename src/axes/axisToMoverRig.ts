@@ -19,8 +19,10 @@ export default class AxisToMoverRig implements Tickable {
     tick(deltaTime: number) {
         //calling dt to stop build errors.
         deltaTime;
-        this.mover.setPitch(this.pitchAxis.getValue());
+        this.mover.setPitch(-this.pitchAxis.getValue());
         this.mover.setRoll(this.rollAxis.getValue());
+        this.mover.setHorizontal(this.horizontalAxis.getValue());
+        this.mover.setVertical(-this.verticalAxis.getValue());
 
     }
 }

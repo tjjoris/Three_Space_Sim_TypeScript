@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import type { Tickable } from '../../game/tickable';
+import smartForward from './smartForward';
 
 export default class Mover extends THREE.Object3D implements Tickable {
     _rotation: THREE.Vector3;
@@ -25,9 +26,9 @@ export default class Mover extends THREE.Object3D implements Tickable {
         this._rotationRate.z = 0;
 
         //set rotations speed
-        this._rotationSpeed.x = 600;
-        this._rotationSpeed.y = 800;
-        this._rotationSpeed.z = 1000;
+        this._rotationSpeed.x = 0.1;
+        this._rotationSpeed.y = 0.1;
+        this._rotationSpeed.z = 0.1;
 
         //set velocity speed
         this._velocitySpeed.x = 0.5;
@@ -41,10 +42,12 @@ export default class Mover extends THREE.Object3D implements Tickable {
 
     tick(deltaTime: number) {
         //rotate
-        this.rotateX(this._rotationRate.x * (deltaTime / 1000));
-        this.rotateY(this._rotationRate.y * (deltaTime / 1000));
-        this.rotateZ(this._rotationRate.z * (deltaTime / 1000));
-        this.translateZ(this._velocity.z * (deltaTime / 100));
+        this.rotateX(this._rotationRate.x * (deltaTime));
+        this.rotateY(this._rotationRate.y * (deltaTime));
+        this.rotateZ(this._rotationRate.z * (deltaTime));
+        this.translateZ(this._velocity.z * (deltaTime));
+        this.translateY(this._velocity.y * (deltaTime));
+        this.translateX(this._velocity.x * (deltaTime));
     }
 
     setPitch(pitch: number) {
@@ -60,7 +63,17 @@ export default class Mover extends THREE.Object3D implements Tickable {
     }
 
     setLongitudional(longitudional: number) {
-        this._velocity.z = longitudional * this._velocitySpeed.z;
+        this._velocity.z = - longitudional * this._velocitySpeed.z;
+    }
+
+    setVertical(vertical: number) {
+        this._velocity.y = vertical * this._velocitySpeed.y;
+        this.setLongitudional(smartForward(this._velocity.x, this._velocity.y,));
+    }
+
+    setHorizontal(horizontal: number) {
+        this._velocity.x = horizontal * this._velocitySpeed.x;
+        this.setLongitudional(smartForward(this._velocity.x, this._velocity.y,));
     }
 
 }
