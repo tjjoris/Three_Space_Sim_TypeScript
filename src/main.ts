@@ -14,10 +14,14 @@ import RightVJoyInput from './ui/vjoy/rightVJoyInput.ts'
 import LeftVJoyInput from './ui/vjoy/leftVJoyInput.ts'
 import Axis from './axes/axis.ts';
 import DustHandler from './spaceDust/dustHandler.ts'
+import Mover from './ship/mover.ts'
 
 const scene = new THREE.Scene();
 
+//camera
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+//mover for camera (ship)
+const mover = new Mover();
 
 const renderer = new THREE.WebGLRenderer();
 
@@ -56,6 +60,11 @@ multiTouch;
 const rightVJoyUpdater = new VJoyUpdater(rightVJoyFactory.getVJoySprite()!, camera, castRay, rightVJoyInput);
 const leftVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camera, castRay, leftVJoyInput);
 
+
+//create space dust
+const dustHandler = new DustHandler(mover, scene);
+//create initial space dust.
+dustHandler.initiateDustField(80);
 
 
 //add to scene
