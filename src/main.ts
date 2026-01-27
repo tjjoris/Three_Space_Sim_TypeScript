@@ -73,7 +73,7 @@ const leftVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camera
 //create space dust
 const dustHandler = new DustHandler(mover, scene);
 //create initial space dust.
-dustHandler.initiateDustField(80);
+dustHandler.initiateDustField(800);
 
 
 //add to scene
@@ -85,6 +85,7 @@ tickables.push(rightVJoyUpdater as Tickable);
 tickables.push(cameraRig as Tickable);
 tickables.push(axisToMoverRig as Tickable);
 tickables.push(mover as Tickable);
+tickables.push(dustHandler as Tickable);
 
 
 function animate() {

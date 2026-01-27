@@ -1,8 +1,9 @@
 import Dust from './dust';
 import Mover from '../ship/movement/mover'
 import * as THREE from 'three';
+import type { Tickable } from '../game/tickable'
 
-export default class DustHandler {
+export default class DustHandler implements Tickable {
     mover: Mover;
     scene: THREE.Scene;
     _dustParticles: Dust[];
@@ -15,7 +16,8 @@ export default class DustHandler {
     /**
      * update dust particles - remove those behind camera and create new ones in front
      */
-    update() {
+    tick(deltaTime: number) {
+        deltaTime;
         let particlesToRpostion = [];
         //check which particles are behind camera
         for (let i = this._dustParticles.length - 1; i >= 0; i--) {
