@@ -1,4 +1,4 @@
-import Mover from '../ship/mover';
+import Mover from '../ship/movement/mover';
 import Axis from '../axes/axis';
 import type { Tickable } from '../game/tickable';
 export default class AxisToMoverRig implements Tickable {

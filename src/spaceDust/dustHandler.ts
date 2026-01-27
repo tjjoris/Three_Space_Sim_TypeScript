@@ -1,5 +1,5 @@
 import Dust from './dust';
-import Mover from '../ship/mover'
+import Mover from '../ship/movement/mover'
 import * as THREE from 'three';
 
 export default class DustHandler {

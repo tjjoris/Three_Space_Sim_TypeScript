@@ -14,7 +14,7 @@ import RightVJoyInput from './ui/vjoy/rightVJoyInput.ts'
 import LeftVJoyInput from './ui/vjoy/leftVJoyInput.ts'
 import Axis from './axes/axis.ts';
 import DustHandler from './spaceDust/dustHandler.ts'
-import Mover from './ship/mover.ts'
+import Mover from './ship/movement/mover.ts'
 import CameraRig from './camera/cameraRig.ts'
 import AxisToMoverRig from './axes/axisToMoverRig.ts';
 import axis from './axes/axis.ts'
