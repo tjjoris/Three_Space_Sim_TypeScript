@@ -79,6 +79,7 @@ export default abstract class VJoyInput {
         if (id === this.isDownId) {
             //set to -1 to represent it is not down.
             this.isDownId = -1;
+            this.updateScreenPointAndAxes(this.origionalClickPoint);
         }
     }
 
