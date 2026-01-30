@@ -1,7 +1,12 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { start, stop } from './main';
+import MenuContainer from "./reactUi/menu/menuContainer";
 
 export default function App() {
+    const [verticalInverted, setVerticalInverted] = useState(true);
+
+    //mountRef is the div that will contain the renderer
+    //useRef is used to get a reference to the div
     const mountRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
@@ -13,5 +18,10 @@ export default function App() {
 
     }, []);
 
-    return <div ref={mountRef} style={{ width: '100vw', height: '100vh' }} />;
+    return (
+        <>
+            <MenuContainer />
+            <div ref={mountRef} style={{ width: '100vw', height: '100vh' }} />
+        </>
+    );
 }
