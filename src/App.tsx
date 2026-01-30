@@ -4,17 +4,23 @@ import MenuContainer from "./reactUi/menu/menuContainer";
 import { setCookie, logCookie, deleteCookie, getCookie } from './helpers/cookieHandler.ts';
 
 export default function App() {
-    const [isVerticalInverted, setIsVerticalInverted] = useState(true);
+    //read cookie for vertical inversion.
+    const isVerticalCookieBool: string | null = getCookie('isVerticalInverted');
+    //initially set to false
+    let isVerticalBool: boolean = false;
+    //if true set
+    if (isVerticalCookieBool === "true") {
+        isVerticalBool = true;
+    }
+    //state for vertical inverstion
+    const [isVerticalInverted, setIsVerticalInverted] = useState(isVerticalBool);
 
-
+    //function to toggle vertical inversion
     const toggleInvertVertical = () => {
         const newVertical = !isVerticalInverted;
         setIsVerticalInverted(newVertical);
         setVerticalInversion(newVertical);
         setCookie('isVerticalInverted', newVertical.toString(), 365);
-        // deleteCookie('isVerticalInverted');
-        // logCookie('isVerticalInverted');
-        console.log(getCookie('isVerticalInverted'))
     };
 
     //mountRef is the div that will contain the renderer
