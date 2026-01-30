@@ -13,6 +13,11 @@ export function deleteCookie(name: string) {
     setCookie(name, "", -1);
 }
 
-export function getCookie(name: string): string {
-    return "hello";
+export function getCookie(name: string): string | null {
+    const nameEQ = encodeURIComponent(name) + '=';
+    const cookies = document.cookie.split('; ');
+    for (const c of cookies) {
+        if (c.startsWith(nameEQ)) return decodeURIComponent(c.substring(nameEQ.length));
+    }
+    return null;
 }
