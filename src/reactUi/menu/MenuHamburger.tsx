@@ -9,7 +9,7 @@ export default function MenuHamburger({
         <button
             className="menu-hamburger"
             onClick={toggleMenu}
-        >Menu closed</button>);
+        >Open Menu</button>);
 }
 
 

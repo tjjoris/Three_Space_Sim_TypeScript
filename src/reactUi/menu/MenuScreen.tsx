@@ -13,15 +13,17 @@ export default function MenuScreen({
 }) {
     return (<>
         <div className="menu-screen">
-            <div className="menu-div-column">
-                <div>
-                    <MenuCheckbox
-                        name="Invert Vertical"
-                        isChecked={isVerticalInverted}
-                        onToggle={toggleInvertVertical} />
+            <div className="menu-padding">
+                <div className="menu-div-column">
+                    <div>
+                        <MenuCheckbox
+                            name="Invert Vertical"
+                            isChecked={isVerticalInverted}
+                            onToggle={toggleInvertVertical} />
+                    </div>
+                    <MenuButton name="Close Menu" onClick={toggleMenu} />
                 </div>
-                <MenuButton name="Close Menu" onClick={toggleMenu} />
             </div>
-        </div>
+        </div >
     </>)
 }
