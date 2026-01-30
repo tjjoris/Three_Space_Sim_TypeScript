@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { start, stop, setVerticalInversion } from './main';
 import MenuContainer from "./reactUi/menu/menuContainer";
-import { setCookie, logCookie } from './helpers/cookieHandler.ts';
+import { setCookie, logCookie, deleteCookie } from './helpers/cookieHandler.ts';
 
 export default function App() {
     const [isVerticalInverted, setIsVerticalInverted] = useState(true);
@@ -12,6 +12,7 @@ export default function App() {
         setIsVerticalInverted(newVertical);
         setVerticalInversion(newVertical);
         setCookie('isVerticalInverted', newVertical.toString(), 365);
+        // deleteCookie('isVerticalInverted');
         logCookie();
     };
 
