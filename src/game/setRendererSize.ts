@@ -1,20 +1,22 @@
 import * as THREE from 'three';
 
+/**
+ * sets the renderer and aspect to the window size. called from resize event.
+ */
 export default class SetRendererSize {
-    private x: number;
-    private y: number;
     renderer: THREE.WebGLRenderer;
-    camera: THREE.Camera;
+    camera: THREE.PerspectiveCamera;
 
-    constructor(x: number, y: number, renderer: THREE.WebGLRenderer, camera: THREE.Camera) {
-        this.x = x;
-        this.y = y;
+    constructor(renderer: THREE.WebGLRenderer, camera: THREE.PerspectiveCamera) {
         this.renderer = renderer;
         this.camera = camera;
     }
 
-    checkAndSetSize() {
-        this.renderer.setSize(this.x, this.y);
-        // this.camera.
+    setSize() {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        this.renderer.setSize(width, height);
+        this.camera.aspect = width / height;
+        this.camera.updateProjectionMatrix();
     }
 }

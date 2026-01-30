@@ -3,7 +3,7 @@ import './style.css'
 // import viteLogo from '/vite.svg'
 // import { setupCounter } from './counter.ts'
 import * as THREE from 'three'
-// import SetRendererSize from './game/setRendererSize.ts'
+import SetRendererSize from './game/setRendererSize.ts'
 import VJoyFactory from './ui/vjoy/vjoyFactory.ts'
 import VJoyUpdater from './ui/vjoy/vjoyUpdater.ts'
 import type { Tickable } from './game/tickable.ts'
@@ -31,13 +31,12 @@ const cameraRig = new CameraRig(camera, mover);
 
 const renderer = new THREE.WebGLRenderer();
 
-// if (window.innerHeight > window.innerWidth) {
-//   renderer.setSize(window.innerHeight, window.innerWidth);
-// }
-// let savedWindowSize: THREE.Vector2 = new THREE.Vector2(window.innerWidth, window.innerHeight);
-
 renderer.setSize(window.innerWidth, window.innerHeight);
-// const setRendererSize = new SetRendererSize(window.innerWidth, window.innerHeight, renderer);
+
+//class for setting the renderer size on window resize.
+const setRendererSize = new SetRendererSize(renderer, camera);
+window.addEventListener("resize", () => setRendererSize.setSize());
+
 document.body.appendChild(renderer.domElement);
 
 //new box
