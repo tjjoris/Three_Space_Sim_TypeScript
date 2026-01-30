@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { start, stop, setVerticalInversion } from './main';
 import MenuContainer from "./reactUi/menu/menuContainer";
+import { setCookie, logCookie } from './helpers/cookieHandler.ts';
 
 export default function App() {
     const [isVerticalInverted, setIsVerticalInverted] = useState(true);
@@ -10,6 +11,8 @@ export default function App() {
         const newVertical = !isVerticalInverted;
         setIsVerticalInverted(newVertical);
         setVerticalInversion(newVertical);
+        setCookie('isVerticalInverted', newVertical.toString(), 365);
+        logCookie();
     };
 
     //mountRef is the div that will contain the renderer
