@@ -39,3 +39,13 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
 }
+
+.menu-div-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-div-row {
+  display: flex;
+  flex-direction: row;
+}
