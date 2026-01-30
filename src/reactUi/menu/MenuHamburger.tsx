@@ -1,18 +1,15 @@
 import React from 'react';
 
 export default function MenuHamburger({
-    isOpen,
     toggleMenu
 }: {
-    isOpen: boolean;
     toggleMenu: () => void;
 }) {
-    return (!isOpen ?
+    return (
         <button
             className="menu-hamburger"
             onClick={toggleMenu}
-        >Menu closed</button> :
-        <button className="menu-hamburger">Menu Open</button>);
+        >Menu closed</button>);
 }
 
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import MenuHamburger from "./MenuHamburger";
+import MenuScreen from "./MenuScreen";
 
 export default function MenuContainer() {
     const [isOpen, setIsOpen] = useState(false);
@@ -8,5 +9,9 @@ export default function MenuContainer() {
         setIsOpen(!isOpen);
     };
 
-    return <MenuHamburger isOpen={isOpen} toggleMenu={toggleMenu} />;
+    return (<>
+        {isOpen ?
+            <MenuScreen toggleMenu={toggleMenu} />
+            : <MenuHamburger toggleMenu={toggleMenu} />}
+    </>);
 }
