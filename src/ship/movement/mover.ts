@@ -10,6 +10,8 @@ export default class Mover extends THREE.Object3D implements Tickable {
     _velocity: THREE.Vector3;
     _velocitySpeed: THREE.Vector3;
     _position: THREE.Vector3;
+
+    verticalInversionNum: number;
     constructor() {
         super();
         this._rotation = new THREE.Vector3();
@@ -34,6 +36,14 @@ export default class Mover extends THREE.Object3D implements Tickable {
         this._velocitySpeed.x = 0.5;
         this._velocitySpeed.y = 0.5;
         this._velocitySpeed.z = 0.5;
+
+        this.verticalInversionNum = 1;
+    }
+
+    //set the vertical inversion number based on the boolean.
+    setVerticalInversion(value: boolean) {
+        value ? this.verticalInversionNum = 1
+            : this.verticalInversionNum = -1;
     }
 
     setVelocity(velocity: THREE.Vector3) {
@@ -67,7 +77,7 @@ export default class Mover extends THREE.Object3D implements Tickable {
     }
 
     setVertical(vertical: number) {
-        this._velocity.y = vertical * this._velocitySpeed.y;
+        this._velocity.y = this.verticalInversionNum * vertical * this._velocitySpeed.y;
         this.setLongitudional(smartForward(this._velocity.x, this._velocity.y,));
     }
 

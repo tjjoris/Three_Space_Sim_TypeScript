@@ -38,6 +38,10 @@ const setRendererSize = new SetRendererSize(renderer, camera);
 
 let started = false;
 
+export function setVerticalInversion(value: boolean) {
+  mover?.setVerticalInversion(value);
+}
+
 export function start(container: HTMLElement) {
   if (started) return;
   started = true;

@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from "react";
-import { start, stop } from './main';
+import { start, stop, setVerticalInversion } from './main';
 import MenuContainer from "./reactUi/menu/menuContainer";
 
 export default function App() {
@@ -7,7 +7,9 @@ export default function App() {
 
 
     const toggleInvertVertical = () => {
-        setIsVerticalInverted(!isVerticalInverted);
+        const newVertical = !isVerticalInverted;
+        setIsVerticalInverted(newVertical);
+        setVerticalInversion(newVertical);
     };
 
     //mountRef is the div that will contain the renderer
