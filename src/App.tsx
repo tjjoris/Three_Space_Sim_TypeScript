@@ -1,9 +1,14 @@
-import React, { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { start, stop } from './main';
 import MenuContainer from "./reactUi/menu/menuContainer";
 
 export default function App() {
-    const [verticalInverted, setVerticalInverted] = useState(true);
+    const [isVerticalInverted, setIsVerticalInverted] = useState(true);
+
+
+    const toggleInvertVertical = () => {
+        setIsVerticalInverted(!isVerticalInverted);
+    };
 
     //mountRef is the div that will contain the renderer
     //useRef is used to get a reference to the div
@@ -20,7 +25,9 @@ export default function App() {
 
     return (
         <>
-            <MenuContainer />
+            <MenuContainer
+                isVerticalInverted={isVerticalInverted}
+                toggleInvertVertical={toggleInvertVertical} />
             <div ref={mountRef} style={{ width: '100vw', height: '100vh' }} />
         </>
     );

@@ -1,18 +1,25 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import MenuHamburger from "./MenuHamburger";
 import MenuScreen from "./MenuScreen";
 
-export default function MenuContainer() {
+export default function MenuContainer(
+    { isVerticalInverted,
+        toggleInvertVertical
+    }: {
+        isVerticalInverted: boolean;
+        toggleInvertVertical: () => void;
+    }
+) {
     const [isOpen, setIsOpen] = useState(false);
-    const [isVerticalInverted, setIsVerticalInverted] = useState(true);
+    // const [isVerticalInverted, setIsVerticalInverted] = useState(true);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
 
-    const toggleInvertVertical = () => {
-        setIsVerticalInverted(!isVerticalInverted);
-    };
+    // const toggleInvertVertical = () => {
+    //     setIsVerticalInverted(!isVerticalInverted);
+    // };
     return (<>
         {isOpen ?
             <MenuScreen
