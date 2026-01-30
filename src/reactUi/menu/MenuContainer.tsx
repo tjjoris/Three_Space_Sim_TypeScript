@@ -1,5 +1,6 @@
 import React from "react";
+import MenuHamburger from "./MenuHamburger";
 
 export default function MenuContainer() {
-    return <p className="background-ui"> hello world</p>
+    return <MenuHamburger isOpen={true} />;
 }

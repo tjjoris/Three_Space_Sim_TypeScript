@@ -23,3 +23,10 @@
   left: 10px;
   color: white;
 }
+
+.menu-hamburger {
+  position: absolute;
+  top: 10px;
+  left: 95%;
+  width: 4%;
+}
