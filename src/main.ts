@@ -3,6 +3,7 @@ import './style.css'
 // import viteLogo from '/vite.svg'
 // import { setupCounter } from './counter.ts'
 import * as THREE from 'three'
+// import SetRendererSize from './game/setRendererSize.ts'
 import VJoyFactory from './ui/vjoy/vjoyFactory.ts'
 import VJoyUpdater from './ui/vjoy/vjoyUpdater.ts'
 import type { Tickable } from './game/tickable.ts'
@@ -17,7 +18,6 @@ import DustHandler from './spaceDust/dustHandler.ts'
 import Mover from './ship/movement/mover.ts'
 import CameraRig from './camera/cameraRig.ts'
 import AxisToMoverRig from './axes/axisToMoverRig.ts';
-import axis from './axes/axis.ts'
 
 const scene = new THREE.Scene();
 
@@ -31,7 +31,13 @@ const cameraRig = new CameraRig(camera, mover);
 
 const renderer = new THREE.WebGLRenderer();
 
+// if (window.innerHeight > window.innerWidth) {
+//   renderer.setSize(window.innerHeight, window.innerWidth);
+// }
+// let savedWindowSize: THREE.Vector2 = new THREE.Vector2(window.innerWidth, window.innerHeight);
+
 renderer.setSize(window.innerWidth, window.innerHeight);
+// const setRendererSize = new SetRendererSize(window.innerWidth, window.innerHeight, renderer);
 document.body.appendChild(renderer.domElement);
 
 //new box
@@ -89,6 +95,7 @@ tickables.push(dustHandler as Tickable);
 
 
 function animate() {
+  // setRendererSize.checkAndSetSize();
   tickables.forEach(tick => { tick.tick(0.016); }); // assuming 60 FPS, so ~16ms per frame
   renderer.render(scene, camera);
 }

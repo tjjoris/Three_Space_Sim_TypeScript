@@ -39,6 +39,7 @@ export default class DustHandler implements Tickable {
     initiateDustField(numParticles: number) {
         for (let i = 0; i < numParticles; i++) {
             const dustParticle = this.createDustParticleAndAddToScene();
+            dustParticle;
         }
     }
 
@@ -57,11 +58,12 @@ export default class DustHandler implements Tickable {
     repostionParticleInFrontOfCamera(dustParticle: Dust, expectedDistanceInFront = 5) {
         // const forward = new THREE.Vector3();
         // this.mover.getWorldDirection(forward);
-        const forward = this.mover._velocity
+        // const forward = this.mover._velocity
 
-        const forwardDir = forward.clone().normalize();
+        // const forwardDir = forward.clone().normalize();
 
-        const localToWorldForward = this.mover.localToWorld(forwardDir);
+
+        // const localToWorldForward = this.mover.localToWorld(forwardDir);
         // console.log("local to world", localToWorldForward);
         // const localForward = this.mover._rotation.clone().normalize();
         const localForward = new THREE.Vector3();
@@ -90,6 +92,7 @@ export default class DustHandler implements Tickable {
      * @returns 
      */
     createDustParticle(expectedDistanceInFront: number = 1) {
+        expectedDistanceInFront;
         //create a dust particle at random x, y in front of the camera
         const dustParticle = new Dust(0xAAAAAA);
         //get the forward vector direction of the camera

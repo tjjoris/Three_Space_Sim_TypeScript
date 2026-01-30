@@ -59,7 +59,7 @@ export default class Mover extends THREE.Object3D implements Tickable {
     }
 
     setRoll(roll: number) {
-        this._rotationRate.z = roll * this._rotationSpeed.z;
+        this._rotationRate.z = - roll * this._rotationSpeed.z;
     }
 
     setLongitudional(longitudional: number) {
