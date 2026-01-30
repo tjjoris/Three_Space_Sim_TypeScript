@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { start, stop, setVerticalInversion } from './main';
-import MenuContainer from "./reactUi/menu/menuContainer";
-import { setCookie, logCookie, deleteCookie, getCookie } from './helpers/cookieHandler.ts';
+import MenuContainer from "./reactUi/menu/MenuContainer.tsx";
+import { setCookie, getCookie } from './helpers/cookieHandler.ts';
 
 export default function App() {
     //read cookie for vertical inversion.
