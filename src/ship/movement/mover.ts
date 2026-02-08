@@ -61,7 +61,7 @@ export default class Mover extends THREE.Object3D implements Tickable {
     }
 
     setPitch(pitch: number) {
-        this._rotationRate.x = pitch * this._rotationSpeed.x;
+        this._rotationRate.x = - pitch * this._rotationSpeed.x;
     }
 
     setYaw(yaw: number) {

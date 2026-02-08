@@ -19,7 +19,7 @@ export default abstract class VJoyInput {
     private renderer: THREE.WebGLRenderer;
     private origionalClickPoint: THREE.Vector2 = new THREE.Vector2(0, 0);
     private clickBoxSize: THREE.Vector2 = new THREE.Vector2(0.2, 0.2);
-    private dragBoxSize: THREE.Vector2 = new THREE.Vector2(0.05, 0.05);
+    private dragBoxPadding: THREE.Vector2 = new THREE.Vector2(0.05, 0.05);
     private maxDragDistance: number = 50;
     //used for math for comparing input positions to left or right vjoy, is 1 when on the right.
     protected screenWidthMultiplier: number = 1;
@@ -329,7 +329,7 @@ export default abstract class VJoyInput {
      */
     calcBottomClickBounds(): number {
         const rect = this.renderer.domElement.getBoundingClientRect();
-        return (rect.height - this.dragBoxSize.y);
+        return (rect.height - this.dragBoxPadding.y);
     }
 
     /**
@@ -401,14 +401,18 @@ export default abstract class VJoyInput {
      * get max deflection for x (half the click box width)
      */
     calcMaxDeflectionX(): number {
-        return (this.calcRightClickBounds() - this.calcLeftClickBounds()) * 0.5;
+        // return (this.calcRightClickBounds() - this.calcLeftClickBounds()) * 0.5;
+        const rect = this.renderer.domElement.getBoundingClientRect();
+        return this.dragBoxPadding.x * rect.width;
     }
 
     /**
      * calc max deflection for y (half th eclick box height)
      */
     calcMaxDeflectionY(): number {
-        return (this.calcTopClickBounds() - this.calcBottomClickBounds()) * 0.5;
+        // return (this.calcTopClickBounds() - this.calcBottomClickBounds()) * 0.5;
+        const rect = this.renderer.domElement.getBoundingClientRect();
+        return this.dragBoxPadding.y * rect.height;
     }
 
     /**
@@ -434,7 +438,7 @@ export default abstract class VJoyInput {
      */
     calcDragBoxWidth(): number {
         const widthOrHeight: number = this.findRectWidthOrHeightWhatsGreater();
-        return widthOrHeight * this.dragBoxSize.x;
+        return widthOrHeight * this.dragBoxPadding.x;
     }
 
     /**
@@ -442,7 +446,7 @@ export default abstract class VJoyInput {
      */
     calcDragBoxHeight(): number {
         const widthOrHeight: number = this.findRectWidthOrHeightWhatsGreater();
-        return widthOrHeight * this.dragBoxSize.y;
+        return widthOrHeight * this.dragBoxPadding.y;
     }
 
     /**
