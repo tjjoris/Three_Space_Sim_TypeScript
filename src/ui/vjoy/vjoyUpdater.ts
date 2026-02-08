@@ -25,9 +25,14 @@ export default class VJoyUpdater implements Tickable {
             this.vJoySprite.position.copy(worldPos);
             if (this.vJoyInput.getDown() === true) {
                 this.vJoySprite.visible = true;
+                this.vJoySprite.material.opacity = 1;
             }
             else {
-                this.vJoySprite.visible = false;
+                // this.vJoySprite.visible = false;
+                this.vJoySprite.material.transparent = true;
+                this.vJoySprite.material.opacity = 0.5;
+                const worldPos: THREE.Vector3 = this.castRay.castRay(this.vJoyInput.getCenterPoint());
+                this.vJoySprite.position.copy(worldPos);
             }
             return;
         }

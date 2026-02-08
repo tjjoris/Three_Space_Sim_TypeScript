@@ -360,6 +360,16 @@ export default abstract class VJoyInput {
     }
 
     /**
+     * get the center point for the vjoy
+     */
+    getCenterPoint(): THREE.Vector2 {
+        const x = this.calcLeftClickBounds() + (this.calcClickBoxWidth() * 0.5);
+        const y = this.calcTopClickBounds() + (this.calcClickBoxHeight() * 0.5);
+        const point = new THREE.Vector2(x, y);
+        return point;
+    }
+
+    /**
      * get the screen point
      */
     getScreenPoint(): THREE.Vector2 {
