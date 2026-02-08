@@ -12,6 +12,9 @@ export default function App() {
     if (isVerticalCookieBool === "true") {
         isVerticalBool = true;
     }
+
+    //set vertical inversoin for game.
+    setVerticalInversion(isVerticalBool);
     //state for vertical inverstion
     const [isVerticalInverted, setIsVerticalInverted] = useState(isVerticalBool);
 
