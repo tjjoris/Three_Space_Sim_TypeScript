@@ -4,6 +4,8 @@ import MenuContainer from "./reactUi/menu/MenuContainer.tsx";
 import { setCookie, getCookie } from './helpers/cookieHandler.ts';
 
 export default function App() {
+    //state for landscape mode
+    const [isLandscape, setIsLandscape] = useState(false);
     //read cookie for vertical inversion.
     const isVerticalCookieBool: string | null = getCookie('isVerticalInverted');
     //initially set to false
@@ -13,7 +15,7 @@ export default function App() {
         isVerticalBool = true;
     }
 
-    //set vertical inversoin for game.
+    //set vertical inversoin for game from the cookie value.
     setVerticalInversion(isVerticalBool);
     //state for vertical inverstion
     const [isVerticalInverted, setIsVerticalInverted] = useState(isVerticalBool);
