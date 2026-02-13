@@ -1,5 +1,7 @@
 import Mover from "../ship/movement/mover";
 import * as THREE from 'three';
+import PowerUp from "./powerUp";
+import teleportPowerUp from "./teleportPowerUp";
 
 /**
  * this class ticks and handles if powerups have collided with the 
@@ -9,7 +11,7 @@ import * as THREE from 'three';
 export default class PowerUpTicker {
     private mover;
     private collisionRange: number;
-    private powerUps: THREE.Mesh[];
+    private powerUps: PowerUp[];
 
     constructor(mover: Mover, collisionRange: number) {
         this.mover = mover;
@@ -26,7 +28,7 @@ export default class PowerUpTicker {
      * add power up to the power up array.
      * @param powerUp 
      */
-    addPowerUp(powerUp: THREE.Mesh) {
+    addPowerUp(powerUp: PowerUp) {
         this.powerUps.push(powerUp);
     }
 
@@ -34,11 +36,23 @@ export default class PowerUpTicker {
      * removes the passed powerUp from the powerUps array.
      * @param powerUp 
      */
-    removePowerUp(powerUp: THREE.Mesh) {
+    removePowerUp(powerUp: PowerUp) {
         //remove the power up from the array
         let newPowerUps = this.powerUps.filter(
             element => element != powerUp
         )
         this.powerUps = newPowerUps;
+    }
+
+    /**
+     * ticks to see if the player mover has collided with any power ups.
+     * if so moves them with teleport power up.
+     */
+    tick(deltaTime: number) {
+        this.powerUps.forEach(powerUp => {
+            if (powerUp.getMesh().position.distanceTo(this.mover.position) < this.collisionRange) {
+                teleportPowerUp(powerUp, this.mover, 10);
+            }
+        })
     }
 }

@@ -27,8 +27,9 @@ export default class PowerUpFactory {
         const powerUpMesh = new THREE.Mesh(geometry, material);
         const powerUp = new PowerUp(powerUpMesh);
         // powerUp.position.copy(playerMover.position).add(invertedLocalForward.multiplyScalar(distanceInFront)).add(randomOffset);
-        teleportPowerUp(powerUp, playerMover);
         this.scene.add(powerUpMesh);
         return powerUp;
     }
+
+    //TODO removal of powerup mesh and it's existance on scene.
 }

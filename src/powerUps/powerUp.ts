@@ -29,6 +29,13 @@ export default class PowerUp {
     }
 
     /**
+     * get the mesh for this power up
+     */
+    getMesh(): THREE.Mesh {
+        return this.mesh;
+    }
+
+    /**
      * copy the position thereby moving the power up mesh
      */
     copyPos(pos: THREE.Vector3) {

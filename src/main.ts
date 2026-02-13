@@ -18,6 +18,7 @@ import DustHandler from './spaceDust/dustHandler.ts'
 import Mover from './ship/movement/mover.ts'
 import CameraRig from './camera/cameraRig.ts'
 import AxisToMoverRig from './axes/axisToMoverRig.ts';
+import PowerUp from './powerUps/powerUp.ts'
 import teleportPowerUp from './powerUps/teleportPowerUp.ts';
 import PowerUpFactory from './powerUps/powerUpFactory.ts'
 
@@ -132,7 +133,10 @@ scene.add(cube);
 
 //create powerup factory
 const powerUpFactory = new PowerUpFactory(mover, scene);
-powerUpFactory.createPowerUpOnMover(mover);
+let powerUps: PowerUp[] = [];
+powerUps.push(powerUpFactory.createPowerUpOnMover(mover));
+teleportPowerUp(powerUps[0], mover, 5);
+
 
 let tickables: Tickable[] = [];
 tickables.push(leftVJoyUpdater as Tickable);
