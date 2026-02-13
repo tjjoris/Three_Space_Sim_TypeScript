@@ -1,12 +1,30 @@
 import * as THREE from 'three'
 
+/**
+ * stores if a powerup is collidable, and the mesh for 
+ * the power up.
+ */
 export default class PowerUp {
     mesh: THREE.Mesh;
-    // const geometry = new THREE.BoxGeometry(1, 1, 1);
-    // const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    // const cube = new THREE.Mesh(geometry, material);
+    isCollidable: boolean;
 
     constructor(mesh: THREE.Mesh) {
         this.mesh = mesh;
+        this.isCollidable = true;
+    }
+
+    getIsCollidable(): boolean {
+        return this.isCollidable;
+    }
+
+    setIsCollidable(value: boolean) {
+        this.isCollidable = value;
+    }
+
+    /**
+     * returns the position of the powerUp mesh
+     */
+    getPos(): THREE.Vector3 {
+        return this.mesh.position;
     }
 }
