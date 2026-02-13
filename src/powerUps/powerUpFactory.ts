@@ -10,7 +10,7 @@ export default class PowerUpFactory {
         this.scene = scene;
     }
 
-    createPowerUpOnMover(playerMover: Mover) {
+    createPowerUpOnMover(playerMover: Mover): THREE.Mesh {
         const localForward = new THREE.Vector3();
         playerMover.getWorldDirection(localForward);
         const invertedLocalForward = localForward.clone().negate();
@@ -22,8 +22,9 @@ export default class PowerUpFactory {
         );
         const geometry = new THREE.BoxGeometry(1, 1, 1);
         const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-        const cube = new THREE.Mesh(geometry, material);
-        cube.position.copy(playerMover.position).add(invertedLocalForward.multiplyScalar(distanceInFront)).add(randomOffset);
-        this.scene.add(cube);
+        const powerUp = new THREE.Mesh(geometry, material);
+        powerUp.position.copy(playerMover.position).add(invertedLocalForward.multiplyScalar(distanceInFront)).add(randomOffset);
+        this.scene.add(powerUp);
+        return powerUp;
     }
 }
