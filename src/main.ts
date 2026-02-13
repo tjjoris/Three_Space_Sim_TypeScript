@@ -18,6 +18,7 @@ import DustHandler from './spaceDust/dustHandler.ts'
 import Mover from './ship/movement/mover.ts'
 import CameraRig from './camera/cameraRig.ts'
 import AxisToMoverRig from './axes/axisToMoverRig.ts';
+import teleportPowerUp from './powerUps/powerUpTeleporter.ts';
 import PowerUpFactory from './powerUps/powerUpFactory.ts'
 
 const scene = new THREE.Scene();
