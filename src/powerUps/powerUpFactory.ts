@@ -1,6 +1,6 @@
 import Mover from "../ship/movement/mover";
 import * as THREE from "three";
-import teleportPowerUp from './powerUpTeleporter';
+import teleportPowerUp from './teleportPowerUp';
 import PowerUp from "./powerUp";
 
 export default class PowerUpFactory {
