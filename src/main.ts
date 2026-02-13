@@ -150,10 +150,14 @@ tickables.push(mover as Tickable);
 tickables.push(dustHandler as Tickable);
 tickables.push(powerUpTicker as Tickable);
 
-
+let currentTime = Date.now();
 function animate() {
-  // setRendererSize.checkAndSetSize();
-  tickables.forEach(tick => { tick.tick(0.016); }); // assuming 60 FPS, so ~16ms per frame
+
+  const deltaTime = Date.now() - currentTime;
+  currentTime = Date.now();
+  const dtMult: number = deltaTime * 0.003;
+
+  tickables.forEach(tick => { tick.tick(dtMult); }); // assuming 60 FPS, so ~16ms per frame
   renderer.render(scene, camera);
 }
 
