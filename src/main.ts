@@ -21,6 +21,7 @@ import AxisToMoverRig from './axes/axisToMoverRig.ts';
 import PowerUp from './powerUps/powerUp.ts'
 import teleportPowerUp from './powerUps/teleportPowerUp.ts';
 import PowerUpFactory from './powerUps/powerUpFactory.ts'
+import PowerUpTicker from './powerUps/powerUpTicker.ts'
 
 const scene = new THREE.Scene();
 
@@ -136,6 +137,8 @@ const powerUpFactory = new PowerUpFactory(mover, scene);
 let powerUps: PowerUp[] = [];
 powerUps.push(powerUpFactory.createPowerUpOnMover(mover));
 teleportPowerUp(powerUps[0], mover, 5);
+const powerUpTicker = new PowerUpTicker(mover, 1);
+powerUpTicker.addPowerUp(powerUps[0]);
 
 
 let tickables: Tickable[] = [];
@@ -145,6 +148,7 @@ tickables.push(cameraRig as Tickable);
 tickables.push(axisToMoverRig as Tickable);
 tickables.push(mover as Tickable);
 tickables.push(dustHandler as Tickable);
+tickables.push(powerUpTicker as Tickable);
 
 
 function animate() {

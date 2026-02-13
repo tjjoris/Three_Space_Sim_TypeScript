@@ -1,14 +1,14 @@
 import Mover from "../ship/movement/mover";
-import * as THREE from 'three';
 import PowerUp from "./powerUp";
 import teleportPowerUp from "./teleportPowerUp";
+import type { Tickable } from "../game/tickable";
 
 /**
  * this class ticks and handles if powerups have collided with the 
  * player mover. it stores the player mover, the powerups, and the 
  * collision range.
  */
-export default class PowerUpTicker {
+export default class PowerUpTicker implements Tickable {
     private mover;
     private collisionRange: number;
     private powerUps: PowerUp[];
@@ -49,7 +49,10 @@ export default class PowerUpTicker {
      * if so moves them with teleport power up.
      */
     tick(deltaTime: number) {
+        deltaTime;
         this.powerUps.forEach(powerUp => {
+            // const distance = powerUp.getMesh().position.distanceTo(this.mover.position);
+            // console.log("distance", distance);
             if (powerUp.getMesh().position.distanceTo(this.mover.position) < this.collisionRange) {
                 teleportPowerUp(powerUp, this.mover, 10);
             }
