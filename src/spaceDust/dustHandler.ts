@@ -74,9 +74,9 @@ export default class DustHandler implements Tickable {
         // const forwardVelocityVec = forwardDir.multiplyScalar(forwardSpeed);
         const distanceInFront = (Math.random() * 3) + expectedDistanceInFront//expectedDistanceInFront + (Math.random() * 1);
         const randomOffset = new THREE.Vector3(
-            (Math.random() - 0.5) * 10,
-            (Math.random() - 0.5) * 10,
-            (Math.random() - 0.5) * 10
+            (Math.random() - 0.5) * 6,
+            (Math.random() - 0.5) * 6,
+            (Math.random() - 0.5) * 6
         );
         // console.log("random offset", randomOffset)
         // console.log("distance in front", distanceInFront);

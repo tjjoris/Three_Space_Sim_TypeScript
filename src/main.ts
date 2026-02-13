@@ -18,6 +18,7 @@ import DustHandler from './spaceDust/dustHandler.ts'
 import Mover from './ship/movement/mover.ts'
 import CameraRig from './camera/cameraRig.ts'
 import AxisToMoverRig from './axes/axisToMoverRig.ts';
+import PowerUpFactory from './powerUps/powerUpFactory.ts'
 
 const scene = new THREE.Scene();
 
@@ -127,6 +128,10 @@ dustHandler.initiateDustField(800);
 
 //add to scene
 scene.add(cube);
+
+//create powerup factory
+const powerUpFactory = new PowerUpFactory(mover, scene);
+powerUpFactory.createPowerUpOnMover(mover);
 
 let tickables: Tickable[] = [];
 tickables.push(leftVJoyUpdater as Tickable);
