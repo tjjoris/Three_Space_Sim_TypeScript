@@ -127,9 +127,9 @@ dustHandler.initiateDustField(800);
 
 
 //create powerup factory
-const powerUpFactory = new PowerUpFactory(mover, scene);
+const powerUpFactory = new PowerUpFactory(scene);
 let powerUps: PowerUp[] = [];
-powerUps.push(powerUpFactory.createPowerUpOnMover(mover));
+powerUps.push(powerUpFactory.createPowerUpOnMover());
 teleportPowerUp(powerUps[0], mover, 5);
 const powerUpTicker = new PowerUpTicker(mover, 1);
 powerUpTicker.addPowerUp(powerUps[0]);
