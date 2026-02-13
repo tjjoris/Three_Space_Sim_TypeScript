@@ -22,8 +22,8 @@ export default class PowerUpFactory {
         //     (Math.random() - 0.5) * 3,
         //     (Math.random() - 0.5) * 3
         // );
-        const geometry = new THREE.BoxGeometry(1, 1, 1);
-        const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+        const geometry = new THREE.TorusGeometry(0.5, 0.07, 8, 18);
+        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
         const powerUpMesh = new THREE.Mesh(geometry, material);
         const powerUp = new PowerUp(powerUpMesh);
         // powerUp.position.copy(playerMover.position).add(invertedLocalForward.multiplyScalar(distanceInFront)).add(randomOffset);

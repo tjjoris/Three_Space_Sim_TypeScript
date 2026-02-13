@@ -87,10 +87,6 @@ export function stop() {
 //removed append because doing it differently with react.
 // document.body.appendChild(renderer.domElement);
 
-//new box
-const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-const cube = new THREE.Mesh(geometry, material);
 
 
 //new vjoy factory
@@ -129,8 +125,6 @@ const dustHandler = new DustHandler(mover, scene);
 dustHandler.initiateDustField(800);
 
 
-//add to scene
-scene.add(cube);
 
 //create powerup factory
 const powerUpFactory = new PowerUpFactory(mover, scene);
@@ -155,7 +149,7 @@ function animate() {
 
   const deltaTime = Date.now() - currentTime;
   currentTime = Date.now();
-  const dtMult: number = deltaTime * 0.003;
+  const dtMult: number = deltaTime * 0.0025;
 
   tickables.forEach(tick => { tick.tick(dtMult); }); // assuming 60 FPS, so ~16ms per frame
   renderer.render(scene, camera);
