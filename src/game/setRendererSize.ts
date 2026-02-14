@@ -4,6 +4,8 @@ type Listener = () => void;
 
 /**
  * sets the renderer and aspect to the window size. called from resize event.
+ * uses useSyncExternalStore (../stores/UseLandscapeStore.ts) for updating the react component that overlays 
+ * for landscape mode.
  */
 export default class SetRendererSize {
     renderer: THREE.WebGLRenderer;
@@ -22,6 +24,7 @@ export default class SetRendererSize {
         this.renderer.setSize(width, height);
         this.camera.aspect = width / height;
         this.camera.updateProjectionMatrix();
+        this.changeStateLandscape();
     }
 
     /**
@@ -45,6 +48,20 @@ export default class SetRendererSize {
     }
 
     /**
+     * change state of if in landscape
+     */
+    changeStateLandscape() {
+        const newState: boolean = this.getIsLandscape();
+        if (newState !== this.state.isLandscape) {
+            console.log("resize state changed");
+            //you need to rewrite the state otherwise react sees the 
+            //mutable state and does not update.
+            this.state = { isLandscape: newState };
+            this.notify();
+        }
+    }
+
+    /**
      * subscribe to listener for useLandscapeStore
      * @param listener 
      */
@@ -60,6 +77,7 @@ export default class SetRendererSize {
      * notify all listeners
      */
     private notify() {
+        console.log("in listener");
         this.listeners.forEach((listener) => listener());
     }
 }

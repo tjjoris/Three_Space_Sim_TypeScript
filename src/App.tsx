@@ -42,6 +42,7 @@ export default function App() {
 
     }, []);
 
+    //TODO move setRendererSize import into landscape overlay.
     return (
         <>
             <LandscapeOverlay setRenderSize={setRendererSize} />
