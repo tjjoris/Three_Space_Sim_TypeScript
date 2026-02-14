@@ -1,7 +1,8 @@
 import { useRef, useEffect, useState } from "react";
-import { start, stop, setVerticalInversion } from './main';
+import { start, stop, setVerticalInversion, setRendererSize } from './main';
 import MenuContainer from "./reactUi/menu/MenuContainer.tsx";
 import { setCookie, getCookie } from './helpers/cookieHandler.ts';
+import LandscapeOverlay from "./reactUi/menu/LandscapeOverlay.tsx";
 
 export default function App() {
     //state for landscape mode
@@ -43,6 +44,7 @@ export default function App() {
 
     return (
         <>
+            <LandscapeOverlay setRenderSize={setRendererSize} />
             <MenuContainer
                 isVerticalInverted={isVerticalInverted}
                 toggleInvertVertical={toggleInvertVertical} />

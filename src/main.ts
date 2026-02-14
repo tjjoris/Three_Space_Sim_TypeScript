@@ -38,7 +38,7 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 //class for setting the renderer size on window resize.
-const setRendererSize = new SetRendererSize(renderer, camera);
+export const setRendererSize = new SetRendererSize(renderer, camera);
 
 let started = false;
 
