@@ -13,7 +13,6 @@ import CastRay from './axes/castRay.ts'
 // import VJoyInput from './ui/vjoy/vJoyInput.ts'
 import RightVJoyInput from './ui/vjoy/rightVJoyInput.ts'
 import LeftVJoyInput from './ui/vjoy/leftVJoyInput.ts'
-import VJoyUsedTracker from './ui/vjoy/vJoyUsedTracker.ts'
 import Axis from './axes/axis.ts';
 import DustHandler from './spaceDust/dustHandler.ts'
 import Mover from './ship/movement/mover.ts'
