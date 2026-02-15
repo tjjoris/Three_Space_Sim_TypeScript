@@ -77,8 +77,17 @@
   font-size: 1em;
 }
 
+.top-overlay {
+  padding-top: 1em;
+}
+
 .overlay {
+  font-size: 0.6em;
   padding-top: 0.7em;
-  padding-left: 0.1em;
-  padding-right: 0.1em;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+  padding-bottom: 0.7em;
+  margin: 0.5em;
+  border-radius: 0.5em;
+  background-color: #444347;
 }

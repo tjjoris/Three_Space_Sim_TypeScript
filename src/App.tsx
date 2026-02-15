@@ -43,6 +43,7 @@ export default function App() {
 
     return (
         <>
+            <div className="top-overlay" />
             <LandscapeOverlay />
             <VJoyUsedOverlay />
             <MenuContainer

@@ -17,10 +17,14 @@ export default function VJoyUsedOverlay() {
 
         //if VJoy is already used, show the div component
         !isVJoyAlreadyUsed && (
-            <div className="overlay">
-                drag on the bottom right corner to control pitch/roll.
-                Drag on the bottom left corner to control vertical, horizontal strafe.
-            </div>
+            <>
+                <div className="overlay">
+                    Drag the bottom right circle to control pitch/roll.
+                </div>
+                <div className="overlay">
+                    Drag the bottom right circle to control vertical/horizontal strafe.
+                </div>
+            </>
         )
     )
 }
