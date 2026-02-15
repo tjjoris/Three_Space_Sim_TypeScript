@@ -19,10 +19,7 @@ export default function VJoyUsedOverlay() {
         !isVJoyAlreadyUsed && (
             <>
                 <div className="overlay">
-                    Drag the bottom right circle to control pitch/roll.
-                </div>
-                <div className="overlay">
-                    Drag the bottom right circle to control vertical/horizontal strafe.
+                    Drag the bottom circles to control your ship.
                 </div>
             </>
         )
