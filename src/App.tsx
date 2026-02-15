@@ -3,6 +3,7 @@ import { start, stop, setVerticalInversion } from './main';
 import MenuContainer from "./reactUi/menu/MenuContainer.tsx";
 import { setCookie, getCookie } from './helpers/cookieHandler.ts';
 import LandscapeOverlay from "./reactUi/menu/LandscapeOverlay.tsx";
+import VJoyUsedOverlay from "./reactUi/menu/VJoyUsedOverlay.tsx";
 
 export default function App() {
     //read cookie for vertical inversion.
@@ -43,6 +44,7 @@ export default function App() {
     return (
         <>
             <LandscapeOverlay />
+            <VJoyUsedOverlay />
             <MenuContainer
                 isVerticalInverted={isVerticalInverted}
                 toggleInvertVertical={toggleInvertVertical} />

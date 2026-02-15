@@ -4,8 +4,10 @@ import calcX1UsingPointSlopeForm from '../../helpers/calcX1UsingPointSlopeForm';
 import calcY1UsingPointSlopeForm from '../../helpers/calcY1UsingPointSlopeForm';
 import Axis from '../../axes/axis';
 import ConvertVJoyToNormalizedAxis from '../../axes/convertVJoyToNormalizedAxis';
+import VJoyUsedTracker from './vJoyUsedTracker';
 // import clamp from '../../helpers/clamp';
 // import type { ThreeMFLoader } from 'three/examples/jsm/Addons.js';
+
 
 /**
  * this class is used for moving hte vjoy based on inputs.
@@ -68,6 +70,7 @@ export default abstract class VJoyInput {
             this.origionalClickPoint.copy(pos);
             this.isDownId = id;
             this.updateScreenPointAndAxes(pos);
+            VJoyUsedTracker.getVJoyUsedTracker().setVJoyToUsed();
         }
     }
 
