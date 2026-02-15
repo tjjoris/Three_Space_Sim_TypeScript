@@ -8,7 +8,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #000000;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -75,4 +75,10 @@
 
 .menu-checkbox-label {
   font-size: 1em;
+}
+
+.overlay {
+  padding-top: 0.7em;
+  padding-left: 0.1em;
+  padding-right: 0.1em;
 }

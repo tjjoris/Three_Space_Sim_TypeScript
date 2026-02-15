@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import { setRendererSize } from '../../main';
 import useLandscapeStore from '../../stores/UseLandscapeStore';
-import SetRendererSize from '../../game/setRendererSize';
 
 /**
  * react component for encouraging users to switcht to landscape 
@@ -10,8 +9,8 @@ import SetRendererSize from '../../game/setRendererSize';
  * @param param0 
  * @returns 
  */
-export default function LandscapeOverlay({ setRenderSize }: { setRenderSize: SetRendererSize }) {
-    const state: { isLandscape: boolean; } = useLandscapeStore(setRenderSize);
+export default function LandscapeOverlay() {
+    const state: { isLandscape: boolean; } = useLandscapeStore(setRendererSize);
 
     console.log("component updated");
     return (

@@ -1,12 +1,10 @@
 import { useRef, useEffect, useState } from "react";
-import { start, stop, setVerticalInversion, setRendererSize } from './main';
+import { start, stop, setVerticalInversion } from './main';
 import MenuContainer from "./reactUi/menu/MenuContainer.tsx";
 import { setCookie, getCookie } from './helpers/cookieHandler.ts';
 import LandscapeOverlay from "./reactUi/menu/LandscapeOverlay.tsx";
 
 export default function App() {
-    //state for landscape mode
-    const [isLandscape, setIsLandscape] = useState(false);
     //read cookie for vertical inversion.
     const isVerticalCookieBool: string | null = getCookie('isVerticalInverted');
     //initially set to false
@@ -42,10 +40,9 @@ export default function App() {
 
     }, []);
 
-    //TODO move setRendererSize import into landscape overlay.
     return (
         <>
-            <LandscapeOverlay setRenderSize={setRendererSize} />
+            <LandscapeOverlay />
             <MenuContainer
                 isVerticalInverted={isVerticalInverted}
                 toggleInvertVertical={toggleInvertVertical} />

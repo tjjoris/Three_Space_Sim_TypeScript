@@ -11,11 +11,11 @@ export default function teleportPowerUp(powerUp: PowerUp, playerMover: Mover, di
     const localForward = new THREE.Vector3();
     playerMover.getWorldDirection(localForward);
     const invertedLocalForward = localForward.clone().negate();
-    const distanceInFront = (Math.random() * 3) + distance;
+    const distanceInFront = + distance;
     const randomOffset = new THREE.Vector3(
-        (Math.random() - 0.5) * 3,
-        (Math.random() - 0.5) * 3,
-        (Math.random() - 0.5) * 3
+        (Math.random() - 0.5) * 5,
+        (Math.random() - 0.5) * 5,
+        (Math.random() - 0.5) * 5
     );
     //pos is a temporary position set to where the powerup will move.
     let pos = new THREE.Vector3();
