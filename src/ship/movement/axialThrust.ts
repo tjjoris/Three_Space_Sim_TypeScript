@@ -23,6 +23,7 @@ export default class AxialThrust {
      */
     calculateThrust(axisValue: number, deltaTime: number): number {
         const desiredThrust = axialLerp(- this.maxThrust, this.maxThrust, axisValue);
+
         //change thrust rate
         if (desiredThrust > this.thrust) {
             return this.increaseThrust(this.thrust, desiredThrust, this.maxIncreaseRate, deltaTime);
