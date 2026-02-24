@@ -1,6 +1,6 @@
 import Mover from '../ship/movement/mover';
 import Axis from '../axes/axis';
-import type { Tickable } from '../game/tickable';
+import type Tickable from '../game/tickable';
 export default class AxisToMoverRig implements Tickable {
     mover: Mover;
     pitchAxis: Axis;
@@ -14,6 +14,7 @@ export default class AxisToMoverRig implements Tickable {
         this.rollAxis = rollAxis;
         this.verticalAxis = verticalAxis;
         this.horizontalAxis = horizontalAxis;
+
     }
 
     tick(deltaTime: number) {
