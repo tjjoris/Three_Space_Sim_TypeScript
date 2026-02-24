@@ -1,7 +1,7 @@
 import Mover from "../ship/movement/mover";
 import PowerUp from "./powerUp";
 import teleportPowerUp from "./teleportPowerUp";
-import type { Tickable } from "../game/tickable";
+import type Tickable from "../game/tickable";
 
 /**
  * this class ticks and handles if powerups have collided with the 

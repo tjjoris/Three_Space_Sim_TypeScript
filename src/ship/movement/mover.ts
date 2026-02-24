@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import type { Tickable } from '../../game/tickable';
+import type Tickable from '../../game/tickable';
 import smartForward from './smartForward';
 
 export default class Mover extends THREE.Object3D implements Tickable {

@@ -1,7 +1,7 @@
 import Dust from './dust';
 import Mover from '../ship/movement/mover'
 import * as THREE from 'three';
-import type { Tickable } from '../game/tickable'
+import type Tickable from '../game/tickable'
 
 export default class DustHandler implements Tickable {
     mover: Mover;
