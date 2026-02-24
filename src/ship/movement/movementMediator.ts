@@ -2,13 +2,14 @@ import Mover from "./mover";
 import Axis from "../../axes/axis";
 import AxialThrust from "./axialThrust";
 import MomentumManager from "./momentumManager";
+import type Tickable from "../../game/tickable";
 
 /**
  * gets the input from the axes, and applies them to MomentumManager, then gets the acceleration from MomentumManager
  * as a world V3
  * and applies it to mover.
  */
-export default class MovementMediator {
+export default class MovementMediator implements Tickable {
 
     private momentumManager: MomentumManager;
     private mover: Mover;

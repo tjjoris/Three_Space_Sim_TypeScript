@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import Mover from "./mover";
+import clamp from "../../helpers/clamp";
 
 /**
  * stores the world momentum.
@@ -9,6 +10,8 @@ import Mover from "./mover";
 export default class MomentumManager {
     private worldSpeed: THREE.Vector3 = new THREE.Vector3(0, 0, 0);
     private massCoefficient: number;
+    private maxVelocity: THREE.Vector3 = new THREE.Vector3(1, 1, 1);
+    private maxNegativeVelocity: THREE.Vector3 = new THREE.Vector3(-1, -1, -1);
 
     constructor(mass: number) {
         this.massCoefficient = mass;
@@ -51,9 +54,12 @@ export default class MomentumManager {
      * apply world acceleration
      */
     applyWorldAcceleration(worldAcceleration: THREE.Vector3, worldSpeed: THREE.Vector3, massCoefficient: number): THREE.Vector3 {
-        const x = worldSpeed.x + (massCoefficient * worldAcceleration.x);
-        const y = worldSpeed.y + (massCoefficient * worldAcceleration.y);
-        const z = worldSpeed.z + (massCoefficient * worldAcceleration.z);
+        let x = worldSpeed.x + (massCoefficient * worldAcceleration.x);
+        x = clamp(x, this.maxNegativeVelocity.x, this.maxVelocity.x);
+        let y = worldSpeed.y + (massCoefficient * worldAcceleration.y);
+        y = clamp(y, this.maxNegativeVelocity.y, this.maxVelocity.y);
+        let z = worldSpeed.z + (massCoefficient * worldAcceleration.z);
+        z = clamp(z, this.maxNegativeVelocity.z, this.maxVelocity.z);
         return new THREE.Vector3(x, y, z);
     }
 

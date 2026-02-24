@@ -22,6 +22,9 @@ import PowerUp from './powerUps/powerUp.ts'
 import teleportPowerUp from './powerUps/teleportPowerUp.ts';
 import PowerUpFactory from './powerUps/powerUpFactory.ts'
 import PowerUpTicker from './powerUps/powerUpTicker.ts'
+import AxialThrust from './ship/movement/axialThrust.ts'
+import MomentumManager from './ship/movement/momentumManager.ts'
+import MovementMediator from './ship/movement/movementMediator.ts'
 
 const scene = new THREE.Scene();
 
@@ -102,6 +105,7 @@ const pitchAxis = new Axis();
 const rollAxis = new Axis();
 const verticalAxis = new Axis();
 const horizontalAxis = new Axis();
+const forwardAxis = new Axis();
 
 //axis to mover rig for linking axes to player mover
 const axisToMoverRig: AxisToMoverRig = new AxisToMoverRig(mover, pitchAxis, rollAxis, verticalAxis, horizontalAxis);
@@ -118,6 +122,18 @@ multiTouch;
 const rightVJoyUpdater = new VJoyUpdater(rightVJoyFactory.getVJoySprite()!, camera, castRay, rightVJoyInput);
 const leftVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camera, castRay, leftVJoyInput);
 
+//Axial thrusts
+const horizontalAxialThrust = new AxialThrust(10, 0.5, 0.5);
+const verticalAxialThrust = new AxialThrust(10, 0.5, 0.5);
+const forwardAxialThrust = new AxialThrust(15, 0.5, 0.5);
+
+//Momentum Manager
+const momentumManager = new MomentumManager(1);
+
+//Movement Mediator 
+const movementMediator = new MovementMediator(momentumManager, mover, verticalAxis, horizontalAxis,
+  forwardAxis, verticalAxialThrust, horizontalAxialThrust, forwardAxialThrust
+);
 
 //create space dust
 const dustHandler = new DustHandler(mover, scene);
@@ -139,7 +155,8 @@ let tickables: Tickable[] = [];
 tickables.push(leftVJoyUpdater as Tickable);
 tickables.push(rightVJoyUpdater as Tickable);
 tickables.push(cameraRig as Tickable);
-tickables.push(axisToMoverRig as Tickable);
+// tickables.push(axisToMoverRig as Tickable);
+tickables.push(movementMediator as Tickable);
 tickables.push(mover as Tickable);
 tickables.push(dustHandler as Tickable);
 tickables.push(powerUpTicker as Tickable);

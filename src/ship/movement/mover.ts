@@ -11,6 +11,8 @@ export default class Mover extends THREE.Object3D implements Tickable {
     _velocitySpeed: THREE.Vector3;
     _position: THREE.Vector3;
 
+    // private maxVelocity: THREE.Vector3 = new THREE.Vector3(10, 10, 10);
+
     verticalInversionNum: number;
     constructor() {
         super();
