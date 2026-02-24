@@ -1,3 +1,9 @@
+/**
+ * class tracks thrust for a single axis, it is based off of current thrust, and targeted based on 
+ * desired thrust known from axis value and max thrust. the rate is controlled by max increase and decrease rates.
+ */
+
+import lerp from "../../helpers/lerp";
 export default class AxialThrust {
     private thrust: number = 0;
     private maxThrust: number;
@@ -16,6 +22,7 @@ export default class AxialThrust {
      * @param deltaTimer 
      */
     calculateThrust(axisValue: number, deltaTimer: number): number {
+
         return 0;
     }
 }
