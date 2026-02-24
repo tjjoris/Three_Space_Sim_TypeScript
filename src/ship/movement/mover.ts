@@ -11,6 +11,7 @@ export default class Mover extends THREE.Object3D implements Tickable {
     _velocitySpeed: THREE.Vector3;
     _position: THREE.Vector3;
 
+
     // private maxVelocity: THREE.Vector3 = new THREE.Vector3(10, 10, 10);
 
     verticalInversionNum: number;
@@ -59,6 +60,10 @@ export default class Mover extends THREE.Object3D implements Tickable {
         this.rotateY(this._rotationRate.y * (deltaTime));
         this.rotateZ(this._rotationRate.z * (deltaTime));
         this.translateZ(this._velocity.z * (deltaTime));
+
+        // if (this._velocity.x > 0) {
+        //     console.log("velocity x ", this._velocity.x);
+        // }
         this.translateY(this._velocity.y * (deltaTime));
         this.translateX(this._velocity.x * (deltaTime));
     }

@@ -123,9 +123,9 @@ const rightVJoyUpdater = new VJoyUpdater(rightVJoyFactory.getVJoySprite()!, came
 const leftVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camera, castRay, leftVJoyInput);
 
 //Axial thrusts
-const horizontalAxialThrust = new AxialThrust(10, 0.5, 0.5);
-const verticalAxialThrust = new AxialThrust(10, 0.5, 0.5);
-const forwardAxialThrust = new AxialThrust(15, 0.5, 0.5);
+const horizontalAxialThrust = new AxialThrust(0.10, 0.05, 0.05);
+const verticalAxialThrust = new AxialThrust(0.10, 0.05, 0.05);
+const forwardAxialThrust = new AxialThrust(0.15, 0.05, 0.05);
 
 //Momentum Manager
 const momentumManager = new MomentumManager(1);

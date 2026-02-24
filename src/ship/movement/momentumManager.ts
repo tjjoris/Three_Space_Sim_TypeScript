@@ -28,9 +28,12 @@ export default class MomentumManager {
      */
     calculateRelativeSpeed(verticalThrust: number, horizontalThrust: number, forwardThrust: number, mover: Mover): THREE.Vector3 {
         const relativeAcceleration = new THREE.Vector3(horizontalThrust, verticalThrust, forwardThrust);
-        const worldAccel = this.calculateWorldDirFromLocal(relativeAcceleration, mover as THREE.Object3D);
-        const worldSpeed = this.applyWorldAcceleration(worldAccel, this.worldSpeed, this.massCoefficient);
-        return this.calculateLocalDirectionFromWorld(worldSpeed, mover as THREE.Object3D);
+        // const worldAccel = this.calculateWorldDirFromLocal(relativeAcceleration, mover as THREE.Object3D);
+        // this.worldSpeed = this.applyWorldAcceleration(worldAccel, this.worldSpeed, this.massCoefficient);
+        // const localDirection = this.calculateLocalDirectionFromWorld(this.worldSpeed, mover as THREE.Object3D);
+        this.worldSpeed = this.applyWorldAcceleration(relativeAcceleration, this.worldSpeed, this.massCoefficient);
+        // console.log(localDirection);
+        return this.worldSpeed;
 
     }
 
@@ -46,14 +49,18 @@ export default class MomentumManager {
         // const returnV3 = new THREE.Vector3();
         // returnV3.copy(newV3).add(relativeAcceleration);
         // return returnV3;
+        // const worldDir = new THREE.Vector3();
+        // object.localToWorld(worldDir).copy(relativeDirection);
         const worldDir = object.localToWorld(new THREE.Vector3().copy(relativeDirection));
         return worldDir;
+
     }
 
     /**
      * apply world acceleration
      */
     applyWorldAcceleration(worldAcceleration: THREE.Vector3, worldSpeed: THREE.Vector3, massCoefficient: number): THREE.Vector3 {
+
         let x = worldSpeed.x + (massCoefficient * worldAcceleration.x);
         x = clamp(x, this.maxNegativeVelocity.x, this.maxVelocity.x);
         let y = worldSpeed.y + (massCoefficient * worldAcceleration.y);
@@ -69,6 +76,7 @@ export default class MomentumManager {
     calculateLocalDirectionFromWorld(worlDirection: THREE.Vector3, object: THREE.Object3D): THREE.Vector3 {
         const localDir = object.worldToLocal(new THREE.Vector3().copy(worlDirection));
         return localDir;
+
     }
 
 }
