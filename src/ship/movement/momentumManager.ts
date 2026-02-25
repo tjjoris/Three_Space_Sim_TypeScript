@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import Mover from "./mover";
 import clamp from "../../helpers/clamp";
+import { ThreeMFLoader } from "three/examples/jsm/Addons.js";
 
 /**
  * stores the world momentum.
@@ -28,12 +29,12 @@ export default class MomentumManager {
      */
     calculateRelativeSpeed(verticalThrust: number, horizontalThrust: number, forwardThrust: number, mover: Mover): THREE.Vector3 {
         const relativeAcceleration = new THREE.Vector3(horizontalThrust, verticalThrust, forwardThrust);
-        // const worldAccel = this.calculateWorldDirFromLocal(relativeAcceleration, mover as THREE.Object3D);
-        // this.worldSpeed = this.applyWorldAcceleration(worldAccel, this.worldSpeed, this.massCoefficient);
-        // const localDirection = this.calculateLocalDirectionFromWorld(this.worldSpeed, mover as THREE.Object3D);
-        this.worldSpeed = this.applyWorldAcceleration(relativeAcceleration, this.worldSpeed, this.massCoefficient);
+        const worldAccel = this.calculateWorldDirFromLocal(relativeAcceleration, mover as THREE.Object3D);
+        this.worldSpeed = this.applyWorldAcceleration(worldAccel, this.worldSpeed, this.massCoefficient);
+        const localDirection = this.calculateLocalDirectionFromWorld(this.worldSpeed, mover as THREE.Object3D);
+        // this.worldSpeed = this.applyWorldAcceleration(relativeAcceleration, this.worldSpeed, this.massCoefficient);
         // console.log(localDirection);
-        return this.worldSpeed;
+        return localDirection;
 
     }
 
@@ -51,8 +52,18 @@ export default class MomentumManager {
         // return returnV3;
         // const worldDir = new THREE.Vector3();
         // object.localToWorld(worldDir).copy(relativeDirection);
-        const worldDir = object.localToWorld(new THREE.Vector3().copy(relativeDirection));
-        return worldDir;
+        // const worldDir = object.localToWorld(new THREE.Vector3().copy(relativeDirection));
+        // return worldDir;
+        const world = new THREE.Vector3(0, 0, 1);
+        const forward = new THREE.Vector3();
+        object.getWorldDirection(forward);
+        const momentumQuat = new THREE.Quaternion;
+        momentumQuat.setFromUnitVectors(world, forward);
+        const result = new THREE.Vector3();
+        result.copy(relativeDirection);
+        result.applyQuaternion(momentumQuat);
+        return result;
+
 
     }
 
@@ -74,9 +85,15 @@ export default class MomentumManager {
      * calculate relative speed from world speed.
      */
     calculateLocalDirectionFromWorld(worlDirection: THREE.Vector3, object: THREE.Object3D): THREE.Vector3 {
-        const localDir = object.worldToLocal(new THREE.Vector3().copy(worlDirection));
-        return localDir;
-
+        // const localDir = object.worldToLocal(new THREE.Vector3().copy(worlDirection));
+        // return localDir;
+        const world = new THREE.Vector3(0, 0, 1);
+        const momentumQuat = new THREE.Quaternion();
+        momentumQuat.setFromUnitVectors(world, this.worldSpeed);
+        const result = new THREE.Vector3();
+        object.getWorldDirection(result);
+        result.applyQuaternion(momentumQuat);
+        return result;
     }
 
 }
