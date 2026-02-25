@@ -56,7 +56,7 @@ export default class Mover extends THREE.Object3D implements Tickable {
 
     tick(deltaTime: number) {
         //rotate
-        this.rotateX(this._rotationRate.x * (deltaTime));
+        this.rotateX(0.003);
         this.rotateY(this._rotationRate.y * (deltaTime));
         this.rotateZ(this._rotationRate.z * (deltaTime));
         this.translateZ(this._velocity.z * (deltaTime));

@@ -13,6 +13,7 @@ export default class MomentumManager {
     private massCoefficient: number;
     private maxVelocity: THREE.Vector3 = new THREE.Vector3(1, 1, 1);
     private maxNegativeVelocity: THREE.Vector3 = new THREE.Vector3(-1, -1, -1);
+    readonly world = new THREE.Vector3(0, 0, -1);
 
     constructor(mass: number) {
         this.massCoefficient = mass;
@@ -54,14 +55,13 @@ export default class MomentumManager {
         // object.localToWorld(worldDir).copy(relativeDirection);
         // const worldDir = object.localToWorld(new THREE.Vector3().copy(relativeDirection));
         // return worldDir;
-        const world = new THREE.Vector3(0, 0, 1);
         const forward = new THREE.Vector3();
         object.getWorldDirection(forward);
-        const momentumQuat = new THREE.Quaternion;
-        momentumQuat.setFromUnitVectors(world, forward);
+        const quat = new THREE.Quaternion;
+        quat.setFromUnitVectors(this.world, forward);
         const result = new THREE.Vector3();
         result.copy(relativeDirection);
-        result.applyQuaternion(momentumQuat);
+        result.applyQuaternion(quat);
         return result;
 
 
@@ -87,12 +87,13 @@ export default class MomentumManager {
     calculateLocalDirectionFromWorld(worlDirection: THREE.Vector3, object: THREE.Object3D): THREE.Vector3 {
         // const localDir = object.worldToLocal(new THREE.Vector3().copy(worlDirection));
         // return localDir;
-        const world = new THREE.Vector3(0, 0, 1);
-        const momentumQuat = new THREE.Quaternion();
-        momentumQuat.setFromUnitVectors(world, this.worldSpeed);
+        const forward = new THREE.Vector3();
+        object.getWorldDirection(forward);
+        const quat = new THREE.Quaternion();
+        quat.setFromUnitVectors(forward, this.world);
         const result = new THREE.Vector3();
-        object.getWorldDirection(result);
-        result.applyQuaternion(momentumQuat);
+        result.copy(this.worldSpeed);
+        result.applyQuaternion(quat);
         return result;
     }
 
