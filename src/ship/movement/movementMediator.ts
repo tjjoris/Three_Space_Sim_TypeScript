@@ -3,6 +3,7 @@ import Axis from "../../axes/axis";
 import AxialThrust from "./axialThrust";
 import MomentumManager from "./momentumManager";
 import type Tickable from "../../game/tickable";
+import calculateSmartForward from "./smartForward";
 
 /**
  * gets the input from the axes, and applies them to MomentumManager, then gets the acceleration from MomentumManager
@@ -38,7 +39,10 @@ export default class MovementMediator implements Tickable {
         //get axes inputs
         const vertical = this.verticalAxis.getValue();
         const horizontal = this.horizontalAxis.getValue();
-        const forward = this.forwardAxis.getValue();
+        //calculate smart forwward
+        const forward = - calculateSmartForward(vertical, horizontal);
+        //set forward axis
+        this.forwardAxis.setValue(forward);
         //find thrust values from axial thrusts.
         const verticalThrust = this.verticalAxialThrust.calculateThrust(vertical, deltaTime);
         const horizontalThrust = this.horizontalAxialThrust.calculateThrust(horizontal, deltaTime);

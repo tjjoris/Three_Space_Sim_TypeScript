@@ -11,9 +11,9 @@ import { ThreeMFLoader } from "three/examples/jsm/Addons.js";
 export default class MomentumManager {
     private worldSpeed: THREE.Vector3 = new THREE.Vector3(0, 0, 0);
     private massCoefficient: number;
-    private maxVelocity: THREE.Vector3 = new THREE.Vector3(1, 1, 1);
-    private maxNegativeVelocity: THREE.Vector3 = new THREE.Vector3(-1, -1, -1);
-    readonly world = new THREE.Vector3(0, 0, -1);
+    private maxVelocity: THREE.Vector3 = new THREE.Vector3(0.3, 0.3, 0.3);
+    private maxNegativeVelocity: THREE.Vector3 = new THREE.Vector3(-0.3, -0.3, -0.3);
+    readonly world = new THREE.Vector3(0, 0, 1);
 
     constructor(mass: number) {
         this.massCoefficient = mass;
