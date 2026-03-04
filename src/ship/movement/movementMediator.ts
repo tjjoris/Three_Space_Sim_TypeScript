@@ -48,7 +48,7 @@ export default class MovementMediator implements Tickable {
         const horizontalThrust = this.horizontalAxialThrust.calculateThrust(horizontal, deltaTime);
         const forwardAxialThrust = this.forwardAxialThrust.calculateThrust(forward, deltaTime);
         //apply axes inputs to momentum manager
-        const localSpeed = this.momentumManager.calculateRelativeSpeed(verticalThrust, horizontalThrust, forwardAxialThrust, this.mover);
+        const localSpeed = this.momentumManager.calculateLocalVelocity(verticalThrust, horizontalThrust, forwardAxialThrust, this.mover);
         //set velocity of mover
         this.mover.setVelocity(localSpeed);
         //tick mover

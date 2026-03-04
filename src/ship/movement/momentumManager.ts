@@ -21,16 +21,16 @@ export default class MomentumManager {
 
 
     /**
-     * calculate the relative speed.
+     * calculate the relative velocity.
      * @param verticalThrust 
      * @param horizontalThrust 
      * @param forwardThrust 
      * @param mover 
      * @returns 
      */
-    calculateRelativeSpeed(verticalThrust: number, horizontalThrust: number, forwardThrust: number, mover: Mover): THREE.Vector3 {
+    calculateLocalVelocity(verticalThrust: number, horizontalThrust: number, forwardThrust: number, mover: Mover): THREE.Vector3 {
         const relativeAcceleration = new THREE.Vector3(horizontalThrust, verticalThrust, forwardThrust);
-        const worldAccel = this.calculateWorldDirFromLocal(relativeAcceleration, mover as THREE.Object3D);
+        const worldAccel = this.calculateWorldVectorFromLocal(relativeAcceleration, mover as THREE.Object3D);
         this.worldSpeed = this.applyWorldAcceleration(worldAccel, this.worldSpeed, this.massCoefficient);
         const localDirection = this.calculateLocalDirectionFromWorld(this.worldSpeed, mover as THREE.Object3D);
         // this.worldSpeed = this.applyWorldAcceleration(relativeAcceleration, this.worldSpeed, this.massCoefficient);
@@ -40,12 +40,12 @@ export default class MomentumManager {
     }
 
     /**
-     * calculate the world speed.
-     * @param relativeDirection 
+     * calculate the world velocity.
+     * @param localVector 
      * @param object 
      * @returns 
      */
-    calculateWorldDirFromLocal(relativeDirection: THREE.Vector3, object: THREE.Object3D): THREE.Vector3 {
+    calculateWorldVectorFromLocal(localVector: THREE.Vector3, object: THREE.Object3D): THREE.Vector3 {
         // const newV3 = new THREE.Vector3();
         // object.getWorldDirection(newV3);
         // const returnV3 = new THREE.Vector3();
@@ -60,7 +60,7 @@ export default class MomentumManager {
         const quat = new THREE.Quaternion;
         quat.setFromUnitVectors(this.world, forward);
         const result = new THREE.Vector3();
-        result.copy(relativeDirection);
+        result.copy(localVector);
         result.applyQuaternion(quat);
         return result;
 
@@ -70,21 +70,21 @@ export default class MomentumManager {
     /**
      * apply world acceleration
      */
-    applyWorldAcceleration(worldAcceleration: THREE.Vector3, worldSpeed: THREE.Vector3, massCoefficient: number): THREE.Vector3 {
+    applyWorldAcceleration(worldAcceleration: THREE.Vector3, worldVelocity: THREE.Vector3, massCoefficient: number): THREE.Vector3 {
 
-        let x = worldSpeed.x + (massCoefficient * worldAcceleration.x);
+        let x = worldVelocity.x + (massCoefficient * worldAcceleration.x);
         x = clamp(x, this.maxNegativeVelocity.x, this.maxVelocity.x);
-        let y = worldSpeed.y + (massCoefficient * worldAcceleration.y);
+        let y = worldVelocity.y + (massCoefficient * worldAcceleration.y);
         y = clamp(y, this.maxNegativeVelocity.y, this.maxVelocity.y);
-        let z = worldSpeed.z + (massCoefficient * worldAcceleration.z);
+        let z = worldVelocity.z + (massCoefficient * worldAcceleration.z);
         z = clamp(z, this.maxNegativeVelocity.z, this.maxVelocity.z);
         return new THREE.Vector3(x, y, z);
     }
 
     /**
-     * calculate relative speed from world speed.
+     * calculate relative velocity from world velocity.
      */
-    calculateLocalDirectionFromWorld(worlDirection: THREE.Vector3, object: THREE.Object3D): THREE.Vector3 {
+    calculateLocalDirectionFromWorld(worldDirection: THREE.Vector3, object: THREE.Object3D): THREE.Vector3 {
         // const localDir = object.worldToLocal(new THREE.Vector3().copy(worlDirection));
         // return localDir;
         const forward = new THREE.Vector3();
@@ -92,7 +92,7 @@ export default class MomentumManager {
         const quat = new THREE.Quaternion();
         quat.setFromUnitVectors(forward, this.world);
         const result = new THREE.Vector3();
-        result.copy(this.worldSpeed);
+        result.copy(worldDirection);
         result.applyQuaternion(quat);
         return result;
     }
