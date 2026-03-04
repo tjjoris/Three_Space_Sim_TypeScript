@@ -1,7 +1,6 @@
 import * as THREE from "three";
 import Mover from "./mover";
 import clamp from "../../helpers/clamp";
-import { ThreeMFLoader } from "three/examples/jsm/Addons.js";
 
 /**
  * stores the world momentum.
@@ -9,11 +8,12 @@ import { ThreeMFLoader } from "three/examples/jsm/Addons.js";
  * then gets the relative speed to be used by the mover.
  */
 export default class MomentumManager {
-    private worldSpeed: THREE.Vector3 = new THREE.Vector3(0, 0, 0);
+    private worldVelocity: THREE.Vector3 = new THREE.Vector3(0, 0, 0);
     private massCoefficient: number;
     private maxVelocity: THREE.Vector3 = new THREE.Vector3(0.3, 0.3, 0.3);
     private maxNegativeVelocity: THREE.Vector3 = new THREE.Vector3(-0.3, -0.3, -0.3);
     readonly world = new THREE.Vector3(0, 0, 1);
+    readonly accelerationMult = new THREE.Vector3(0.01, 0.01, 0.01);
 
     constructor(mass: number) {
         this.massCoefficient = mass;
@@ -31,10 +31,8 @@ export default class MomentumManager {
     calculateLocalVelocity(verticalThrust: number, horizontalThrust: number, forwardThrust: number, mover: Mover): THREE.Vector3 {
         const relativeAcceleration = new THREE.Vector3(horizontalThrust, verticalThrust, forwardThrust);
         const worldAccel = this.calculateWorldVectorFromLocal(relativeAcceleration, mover as THREE.Object3D);
-        this.worldSpeed = this.applyWorldAcceleration(worldAccel, this.worldSpeed, this.massCoefficient);
-        const localDirection = this.calculateLocalDirectionFromWorld(this.worldSpeed, mover as THREE.Object3D);
-        // this.worldSpeed = this.applyWorldAcceleration(relativeAcceleration, this.worldSpeed, this.massCoefficient);
-        // console.log(localDirection);
+        this.worldVelocity = this.applyWorldAcceleration(worldAccel, this.worldVelocity, this.massCoefficient);
+        const localDirection = this.calculateLocalDirectionFromWorld(this.worldVelocity, mover as THREE.Object3D);
         return localDirection;
 
     }
@@ -72,12 +70,12 @@ export default class MomentumManager {
      */
     applyWorldAcceleration(worldAcceleration: THREE.Vector3, worldVelocity: THREE.Vector3, massCoefficient: number): THREE.Vector3 {
 
-        let x = worldVelocity.x + (massCoefficient * worldAcceleration.x);
-        x = clamp(x, this.maxNegativeVelocity.x, this.maxVelocity.x);
-        let y = worldVelocity.y + (massCoefficient * worldAcceleration.y);
-        y = clamp(y, this.maxNegativeVelocity.y, this.maxVelocity.y);
-        let z = worldVelocity.z + (massCoefficient * worldAcceleration.z);
-        z = clamp(z, this.maxNegativeVelocity.z, this.maxVelocity.z);
+        let x = worldVelocity.x + (massCoefficient * worldAcceleration.x * this.accelerationMult.x);
+        // x = clamp(x, this.maxNegativeVelocity.x, this.maxVelocity.x);
+        let y = worldVelocity.y + (massCoefficient * worldAcceleration.y * this.accelerationMult.y);
+        // y = clamp(y, this.maxNegativeVelocity.y, this.maxVelocity.y);
+        let z = worldVelocity.z + (massCoefficient * worldAcceleration.z * this.accelerationMult.z);
+        // z = clamp(z, this.maxNegativeVelocity.z, this.maxVelocity.z);
         return new THREE.Vector3(x, y, z);
     }
 

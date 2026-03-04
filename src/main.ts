@@ -128,7 +128,7 @@ const verticalAxialThrust = new AxialThrust(0.10, 0.05, 0.05);
 const forwardAxialThrust = new AxialThrust(0.15, 0.05, 0.05);
 
 //Momentum Manager
-const momentumManager = new MomentumManager(1);
+const momentumManager = new MomentumManager(2);
 
 //Movement Mediator 
 const movementMediator = new MovementMediator(momentumManager, mover, verticalAxis, horizontalAxis,
