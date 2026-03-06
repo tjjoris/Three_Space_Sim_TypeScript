@@ -11,14 +11,14 @@ export default class SpeedLimiter {
 
     /**
      * return the clamped world speed.
-     * @param localSpeed 
+     * @param worldSpeed 
      * @returns 
      */
-    limitSpeed(localSpeed: THREE.Vector3,): THREE.Vector3 {
-        if (localSpeed.distanceTo(this.vectorZero) <= this.maxSpeed) {
-            return localSpeed;
+    limitSpeed(worldSpeed: THREE.Vector3,): THREE.Vector3 {
+        if (worldSpeed.distanceTo(this.vectorZero) <= this.maxSpeed) {
+            return worldSpeed;
         }
-        let clampedSpeed: THREE.Vector3 = localSpeed.clampLength(this.minSpeed, this.maxSpeed);
+        let clampedSpeed: THREE.Vector3 = worldSpeed.clampLength(this.minSpeed, this.maxSpeed);
         return clampedSpeed;
     }
 }
