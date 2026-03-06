@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import Mover from '../ship/movement/mover'
-import type { Tickable } from '../game/tickable';
+import type Tickable from '../game/tickable';
 export default class CameraRig implements Tickable {
 
     _camera: THREE.Camera;

@@ -6,7 +6,7 @@ import * as THREE from 'three'
 import SetRendererSize from './game/setRendererSize.ts'
 import VJoyFactory from './ui/vjoy/vjoyFactory.ts'
 import VJoyUpdater from './ui/vjoy/vjoyUpdater.ts'
-import type { Tickable } from './game/tickable.ts'
+import type Tickable from './game/tickable.ts'
 import MultiTouch from './axes/multiTouch.ts'
 import ClickInput from './axes/clickInput.ts'
 import CastRay from './axes/castRay.ts'
@@ -17,11 +17,17 @@ import Axis from './axes/axis.ts';
 import DustHandler from './spaceDust/dustHandler.ts'
 import Mover from './ship/movement/mover.ts'
 import CameraRig from './camera/cameraRig.ts'
-import AxisToMoverRig from './axes/axisToMoverRig.ts';
 import PowerUp from './powerUps/powerUp.ts'
 import teleportPowerUp from './powerUps/teleportPowerUp.ts';
 import PowerUpFactory from './powerUps/powerUpFactory.ts'
 import PowerUpTicker from './powerUps/powerUpTicker.ts'
+import AxialThrust from './ship/movement/axialThrust.ts'
+import MomentumManager from './ship/movement/momentumManager.ts'
+import MovementMediator from './ship/movement/movementMediator.ts'
+import SpeedLimiter from './ship/movement/speedLimiter.ts'
+import RotationManager from './ship/movement/rotationManager.ts'
+import RotationMediator from './ship/movement/rotationMediator.ts'
+import RotationLimiter from './ship/movement/rotationLimiter.ts'
 
 const scene = new THREE.Scene();
 
@@ -43,7 +49,7 @@ export const setRendererSize = new SetRendererSize(renderer, camera);
 let started = false;
 
 export function setVerticalInversion(value: boolean) {
-  mover?.setVerticalInversion(value);
+  movementMediator?.setVerticalInversion(value);
 }
 
 export function start(container: HTMLElement) {
@@ -98,13 +104,13 @@ const rightVJoyFactory = new VJoyFactory(scene);
 const castRay = new CastRay(renderer, camera);
 
 //new axes
-const pitchAxis = new Axis();
-const rollAxis = new Axis();
-const verticalAxis = new Axis();
-const horizontalAxis = new Axis();
+const pitchAxis = new Axis(0.1);
+const yawAxis = new Axis(0.1);
+const rollAxis = new Axis(0.1);
+const verticalAxis = new Axis(0.1);
+const horizontalAxis = new Axis(0.1);
+const forwardAxis = new Axis(0.1);
 
-//axis to mover rig for linking axes to player mover
-const axisToMoverRig: AxisToMoverRig = new AxisToMoverRig(mover, pitchAxis, rollAxis, verticalAxis, horizontalAxis);
 
 //new inputs
 
@@ -117,6 +123,30 @@ const multiTouch = new MultiTouch(renderer, leftVJoyInput, rightVJoyInput);
 multiTouch;
 const rightVJoyUpdater = new VJoyUpdater(rightVJoyFactory.getVJoySprite()!, camera, castRay, rightVJoyInput);
 const leftVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camera, castRay, leftVJoyInput);
+
+//Axial thrusts
+const horizontalAxialThrust = new AxialThrust(0.10, 0.05, 0.05);
+const verticalAxialThrust = new AxialThrust(0.10, 0.05, 0.05);
+const forwardAxialThrust = new AxialThrust(0.15, 0.05, 0.05);
+
+//translational movmement:
+//speed limiter
+const speedLimiter = new SpeedLimiter(0.5);
+//Momentum Manager
+const momentumManager = new MomentumManager(2, speedLimiter);
+//Movement Mediator 
+const movementMediator = new MovementMediator(momentumManager, mover, verticalAxis, horizontalAxis,
+  forwardAxis, verticalAxialThrust, horizontalAxialThrust, forwardAxialThrust
+);
+
+//rotation:
+//rotationLimiter with min and max rotation rates.
+const rotationLimiter = new RotationLimiter(
+  new THREE.Vector3(-0.1, -0.1, -0.2),
+  new THREE.Vector3(0.1, 0.1, 0.2));
+//rotation manager
+const rotationManager = new RotationManager(rotationLimiter);
+const rotationMediator = new RotationMediator(pitchAxis, yawAxis, rollAxis, rotationManager, mover);
 
 
 //create space dust
@@ -139,7 +169,8 @@ let tickables: Tickable[] = [];
 tickables.push(leftVJoyUpdater as Tickable);
 tickables.push(rightVJoyUpdater as Tickable);
 tickables.push(cameraRig as Tickable);
-tickables.push(axisToMoverRig as Tickable);
+tickables.push(movementMediator as Tickable);
+tickables.push(rotationMediator as Tickable);
 tickables.push(mover as Tickable);
 tickables.push(dustHandler as Tickable);
 tickables.push(powerUpTicker as Tickable);

@@ -1,0 +1,65 @@
+import Mover from "./mover";
+import Axis from "../../axes/axis";
+import AxialThrust from "./axialThrust";
+import MomentumManager from "./momentumManager";
+import type Tickable from "../../game/tickable";
+import calculateSmartForward from "./smartForward";
+
+/**
+ * gets the input from the axes, and applies them to MomentumManager, then gets the acceleration from MomentumManager
+ * as a world V3
+ * and applies it to mover.
+ */
+export default class MovementMediator implements Tickable {
+
+    private momentumManager: MomentumManager;
+    private mover: Mover;
+    private verticalAxis: Axis;
+    private verticalAxialThrust: AxialThrust;
+    private horizontalAxis: Axis;
+    private horizontalAxialThrust: AxialThrust;
+    private forwardAxis: Axis;
+    private forwardAxialThrust: AxialThrust;
+    private verticalInversionNum: number = 1;
+
+    constructor(momentumManager: MomentumManager, mover: Mover, verticalAxis: Axis, horizontalAxis: Axis, forwardAxis: Axis,
+        verticalAxialThrust: AxialThrust, horizontalAxialThrust: AxialThrust, forwardAxialThrust: AxialThrust
+    ) {
+        this.momentumManager = momentumManager;
+        this.mover = mover;
+        this.verticalAxis = verticalAxis;
+        this.horizontalAxis = horizontalAxis;
+        this.forwardAxis = forwardAxis;
+        this.verticalAxialThrust = verticalAxialThrust;
+        this.horizontalAxialThrust = horizontalAxialThrust;
+        this.forwardAxialThrust = forwardAxialThrust;
+    }
+
+    tick(deltaTime: number) {
+        //get axes inputs
+        const vertical = this.verticalAxis.getValue() * this.verticalInversionNum;
+        const horizontal = this.horizontalAxis.getValue();
+        //calculate smart forwward
+        const forward = - calculateSmartForward(vertical, horizontal);
+        //set forward axis
+        this.forwardAxis.setValue(forward);
+        //find thrust values from axial thrusts.
+        const verticalThrust = this.verticalAxialThrust.calculateThrust(vertical, deltaTime);
+        const horizontalThrust = this.horizontalAxialThrust.calculateThrust(horizontal, deltaTime);
+        const forwardThrust = this.forwardAxialThrust.calculateThrust(forward, deltaTime);
+        //apply axes inputs to momentum manager
+        const localSpeed = this.momentumManager.calculateLocalVelocity(verticalThrust, horizontalThrust, forwardThrust, this.mover);
+        //set velocity of mover
+        this.mover.setVelocity(localSpeed);
+        //tick mover
+        this.mover.tick(deltaTime);
+    }
+
+
+    //set the vertical inversion number based on the boolean.
+    setVerticalInversion(value: boolean) {
+        value ? this.verticalInversionNum = 1
+            : this.verticalInversionNum = -1;
+        console.log('set vertical inversion', this.verticalInversionNum);
+    }
+}

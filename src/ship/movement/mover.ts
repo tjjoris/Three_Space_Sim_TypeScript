@@ -1,6 +1,5 @@
 import * as THREE from 'three';
-import type { Tickable } from '../../game/tickable';
-import smartForward from './smartForward';
+import type Tickable from '../../game/tickable';
 
 export default class Mover extends THREE.Object3D implements Tickable {
     _rotation: THREE.Vector3;
@@ -10,6 +9,9 @@ export default class Mover extends THREE.Object3D implements Tickable {
     _velocity: THREE.Vector3;
     _velocitySpeed: THREE.Vector3;
     _position: THREE.Vector3;
+
+
+    // private maxVelocity: THREE.Vector3 = new THREE.Vector3(10, 10, 10);
 
     verticalInversionNum: number;
     constructor() {
@@ -40,13 +42,6 @@ export default class Mover extends THREE.Object3D implements Tickable {
         this.verticalInversionNum = 1;
     }
 
-    //set the vertical inversion number based on the boolean.
-    setVerticalInversion(value: boolean) {
-        value ? this.verticalInversionNum = -1
-            : this.verticalInversionNum = 1;
-        console.log('set vertical inversion', this.verticalInversionNum);
-    }
-
     setVelocity(velocity: THREE.Vector3) {
         this._velocity = velocity;
     }
@@ -57,34 +52,16 @@ export default class Mover extends THREE.Object3D implements Tickable {
         this.rotateY(this._rotationRate.y * (deltaTime));
         this.rotateZ(this._rotationRate.z * (deltaTime));
         this.translateZ(this._velocity.z * (deltaTime));
+
+        // if (this._velocity.x > 0) {
+        //     console.log("velocity x ", this._velocity.x);
+        // }
         this.translateY(this._velocity.y * (deltaTime));
         this.translateX(this._velocity.x * (deltaTime));
     }
 
-    setPitch(pitch: number) {
-        this._rotationRate.x = - pitch * this._rotationSpeed.x;
-    }
-
-    setYaw(yaw: number) {
-        this._rotationRate.y = yaw * this._rotationSpeed.y;
-    }
-
-    setRoll(roll: number) {
-        this._rotationRate.z = - roll * this._rotationSpeed.z;
-    }
-
-    setLongitudional(longitudional: number) {
-        this._velocity.z = - longitudional * this._velocitySpeed.z;
-    }
-
-    setVertical(vertical: number) {
-        this._velocity.y = this.verticalInversionNum * vertical * this._velocitySpeed.y;
-        this.setLongitudional(smartForward(this._velocity.x, this._velocity.y,));
-    }
-
-    setHorizontal(horizontal: number) {
-        this._velocity.x = horizontal * this._velocitySpeed.x;
-        this.setLongitudional(smartForward(this._velocity.x, this._velocity.y,));
+    setRotationRate(value: THREE.Vector3) {
+        this._rotationRate = value.clone();
     }
 
 }

@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import type { Tickable } from "../../game/tickable";
+import type Tickable from "../../game/tickable";
 import type CastRay from "../../axes/castRay";
 import VJoyInput from '../vjoy/vJoyInput';
 
