@@ -32,7 +32,6 @@ export default class MovementMediator implements Tickable {
         this.verticalAxialThrust = verticalAxialThrust;
         this.horizontalAxialThrust = horizontalAxialThrust;
         this.forwardAxialThrust = forwardAxialThrust;
-
     }
 
     tick(deltaTime: number) {
@@ -46,9 +45,9 @@ export default class MovementMediator implements Tickable {
         //find thrust values from axial thrusts.
         const verticalThrust = this.verticalAxialThrust.calculateThrust(vertical, deltaTime);
         const horizontalThrust = this.horizontalAxialThrust.calculateThrust(horizontal, deltaTime);
-        const forwardAxialThrust = this.forwardAxialThrust.calculateThrust(forward, deltaTime);
+        const forwardThrust = this.forwardAxialThrust.calculateThrust(forward, deltaTime);
         //apply axes inputs to momentum manager
-        const localSpeed = this.momentumManager.calculateLocalVelocity(verticalThrust, horizontalThrust, forwardAxialThrust, this.mover);
+        const localSpeed = this.momentumManager.calculateLocalVelocity(verticalThrust, horizontalThrust, forwardThrust, this.mover);
         //set velocity of mover
         this.mover.setVelocity(localSpeed);
         //tick mover

@@ -1,6 +1,8 @@
 import * as THREE from "three";
 import Mover from "./mover";
-import clamp from "../../helpers/clamp";
+import SpeedLimiter from "./speedLimiter";
+import { RollerCoasterShadowGeometry } from "three/examples/jsm/Addons.js";
+// import clamp from "../../helpers/clamp";
 
 /**
  * stores the world momentum.
@@ -14,9 +16,11 @@ export default class MomentumManager {
     private maxNegativeVelocity: THREE.Vector3 = new THREE.Vector3(-0.3, -0.3, -0.3);
     readonly world = new THREE.Vector3(0, 0, 1);
     readonly accelerationMult = new THREE.Vector3(0.01, 0.01, 0.01);
+    speedLimiter: SpeedLimiter;
 
-    constructor(mass: number) {
+    constructor(mass: number, speedLimiter: SpeedLimiter) {
         this.massCoefficient = mass;
+        this.speedLimiter = speedLimiter;
     }
 
 
@@ -31,7 +35,8 @@ export default class MomentumManager {
     calculateLocalVelocity(verticalThrust: number, horizontalThrust: number, forwardThrust: number, mover: Mover): THREE.Vector3 {
         const relativeAcceleration = new THREE.Vector3(horizontalThrust, verticalThrust, forwardThrust);
         const worldAccel = this.calculateWorldVectorFromLocal(relativeAcceleration, mover as THREE.Object3D);
-        this.worldVelocity = this.applyWorldAcceleration(worldAccel, this.worldVelocity, this.massCoefficient);
+        const rawWorldaVelocity: THREE.Vector3 = this.applyWorldAcceleration(worldAccel, this.worldVelocity, this.massCoefficient);
+        this.worldVelocity = this.speedLimiter.limitSpeed(rawWorldaVelocity);
         const localDirection = this.calculateLocalDirectionFromWorld(this.worldVelocity, mover as THREE.Object3D);
         return localDirection;
 

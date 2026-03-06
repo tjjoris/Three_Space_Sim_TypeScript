@@ -25,6 +25,7 @@ import PowerUpTicker from './powerUps/powerUpTicker.ts'
 import AxialThrust from './ship/movement/axialThrust.ts'
 import MomentumManager from './ship/movement/momentumManager.ts'
 import MovementMediator from './ship/movement/movementMediator.ts'
+import SpeedLimiter from './ship/movement/speedLimiter.ts'
 
 const scene = new THREE.Scene();
 
@@ -127,8 +128,12 @@ const horizontalAxialThrust = new AxialThrust(0.10, 0.05, 0.05);
 const verticalAxialThrust = new AxialThrust(0.10, 0.05, 0.05);
 const forwardAxialThrust = new AxialThrust(0.15, 0.05, 0.05);
 
+
+//speed limiter
+const speedLimiter = new SpeedLimiter(0.5);
+
 //Momentum Manager
-const momentumManager = new MomentumManager(2);
+const momentumManager = new MomentumManager(2, speedLimiter);
 
 //Movement Mediator 
 const movementMediator = new MovementMediator(momentumManager, mover, verticalAxis, horizontalAxis,
