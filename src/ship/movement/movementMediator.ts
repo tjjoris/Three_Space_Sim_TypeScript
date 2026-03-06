@@ -20,6 +20,7 @@ export default class MovementMediator implements Tickable {
     private horizontalAxialThrust: AxialThrust;
     private forwardAxis: Axis;
     private forwardAxialThrust: AxialThrust;
+    private verticalInversionNum: number = 1;
 
     constructor(momentumManager: MomentumManager, mover: Mover, verticalAxis: Axis, horizontalAxis: Axis, forwardAxis: Axis,
         verticalAxialThrust: AxialThrust, horizontalAxialThrust: AxialThrust, forwardAxialThrust: AxialThrust
@@ -36,7 +37,7 @@ export default class MovementMediator implements Tickable {
 
     tick(deltaTime: number) {
         //get axes inputs
-        const vertical = this.verticalAxis.getValue();
+        const vertical = this.verticalAxis.getValue() * this.verticalInversionNum;
         const horizontal = this.horizontalAxis.getValue();
         //calculate smart forwward
         const forward = - calculateSmartForward(vertical, horizontal);
@@ -52,5 +53,13 @@ export default class MovementMediator implements Tickable {
         this.mover.setVelocity(localSpeed);
         //tick mover
         this.mover.tick(deltaTime);
+    }
+
+
+    //set the vertical inversion number based on the boolean.
+    setVerticalInversion(value: boolean) {
+        value ? this.verticalInversionNum = 1
+            : this.verticalInversionNum = -1;
+        console.log('set vertical inversion', this.verticalInversionNum);
     }
 }

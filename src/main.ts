@@ -49,7 +49,7 @@ export const setRendererSize = new SetRendererSize(renderer, camera);
 let started = false;
 
 export function setVerticalInversion(value: boolean) {
-  mover?.setVerticalInversion(value);
+  movementMediator?.setVerticalInversion(value);
 }
 
 export function start(container: HTMLElement) {

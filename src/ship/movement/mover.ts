@@ -42,13 +42,6 @@ export default class Mover extends THREE.Object3D implements Tickable {
         this.verticalInversionNum = 1;
     }
 
-    //set the vertical inversion number based on the boolean.
-    setVerticalInversion(value: boolean) {
-        value ? this.verticalInversionNum = -1
-            : this.verticalInversionNum = 1;
-        console.log('set vertical inversion', this.verticalInversionNum);
-    }
-
     setVelocity(velocity: THREE.Vector3) {
         this._velocity = velocity;
     }
