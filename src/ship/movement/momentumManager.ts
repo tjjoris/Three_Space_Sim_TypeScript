@@ -1,7 +1,6 @@
 import * as THREE from "three";
 import Mover from "./mover";
 import SpeedLimiter from "./speedLimiter";
-import { RollerCoasterShadowGeometry } from "three/examples/jsm/Addons.js";
 // import clamp from "../../helpers/clamp";
 
 /**
@@ -12,8 +11,6 @@ import { RollerCoasterShadowGeometry } from "three/examples/jsm/Addons.js";
 export default class MomentumManager {
     private worldVelocity: THREE.Vector3 = new THREE.Vector3(0, 0, 0);
     private massCoefficient: number;
-    private maxVelocity: THREE.Vector3 = new THREE.Vector3(0.3, 0.3, 0.3);
-    private maxNegativeVelocity: THREE.Vector3 = new THREE.Vector3(-0.3, -0.3, -0.3);
     readonly world = new THREE.Vector3(0, 0, 1);
     readonly accelerationMult = new THREE.Vector3(0.01, 0.01, 0.01);
     speedLimiter: SpeedLimiter;

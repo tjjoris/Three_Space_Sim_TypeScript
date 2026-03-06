@@ -17,6 +17,7 @@ export default class RotationManager {
     }
 
     calculateLocalRotation(pitchAxisValue: number, yawAxisValue: number, rollAxisValue: number): THREE.Vector3 {
+        yawAxisValue; //calling to eliminate build errors.
         this.increasePitch(pitchAxisValue);
         this.decreasePitch(pitchAxisValue);
         this.increaseRoll(rollAxisValue);

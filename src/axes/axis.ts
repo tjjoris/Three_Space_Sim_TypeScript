@@ -1,8 +1,10 @@
 export default class axis {
     private value: number;
+    private deadZone: number;
 
-    constructor() {
+    constructor(deadZone: number) {
         this.value = 0;
+        this.deadZone = deadZone;
     }
 
     setValue(value: number) {
@@ -10,6 +12,12 @@ export default class axis {
     }
 
     getValue() {
-        return this.value;
+        if (this.value > this.deadZone) {
+            return this.value - this.deadZone;
+        }
+        if (this.value < -this.deadZone) {
+            return this.value + this.deadZone;
+        }
+        return 0;
     }
 }

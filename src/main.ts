@@ -17,7 +17,6 @@ import Axis from './axes/axis.ts';
 import DustHandler from './spaceDust/dustHandler.ts'
 import Mover from './ship/movement/mover.ts'
 import CameraRig from './camera/cameraRig.ts'
-import AxisToMoverRig from './axes/axisToMoverRig.ts';
 import PowerUp from './powerUps/powerUp.ts'
 import teleportPowerUp from './powerUps/teleportPowerUp.ts';
 import PowerUpFactory from './powerUps/powerUpFactory.ts'
@@ -105,15 +104,13 @@ const rightVJoyFactory = new VJoyFactory(scene);
 const castRay = new CastRay(renderer, camera);
 
 //new axes
-const pitchAxis = new Axis();
-const yawAxis = new Axis();
-const rollAxis = new Axis();
-const verticalAxis = new Axis();
-const horizontalAxis = new Axis();
-const forwardAxis = new Axis();
+const pitchAxis = new Axis(0.1);
+const yawAxis = new Axis(0.1);
+const rollAxis = new Axis(0.1);
+const verticalAxis = new Axis(0.1);
+const horizontalAxis = new Axis(0.1);
+const forwardAxis = new Axis(0.1);
 
-//axis to mover rig for linking axes to player mover
-const axisToMoverRig: AxisToMoverRig = new AxisToMoverRig(mover, pitchAxis, rollAxis, verticalAxis, horizontalAxis);
 
 //new inputs
 
@@ -172,7 +169,6 @@ let tickables: Tickable[] = [];
 tickables.push(leftVJoyUpdater as Tickable);
 tickables.push(rightVJoyUpdater as Tickable);
 tickables.push(cameraRig as Tickable);
-// tickables.push(axisToMoverRig as Tickable);
 tickables.push(movementMediator as Tickable);
 tickables.push(rotationMediator as Tickable);
 tickables.push(mover as Tickable);

@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import type Tickable from '../../game/tickable';
-import smartForward from './smartForward';
 
 export default class Mover extends THREE.Object3D implements Tickable {
     _rotation: THREE.Vector3;
@@ -70,32 +69,6 @@ export default class Mover extends THREE.Object3D implements Tickable {
 
     setRotationRate(value: THREE.Vector3) {
         this._rotationRate = value.clone();
-    }
-
-    setPitch(pitch: number) {
-        this._rotationRate.x = - pitch * this._rotationSpeed.x;
-    }
-
-    setYaw(yaw: number) {
-        this._rotationRate.y = yaw * this._rotationSpeed.y;
-    }
-
-    setRoll(roll: number) {
-        this._rotationRate.z = - roll * this._rotationSpeed.z;
-    }
-
-    setLongitudional(longitudional: number) {
-        this._velocity.z = - longitudional * this._velocitySpeed.z;
-    }
-
-    setVertical(vertical: number) {
-        this._velocity.y = this.verticalInversionNum * vertical * this._velocitySpeed.y;
-        this.setLongitudional(smartForward(this._velocity.x, this._velocity.y,));
-    }
-
-    setHorizontal(horizontal: number) {
-        this._velocity.x = horizontal * this._velocitySpeed.x;
-        this.setLongitudional(smartForward(this._velocity.x, this._velocity.y,));
     }
 
 }
