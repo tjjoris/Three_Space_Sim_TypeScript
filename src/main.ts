@@ -26,6 +26,9 @@ import AxialThrust from './ship/movement/axialThrust.ts'
 import MomentumManager from './ship/movement/momentumManager.ts'
 import MovementMediator from './ship/movement/movementMediator.ts'
 import SpeedLimiter from './ship/movement/speedLimiter.ts'
+import RotationManager from './ship/movement/rotationManager.ts'
+import RotationMediator from './ship/movement/rotationMediator.ts'
+import RotationLimiter from './ship/movement/rotationLimiter.ts'
 
 const scene = new THREE.Scene();
 
@@ -103,6 +106,7 @@ const castRay = new CastRay(renderer, camera);
 
 //new axes
 const pitchAxis = new Axis();
+const yawAxis = new Axis();
 const rollAxis = new Axis();
 const verticalAxis = new Axis();
 const horizontalAxis = new Axis();
@@ -128,17 +132,25 @@ const horizontalAxialThrust = new AxialThrust(0.10, 0.05, 0.05);
 const verticalAxialThrust = new AxialThrust(0.10, 0.05, 0.05);
 const forwardAxialThrust = new AxialThrust(0.15, 0.05, 0.05);
 
-
+//translational movmement:
 //speed limiter
 const speedLimiter = new SpeedLimiter(0.5);
-
 //Momentum Manager
 const momentumManager = new MomentumManager(2, speedLimiter);
-
 //Movement Mediator 
 const movementMediator = new MovementMediator(momentumManager, mover, verticalAxis, horizontalAxis,
   forwardAxis, verticalAxialThrust, horizontalAxialThrust, forwardAxialThrust
 );
+
+//rotation:
+//rotationLimiter with min and max rotation rates.
+const rotationLimiter = new RotationLimiter(
+  new THREE.Vector3(-0.1, -0.1, -0.2),
+  new THREE.Vector3(0.1, 0.1, 0.2));
+//rotation manager
+const rotationManager = new RotationManager(rotationLimiter);
+const rotationMediator = new RotationMediator(pitchAxis, yawAxis, rollAxis, rotationManager, mover);
+
 
 //create space dust
 const dustHandler = new DustHandler(mover, scene);
@@ -162,6 +174,7 @@ tickables.push(rightVJoyUpdater as Tickable);
 tickables.push(cameraRig as Tickable);
 // tickables.push(axisToMoverRig as Tickable);
 tickables.push(movementMediator as Tickable);
+tickables.push(rotationMediator as Tickable);
 tickables.push(mover as Tickable);
 tickables.push(dustHandler as Tickable);
 tickables.push(powerUpTicker as Tickable);
