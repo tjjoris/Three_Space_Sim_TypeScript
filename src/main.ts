@@ -48,9 +48,6 @@ export const setRendererSize = new SetRendererSize(renderer, camera);
 
 let started = false;
 
-export function setVerticalInversion(value: boolean) {
-  movementMediator?.setVerticalInversion(value);
-}
 
 export function start(container: HTMLElement) {
   if (started) return;
@@ -104,13 +101,17 @@ const rightVJoyFactory = new VJoyFactory(scene);
 const castRay = new CastRay(renderer, camera);
 
 //new axes
-const pitchAxis = new Axis(0.1);
-const yawAxis = new Axis(0.1);
-const rollAxis = new Axis(0.1);
-const verticalAxis = new Axis(0.1);
-const horizontalAxis = new Axis(0.1);
-const forwardAxis = new Axis(0.1);
+const pitchAxis = new Axis(0.1, true);
+const yawAxis = new Axis(0.1, true);
+const rollAxis = new Axis(0.1, false);
+const verticalAxis = new Axis(0.1, true);
+const horizontalAxis = new Axis(0.1, true);
+const forwardAxis = new Axis(0.1, false);
 
+//function to invert axis
+export function setVerticalInversion(value: boolean) {
+  verticalAxis?.setInverseFromBoolean(value);
+}
 
 //new inputs
 

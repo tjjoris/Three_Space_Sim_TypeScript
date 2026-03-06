@@ -29,7 +29,7 @@ export default class RotationMediator implements Tickable {
         deltaTime;
         const pitchAxisValue = this.pitchAxis.getValue();
         const yawAxisValue = this.yawAxis.getValue();
-        const rollAxisValue = -this.rollAxis.getValue();
+        const rollAxisValue = this.rollAxis.getValue();
         const localRotationRate: THREE.Vector3 = this.rotationManager.calculateLocalRotation(pitchAxisValue, yawAxisValue, rollAxisValue);
         this.mover.setRotationRate(localRotationRate);
     }
