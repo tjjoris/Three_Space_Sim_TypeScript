@@ -26,9 +26,11 @@ export default class SmartYaw {
         verticalAxis: number,
         horizontalAxis: number
     ): number {
-        return (rollAxis * this.rollMult) +
-            (pitchAxis * this.pitchMult) +
-            (verticalAxis + this.verticalMult) +
-            (horizontalAxis + this.horizontalMult);
+        const calculatedValue: number = (rollAxis * this.rollMult) * (1 +
+            ((pitchAxis * this.pitchMult) +
+                (verticalAxis + this.verticalMult) +
+                (horizontalAxis + this.horizontalMult)));
+        // console.log("calculated value ", calculatedValue)
+        return calculatedValue;
     }
 }

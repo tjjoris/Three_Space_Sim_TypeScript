@@ -28,6 +28,7 @@ import SpeedLimiter from './ship/movement/speedLimiter.ts'
 import RotationManager from './ship/movement/rotationManager.ts'
 import RotationMediator from './ship/movement/rotationMediator.ts'
 import RotationLimiter from './ship/movement/rotationLimiter.ts'
+import SmartYaw from './axes/smartYaw.ts'
 
 const scene = new THREE.Scene();
 
@@ -102,11 +103,14 @@ const castRay = new CastRay(renderer, camera);
 
 //new axes
 const pitchAxis = new Axis(0.1, true);
-const yawAxis = new Axis(0.1, true);
+const yawAxis = new Axis(0, true);
 const rollAxis = new Axis(0.1, false);
 const verticalAxis = new Axis(0.1, true);
 const horizontalAxis = new Axis(0.1, true);
 const forwardAxis = new Axis(0.1, false);
+
+//smart yaw
+const smartYaw: SmartYaw = new SmartYaw(1, 0, 0, 0);
 
 //function to invert axis
 export function setVerticalInversion(value: boolean) {
@@ -147,7 +151,7 @@ const rotationLimiter = new RotationLimiter(
   new THREE.Vector3(0.1, 0.1, 0.2));
 //rotation manager
 const rotationManager = new RotationManager(rotationLimiter);
-const rotationMediator = new RotationMediator(pitchAxis, yawAxis, rollAxis, rotationManager, mover);
+const rotationMediator = new RotationMediator(pitchAxis, yawAxis, rollAxis, verticalAxis, horizontalAxis, rotationManager, mover, smartYaw);
 
 
 //create space dust
