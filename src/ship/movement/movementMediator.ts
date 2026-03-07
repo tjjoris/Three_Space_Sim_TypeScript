@@ -20,7 +20,6 @@ export default class MovementMediator implements Tickable {
     private horizontalAxialThrust: AxialThrust;
     private forwardAxis: Axis;
     private forwardAxialThrust: AxialThrust;
-    private verticalInversionNum: number = 1;
 
     constructor(momentumManager: MomentumManager, mover: Mover, verticalAxis: Axis, horizontalAxis: Axis, forwardAxis: Axis,
         verticalAxialThrust: AxialThrust, horizontalAxialThrust: AxialThrust, forwardAxialThrust: AxialThrust

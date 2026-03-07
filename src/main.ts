@@ -102,15 +102,15 @@ const rightVJoyFactory = new VJoyFactory(scene);
 const castRay = new CastRay(renderer, camera);
 
 //new axes
-const pitchAxis = new Axis(0.1, true);
-const yawAxis = new Axis(0, true);
-const rollAxis = new Axis(0.1, false);
-const verticalAxis = new Axis(0.1, true);
-const horizontalAxis = new Axis(0.1, true);
-const forwardAxis = new Axis(0.1, false);
+const pitchAxis = new Axis(0.1, 1, true);
+const yawAxis = new Axis(0, 1, true);
+const rollAxis = new Axis(0.1, 1, false);
+const verticalAxis = new Axis(0.1, 1, true);
+const horizontalAxis = new Axis(0.1, 1, true);
+const forwardAxis = new Axis(0.1, 1, false);
 
 //smart yaw
-const smartYaw: SmartYaw = new SmartYaw(1, 0, 0, 0);
+const smartYaw: SmartYaw = new SmartYaw(1, 1, 0, 0);
 
 //function to invert axis
 export function setVerticalInversion(value: boolean) {

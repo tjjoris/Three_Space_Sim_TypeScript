@@ -44,7 +44,7 @@ export default class RotationMediator implements Tickable {
         const calculatedYaw: number = this.smartYaw.calculateSmartYaw(rollAxisValue, pitchAxisValue, verticalAxisValue, horizontalAxisValue);
         this.yawAxis.setValue(calculatedYaw);
         const yawAxisValue = this.yawAxis.getValue();
-        // console.log("yaw axis value", yawAxisValue);
+        console.log("pitch axis value", pitchAxisValue);
         const localRotationRate: THREE.Vector3 = this.rotationManager.calculateLocalRotation(pitchAxisValue, yawAxisValue, rollAxisValue);
         this.mover.setRotationRate(localRotationRate);
     }
