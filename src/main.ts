@@ -29,6 +29,7 @@ import RotationManager from './ship/movement/rotationManager.ts'
 import RotationMediator from './ship/movement/rotationMediator.ts'
 import RotationLimiter from './ship/movement/rotationLimiter.ts'
 import SmartYaw from './axes/smartYaw.ts'
+import DesiredAxis from './ship/movement/desiredAxis.ts'
 
 const scene = new THREE.Scene();
 
@@ -108,6 +109,11 @@ const rollAxis = new Axis(0.1, 1, false);
 const verticalAxis = new Axis(0.1, 1, true);
 const horizontalAxis = new Axis(0.1, 1, true);
 const forwardAxis = new Axis(0.1, 1, false);
+
+//desired axes
+const desiredPitchAxis = new DesiredAxis(-0.1, 0.1);
+const desiredYawAxis = new DesiredAxis(-0.1, 0.1);
+const desiredRollAxi = new DesiredAxis(-0.2, 0.2);
 
 //smart yaw
 const smartYaw: SmartYaw = new SmartYaw(1, 1, 0, 0);
