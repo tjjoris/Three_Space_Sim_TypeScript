@@ -157,7 +157,7 @@ const rotationLimiter = new RotationLimiter(
   new THREE.Vector3(0.1, 0.1, 0.2));
 //rotation manager
 const rotationManager = new RotationManager(rotationLimiter);
-const rotationMediator = new RotationMediator(pitchAxis, yawAxis, rollAxis, verticalAxis, horizontalAxis, rotationManager, mover, smartYaw);
+const rotationMediator = new RotationMediator(pitchAxis, yawAxis, rollAxis, verticalAxis, horizontalAxis, desiredPitchAxis, desiredYawAxis, desiredRollAxi, rotationManager, mover, smartYaw);
 
 
 //create space dust

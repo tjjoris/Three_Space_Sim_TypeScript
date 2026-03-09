@@ -17,11 +17,22 @@ export default class RotationManager {
         this.rotationLimiter = rotationLimiter;
     }
 
-    calculateLocalRotation(pitchAxisValue: number,
-        yawAxisValue: number,
-        rollAxisValue: number,
+    calculateLocalRotation(desiredPitch: number,
+        desiredYaw: number,
+        desiredRoll: number,
         deltaTime: number): THREE.Vector3 {
-
+        //increase pitch
+        this.localRotationRate.x = applyJerk(deltaTime, desiredPitch, this.localRotationRate.x, this.rotationAccelerationIncrease.x);
+        //decrease pitch
+        this.localRotationRate.x = applyJerk(deltaTime, desiredPitch, this.localRotationRate.x, this.rotationAccelerationDecrease.x);
+        //increase yaw
+        this.localRotationRate.y = applyJerk(deltaTime, desiredYaw, this.localRotationRate.y, this.rotationAccelerationIncrease.y);
+        //decrease yaw
+        this.localRotationRate.y = applyJerk(deltaTime, desiredYaw, this.localRotationRate.y, this.rotationAccelerationDecrease.y);
+        //increaes roll
+        this.localRotationRate.z = applyJerk(deltaTime, desiredRoll, this.localRotationRate.z, this.rotationAccelerationIncrease.z);
+        //decrease roll
+        this.localRotationRate.z = applyJerk(deltaTime, desiredRoll, this.localRotationRate.z, this.rotationAccelerationDecrease.z);
         // this.increasePitch(pitchAxisValue, deltaTime);
         // this.decreasePitch(pitchAxisValue, deltaTime);
         // this.increaseRoll(rollAxisValue, deltaTime);
@@ -29,6 +40,8 @@ export default class RotationManager {
         // this.increaseYaw(yawAxisValue, deltaTime);
         // this.decreaseYaw(yawAxisValue, deltaTime);
 
+        console.log("locl rotation rate ", this.localRotationRate);
+        //TODO remove rotation limiter.
         this.localRotationRate = this.rotationLimiter.limitRotation(this.localRotationRate);
         return this.localRotationRate;
     }

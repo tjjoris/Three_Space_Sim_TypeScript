@@ -17,19 +17,19 @@ export default class DesiredAxis {
      * the max and min are stored on this object.
      * at the end it stores the current desired value on this object.
      * @param normalizedAxisValue ranges from -1 to 1.
-     * @param maxValue 
-     * @param minValue 
      */
     calcDesiredAxialValue(normalizedAxisValue: number) {
         if (normalizedAxisValue > 0) {
             const calculatedDesiredValue = normalizedAxisValue * this.max;
             this.current = Math.max(calculatedDesiredValue, this.max);
         }
-        if (normalizedAxisValue < 0) {
+        else if (normalizedAxisValue < 0) {
             const calcualtedDesiredValue = normalizedAxisValue * this.min;
             this.current = Math.min(calcualtedDesiredValue, this.min);
         }
-        this.current = 0;
+        else {
+            this.current = 0;
+        }
     }
     getValue(): number {
         return this.current;

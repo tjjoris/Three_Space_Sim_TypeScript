@@ -16,12 +16,18 @@ export default class RotationMediator implements Tickable {
     verticalAxis: axis;
     horizontalAxis: axis;
     smartYaw: SmartYaw;
+    desiredPitchAxis: DesiredAxis;
+    desiredYawAxis: DesiredAxis;
+    desiredRollAxis: DesiredAxis;
 
     constructor(pitchAxis: axis,
         yawAxis: axis,
         rollAxis: axis,
         verticalAxis: axis,
         horizontalAxis: axis,
+        desiredPitchAxis: DesiredAxis,
+        desiredYawAxis: DesiredAxis,
+        desiredRollAxis: DesiredAxis,
         rotationManager: RotationManager,
         mover: Mover,
         smartYaw: SmartYaw
@@ -31,6 +37,9 @@ export default class RotationMediator implements Tickable {
         this.rollAxis = rollAxis;
         this.verticalAxis = verticalAxis;
         this.horizontalAxis = horizontalAxis;
+        this.desiredPitchAxis = desiredPitchAxis;
+        this.desiredYawAxis = desiredYawAxis;
+        this.desiredRollAxis = desiredRollAxis;
         this.rotationManager = rotationManager;
         this.mover = mover;
         this.smartYaw = smartYaw;
@@ -45,8 +54,13 @@ export default class RotationMediator implements Tickable {
         const normalizedCalculatedYaw: number = this.smartYaw.calculateSmartYaw(normalizedRollAxisValue, normalizedPitchAxisValue, normalizedVerticalAxisValue, normalizedHorizontalAxisValue);
         this.yawAxis.setValue(normalizedCalculatedYaw);
         const normalizedYawAxisValue = this.yawAxis.getValue();
-        console.log("pitch axis value", normalizedPitchAxisValue);
-        const localRotationRate: THREE.Vector3 = this.rotationManager.calculateLocalRotation(normalizedPitchAxisValue, normalizedYawAxisValue, normalizedRollAxisValue, deltaTime);
+        this.desiredPitchAxis.calcDesiredAxialValue(normalizedPitchAxisValue);
+        this.desiredYawAxis.calcDesiredAxialValue(normalizedYawAxisValue);
+        this.desiredRollAxis.calcDesiredAxialValue(normalizedRollAxisValue);
+        const desiredPitchAxisValue = this.desiredPitchAxis.getValue();
+        const desiredYawAxisValue = this.desiredYawAxis.getValue();
+        const desiredRollAxisValue = this.desiredRollAxis.getValue();
+        const localRotationRate: THREE.Vector3 = this.rotationManager.calculateLocalRotation(desiredPitchAxisValue, desiredYawAxisValue, desiredRollAxisValue, deltaTime);
         this.mover.setRotationRate(localRotationRate);
     }
 
