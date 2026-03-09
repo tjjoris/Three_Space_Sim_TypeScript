@@ -27,8 +27,8 @@ import MovementMediator from './ship/movement/movementMediator.ts'
 import SpeedLimiter from './ship/movement/speedLimiter.ts'
 import RotationManager from './ship/movement/rotationManager.ts'
 import RotationMediator from './ship/movement/rotationMediator.ts'
-import RotationLimiter from './ship/movement/rotationLimiter.ts'
 import SmartYaw from './axes/smartYaw.ts'
+import DesiredAxis from './ship/movement/desiredAxis.ts'
 
 const scene = new THREE.Scene();
 
@@ -102,15 +102,20 @@ const rightVJoyFactory = new VJoyFactory(scene);
 const castRay = new CastRay(renderer, camera);
 
 //new axes
-const pitchAxis = new Axis(0.1, 1, true);
-const yawAxis = new Axis(0, 1, true);
-const rollAxis = new Axis(0.1, 1, false);
-const verticalAxis = new Axis(0.1, 1, true);
-const horizontalAxis = new Axis(0.1, 1, true);
-const forwardAxis = new Axis(0.1, 1, false);
+const pitchAxis = new Axis(0.15, 1, true);
+const yawAxis = new Axis(0, 15, true);
+const rollAxis = new Axis(0.15, 1, false);
+const verticalAxis = new Axis(0.15, 1, true);
+const horizontalAxis = new Axis(0.15, 1, true);
+const forwardAxis = new Axis(0.15, 1, false);
+
+//desired axes
+const desiredPitchAxis = new DesiredAxis(-0.13, 0.13);
+const desiredYawAxis = new DesiredAxis(-0.07, 0.07);
+const desiredRollAxi = new DesiredAxis(-0.2, 0.2);
 
 //smart yaw
-const smartYaw: SmartYaw = new SmartYaw(1, 1, 0, 0);
+const smartYaw: SmartYaw = new SmartYaw(0.5, 1, 0, 0);
 
 //function to invert axis
 export function setVerticalInversion(value: boolean) {
@@ -145,13 +150,9 @@ const movementMediator = new MovementMediator(momentumManager, mover, verticalAx
 );
 
 //rotation:
-//rotationLimiter with min and max rotation rates.
-const rotationLimiter = new RotationLimiter(
-  new THREE.Vector3(-0.1, -0.1, -0.2),
-  new THREE.Vector3(0.1, 0.1, 0.2));
 //rotation manager
-const rotationManager = new RotationManager(rotationLimiter);
-const rotationMediator = new RotationMediator(pitchAxis, yawAxis, rollAxis, verticalAxis, horizontalAxis, rotationManager, mover, smartYaw);
+const rotationManager = new RotationManager();
+const rotationMediator = new RotationMediator(pitchAxis, yawAxis, rollAxis, verticalAxis, horizontalAxis, desiredPitchAxis, desiredYawAxis, desiredRollAxi, rotationManager, mover, smartYaw);
 
 
 //create space dust
