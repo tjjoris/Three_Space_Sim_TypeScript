@@ -22,6 +22,8 @@ export default class RotationManager {
         this.decreasePitch(pitchAxisValue);
         this.increaseRoll(rollAxisValue);
         this.decreaseRoll(rollAxisValue);
+        this.increaseYaw(yawAxisValue);
+        this.decreaseYaw(yawAxisValue);
         this.localRotationRate = this.rotationLimiter.limitRotation(this.localRotationRate);
         return this.localRotationRate;
     }
@@ -52,5 +54,20 @@ export default class RotationManager {
             return;
         }
         this.localRotationRate.z += this.rotationAccelerationDecrease.z;
+    }
+
+    increaseYaw(yawAxisValue: number) {
+        if (yawAxisValue <= this.localRotationRate.y) {
+            return;
+        }
+        this.localRotationRate.y += this.rotationAccelerationIncrease.y;
+    }
+
+
+    decreaseYaw(yawAxisValue: number) {
+        if (yawAxisValue >= this.localRotationRate.y) {
+            return;
+        }
+        this.localRotationRate.y += this.rotationAccelerationDecrease.y;
     }
 }
