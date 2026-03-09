@@ -1,5 +1,4 @@
 import * as THREE from "three";
-import RotationLimiter from "./rotationLimiter";
 import applyJerk from "./applyJerk";
 
 /**
@@ -9,13 +8,9 @@ import applyJerk from "./applyJerk";
  */
 export default class RotationManager {
     localRotationRate: THREE.Vector3 = new THREE.Vector3();
-    rotationAccelerationIncrease: THREE.Vector3 = new THREE.Vector3(0.01, 0.01, 0.01);
-    rotationAccelerationDecrease: THREE.Vector3 = new THREE.Vector3(-0.01, -0.01, -0.01);
-    rotationLimiter: RotationLimiter;
+    rotationAccelerationIncrease: THREE.Vector3 = new THREE.Vector3(0.013, 0.07, 0.02);
+    rotationAccelerationDecrease: THREE.Vector3 = new THREE.Vector3(-0.013, -0.07, -0.02);
 
-    constructor(rotationLimiter: RotationLimiter) {
-        this.rotationLimiter = rotationLimiter;
-    }
 
     calculateLocalRotation(desiredPitch: number,
         desiredYaw: number,
@@ -41,8 +36,6 @@ export default class RotationManager {
         // this.decreaseYaw(yawAxisValue, deltaTime);
 
         console.log("locl rotation rate ", this.localRotationRate);
-        //TODO remove rotation limiter.
-        this.localRotationRate = this.rotationLimiter.limitRotation(this.localRotationRate);
         return this.localRotationRate;
     }
 
