@@ -109,10 +109,10 @@ const verticalAxis = new Axis(0.15, 1, true);
 const horizontalAxis = new Axis(0.15, 1, true);
 const forwardAxis = new Axis(0.15, 1, false);
 
-//desired axes
-const desiredPitchAxis = new DesiredAxis(-0.13, 0.13);
+//desired axes, set the min and max rotation speeds.
+const desiredPitchAxis = new DesiredAxis(-0.2, 0.2);
 const desiredYawAxis = new DesiredAxis(-0.07, 0.07);
-const desiredRollAxi = new DesiredAxis(-0.2, 0.2);
+const desiredRollAxi = new DesiredAxis(-0.3, 0.3);
 
 //smart yaw
 const smartYaw: SmartYaw = new SmartYaw(0.5, 1, 0, 0);
