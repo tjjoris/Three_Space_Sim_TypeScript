@@ -1,67 +1,43 @@
-import Mover from "./mover";
-import axis from "../../axes/axis";
+import AxisToAccelerationMediator from "./axisToAccelerationMediator"
+import type DesiredAxis from "./desiredAxis";
+import type Mover from "./mover";
 import * as THREE from "three";
 import type Tickable from "../../game/tickable";
-import RotationManager from "./rotationManager";
-import SmartYaw from "../../axes/smartYaw";
-import DesiredAxis from "./desiredAxis";
-
-
 export default class RotationMediator implements Tickable {
-    pitchAxis: axis;
-    yawAxis: axis;
-    rollAxis: axis;
-    rotationManager: RotationManager;
-    mover: Mover;
-    verticalAxis: axis;
-    horizontalAxis: axis;
-    smartYaw: SmartYaw;
-    desiredPitchAxis: DesiredAxis;
-    desiredYawAxis: DesiredAxis;
-    desiredRollAxis: DesiredAxis;
+    private pitchMediator: AxisToAccelerationMediator;
+    private rollMediator: AxisToAccelerationMediator;
+    private yawMediator: AxisToAccelerationMediator;
+    private mover: Mover;
+    private desiredPitch: DesiredAxis;
+    private desiredRoll: DesiredAxis;
+    private desiredYaw: DesiredAxis;
 
-    constructor(pitchAxis: axis,
-        yawAxis: axis,
-        rollAxis: axis,
-        verticalAxis: axis,
-        horizontalAxis: axis,
-        desiredPitchAxis: DesiredAxis,
-        desiredYawAxis: DesiredAxis,
-        desiredRollAxis: DesiredAxis,
-        rotationManager: RotationManager,
+    constructor(pitchMediator: AxisToAccelerationMediator,
+        rollMediator: AxisToAccelerationMediator,
+        yawMediator: AxisToAccelerationMediator,
         mover: Mover,
-        smartYaw: SmartYaw
+        desiredPitch: DesiredAxis,
+        desiredRoll: DesiredAxis,
+        desiredYaw: DesiredAxis
     ) {
-        this.pitchAxis = pitchAxis;
-        this.yawAxis = yawAxis;
-        this.rollAxis = rollAxis;
-        this.verticalAxis = verticalAxis;
-        this.horizontalAxis = horizontalAxis;
-        this.desiredPitchAxis = desiredPitchAxis;
-        this.desiredYawAxis = desiredYawAxis;
-        this.desiredRollAxis = desiredRollAxis;
-        this.rotationManager = rotationManager;
+        this.pitchMediator = pitchMediator;
+        this.rollMediator = rollMediator;
+        this.yawMediator = yawMediator;
         this.mover = mover;
-        this.smartYaw = smartYaw;
+        this.desiredPitch = desiredPitch;
+        this.desiredRoll = desiredRoll;
+        this.desiredYaw = desiredYaw;
     }
 
-    tick(deltaTime: number) {
-        deltaTime;
-        const normalizedPitchAxisValue = this.pitchAxis.getValue();
-        const normalizedRollAxisValue = this.rollAxis.getValue();
-        const normalizedVerticalAxisValue = this.verticalAxis.getValue();
-        const normalizedHorizontalAxisValue = this.horizontalAxis.getValue();
-        const normalizedCalculatedYaw: number = this.smartYaw.calculateSmartYaw(normalizedRollAxisValue, normalizedPitchAxisValue, normalizedVerticalAxisValue, normalizedHorizontalAxisValue);
-        this.yawAxis.setValue(normalizedCalculatedYaw);
-        const normalizedYawAxisValue = this.yawAxis.getValue();
-        this.desiredPitchAxis.calcDesiredAxialValue(normalizedPitchAxisValue);
-        this.desiredYawAxis.calcDesiredAxialValue(normalizedYawAxisValue);
-        this.desiredRollAxis.calcDesiredAxialValue(normalizedRollAxisValue);
-        const desiredPitchAxisValue = this.desiredPitchAxis.getValue();
-        const desiredYawAxisValue = this.desiredYawAxis.getValue();
-        const desiredRollAxisValue = this.desiredRollAxis.getValue();
-        const localRotationRate: THREE.Vector3 = this.rotationManager.calculateLocalRotation(desiredPitchAxisValue, desiredYawAxisValue, desiredRollAxisValue, deltaTime);
-        this.mover.setRotationRate(localRotationRate);
+    public tick(deltaTime: number): void {
+        this.pitchMediator.tick(deltaTime);
+        this.rollMediator.tick(deltaTime);
+        this.yawMediator.tick(deltaTime);
+        const rotationRate = new THREE.Vector3(
+            this.desiredPitch.getValue(),
+            this.desiredYaw.getValue(),
+            this.desiredRoll.getValue()
+        );
+        this.mover.setRotationRate(rotationRate);
     }
-
 }

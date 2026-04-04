@@ -26,9 +26,11 @@ import MomentumManager from './ship/movement/momentumManager.ts'
 import MovementMediator from './ship/movement/movementMediator.ts'
 import SpeedLimiter from './ship/movement/speedLimiter.ts'
 import RotationManager from './ship/movement/rotationManager.ts'
-import RotationMediator from './ship/movement/rotationMediator.ts'
+import AxisToAccelerationMediator from './ship/movement/axisToAccelerationMediator.ts'
 import SmartYaw from './axes/smartYaw.ts'
 import DesiredAxis from './ship/movement/desiredAxis.ts'
+import Jerker from './ship/movement/Jerker.ts'
+import RotationMediator from './ship/movement/rotationMediator.ts'
 
 const scene = new THREE.Scene();
 
@@ -114,8 +116,24 @@ const desiredPitchAxis = new DesiredAxis(-0.2, 0.2);
 const desiredYawAxis = new DesiredAxis(-0.07, 0.07);
 const desiredRollAxi = new DesiredAxis(-0.3, 0.3);
 
+//create jerk classes for rotation:
+const pitchJerkIncrease = new Jerker(0.3);
+const pitchJerkDecrease = new Jerker(-0.3);
+const yawJerkIncrease = new Jerker(0.3);
+const yawJerkDecrease = new Jerker(-0.3);
+const rollJerkIncrease = new Jerker(0.3);
+const rollJerkDecrease = new Jerker(-0.3);
+
+//create jerk classes for translational movement:
+const verticalJerkIncrease = new Jerker(0.3);
+const verticalJerkDecrease = new Jerker(-0.3);
+const horizontalJerkIncrease = new Jerker(0.3);
+const horizontalJerkDecrease = new Jerker(-0.3);
+const forwardJerkIncrease = new Jerker(0.3);
+const forwardJerkDecrease = new Jerker(-0.3);
+
 //smart yaw
-const smartYaw: SmartYaw = new SmartYaw(0.5, 1, 0, 0);
+const smartYaw: SmartYaw = new SmartYaw(0.5, 1, 0, 0, pitchAxis, rollAxis, verticalAxis, horizontalAxis);
 
 //function to invert axis
 export function setVerticalInversion(value: boolean) {
@@ -151,9 +169,14 @@ const movementMediator = new MovementMediator(momentumManager, mover, verticalAx
 
 //rotation:
 //rotation manager
-const rotationManager = new RotationManager();
-const rotationMediator = new RotationMediator(pitchAxis, yawAxis, rollAxis, verticalAxis, horizontalAxis, desiredPitchAxis, desiredYawAxis, desiredRollAxi, rotationManager, mover, smartYaw);
+// const rotationManager = new RotationManager();
+const pitchMediator = new AxisToAccelerationMediator(pitchAxis, desiredPitchAxis, mover, null);
+const rollMediator = new AxisToAccelerationMediator(rollAxis, desiredRollAxi, mover, null);
+const yawMediator = new AxisToAccelerationMediator(yawAxis, desiredYawAxis, mover, smartYaw);
 
+//rotation mediator
+const rotationMediator = new RotationMediator(pitchMediator, rollMediator, yawMediator,
+  mover, desiredPitchAxis, desiredRollAxi, desiredYawAxis);
 
 //create space dust
 const dustHandler = new DustHandler(mover, scene);

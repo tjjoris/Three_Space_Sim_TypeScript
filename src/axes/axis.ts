@@ -1,5 +1,5 @@
 import clamp from "../helpers/clamp";
-export default class axis {
+export default class Axis {
     private value: number;
     private deadZone: number;
     private saturation: number;
