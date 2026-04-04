@@ -8,25 +8,16 @@ export default class RotationMediator implements Tickable {
     private rollMediator: AxisToAccelerationMediator;
     private yawMediator: AxisToAccelerationMediator;
     private mover: Mover;
-    private desiredPitch: DesiredAxis;
-    private desiredRoll: DesiredAxis;
-    private desiredYaw: DesiredAxis;
 
     constructor(pitchMediator: AxisToAccelerationMediator,
         rollMediator: AxisToAccelerationMediator,
         yawMediator: AxisToAccelerationMediator,
         mover: Mover,
-        desiredPitch: DesiredAxis,
-        desiredRoll: DesiredAxis,
-        desiredYaw: DesiredAxis
     ) {
         this.pitchMediator = pitchMediator;
         this.rollMediator = rollMediator;
         this.yawMediator = yawMediator;
         this.mover = mover;
-        this.desiredPitch = desiredPitch;
-        this.desiredRoll = desiredRoll;
-        this.desiredYaw = desiredYaw;
     }
 
     public tick(deltaTime: number): void {
@@ -34,9 +25,9 @@ export default class RotationMediator implements Tickable {
         this.rollMediator.tick(deltaTime);
         this.yawMediator.tick(deltaTime);
         const rotationRate = new THREE.Vector3(
-            this.desiredPitch.getValue(),
-            this.desiredYaw.getValue(),
-            this.desiredRoll.getValue()
+            this.pitchMediator.getAccelerationValue(),
+            this.yawMediator.getAccelerationValue(),
+            this.rollMediator.getAccelerationValue()
         );
         this.mover.setRotationRate(rotationRate);
     }

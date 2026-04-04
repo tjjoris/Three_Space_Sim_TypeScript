@@ -4,7 +4,7 @@
  */
 
 import axialLerp from "../../axes/axialLerp"
-import applyJerk from "./applyJerk";
+
 
 export default class AxialThrust {
     private thrust: number = 0;

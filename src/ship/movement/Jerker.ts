@@ -1,10 +1,8 @@
 export default class Jerker {
     private increaseRate: number;
-    private currentValue: number;
 
     constructor(increaseRate: number) {
         this.increaseRate = increaseRate;
-        this.currentValue = 0;
     }
 
     /**
@@ -15,16 +13,16 @@ export default class Jerker {
 
     public applyJerk(
         deltaTime: number,
-        desiredValue: number): number {
+        desiredValue: number, currentValue: number): number {
         //if positve jerk and current equal or above:
-        if ((this.increaseRate > 0) && (this.currentValue >= desiredValue)) {
-            return this.currentValue;
+        if ((this.increaseRate > 0) && (currentValue >= desiredValue)) {
+            return currentValue;
         }
         //if negative jerk and current equal or below:
-        if ((this.increaseRate < 0) && (this.currentValue <= desiredValue)) {
-            return this.currentValue;
+        if ((this.increaseRate < 0) && (currentValue <= desiredValue)) {
+            return currentValue;
         }
 
-        return this.currentValue += (this.increaseRate * deltaTime)
+        return currentValue += (this.increaseRate * deltaTime)
     }
 }
