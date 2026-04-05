@@ -30,6 +30,7 @@ import SmartYaw from './axes/smartYaw.ts'
 import DesiredAxis from './ship/movement/desiredAxis.ts'
 import Jerker from './ship/movement/Jerker.ts'
 import RotationMediator from './ship/movement/rotationMediator.ts'
+import SmartForward from "./ship/movement/smartForward.ts"
 
 const scene = new THREE.Scene();
 
@@ -115,6 +116,11 @@ const desiredPitchAxis = new DesiredAxis(-0.2, 0.2);
 const desiredYawAxis = new DesiredAxis(-0.07, 0.07);
 const desiredRollAxi = new DesiredAxis(-0.3, 0.3);
 
+//desired axes set to min and max thrust speeds.
+const desiredVerticalAxis = new DesiredAxis(-0.1, 0.1);
+const desiredHorizontalAxis = new DesiredAxis(-0.1, 0.1);
+const desiredForwardAxis = new DesiredAxis(-0.1, 0.1);
+
 //create jerk classes for rotation:
 const pitchJerkIncrease = new Jerker(0.1);
 const pitchJerkDecrease = new Jerker(-0.1);
@@ -156,15 +162,20 @@ const horizontalAxialThrust = new AxialThrust(0.10, 0.05, 0.05);
 const verticalAxialThrust = new AxialThrust(0.10, 0.05, 0.05);
 const forwardAxialThrust = new AxialThrust(0.15, 0.05, 0.05);
 
+
+//smart forward
+const smartForward = new SmartForward(verticalAxis, horizontalAxis, forwardAxis);
 //translational movmement:
+//thrust mediators:
+const verticalMediator: AxisToAccelerationMediator = new AxisToAccelerationMediator(verticalAxis, desiredVerticalAxis, mover, null, verticalJerkIncrease, verticalJerkDecrease);
+const horizontalMediator: AxisToAccelerationMediator = new AxisToAccelerationMediator(horizontalAxis, desiredHorizontalAxis, mover, null, horizontalJerkIncrease, horizontalJerkDecrease);
+const forwardMediator: AxisToAccelerationMediator = new AxisToAccelerationMediator(forwardAxis, desiredForwardAxis, mover, null, forwardJerkIncrease, forwardJerkDecrease);
 //speed limiter
 const speedLimiter = new SpeedLimiter(0.5);
 //Momentum Manager
 const momentumManager = new MomentumManager(2, speedLimiter);
 //Movement Mediator 
-const movementMediator = new MovementMediator(momentumManager, mover, verticalAxis, horizontalAxis,
-  forwardAxis, verticalAxialThrust, horizontalAxialThrust, forwardAxialThrust
-);
+const movementMediator = new MovementMediator(momentumManager, mover, verticalMediator, horizontalMediator, forwardMediator, smartForward);
 
 //rotation:
 //rotation manager
