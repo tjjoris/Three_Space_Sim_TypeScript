@@ -15,14 +15,22 @@ export default class Jerker {
         deltaTime: number,
         desiredValue: number, currentValue: number): number {
         //if positve jerk and current equal or above:
-        if ((this.increaseRate > 0) && (currentValue >= desiredValue)) {
-            return currentValue;
+        if (this.increaseRate > 0) {
+            if (currentValue >= desiredValue) {
+                return currentValue;
+            }
+            currentValue += (this.increaseRate * deltaTime);
+            return Math.min(currentValue, desiredValue);
         }
         //if negative jerk and current equal or below:
-        if ((this.increaseRate < 0) && (currentValue <= desiredValue)) {
-            return currentValue;
+        if (this.increaseRate < 0) {
+            if (currentValue <= desiredValue) {
+                return currentValue;
+            }
+            currentValue += (this.increaseRate * deltaTime);
+            return Math.max(currentValue, desiredValue);
         }
 
-        return currentValue += (this.increaseRate * deltaTime)
+        return currentValue;
     }
 }

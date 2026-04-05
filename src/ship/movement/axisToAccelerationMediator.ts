@@ -8,6 +8,7 @@ import type Jerker from "./Jerker";
 /**
  * gets the input from a smart axis if it exists and sets it to the axis,
  * then gets the input from the axis and applies it to the desired axis.
+ * then applies jerk to the current acceleration with the desired axis as the goal.
  */
 export default class AxisToAccelerationMediator implements Tickable {
     axis: Axis;
