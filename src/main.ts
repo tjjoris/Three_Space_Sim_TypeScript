@@ -21,7 +21,7 @@ import PowerUp from './powerUps/powerUp.ts'
 import teleportPowerUp from './powerUps/teleportPowerUp.ts';
 import PowerUpFactory from './powerUps/powerUpFactory.ts'
 import PowerUpTicker from './powerUps/powerUpTicker.ts'
-import AxialThrust from './ship/movement/axialThrust.ts'
+// import AxialThrust from './ship/movement/axialThrust.ts'
 import MomentumManager from './ship/movement/momentumManager.ts'
 import MovementMediator from './ship/movement/movementMediator.ts'
 import SpeedLimiter from './ship/movement/speedLimiter.ts'
@@ -104,9 +104,10 @@ const rightVJoyFactory = new VJoyFactory(scene);
 const castRay = new CastRay(renderer, camera);
 
 //new axes
+//deadzone, saturation, inverse.
 const pitchAxis = new Axis(0.15, 1, true);
 const yawAxis = new Axis(0, 15, true);
-const rollAxis = new Axis(0.15, 1, false);
+const rollAxis = new Axis(0.2, 1, false);
 const verticalAxis = new Axis(0.15, 1, true);
 const horizontalAxis = new Axis(0.15, 1, true);
 const forwardAxis = new Axis(0.15, 1, false);
@@ -117,9 +118,9 @@ const desiredYawAxis = new DesiredAxis(-0.07, 0.07);
 const desiredRollAxi = new DesiredAxis(-0.3, 0.3);
 
 //desired axes set to min and max thrust speeds.
-const desiredVerticalAxis = new DesiredAxis(-0.1, 0.1);
-const desiredHorizontalAxis = new DesiredAxis(-0.1, 0.1);
-const desiredForwardAxis = new DesiredAxis(-0.1, 0.1);
+const desiredVerticalAxis = new DesiredAxis(-0.1, 1.1);
+const desiredHorizontalAxis = new DesiredAxis(-0.5, 0.5);
+const desiredForwardAxis = new DesiredAxis(-2.1, 0.5);
 
 //create jerk classes for rotation:
 const pitchJerkIncrease = new Jerker(0.1);
@@ -130,12 +131,12 @@ const rollJerkIncrease = new Jerker(0.1);
 const rollJerkDecrease = new Jerker(-0.1);
 
 //create jerk classes for translational movement:
-const verticalJerkIncrease = new Jerker(0.3);
-const verticalJerkDecrease = new Jerker(-0.3);
-const horizontalJerkIncrease = new Jerker(0.3);
-const horizontalJerkDecrease = new Jerker(-0.3);
-const forwardJerkIncrease = new Jerker(0.3);
-const forwardJerkDecrease = new Jerker(-0.3);
+const verticalJerkIncrease = new Jerker(1.3);
+const verticalJerkDecrease = new Jerker(-1.3);
+const horizontalJerkIncrease = new Jerker(1.3);
+const horizontalJerkDecrease = new Jerker(-1.3);
+const forwardJerkIncrease = new Jerker(1.3);
+const forwardJerkDecrease = new Jerker(-1.3);
 
 //smart yaw
 const smartYaw: SmartYaw = new SmartYaw(0.5, 1, 0, 0, pitchAxis, rollAxis, verticalAxis, horizontalAxis);
@@ -157,10 +158,11 @@ multiTouch;
 const rightVJoyUpdater = new VJoyUpdater(rightVJoyFactory.getVJoySprite()!, camera, castRay, rightVJoyInput);
 const leftVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camera, castRay, leftVJoyInput);
 
+//todo delete these
 //Axial thrusts
-const horizontalAxialThrust = new AxialThrust(0.10, 0.05, 0.05);
-const verticalAxialThrust = new AxialThrust(0.10, 0.05, 0.05);
-const forwardAxialThrust = new AxialThrust(0.15, 0.05, 0.05);
+// const horizontalAxialThrust = new AxialThrust(0.10, 0.05, 0.05);
+// const verticalAxialThrust = new AxialThrust(0.10, 0.05, 0.05);
+// const forwardAxialThrust = new AxialThrust(0.15, 0.05, 0.05);
 
 
 //smart forward
@@ -184,6 +186,7 @@ const pitchMediator = new AxisToAccelerationMediator(pitchAxis, desiredPitchAxis
 const rollMediator = new AxisToAccelerationMediator(rollAxis, desiredRollAxi, mover, null, rollJerkIncrease, rollJerkDecrease);
 const yawMediator = new AxisToAccelerationMediator(yawAxis, desiredYawAxis, mover, smartYaw, yawJerkIncrease, yawJerkDecrease);
 
+//todo rename RotationMediator class.
 //rotation mediator
 const rotationMediator = new RotationMediator(pitchMediator, rollMediator, yawMediator,
   mover);
