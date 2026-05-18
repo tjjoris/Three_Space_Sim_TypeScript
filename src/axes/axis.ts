@@ -23,6 +23,7 @@ export default class Axis {
     }
 
     setValue(value: number) {
+        // console.log("axis set value", value);
         let valueToSet: number = value * this.inverseMultiplier;
         this.value = clamp(valueToSet, -1, 1);
     }

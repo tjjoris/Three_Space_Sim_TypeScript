@@ -23,5 +23,6 @@ export default class GamePadHandler implements Tickable {
         const axisValue = gamepad.axes[this.axisIndex] ?? 0;
         // console.log("gamepad axis value ", axisValue);
         this.axis.setValue(axisValue);
+        // console.log("axis value", this.axis.getValue());
     }
 }

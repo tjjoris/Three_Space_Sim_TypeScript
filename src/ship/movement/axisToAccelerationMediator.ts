@@ -41,6 +41,7 @@ export default class AxisToAccelerationMediator implements Tickable {
         if (this.axisCombiner) {
             this.axisCombiner.calculateSmartYaw();
             normalizedAxis = this.axisCombiner.getCalculatedValue();
+            // console.log("calculated smart yaw value ", normalizedAxis);
             this.axis.setValue(normalizedAxis);
         }
         normalizedAxis = this.axis.getValue();
