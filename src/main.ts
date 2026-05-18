@@ -31,6 +31,8 @@ import DesiredAxis from './ship/movement/desiredAxis.ts'
 import Jerker from './ship/movement/Jerker.ts'
 import RotationMediator from './ship/movement/rotationMediator.ts'
 import SmartForward from "./ship/movement/smartForward.ts"
+import GamePadHandler from './axes/gamePadHandler.ts'
+import type VJoyInput from './ui/vjoy/vJoyInput.ts'
 
 const scene = new THREE.Scene();
 
@@ -155,8 +157,8 @@ const clickInput = new ClickInput(renderer, leftVJoyInput, rightVJoyInput);
 clickInput;
 const multiTouch = new MultiTouch(renderer, leftVJoyInput, rightVJoyInput);
 multiTouch;
-const rightVJoyUpdater = new VJoyUpdater(rightVJoyFactory.getVJoySprite()!, camera, castRay, rightVJoyInput);
-const leftVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camera, castRay, leftVJoyInput);
+let rightVJoyUpdater: VJoyUpdater | null = new VJoyUpdater(rightVJoyFactory.getVJoySprite()!, camera, castRay, rightVJoyInput);
+let leftVJoyUpdater: VJoyUpdater | null = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camera, castRay, leftVJoyInput);
 
 //todo delete these
 //Axial thrusts
@@ -190,6 +192,55 @@ const yawMediator = new AxisToAccelerationMediator(yawAxis, desiredYawAxis, move
 //rotation mediator
 const rotationMediator = new RotationMediator(pitchMediator, rollMediator, yawMediator,
   mover);
+
+
+/**
+ * gamepad
+ */
+
+let gamePadHandlerHorizontal: GamePadHandler | null = null;
+
+window.addEventListener("gamepadconnected", (e) => {
+  console.log(
+    "gamepad connected at index %d: %s, %d buttons, %d axes.",
+    e.gamepad.index,
+    e.gamepad.id,
+    e.gamepad.buttons.length,
+    e.gamepad.axes.length
+  );
+  gamePadHandlerHorizontal = new GamePadHandler(e.gamepad, horizontalAxis, 0);
+  if (leftVJoyUpdater !== null) {
+    let filteredTickables = tickables.filter(tickable => tickable !== leftVJoyUpdater);
+    leftVJoyUpdater = null;
+    tickables = filteredTickables;
+  }
+
+
+  tickables.push(gamePadHandlerHorizontal as Tickable);
+  console.log("tickables", tickables);
+});
+
+window.addEventListener("gamepaddisconnected", (e) => {
+  console.log(
+    "Gamepad disconnected from index %d: %s",
+    e.gamepad.index,
+    e.gamepad.id,
+  );
+  if (gamePadHandlerHorizontal !== null) {
+    let filteredTickables = tickables.filter(tickable => tickable !== gamePadHandlerHorizontal);
+    tickables = filteredTickables;
+    gamePadHandlerHorizontal = null;
+    console.log("left vjoy input ", leftVJoyInput);
+    if (leftVJoyInput !== null) {
+      leftVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camera, castRay, leftVJoyInput);
+      tickables.push(leftVJoyUpdater as Tickable);
+      console.log("left vjoy input re-enabled");
+    }
+    console.log("tickables", tickables);
+  };
+});
+
+// if ()
 
 //create space dust
 const dustHandler = new DustHandler(mover, scene);
