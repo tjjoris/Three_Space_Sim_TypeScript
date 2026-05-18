@@ -123,12 +123,12 @@ const desiredHorizontalAxis = new DesiredAxis(-0.5, 0.5);
 const desiredForwardAxis = new DesiredAxis(-2.1, 0.5);
 
 //create jerk classes for rotation:
-const pitchJerkIncrease = new Jerker(0.1);
-const pitchJerkDecrease = new Jerker(-0.1);
-const yawJerkIncrease = new Jerker(0.1);
-const yawJerkDecrease = new Jerker(-0.1);
-const rollJerkIncrease = new Jerker(0.1);
-const rollJerkDecrease = new Jerker(-0.1);
+const pitchJerkIncrease = new Jerker(0.15);
+const pitchJerkDecrease = new Jerker(-0.15);
+const yawJerkIncrease = new Jerker(0.3);
+const yawJerkDecrease = new Jerker(-0.3);
+const rollJerkIncrease = new Jerker(0.3);
+const rollJerkDecrease = new Jerker(-0.3);
 
 //create jerk classes for translational movement:
 const verticalJerkIncrease = new Jerker(1.3);
