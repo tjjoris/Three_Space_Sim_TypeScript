@@ -13,7 +13,6 @@ export default class VJoyFactory {
         // this.vJoySprite.position.set(10, 10, 10);
         this.vJoySprite.scale.set(0.5, 0.5, 1);
         this.scene.add(this.vJoySprite);
-        console.log("vjoy created");
     }
 
     public getVJoySprite(): THREE.Sprite | null {

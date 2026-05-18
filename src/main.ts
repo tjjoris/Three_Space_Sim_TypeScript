@@ -208,7 +208,7 @@ window.addEventListener("gamepadconnected", (e) => {
     e.gamepad.buttons.length,
     e.gamepad.axes.length
   );
-  gamePadHandlerHorizontal = new GamePadHandler(e.gamepad, horizontalAxis, 0);
+  gamePadHandlerHorizontal = new GamePadHandler(e.gamepad.index, horizontalAxis, 0);
   if (leftVJoyUpdater !== null) {
     let filteredTickables = tickables.filter(tickable => tickable !== leftVJoyUpdater);
     leftVJoyUpdater = null;
@@ -268,7 +268,23 @@ tickables.push(mover as Tickable);
 tickables.push(dustHandler as Tickable);
 tickables.push(powerUpTicker as Tickable);
 
+
+
 let currentTime = Date.now();
+
+// setTimeout(() => {
+//   console.log("game pads length ", navigator.getGamepads().length);
+//   //if no gamepad is connected connect one on page load.
+//   if (navigator.getGamepads()[0]) {
+//     console.log("game pads ", navigator.getGamepads());
+//     let gamePad = navigator.getGamepads()[0];
+//     // window.dispatchEvent(new GamepadEvent("gamepadconnected", e));
+//     const e = {
+//       gamepad: navigator.getGamepads()[0]
+//     } as GamepadEvent;
+//     window.dispatchEvent(new GamepadEvent("gamepadconnected", e));
+//   }
+// }, 100);
 function animate() {
 
   const deltaTime = Date.now() - currentTime;

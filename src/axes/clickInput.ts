@@ -25,7 +25,7 @@ export default class ClickInput {
         rendererDom.addEventListener("pointerdown", this.onClick.bind(this), false);
         rendererDom.addEventListener("pointermove", this.onPointerMove.bind(this), false);
         rendererDom.addEventListener("pointerup", this.onPointerEnd.bind(this), false);
-        console.log("ClickInput initialized");
+        // console.log("ClickInput initialized");
     }
     /**
      * call on mousedown event, sends vector2 pos of mouse click to vJoyInputs

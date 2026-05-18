@@ -17,7 +17,7 @@ export default class Axis {
             this.saturation = this.deadZone;
         }
         this.totalUsableDeflectionMult = 1 / (this.saturation - this.deadZone);
-        console.log("total usable deflection ", this.totalUsableDeflectionMult);
+        // console.log("total usable deflection ", this.totalUsableDeflectionMult);
         this.inverseMultiplier = 1;
         this.setInverseFromBoolean(inverse);
     }
@@ -43,7 +43,7 @@ export default class Axis {
 
         value ? this.inverseMultiplier = 1
             : this.inverseMultiplier = -1;
-        console.log('set axis inversion from boolean', this.inverseMultiplier);
+        // console.log('set axis inversion from boolean', this.inverseMultiplier);
     }
     setInverse(value: number) {
         this.inverseMultiplier = value;
