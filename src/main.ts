@@ -32,7 +32,8 @@ import Jerker from './ship/movement/Jerker.ts'
 import RotationMediator from './ship/movement/rotationMediator.ts'
 import SmartForward from "./ship/movement/smartForward.ts"
 import GamePadHandler from './axes/gamePadHandler.ts'
-import type VJoyInput from './ui/vjoy/vJoyInput.ts'
+import GAmePadHandlerLifecycle from './axes/GamePadHandlerLifecycle.ts'
+import GamePadHandlerLifeCycleMediator from './axes/GamePadHandlerLifecycleMediator.ts'
 import Ticker from './game/ticker.ts'
 
 const scene = new THREE.Scene();
@@ -200,50 +201,56 @@ const rotationMediator = new RotationMediator(pitchMediator, rollMediator, yawMe
  */
 
 let gamePadHandlerHorizontal: GamePadHandler | null = null;
-
-window.addEventListener("gamepadconnected", (e) => {
-  console.log(
-    "gamepad connected at index %d: %s, %d buttons, %d axes.",
-    e.gamepad.index,
-    e.gamepad.id,
-    e.gamepad.buttons.length,
-    e.gamepad.axes.length
-  );
-  gamePadHandlerHorizontal = new GamePadHandler(e.gamepad.index, horizontalAxis, 0);
-  if (leftVJoyUpdater !== null) {
-    // let filteredTickables = tickables.filter(tickable => tickable !== leftVJoyUpdater);
-    ticker.removeTickable(leftVJoyUpdater as Tickable);
-    leftVJoyUpdater = null;
-    // tickables = filteredTickables;
-  }
+let gamePadHandlerVertical: GamePadHandler | null = null;
+let gamePadHandlerPitch: GamePadHandler | null = null;
+let gamePadHandlerRoll: GamePadHandler | null = null;
 
 
-  // tickables.push(gamePadHandlerHorizontal as Tickable);
-  ticker.addTickable(gamePadHandlerHorizontal as Tickable);
-  // console.log("tickables", tickables);
-});
 
-window.addEventListener("gamepaddisconnected", (e) => {
-  console.log(
-    "Gamepad disconnected from index %d: %s",
-    e.gamepad.index,
-    e.gamepad.id,
-  );
-  if (gamePadHandlerHorizontal !== null) {
-    // let filteredTickables = tickables.filter(tickable => tickable !== gamePadHandlerHorizontal);
-    // tickables = filteredTickables;
-    ticker.removeTickable(gamePadHandlerHorizontal as Tickable);
-    gamePadHandlerHorizontal = null;
-    // console.log("left vjoy input ", leftVJoyInput);
-    if (leftVJoyInput !== null) {
-      leftVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camera, castRay, leftVJoyInput);
-      // tickables.push(leftVJoyUpdater as Tickable);
-      ticker.addTickable(leftVJoyUpdater as Tickable);
-      console.log("left vjoy input re-enabled");
-    }
-    // console.log("tickables", tickables);
-  };
-});
+// window.addEventListener("gamepadconnected", (e) => {
+//   console.log(
+//     "gamepad connected at index %d: %s, %d buttons, %d axes.",
+//     e.gamepad.index,
+//     e.gamepad.id,
+//     e.gamepad.buttons.length,
+//     e.gamepad.axes.length
+//   );
+//   gamePadHandlerHorizontal = new GamePadHandler(e.gamepad.index, horizontalAxis, 0);
+//   if (leftVJoyUpdater !== null) {
+//     // let filteredTickables = tickables.filter(tickable => tickable !== leftVJoyUpdater);
+//     ticker.removeTickable(leftVJoyUpdater as Tickable);
+//     leftVJoyUpdater = null;
+//     // tickables = filteredTickables;
+//   }
+
+
+//   // tickables.push(gamePadHandlerHorizontal as Tickable);
+//   ticker.addTickable(gamePadHandlerHorizontal as Tickable);
+//   // console.log("tickables", tickables);
+// });
+
+
+// window.addEventListener("gamepaddisconnected", (e) => {
+//   console.log(
+//     "Gamepad disconnected from index %d: %s",
+//     e.gamepad.index,
+//     e.gamepad.id,
+//   );
+//   if (gamePadHandlerHorizontal !== null) {
+//     // let filteredTickables = tickables.filter(tickable => tickable !== gamePadHandlerHorizontal);
+//     // tickables = filteredTickables;
+//     ticker.removeTickable(gamePadHandlerHorizontal as Tickable);
+//     gamePadHandlerHorizontal = null;
+//     // console.log("left vjoy input ", leftVJoyInput);
+//     if (leftVJoyInput !== null) {
+//       leftVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camera, castRay, leftVJoyInput);
+//       // tickables.push(leftVJoyUpdater as Tickable);
+//       ticker.addTickable(leftVJoyUpdater as Tickable);
+//       console.log("left vjoy input re-enabled");
+//     }
+//     // console.log("tickables", tickables);
+//   };
+// });
 
 // if ()
 
@@ -272,15 +279,7 @@ ticker.addTickable(mover as Tickable);
 ticker.addTickable(dustHandler as Tickable);
 ticker.addTickable(powerUpTicker as Tickable);
 
-// let tickables: Tickable[] = [];
-// tickables.push(leftVJoyUpdater as Tickable);
-// tickables.push(rightVJoyUpdater as Tickable);
-// tickables.push(cameraRig as Tickable);
-// tickables.push(movementMediator as Tickable);
-// tickables.push(rotationMediator as Tickable);
-// tickables.push(mover as Tickable);
-// tickables.push(dustHandler as Tickable);
-// tickables.push(powerUpTicker as Tickable);
+let gamePadHandlerLifecycleMediator = new GamePadHandlerLifeCycleMediator(horizontalAxis, verticalAxis, pitchAxis, rollAxis, gamePadHandlerHorizontal, gamePadHandlerVertical, gamePadHandlerPitch, gamePadHandlerRoll, ticker);
 
 
 
@@ -293,7 +292,6 @@ function animate() {
   currentTime = Date.now();
   const dtMult: number = deltaTime * 0.0025;
 
-  // tickables.forEach(tick => { tick.tick(dtMult); }); // assuming 60 FPS, so ~16ms per frame
   ticker.tick(dtMult);
   renderer.render(scene, camera);
 }
