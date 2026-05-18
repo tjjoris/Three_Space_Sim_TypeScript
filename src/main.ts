@@ -33,6 +33,7 @@ import RotationMediator from './ship/movement/rotationMediator.ts'
 import SmartForward from "./ship/movement/smartForward.ts"
 import GamePadHandler from './axes/gamePadHandler.ts'
 import type VJoyInput from './ui/vjoy/vJoyInput.ts'
+import Ticker from './game/ticker.ts'
 
 const scene = new THREE.Scene();
 
@@ -210,14 +211,16 @@ window.addEventListener("gamepadconnected", (e) => {
   );
   gamePadHandlerHorizontal = new GamePadHandler(e.gamepad.index, horizontalAxis, 0);
   if (leftVJoyUpdater !== null) {
-    let filteredTickables = tickables.filter(tickable => tickable !== leftVJoyUpdater);
+    // let filteredTickables = tickables.filter(tickable => tickable !== leftVJoyUpdater);
+    ticker.removeTickable(leftVJoyUpdater as Tickable);
     leftVJoyUpdater = null;
-    tickables = filteredTickables;
+    // tickables = filteredTickables;
   }
 
 
-  tickables.push(gamePadHandlerHorizontal as Tickable);
-  console.log("tickables", tickables);
+  // tickables.push(gamePadHandlerHorizontal as Tickable);
+  ticker.addTickable(gamePadHandlerHorizontal as Tickable);
+  // console.log("tickables", tickables);
 });
 
 window.addEventListener("gamepaddisconnected", (e) => {
@@ -227,16 +230,18 @@ window.addEventListener("gamepaddisconnected", (e) => {
     e.gamepad.id,
   );
   if (gamePadHandlerHorizontal !== null) {
-    let filteredTickables = tickables.filter(tickable => tickable !== gamePadHandlerHorizontal);
-    tickables = filteredTickables;
+    // let filteredTickables = tickables.filter(tickable => tickable !== gamePadHandlerHorizontal);
+    // tickables = filteredTickables;
+    ticker.removeTickable(gamePadHandlerHorizontal as Tickable);
     gamePadHandlerHorizontal = null;
-    console.log("left vjoy input ", leftVJoyInput);
+    // console.log("left vjoy input ", leftVJoyInput);
     if (leftVJoyInput !== null) {
       leftVJoyUpdater = new VJoyUpdater(leftVJoyFactory.getVJoySprite()!, camera, castRay, leftVJoyInput);
-      tickables.push(leftVJoyUpdater as Tickable);
+      // tickables.push(leftVJoyUpdater as Tickable);
+      ticker.addTickable(leftVJoyUpdater as Tickable);
       console.log("left vjoy input re-enabled");
     }
-    console.log("tickables", tickables);
+    // console.log("tickables", tickables);
   };
 });
 
@@ -257,41 +262,39 @@ teleportPowerUp(powerUps[0], mover, 5);
 const powerUpTicker = new PowerUpTicker(mover, 1);
 powerUpTicker.addPowerUp(powerUps[0]);
 
+const ticker: Ticker = new Ticker();
+ticker.addTickable(leftVJoyUpdater as Tickable);
+ticker.addTickable(rightVJoyUpdater as Tickable);
+ticker.addTickable(cameraRig as Tickable);
+ticker.addTickable(movementMediator as Tickable);
+ticker.addTickable(rotationMediator as Tickable);
+ticker.addTickable(mover as Tickable);
+ticker.addTickable(dustHandler as Tickable);
+ticker.addTickable(powerUpTicker as Tickable);
 
-let tickables: Tickable[] = [];
-tickables.push(leftVJoyUpdater as Tickable);
-tickables.push(rightVJoyUpdater as Tickable);
-tickables.push(cameraRig as Tickable);
-tickables.push(movementMediator as Tickable);
-tickables.push(rotationMediator as Tickable);
-tickables.push(mover as Tickable);
-tickables.push(dustHandler as Tickable);
-tickables.push(powerUpTicker as Tickable);
+// let tickables: Tickable[] = [];
+// tickables.push(leftVJoyUpdater as Tickable);
+// tickables.push(rightVJoyUpdater as Tickable);
+// tickables.push(cameraRig as Tickable);
+// tickables.push(movementMediator as Tickable);
+// tickables.push(rotationMediator as Tickable);
+// tickables.push(mover as Tickable);
+// tickables.push(dustHandler as Tickable);
+// tickables.push(powerUpTicker as Tickable);
 
 
 
 let currentTime = Date.now();
 
-// setTimeout(() => {
-//   console.log("game pads length ", navigator.getGamepads().length);
-//   //if no gamepad is connected connect one on page load.
-//   if (navigator.getGamepads()[0]) {
-//     console.log("game pads ", navigator.getGamepads());
-//     let gamePad = navigator.getGamepads()[0];
-//     // window.dispatchEvent(new GamepadEvent("gamepadconnected", e));
-//     const e = {
-//       gamepad: navigator.getGamepads()[0]
-//     } as GamepadEvent;
-//     window.dispatchEvent(new GamepadEvent("gamepadconnected", e));
-//   }
-// }, 100);
+
 function animate() {
 
   const deltaTime = Date.now() - currentTime;
   currentTime = Date.now();
   const dtMult: number = deltaTime * 0.0025;
 
-  tickables.forEach(tick => { tick.tick(dtMult); }); // assuming 60 FPS, so ~16ms per frame
+  // tickables.forEach(tick => { tick.tick(dtMult); }); // assuming 60 FPS, so ~16ms per frame
+  ticker.tick(dtMult);
   renderer.render(scene, camera);
 }
 
