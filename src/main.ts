@@ -36,6 +36,9 @@ import GAmePadHandlerLifecycle from './axes/GamePadHandlerLifecycle.ts'
 import GamePadHandlerLifeCycleMediator from './axes/GamePadHandlerLifecycleMediator.ts'
 import Ticker from './game/ticker.ts'
 
+
+//get the feedback id div element for debugging;
+const feedbackEl = document.getElementById("feedback");
 const scene = new THREE.Scene();
 
 //camera
@@ -117,13 +120,13 @@ const horizontalAxis = new Axis(0.15, 1, true);
 const forwardAxis = new Axis(0.15, 1, false);
 
 //desired axes, set the min and max rotation speeds.
-const desiredPitchAxis = new DesiredAxis(-0.2, 0.2);
-const desiredYawAxis = new DesiredAxis(-0.07, 0.07);
-const desiredRollAxi = new DesiredAxis(-0.3, 0.3);
+const desiredPitchAxis = new DesiredAxis(-0.17, 0.17);
+const desiredYawAxis = new DesiredAxis(-0.12, 0.12);
+const desiredRollAxi = new DesiredAxis(-0.25, 0.25);
 
 //desired axes set to min and max thrust speeds.
-const desiredVerticalAxis = new DesiredAxis(-0.1, 1.1);
-const desiredHorizontalAxis = new DesiredAxis(-0.5, 0.5);
+const desiredVerticalAxis = new DesiredAxis(-0.8, 1.1);
+const desiredHorizontalAxis = new DesiredAxis(-1.5, 1.5);
 const desiredForwardAxis = new DesiredAxis(-2.1, 0.5);
 
 //create jerk classes for rotation:
@@ -143,7 +146,7 @@ const forwardJerkIncrease = new Jerker(1.3);
 const forwardJerkDecrease = new Jerker(-1.3);
 
 //smart yaw
-const smartYaw: SmartYaw = new SmartYaw(0.5, 1, 0, 0, pitchAxis, rollAxis, verticalAxis, horizontalAxis);
+const smartYaw: SmartYaw = new SmartYaw(0.5, 0.5, 0, 0, pitchAxis, rollAxis, verticalAxis, horizontalAxis);
 
 //function to invert axis
 export function setVerticalInversion(value: boolean) {
@@ -179,7 +182,7 @@ const forwardMediator: AxisToAccelerationMediator = new AxisToAccelerationMediat
 //speed limiter
 const speedLimiter = new SpeedLimiter(0.5);
 //Momentum Manager
-const momentumManager = new MomentumManager(2, speedLimiter);
+const momentumManager = new MomentumManager(0.5, speedLimiter);
 //Movement Mediator 
 const movementMediator = new MovementMediator(momentumManager, mover, verticalMediator, horizontalMediator, forwardMediator, smartForward);
 
@@ -294,6 +297,9 @@ function animate() {
 
   ticker.tick(dtMult);
   renderer.render(scene, camera);
+
+  // feedbackEl!.innerText = `forward: ${forwardAxis.getValue()}
+  // pitch: ${pitchAxis.getValue()} desired pitch axis: ${desiredPitchAxis.getValue()}`;
 }
 
 // renderer.setAnimationLoop(animate);

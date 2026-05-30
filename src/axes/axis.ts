@@ -6,6 +6,12 @@ export default class Axis {
     private totalUsableDeflectionMult: number;
     private inverseMultiplier: number;
 
+    /**
+     * 
+     * @param deadZone 
+     * @param saturation 
+     * @param inverse 
+     */
     constructor(deadZone: number, saturation: number, inverse: boolean) {
         this.value = 0;
         this.deadZone = deadZone;

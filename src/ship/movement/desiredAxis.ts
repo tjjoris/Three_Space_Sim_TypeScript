@@ -8,6 +8,11 @@ export default class DesiredAxis {
     private max: number;
     private min: number;
 
+    /**
+     * 
+     * @param min 
+     * @param max 
+     */
     constructor(min: number, max: number) {
         this.min = min;
         this.max = max;
@@ -20,14 +25,17 @@ export default class DesiredAxis {
      */
     calcDesiredAxialValue(normalizedAxisValue: number) {
         if (normalizedAxisValue > 0) {
+            // console.log("normalized axis positive", normalizedAxisValue);
             const calculatedDesiredValue = normalizedAxisValue * this.max;
-            this.current = Math.max(calculatedDesiredValue, this.max);
+            this.current = Math.min(calculatedDesiredValue, this.max);
         }
         else if (normalizedAxisValue < 0) {
-            const calcualtedDesiredValue = normalizedAxisValue * this.min;
-            this.current = Math.min(calcualtedDesiredValue, this.min);
+            // console.log("normalized axis negative", normalizedAxisValue);
+            const calcualtedDesiredValue = normalizedAxisValue * - this.min;
+            this.current = Math.max(calcualtedDesiredValue, this.min);
         }
         else {
+            // console.log("normalized axis zero");
             this.current = 0;
         }
     }

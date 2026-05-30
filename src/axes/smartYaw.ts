@@ -16,6 +16,17 @@ export default class SmartYaw {
     private verticalAxis: Axis;
     private horizontalAxis: Axis;
 
+    /**
+     * 
+     * @param rollMult 
+     * @param pitchMult 
+     * @param verticalMult 
+     * @param horizontalMult 
+     * @param pitchAxis 
+     * @param rollAxis 
+     * @param verticalAxis 
+     * @param horizontalAxis 
+     */
     constructor(rollMult: number,
         pitchMult: number,
         verticalMult: number,
