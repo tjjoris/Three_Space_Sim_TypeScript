@@ -15,6 +15,11 @@ export default class MomentumManager {
     readonly accelerationMult = new THREE.Vector3(0.01, 0.01, 0.01);
     speedLimiter: SpeedLimiter;
 
+    /**
+     * 
+     * @param mass 
+     * @param speedLimiter 
+     */
     constructor(mass: number, speedLimiter: SpeedLimiter) {
         this.massCoefficient = mass;
         this.speedLimiter = speedLimiter;

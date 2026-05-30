@@ -8,10 +8,10 @@ export default class GamePadHandlerLifeCycleMediator {
     verticalAxis: Axis;
     pitchAxis: Axis;
     rollAxis: Axis;
-    horizontalGamePadHandler: GamePadHandler;
-    verticalGamePadHandler: GamePadHandler;
-    pitchGamePadHandler: GamePadHandler;
-    rollGamePadHandler: GamePadHandler;
+    horizontalGamePadHandler: GamePadHandler | null;
+    verticalGamePadHandler: GamePadHandler | null;
+    pitchGamePadHandler: GamePadHandler | null;
+    rollGamePadHandler: GamePadHandler | null;
     ticker: Ticker;
     horizontalGamePadHandlerLifecycle: GamePadHandlerLifecycle;
     verticalGamePadHandlerLifecycle: GamePadHandlerLifecycle;
@@ -23,10 +23,10 @@ export default class GamePadHandlerLifeCycleMediator {
         verticalAxis: Axis,
         pitchAxis: Axis,
         rollAxis: Axis,
-        horizontalGamePadHandler: GamePadHandler,
-        verticalGamePadHandler: GamePadHandler,
-        pitchGamePadHandler: GamePadHandler,
-        rollGamePadHandler: GamePadHandler,
+        horizontalGamePadHandler: GamePadHandler | null,
+        verticalGamePadHandler: GamePadHandler | null,
+        pitchGamePadHandler: GamePadHandler | null,
+        rollGamePadHandler: GamePadHandler | null,
         ticker: Ticker,
     ) {
         this.horizontalAxis = horizontalAxis;
