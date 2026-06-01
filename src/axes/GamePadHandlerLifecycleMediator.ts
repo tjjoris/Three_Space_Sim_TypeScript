@@ -2,6 +2,7 @@ import Ticker from "../game/ticker";
 import Axis from "./axis"
 import GamePadHandler from "./gamePadHandler";
 import GamePadHandlerLifecycle from "./GamePadHandlerLifecycle";
+import GamePadDetector from "./GamePadDetector";
 
 export default class GamePadHandlerLifeCycleMediator {
     horizontalAxis: Axis;
@@ -17,6 +18,7 @@ export default class GamePadHandlerLifeCycleMediator {
     verticalGamePadHandlerLifecycle: GamePadHandlerLifecycle;
     pitchGamePadHandlerLifecycle: GamePadHandlerLifecycle;
     rollGamePadHandlerLifecycle: GamePadHandlerLifecycle;
+    gamePadDetector: GamePadDetector = new GamePadDetector();
 
     constructor(
         horizontalAxis: Axis,

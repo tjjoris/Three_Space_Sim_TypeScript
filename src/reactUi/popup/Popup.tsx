@@ -7,17 +7,13 @@ const FADE_DURATION_MS = 500;
 export default function Popup() {
     const [popupText, setPopupText] = useState<string | null>(() => peekNextPopup());
     const [className, setClassName] = useState("popup");
+    const [popupCycle, setPopupCycle] = useState(0);
 
     useEffect(() => {
         setPopupAddedListener(() => {
-            setPopupText((currentPopupText) => {
-                if (currentPopupText !== null) {
-                    return currentPopupText;
-                }
-
-                setClassName("popup");
-                return peekNextPopup();
-            });
+            setPopupText((currentPopupText) => currentPopupText ?? peekNextPopup());
+            setPopupCycle((currentCycle) => currentCycle + 1);
+            setClassName("popup");
         });
         return () => setPopupAddedListener(null);
     }, []);
@@ -32,6 +28,7 @@ export default function Popup() {
         const nextTimer = setTimeout(() => {
             advancePopupQueue();
             setPopupText(peekNextPopup());
+            setPopupCycle((currentCycle) => currentCycle + 1);
             setClassName("popup");
         }, DISPLAY_DURATION_MS + FADE_DURATION_MS);
 
@@ -39,7 +36,7 @@ export default function Popup() {
             clearTimeout(fadeTimer);
             clearTimeout(nextTimer);
         };
-    }, [popupText]);
+    }, [popupText, popupCycle]);
 
     if (!popupText) return null;
 

@@ -32,10 +32,9 @@ import Jerker from './ship/movement/Jerker.ts'
 import RotationMediator from './ship/movement/rotationMediator.ts'
 import SmartForward from "./ship/movement/smartForward.ts"
 import GamePadHandler from './axes/gamePadHandler.ts'
-import GAmePadHandlerLifecycle from './axes/GamePadHandlerLifecycle.ts'
 import GamePadHandlerLifeCycleMediator from './axes/GamePadHandlerLifecycleMediator.ts'
 import Ticker from './game/ticker.ts'
-import { addPopup } from "./reactUi/popup/popupLifespan.ts";
+
 
 
 //get the feedback id div element for debugging;
@@ -289,11 +288,6 @@ let gamePadHandlerLifecycleMediator = new GamePadHandlerLifeCycleMediator(horizo
 
 let currentTime = Date.now();
 
-addPopup("hi");
-addPopup("Luke");
-addPopup("Bob");
-addPopup("and");
-addPopup("Alice");
 
 function animate() {
 
