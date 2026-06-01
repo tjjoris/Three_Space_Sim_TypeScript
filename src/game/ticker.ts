@@ -1,4 +1,5 @@
 import type Tickable from "./tickable";
+import { isPaused } from "./pause";
 
 export default class Ticker implements Tickable {
     tickables: Tickable[] = [];
@@ -12,7 +13,9 @@ export default class Ticker implements Tickable {
     }
 
     tick(deltaTime: number) {
-
+        if (isPaused()) {
+            return;
+        }
         this.tickables.forEach(tick => {
             tick.tick(deltaTime);
         }); // assuming 60 FPS, so ~16ms per frame

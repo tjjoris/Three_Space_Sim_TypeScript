@@ -1,18 +1,11 @@
 /**
- * Manages paused state of the game.
+ * this module manages the paused state of the game through the closure pattern.
  */
-export default class Pause {
-    paused: boolean;
-    constructor() {
-        this.paused = false;
-    }
-    pause(): void {
-        this.paused = true;
-    }
-    resume(): void {
-        this.paused = false;
-    }
-    getPaused(): boolean {
-        return this.paused;
-    }
+let paused = false;
+
+export function isPaused() {
+    return paused;
+}
+export function setPaused(value: boolean) {
+    paused = value;
 }
