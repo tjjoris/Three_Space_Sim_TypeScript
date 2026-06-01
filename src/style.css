@@ -95,3 +95,18 @@
   border-radius: 0.5em;
   background-color: #444347;
 }
+
+.popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 1em;
+  border-radius: 0.5em;
+}
+
+.popup--fade-out {
+  animation: fadeOut 1s forwards;
+}
