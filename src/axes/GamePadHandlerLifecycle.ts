@@ -1,6 +1,7 @@
 import Ticker from "../game/ticker";
 import type Axis from "./axis";
 import GamePadHandler from "./gamePadHandler";
+import { addPopup } from "../reactUi/popup/popupLifespan";
 
 export default class GamePadHandlerLifecycle {
     gamePadHandler: GamePadHandler | null;
@@ -25,6 +26,7 @@ export default class GamePadHandlerLifecycle {
             e.gamepad.buttons.length,
             e.gamepad.axes.length
         );
+        addPopup(`Joystick detected: ${e.gamepad.id} index: ${e.gamepad.index}`);
 
         // if (this.gamePadHandler !== null) {
         //     this.ticker.removeTickable(this.gamePadHandler);

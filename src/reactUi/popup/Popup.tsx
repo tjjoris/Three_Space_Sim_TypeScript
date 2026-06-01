@@ -10,8 +10,14 @@ export default function Popup() {
 
     useEffect(() => {
         setPopupAddedListener(() => {
-            setPopupText((currentPopupText) => currentPopupText ?? peekNextPopup());
-            setClassName("popup");
+            setPopupText((currentPopupText) => {
+                if (currentPopupText !== null) {
+                    return currentPopupText;
+                }
+
+                setClassName("popup");
+                return peekNextPopup();
+            });
         });
         return () => setPopupAddedListener(null);
     }, []);
