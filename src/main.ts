@@ -182,7 +182,7 @@ const forwardMediator: AxisToAccelerationMediator = new AxisToAccelerationMediat
 //speed limiter
 const speedLimiter = new SpeedLimiter(0.5);
 //Momentum Manager
-const momentumManager = new MomentumManager(0.5, speedLimiter);
+const momentumManager = new MomentumManager(0.25, speedLimiter);
 //Movement Mediator 
 const movementMediator = new MovementMediator(momentumManager, mover, verticalMediator, horizontalMediator, forwardMediator, smartForward);
 
@@ -298,8 +298,8 @@ function animate() {
   ticker.tick(dtMult);
   renderer.render(scene, camera);
 
-  // feedbackEl!.innerText = `forward: ${forwardAxis.getValue()}
-  // pitch: ${pitchAxis.getValue()} desired pitch axis: ${desiredPitchAxis.getValue()}`;
+  feedbackEl!.innerText = `forward: ${forwardAxis.getValue()}
+  vert: ${verticalAxis.getValue()} horiz: ${horizontalAxis.getValue()} `;
 }
 
 // renderer.setAnimationLoop(animate);

@@ -55,7 +55,7 @@ export default class DustHandler implements Tickable {
     /**
      * reposition a dust particle in front of the camera
      */
-    repostionParticleInFrontOfCamera(dustParticle: Dust, expectedDistanceInFront = 5) {
+    repostionParticleInFrontOfCamera(dustParticle: Dust, expectedDistanceInFront = 0) {
         // const forward = new THREE.Vector3();
         // this.mover.getWorldDirection(forward);
         // const forward = this.mover._velocity
@@ -129,7 +129,7 @@ export default class DustHandler implements Tickable {
      */
     isDustParticleOutOfRange(dustParticle: Dust, mover: Mover) {
         const distance = dustParticle.position.distanceTo(mover.position);
-        if (distance > 12) {
+        if (distance > 8) {
             return true;
         }
         return false;
