@@ -1,5 +1,6 @@
 
 import { addPopup } from "../reactUi/popup/popupLifespan";
+import VJoyUsedTracker from "../ui/vjoy/vJoyUsedTracker";
 
 export default class GamePadDetector {
     started: boolean = false;
@@ -17,7 +18,7 @@ export default class GamePadDetector {
             e.gamepad.axes.length
         );
         addPopup(`Joystick detected: ${e.gamepad.id} index: ${e.gamepad.index}`);
-
+        VJoyUsedTracker.getVJoyUsedTracker().setVJoyToUsed();
         // if (this.gamePadHandler !== null) {
         //     this.ticker.removeTickable(this.gamePadHandler);
         // }
