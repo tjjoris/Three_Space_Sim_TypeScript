@@ -49,19 +49,7 @@ export default class MovementMediator implements Tickable {
     }
 
     tick(deltaTime: number) {
-        // //get axes inputs
-        // const vertical = this.verticalAxis.getValue();
-        // const horizontal = this.horizontalAxis.getValue();
-        // //calculate smart forwward
-        // const forwardToSet = calculateSmartForward(vertical, horizontal);
-        // //set forward axis
-        // this.forwardAxis.setValue(forwardToSet);
-        // const forward = this.forwardAxis.getValue();
         this.smartForward.tick(deltaTime);
-        // //find thrust values from axial thrusts.
-        // const verticalThrust = this.verticalAxialThrust.calculateThrust(vertical, deltaTime);
-        // const horizontalThrust = this.horizontalAxialThrust.calculateThrust(horizontal, deltaTime);
-        // const forwardThrust = this.forwardAxialThrust.calculateThrust(forward, deltaTime);
         this.verticalMediator.tick(deltaTime);
         this.horizontalMediator.tick(deltaTime);
         this.forwardMediator.tick(deltaTime);

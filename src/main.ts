@@ -182,7 +182,7 @@ const forwardMediator: AxisToAccelerationMediator = new AxisToAccelerationMediat
 //speed limiter
 const speedLimiter = new SpeedLimiter(0.5);
 //Momentum Manager
-const momentumManager = new MomentumManager(0.1, speedLimiter);
+const momentumManager = new MomentumManager(0.5, speedLimiter);
 //Movement Mediator 
 const movementMediator = new MovementMediator(momentumManager, mover, verticalMediator, horizontalMediator, forwardMediator, smartForward);
 

@@ -9,7 +9,7 @@ import SpeedLimiter from "./speedLimiter";
  * then gets the relative speed to be used by the mover.
  */
 export default class MomentumManager {
-    private velocity: THREE.Vector3 = new THREE.Vector3(0, 0, 0);
+    private worldVelocity: THREE.Vector3 = new THREE.Vector3(0, 0, 0);
     private massCoefficient: number;
     readonly world = new THREE.Vector3(0, 0, 1);
     readonly accelerationMult = new THREE.Vector3(0.01, 0.01, 0.01);
@@ -35,27 +35,31 @@ export default class MomentumManager {
      * @returns 
      */
     calculateLocalVelocity(verticalThrust: number, horizontalThrust: number, forwardThrust: number, mover: Mover): THREE.Vector3 {
+        //find the relative acceleration including mass and acceleration multipliers.
         const relativeAcceleration = new THREE.Vector3(horizontalThrust * this.massCoefficient * this.accelerationMult.x,
             verticalThrust * this.massCoefficient * this.accelerationMult.y,
             forwardThrust * this.massCoefficient * this.accelerationMult.z);
-        const velocity = this.applyAcceleration(relativeAcceleration, this.velocity, this.massCoefficient);
-        this.velocity = this.speedLimiter.limitSpeed(velocity);
-        return this.velocity;
+        //find the world acceleration by applying the objects quaternion.
+        const worldAcceleration = relativeAcceleration.applyQuaternion(mover.quaternion);
+        //find the world velocity by applying the acceleration.
+        const rawWorldVelocity = this.applyAcceleration(worldAcceleration, this.worldVelocity);
+        //limit the speed and set the local world velocity.
+        this.worldVelocity = this.speedLimiter.limitSpeed(rawWorldVelocity);
+        //convert world velocity back to local velocity.
+        const localVelocity = this.worldVelocity.clone().applyQuaternion(mover.quaternion.clone().invert());
+        return localVelocity;
     }
 
 
 
     /**
-     * apply world acceleration
+     * apply acceleration
      */
-    applyAcceleration(acceleration: THREE.Vector3, velocity: THREE.Vector3, massCoefficient: number): THREE.Vector3 {
+    applyAcceleration(acceleration: THREE.Vector3, velocity: THREE.Vector3): THREE.Vector3 {
 
         let x = velocity.x + acceleration.x;
-        // x = clamp(x, this.maxNegativeVelocity.x, this.maxVelocity.x);
         let y = velocity.y + acceleration.y;
-        // y = clamp(y, this.maxNegativeVelocity.y, this.maxVelocity.y);
         let z = velocity.z + acceleration.z;
-        // z = clamp(z, this.maxNegativeVelocity.z, this.maxVelocity.z);
         return new THREE.Vector3(x, y, z);
     }
 
