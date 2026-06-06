@@ -43,7 +43,7 @@ export default class GamePadDetector {
     start() {
         if (this.started) return;
         this.started = true;
-        console.log("starting gamepad detector");
+        // console.log("starting gamepad detector");
         window.addEventListener("gamepadconnected", this.onGamepadConnected);
         window.addEventListener("gamepaddisconnected", this.onGamepadDisconnected);
     }

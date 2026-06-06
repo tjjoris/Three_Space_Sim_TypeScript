@@ -19,7 +19,7 @@ export default function VJoyUsedOverlay() {
         !isVJoyAlreadyUsed && (
             <>
                 <div className="overlay">
-                    Drag the bottom circles to control your ship.
+                    Drag the bottom circles, or use your gamepad to control your ship.
                 </div>
             </>
         )
