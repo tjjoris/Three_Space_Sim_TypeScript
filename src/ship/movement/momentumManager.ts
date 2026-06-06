@@ -35,7 +35,9 @@ export default class MomentumManager {
      * @returns 
      */
     calculateLocalVelocity(verticalThrust: number, horizontalThrust: number, forwardThrust: number, mover: Mover): THREE.Vector3 {
-        const relativeAcceleration = new THREE.Vector3(horizontalThrust, verticalThrust, forwardThrust);
+        const relativeAcceleration = new THREE.Vector3(horizontalThrust * this.massCoefficient * this.accelerationMult.x,
+            verticalThrust * this.massCoefficient * this.accelerationMult.y,
+            forwardThrust * this.massCoefficient * this.accelerationMult.z);
         const velocity = this.applyAcceleration(relativeAcceleration, this.velocity, this.massCoefficient);
         this.velocity = this.speedLimiter.limitSpeed(velocity);
         return this.velocity;
@@ -48,11 +50,11 @@ export default class MomentumManager {
      */
     applyAcceleration(acceleration: THREE.Vector3, velocity: THREE.Vector3, massCoefficient: number): THREE.Vector3 {
 
-        let x = velocity.x + (massCoefficient * acceleration.x * this.accelerationMult.x);
+        let x = velocity.x + acceleration.x;
         // x = clamp(x, this.maxNegativeVelocity.x, this.maxVelocity.x);
-        let y = velocity.y + (massCoefficient * acceleration.y * this.accelerationMult.y);
+        let y = velocity.y + acceleration.y;
         // y = clamp(y, this.maxNegativeVelocity.y, this.maxVelocity.y);
-        let z = velocity.z + (massCoefficient * acceleration.z * this.accelerationMult.z);
+        let z = velocity.z + acceleration.z;
         // z = clamp(z, this.maxNegativeVelocity.z, this.maxVelocity.z);
         return new THREE.Vector3(x, y, z);
     }
