@@ -113,7 +113,7 @@ const castRay = new CastRay(renderer, camera);
 //new axes
 //deadzone, saturation, inverse.
 const pitchAxis = new Axis(0.15, 1, true);
-const yawAxis = new Axis(0, 15, true);
+const yawAxis = new Axis(0, 1, true);
 const rollAxis = new Axis(0.2, 1, false);
 const verticalAxis = new Axis(0.15, 1, true);
 const horizontalAxis = new Axis(0.15, 1, true);
@@ -146,7 +146,7 @@ const forwardJerkIncrease = new Jerker(1.3);
 const forwardJerkDecrease = new Jerker(-1.3);
 
 //smart yaw
-const smartYaw: SmartYaw = new SmartYaw(0.5, 0.5, 0, 0, pitchAxis, rollAxis, verticalAxis, horizontalAxis);
+const smartYaw: SmartYaw = new SmartYaw(1, 0.5, 0, 0, pitchAxis, rollAxis, verticalAxis, horizontalAxis);
 
 //function to invert axis
 export function setVerticalInversion(value: boolean) {
@@ -298,7 +298,7 @@ function animate() {
   ticker.tick(dtMult);
   renderer.render(scene, camera);
 
-  feedbackEl!.innerText = `forward thrust: ${forwardMediator.getAccelerationValue()}
+  feedbackEl!.innerText = `smart yaw: ${smartYaw.getCalculatedValue()}yaw axis: ${yawAxis.getValue()} pitch axis: ${pitchAxis.getValue()} forward thrust: ${forwardMediator.getAccelerationValue()}
   vert thrust: ${verticalMediator.getAccelerationValue()} horiz thrust: ${horizontalMediator.getAccelerationValue()} `;
 }
 
