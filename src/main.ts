@@ -298,8 +298,8 @@ function animate() {
   ticker.tick(dtMult);
   renderer.render(scene, camera);
 
-  feedbackEl!.innerText = `forward: ${forwardAxis.getValue()}
-  vert: ${verticalAxis.getValue()} horiz: ${horizontalAxis.getValue()} `;
+  feedbackEl!.innerText = `forward thrust: ${forwardMediator.getAccelerationValue()}
+  vert thrust: ${verticalMediator.getAccelerationValue()} horiz thrust: ${horizontalMediator.getAccelerationValue()} `;
 }
 
 // renderer.setAnimationLoop(animate);
