@@ -1,5 +1,4 @@
 import Mover from "./mover";
-import Axis from "../../axes/axis";
 // import AxialThrust from "./axialThrust";
 import MomentumManager from "./momentumManager";
 import type Tickable from "../../game/tickable";

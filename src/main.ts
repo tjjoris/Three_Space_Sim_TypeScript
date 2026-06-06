@@ -38,7 +38,7 @@ import Ticker from './game/ticker.ts'
 
 
 //get the feedback id div element for debugging;
-const feedbackEl = document.getElementById("feedback");
+// const feedbackEl = document.getElementById("feedback");
 const scene = new THREE.Scene();
 
 //camera
@@ -283,7 +283,8 @@ ticker.addTickable(dustHandler as Tickable);
 ticker.addTickable(powerUpTicker as Tickable);
 
 let gamePadHandlerLifecycleMediator = new GamePadHandlerLifeCycleMediator(horizontalAxis, verticalAxis, pitchAxis, rollAxis, gamePadHandlerHorizontal, gamePadHandlerVertical, gamePadHandlerPitch, gamePadHandlerRoll, ticker);
-
+//simpley calling it so build errors don't happen.
+gamePadHandlerLifecycleMediator;
 
 
 let currentTime = Date.now();
@@ -298,8 +299,8 @@ function animate() {
   ticker.tick(dtMult);
   renderer.render(scene, camera);
 
-  feedbackEl!.innerText = `smart yaw: ${smartYaw.getCalculatedValue()}yaw axis: ${yawAxis.getValue()} pitch axis: ${pitchAxis.getValue()} forward thrust: ${forwardMediator.getAccelerationValue()}
-  vert thrust: ${verticalMediator.getAccelerationValue()} horiz thrust: ${horizontalMediator.getAccelerationValue()} `;
+  // feedbackEl!.innerText = `forward: ${desiredForwardAxis.getValue()} smart yaw: ${smartYaw.getCalculatedValue()}yaw axis: ${yawAxis.getValue()} pitch axis: ${pitchAxis.getValue()} forward thrust: ${forwardMediator.getAccelerationValue()}
+  // vert thrust: ${verticalMediator.getAccelerationValue()} horiz thrust: ${horizontalMediator.getAccelerationValue()} `;
 }
 
 // renderer.setAnimationLoop(animate);

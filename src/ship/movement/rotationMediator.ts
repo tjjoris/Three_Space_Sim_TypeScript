@@ -1,5 +1,4 @@
 import AxisToAccelerationMediator from "./axisToAccelerationMediator"
-import type DesiredAxis from "./desiredAxis";
 import type Mover from "./mover";
 import * as THREE from "three";
 import type Tickable from "../../game/tickable";
