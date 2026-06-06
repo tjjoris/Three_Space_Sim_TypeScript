@@ -37,8 +37,8 @@ export default class MomentumManager {
     calculateLocalVelocity(verticalThrust: number, horizontalThrust: number, forwardThrust: number, mover: Mover): THREE.Vector3 {
         const relativeAcceleration = new THREE.Vector3(horizontalThrust, verticalThrust, forwardThrust);
         const velocity = this.applyAcceleration(relativeAcceleration, this.velocity, this.massCoefficient);
-        const limitedWorldVelocity = this.speedLimiter.limitSpeed(velocity);
-        return limitedWorldVelocity;
+        this.velocity = this.speedLimiter.limitSpeed(velocity);
+        return this.velocity;
     }
 
 
