@@ -120,12 +120,12 @@ const horizontalAxis = new Axis(0.15, 1, true);
 const forwardAxis = new Axis(0.15, 1, false);
 
 //desired axes, set the min and max rotation speeds.
-const desiredPitchAxis = new DesiredAxis(-0.17, 0.17);
-const desiredYawAxis = new DesiredAxis(-0.12, 0.12);
+const desiredPitchAxis = new DesiredAxis(-0.20, 0.20);
+const desiredYawAxis = new DesiredAxis(-0.15, 0.15);
 const desiredRollAxi = new DesiredAxis(-0.25, 0.25);
 
 //desired axes set to min and max thrust speeds.
-const desiredVerticalAxis = new DesiredAxis(-0.8, 1.1);
+const desiredVerticalAxis = new DesiredAxis(-1.5, 1.1);
 const desiredHorizontalAxis = new DesiredAxis(-1.5, 1.5);
 const desiredForwardAxis = new DesiredAxis(-2.1, 0.5);
 
@@ -146,7 +146,7 @@ const forwardJerkIncrease = new Jerker(1.3);
 const forwardJerkDecrease = new Jerker(-1.3);
 
 //smart yaw
-const smartYaw: SmartYaw = new SmartYaw(1, 0.5, 0, 0, pitchAxis, rollAxis, verticalAxis, horizontalAxis);
+const smartYaw: SmartYaw = new SmartYaw(0.1, 0.3, 0, 0.3, pitchAxis, rollAxis, verticalAxis, horizontalAxis);
 
 //function to invert axis
 export function setVerticalInversion(value: boolean) {
