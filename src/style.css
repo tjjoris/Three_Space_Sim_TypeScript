@@ -49,6 +49,15 @@
   font-size: 1em;
 }
 
+.menu-header {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
+  font-size: 0.5rem;
+}
+
+
 .menu-div-column {
   display: flex;
   flex-direction: column;

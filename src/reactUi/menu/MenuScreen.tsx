@@ -1,6 +1,7 @@
 // import React from "react";
 import MenuButton from "./MenuButton";
 import MenuCheckbox from "./MenuCheckbox";
+import Header from "./Header";
 
 export default function MenuScreen({
     toggleMenu,
@@ -13,6 +14,7 @@ export default function MenuScreen({
 }) {
     return (<>
         <div className="menu-screen">
+            <Header />
             <div className="menu-padding">
                 <div className="menu-div-column">
                     <div>
