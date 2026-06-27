@@ -57,6 +57,13 @@
   font-size: 0.5rem;
 }
 
+.menu-header-button {
+  width: 7em;
+  height: 2em;
+  font-size: 1em;
+  border-radius: 0.5em 0.5em 0em 0em;
+}
+
 
 .menu-div-column {
   display: flex;
