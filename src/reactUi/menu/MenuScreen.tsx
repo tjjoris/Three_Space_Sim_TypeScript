@@ -15,7 +15,7 @@ export default function MenuScreen({
     return (<>
         <div className="menu-screen">
             <Header />
-            <div className="menu-padding">
+            <div className="menu-content">
                 <div className="menu-div-column">
                     <div>
                         <MenuCheckbox
