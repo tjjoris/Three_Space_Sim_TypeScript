@@ -40,8 +40,8 @@
 }
 
 .menu-screen {
- display: flex;
- flex-direction: column;
+  display: flex;
+  flex-direction: column;
   position: absolute;
   top: 0;
   left: 0;
@@ -68,7 +68,18 @@
   border-width: 1px 1px 0px 1px;
   border-style: solid;
   margin: -5px;
+}
+
+.unselected-header-button {
+  z-index: 10;
+  margin: -25px;
+}
+
+.selected-header-button {
   z-index: 100;
+  margin: -10px;
+  color: red;
+  background-color: black;
 }
 
 
@@ -82,14 +93,14 @@
   flex-direction: row;
 }
 
-.menu-content{
+.menu-content {
   padding: 5%;
   font-size: 0.4em;
   border-style: solid;
   border-radius: 0.5em;
   border-color: white;
   border-width: 1px;
-  z-index: 909;
+  z-index: 999;
 }
 
 .menu-button {
