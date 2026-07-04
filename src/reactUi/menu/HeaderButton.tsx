@@ -1,9 +1,9 @@
 type Props = {
     name: string;
-    action: () => void;
+    action: (tabName: string) => void;
     currentTab: string;
 }
-
+//
 export default function HeaderButton(props: Props) {
 	//if passed props for tab matches name, set tag to put in front.
 	let tag = "unselected-header-button"  
@@ -12,7 +12,10 @@ export default function HeaderButton(props: Props) {
 	}		
     return (
         <>
-            <button className={`menu-header-button ${tag}`} onClick={props.action} >{props.name}
+            <button className={`menu-header-button ${tag}`} onClick={
+	    () => 
+		  props.action(props.name)
+	    }> 
 	    {props.name}
 	    </button>
         </>)
