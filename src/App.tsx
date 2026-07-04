@@ -1,3 +1,9 @@
+/** App.tsx
+ *@Author: Luke Johnson
+ *this renders the game as well as the menu.
+ *it pauses and unpauses the game.
+ *
+ * **/
 import { useRef, useEffect, useState } from "react";
 import { start, stop, setVerticalInversion } from './main';
 import MenuContainer from "./reactUi/menu/MenuContainer.tsx";
