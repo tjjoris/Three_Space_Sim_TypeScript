@@ -68,6 +68,7 @@
   border-width: 1px 1px 0px 1px;
   border-style: solid;
   margin: -5px;
+  background-color: green;
 }
 
 .unselected-header-button {
