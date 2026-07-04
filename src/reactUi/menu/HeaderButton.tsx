@@ -7,6 +7,6 @@ type Props = {
 export default function HeaderButton(props: Props) {
     return (
         <>
-            <button className="menu-header-button">{props.name}</button>
+            <button className="menu-header-button" onClick={props.action} >{props.name}</button>
         </>)
 }
