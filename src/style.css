@@ -54,7 +54,7 @@
 .menu-header {
   display: flex;
   flex-direction: row;
-  gap: 1rem;
+  gap: 0rem;
   justify-content: center;
   font-size: 0.5em;
 }
@@ -63,11 +63,11 @@
   width: 7em;
   height: 2em;
   font-size: 1em;
-  border-radius: 0.5em 0.5em 0em 0em;
+  border-radius: 1em 1em 0em 0em;
   border-color: white;
   border-width: 1px 1px 0px 1px;
   border-style: solid;
-  margin: -5px;
+  margin: 0px -5px -1px -5px;
   background-color: green;
 }
 
