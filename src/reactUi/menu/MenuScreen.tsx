@@ -16,16 +16,6 @@ export default function MenuScreen({
     return (<>
         <div className="menu-screen">
 	<Header />
-	<HeaderButton name="one" action={() => {}} tag="unselected-header-button" />
-            <div className="unselected-header-button">
-                behind
-            </div>
-            <div className="selected-header-button">
-                in front
-            </div>
-            <div className="unselected-header-button">
-                behind
-            </div>
             <div className="menu-content">
                 <div className="menu-div-column">
                     <div>

@@ -73,14 +73,10 @@
 
 .unselected-header-button {
   z-index: 10;
-  margin: 0px;
 }
 
 .selected-header-button {
   z-index: 100;
-  margin: -25px;
-  color: red;
-  background-color: black;
 }
 
 
@@ -101,7 +97,8 @@
   border-radius: 0.5em;
   border-color: white;
   border-width: 1px;
-  z-index: 999;
+  z-index: 50;
+  background-color: green;
 }
 
 .menu-button {
