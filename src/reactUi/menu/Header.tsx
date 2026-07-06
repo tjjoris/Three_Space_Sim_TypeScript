@@ -3,9 +3,9 @@ export default function Header() {
     return (
         <>
             <div className="menu-header">
-		<HeaderButton name="one" action={() => {}} currentTab ="unselected-header-button" />
-		<HeaderButton name="two" action={() => {}} currentTab ="selected-header-button" />
-		<HeaderButton name="three" action={() => {}} currentTab ="unselected-header-button" />
+		<HeaderButton name="info" action={() => {}} currentTab ="unselected-header-button" />
+		<HeaderButton name="keybinds" action={() => {}} currentTab ="selected-header-button" />
+		<HeaderButton name="settings" action={() => {}} currentTab ="unselected-header-button" />
             </div>
         </>
     )
