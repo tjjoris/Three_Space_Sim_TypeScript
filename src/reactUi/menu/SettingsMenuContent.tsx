@@ -6,6 +6,7 @@ component for the menu settings, includes vertical inverter component.
  */
 export default function SettingsMenuContent() {
 
+	return (
             <div className="menu-content">
 
                 <div className="menu-div-column">
@@ -14,4 +15,5 @@ export default function SettingsMenuContent() {
                     </div>
                 </div>
 	    </div>
+	)
 }

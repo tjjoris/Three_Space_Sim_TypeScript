@@ -1,4 +1,4 @@
-import VerticalInverter from "./VerticalInverter"
+import SettingsMenuContent from "./SettingsMenuContent";
 import HeaderButton from "./HeaderButton";
 import MenuButton from "./MenuButton";
 import { useState} from "react";
@@ -25,14 +25,8 @@ export default function MenuScreen({
 		<HeaderButton name="keybinds" action={gotoMenuScreen} currentTab={menuTab} />
 		<HeaderButton name="settings" action={gotoMenuScreen} currentTab={menuTab} />
             </div>
-            <div className="menu-content">
-                <div className="menu-div-column">
-                    <div>
-		    	<VerticalInverter />
-                    </div>
-                </div>
-            </div>
-	    <MenuButton name="Close Menu" onClick={toggleMenu} />
+		<SettingsMenuContent />  
+		<MenuButton name="Close Menu" onClick={toggleMenu} />
         </div >
     </>)
 }
