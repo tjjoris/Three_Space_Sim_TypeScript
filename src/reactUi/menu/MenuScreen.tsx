@@ -30,9 +30,9 @@ export default function MenuScreen({
                     <div>
 		    	<VerticalInverter />
                     </div>
-                    <MenuButton name="Close Menu" onClick={toggleMenu} />
                 </div>
             </div>
+	    <MenuButton name="Close Menu" onClick={toggleMenu} />
         </div >
     </>)
 }
