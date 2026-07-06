@@ -14,6 +14,7 @@ import Popup from "./reactUi/popup/Popup.tsx";
 
 export default function App() {
     //read cookie for vertical inversion.
+	//note: the getCookie only runs on mount.
     const isVerticalCookieBool: string | null = getCookie('isVerticalInverted');
     //initially set to false
     let isVerticalBool: boolean = false;

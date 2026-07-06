@@ -6,7 +6,7 @@
  *
  */
 
-import { start, stop, setVerticalInversion } from '../../main';
+import { setVerticalInversion } from '../../main';
 import { setCookie, getCookie } from '../../helpers/cookieHandler.ts';
 export default function VerticalInverter() {
 
