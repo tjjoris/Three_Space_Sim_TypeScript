@@ -1,3 +1,4 @@
+import type {MenuTabsType} from "../../types/menuTabsType"
 import SettingsMenuContent from "./SettingsMenuContent";
 import InfoMenuContent from "./InfoMenuContent";
 import HeaderButton from "./HeaderButton";
@@ -10,11 +11,11 @@ export default function MenuScreen({
 }) {
 
 	//tabs state for different menu screens.
-	const [menuTab, setMenuTab] = useState("info"); 
+	const [menuTab, setMenuTab] = useState<MenuTabsType>("info"); 
 	
 	//function to navigate to menu screen on tab click
 //the arrow syntax is more common in react and no {} are needed because it is only calling one function.
-	const gotoMenuScreen = (screenName: string) => {
+	const gotoMenuScreen = (screenName: MenuTabsType) => {
 		setMenuTab(screenName);
 	};
 
