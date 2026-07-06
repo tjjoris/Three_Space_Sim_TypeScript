@@ -4,7 +4,7 @@
  *it pauses and unpauses the game.
  *
  * **/
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect} from "react";
 import { start, stop} from './main';
 import MenuContainer from "./reactUi/menu/MenuContainer.tsx";
 import LandscapeOverlay from "./reactUi/menu/LandscapeOverlay.tsx";

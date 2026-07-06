@@ -101,6 +101,11 @@
   background-color: green;
 }
 
+.scrollable-div {
+	overflow-y: scroll;
+	font-size: 0.3em;
+}
+
 .menu-button {
   width: 7em;
   height: 2em;

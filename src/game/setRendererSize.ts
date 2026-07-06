@@ -70,7 +70,6 @@ export default class SetRendererSize {
         return () => {
             this.listeners = this.listeners.filter((l) => l !== listener);
         }
-        console.log("usesyncexternalstore listeners ", this.listeners.length);
     }
 
     /**
