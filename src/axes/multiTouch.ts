@@ -21,8 +21,8 @@ export default class MultiTouch {
         this.renderer.domElement.addEventListener('touchmove', this.onTouchMove.bind(this), false);
         this.renderer.domElement.addEventListener('touchend', this.onTouchEnd.bind(this), false);
         this.renderer.domElement.addEventListener('touchcancel', this.onTouchEnd.bind(this), false);
-        console.log("renderer dom element", this.renderer.domElement)
-        console.log("MultiTouch initialized");
+        // console.log("renderer dom element", this.renderer.domElement)
+        // console.log("MultiTouch initialized");
     }
 
     /**
@@ -48,7 +48,7 @@ export default class MultiTouch {
      * @param event 
      */
     onTouchMove(event: TouchEvent) {
-        console.log("touchmove event");
+        // console.log("touchmove event");
         for (let i = 0; i < event.changedTouches.length; i++) {
             const touch = event.changedTouches[i];
             this.pointers.set(touch.identifier, { x: touch.clientX, y: touch.clientY });
@@ -64,7 +64,7 @@ export default class MultiTouch {
      * @param event 
      */
     onTouchEnd(event: TouchEvent) {
-        console.log("touchend event");
+        // console.log("touchend event");
         for (let i = 0; i < event.changedTouches.length; i++) {
             const touch = event.changedTouches[i];
             this.pointers.delete(touch.identifier);

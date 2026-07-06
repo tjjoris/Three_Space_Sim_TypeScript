@@ -12,7 +12,7 @@ import useLandscapeStore from '../../stores/UseLandscapeStore';
 export default function LandscapeOverlay() {
     const state: { isLandscape: boolean; } = useLandscapeStore(setRendererSize);
 
-    console.log("component updated");
+    // console.log("component updated");
     return (
 
         //if is landscape is false, show the div component

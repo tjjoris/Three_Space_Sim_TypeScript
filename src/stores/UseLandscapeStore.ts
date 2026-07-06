@@ -8,7 +8,7 @@ import SetRendererSize from "../game/setRendererSize";
  * @returns 
  */
 export default function useLandscapeStore(landscapeStore: SetRendererSize) {
-    console.log("ins use sync external store");
+    // console.log("ins use sync external store");
     return useSyncExternalStore(
         (callback) => landscapeStore.subscribe(callback),
         () => landscapeStore.getState()

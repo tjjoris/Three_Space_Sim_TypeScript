@@ -4,6 +4,8 @@
  */
 
 import axialLerp from "../../axes/axialLerp"
+
+
 export default class AxialThrust {
     private thrust: number = 0;
     private maxThrust: number;

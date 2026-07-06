@@ -12,14 +12,14 @@ import UseVJoyUsedTrackerStore from "../../stores/UseVJoyUsedTrackerStore"
 export default function VJoyUsedOverlay() {
     const isVJoyAlreadyUsed: boolean = UseVJoyUsedTrackerStore(VJoyUsedTracker.getVJoyUsedTracker());
 
-    console.log("vjoy used component updated");
+    // console.log("vjoy used component updated");
     return (
 
         //if VJoy is already used, show the div component
         !isVJoyAlreadyUsed && (
             <>
                 <div className="overlay">
-                    Drag the bottom circles to control your ship.
+                    Drag the bottom circles, or use your gamepad to control your ship.
                 </div>
             </>
         )

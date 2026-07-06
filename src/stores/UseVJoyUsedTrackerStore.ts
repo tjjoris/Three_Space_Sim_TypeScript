@@ -7,7 +7,7 @@ import VJoyUsedTracker from "../ui/vjoy/vJoyUsedTracker";
  * @returns 
  */
 export default function useLandscapeStore(vJoyUsedObject: VJoyUsedTracker) {
-    console.log("ins use sync external store");
+    // console.log("ins use sync external store");
     return useSyncExternalStore(
         (callback) => vJoyUsedObject.subscribe(callback),
         () => vJoyUsedObject.getIsVJoyAlreadyUsed()

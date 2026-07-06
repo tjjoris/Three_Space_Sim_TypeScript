@@ -1,11 +1,17 @@
 import clamp from "../helpers/clamp";
-export default class axis {
+export default class Axis {
     private value: number;
     private deadZone: number;
     private saturation: number;
     private totalUsableDeflectionMult: number;
     private inverseMultiplier: number;
 
+    /**
+     * 
+     * @param deadZone 
+     * @param saturation 
+     * @param inverse 
+     */
     constructor(deadZone: number, saturation: number, inverse: boolean) {
         this.value = 0;
         this.deadZone = deadZone;
@@ -17,12 +23,13 @@ export default class axis {
             this.saturation = this.deadZone;
         }
         this.totalUsableDeflectionMult = 1 / (this.saturation - this.deadZone);
-        console.log("total usable deflection ", this.totalUsableDeflectionMult);
+        // console.log("total usable deflection ", this.totalUsableDeflectionMult);
         this.inverseMultiplier = 1;
         this.setInverseFromBoolean(inverse);
     }
 
     setValue(value: number) {
+        // console.log("axis set value", value);
         let valueToSet: number = value * this.inverseMultiplier;
         this.value = clamp(valueToSet, -1, 1);
     }
@@ -43,7 +50,7 @@ export default class axis {
 
         value ? this.inverseMultiplier = 1
             : this.inverseMultiplier = -1;
-        console.log('set axis inversion from boolean', this.inverseMultiplier);
+        // console.log('set axis inversion from boolean', this.inverseMultiplier);
     }
     setInverse(value: number) {
         this.inverseMultiplier = value;
