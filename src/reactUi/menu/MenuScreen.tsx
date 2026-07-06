@@ -25,7 +25,8 @@ export default function MenuScreen({
 		<HeaderButton name="keybinds" action={gotoMenuScreen} currentTab={menuTab} />
 		<HeaderButton name="settings" action={gotoMenuScreen} currentTab={menuTab} />
             </div>
-		<SettingsMenuContent />  
+		{menuTab === "settings" &&	    
+		<SettingsMenuContent />  }
 		<MenuButton name="Close Menu" onClick={toggleMenu} />
         </div >
     </>)
