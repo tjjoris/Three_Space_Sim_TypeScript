@@ -1,6 +1,7 @@
 import type {MenuTabsType} from "../../types/menuTabsType"
 import SettingsMenuContent from "./SettingsMenuContent";
 import InfoMenuContent from "./InfoMenuContent";
+import KeybindsMenuContent from "./KeybindsMenuContent";
 import HeaderButton from "./HeaderButton";
 import MenuButton from "./MenuButton";
 import { useState} from "react";
@@ -27,10 +28,12 @@ export default function MenuScreen({
 		<HeaderButton name="keybinds" action={gotoMenuScreen} currentTab={menuTab} />
 		<HeaderButton name="settings" action={gotoMenuScreen} currentTab={menuTab} />
             </div>
-		{menuTab === "settings" &&	    
-		<SettingsMenuContent />  }
 		{menuTab === "info" &&
 			<InfoMenuContent />}
+		{menuTab === "keybinds" &&
+			<KeybindsMenuContent /> }
+		{menuTab === "settings" &&	    
+		<SettingsMenuContent />  }
 		<MenuButton name="Close Menu" onClick={toggleMenu} />
         </div >
     </>)
