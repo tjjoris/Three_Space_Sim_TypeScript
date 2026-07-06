@@ -1,3 +1,4 @@
+import VerticalInverter from "./VerticalInverter"
 import HeaderButton from "./HeaderButton";
 import MenuCheckbox from "./MenuCheckbox";
 import MenuButton from "./MenuButton";
@@ -32,10 +33,7 @@ export default function MenuScreen({
             <div className="menu-content">
                 <div className="menu-div-column">
                     <div>
-                        <MenuCheckbox
-                            name="Invert Vertical"
-                            isChecked={isVerticalInverted}
-                            onToggle={toggleInvertVertical} />
+		    	<VerticalInverter />
                     </div>
                     <MenuButton name="Close Menu" onClick={toggleMenu} />
                 </div>
