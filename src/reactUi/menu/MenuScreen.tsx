@@ -1,4 +1,5 @@
 import SettingsMenuContent from "./SettingsMenuContent";
+import InfoMenuContent from "./InfoMenuContent";
 import HeaderButton from "./HeaderButton";
 import MenuButton from "./MenuButton";
 import { useState} from "react";
@@ -27,6 +28,8 @@ export default function MenuScreen({
             </div>
 		{menuTab === "settings" &&	    
 		<SettingsMenuContent />  }
+		{menuTab === "info" &&
+			<InfoMenuContent />}
 		<MenuButton name="Close Menu" onClick={toggleMenu} />
         </div >
     </>)
