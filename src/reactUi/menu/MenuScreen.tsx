@@ -1,16 +1,11 @@
 import VerticalInverter from "./VerticalInverter"
 import HeaderButton from "./HeaderButton";
-import MenuCheckbox from "./MenuCheckbox";
 import MenuButton from "./MenuButton";
 import { useState} from "react";
 export default function MenuScreen({
     toggleMenu,
-    isVerticalInverted,
-    toggleInvertVertical
 }: {
     toggleMenu: () => void,
-    isVerticalInverted: boolean,
-    toggleInvertVertical: () => void
 }) {
 
 	//tabs state for different menu screens.

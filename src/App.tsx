@@ -5,37 +5,13 @@
  *
  * **/
 import { useRef, useEffect, useState } from "react";
-import { start, stop, setVerticalInversion } from './main';
+import { start, stop} from './main';
 import MenuContainer from "./reactUi/menu/MenuContainer.tsx";
-import { setCookie, getCookie } from './helpers/cookieHandler.ts';
 import LandscapeOverlay from "./reactUi/menu/LandscapeOverlay.tsx";
 import VJoyUsedOverlay from "./reactUi/menu/VJoyUsedOverlay.tsx";
 import Popup from "./reactUi/popup/Popup.tsx";
 
 export default function App() {
-    //read cookie for vertical inversion.
-	//note: the getCookie only runs on mount.
-    const isVerticalCookieBool: string | null = getCookie('isVerticalInverted');
-    //initially set to false
-    let isVerticalBool: boolean = false;
-    //if true set
-    if (isVerticalCookieBool === "true") {
-        isVerticalBool = true;
-    }
-
-    //set vertical inversoin for game from the cookie value.
-    setVerticalInversion(isVerticalBool);
-    //state for vertical inverstion
-    const [isVerticalInverted, setIsVerticalInverted] = useState(isVerticalBool);
-
-    //function to toggle vertical inversion
-    const toggleInvertVertical = () => {
-        const newVertical = !isVerticalInverted;
-        setIsVerticalInverted(newVertical);
-        setVerticalInversion(newVertical);
-        setCookie('isVerticalInverted', newVertical.toString(), 365);
-    };
-
     //mountRef is the div that will contain the renderer
     //useRef is used to get a reference to the div
     const mountRef = useRef<HTMLDivElement | null>(null);
@@ -55,10 +31,9 @@ export default function App() {
             <Popup />
             <LandscapeOverlay />
             <VJoyUsedOverlay />
-            <MenuContainer
-                isVerticalInverted={isVerticalInverted}
-                toggleInvertVertical={toggleInvertVertical} />
+            <MenuContainer />
             <div ref={mountRef} style={{ width: '100vw', height: '100vh' }} />
         </>
     );
+
 }
