@@ -3,6 +3,12 @@ import type Axis from "./axis";
 import GamePadHandler from "./gamePadHandler";
 // import { addPopup } from "../reactUi/popup/popupLifespan";
 
+/**
+GamePadHandlerLifecycle.ts
+@Author: Luke Johnson
+ exists for each game pad axis with a binding.
+ controls the lifecycle of a gamepad handler for this gamepad axis and flight axis.
+ */
 export default class GamePadHandlerLifecycle {
     gamePadHandler: GamePadHandler | null;
     axis: Axis | null;
@@ -19,15 +25,20 @@ export default class GamePadHandlerLifecycle {
     }
 
     /**
-     called when a gamepad axis is unbound from a flight axis. thereby destroying the gamepad class and removing it form the ticker.
+     called when a gamepad axis is unbound from a flight axis. or when a gamepad has disconnected. thereby destroying the gamepad class and removing it form the ticker.
      */
-	public unbindGamepad() {
+	public destroyGamepadHandler() {
         if (this.gamePadHandler !== null) {
             this.ticker.removeTickable(this.gamePadHandler);
             this.gamePadHandler = null;
         }
 	}
 
+	/**
+	 triggered by listener when gamepad is connected, creates a gamepad handler for the gamepad with the axis from the event, and creates a gamepad handler for that gamapd with the stored gampad axis, binding it to the stored flight axis.
+	 also adds it to the ticker.
+	 */
+//	TODO: make listener for gampad connect and disconnect in parent compoenent.
     private readonly onGamepadConnected = (e: GamepadEvent) => {
         console.log(
             "gamepad connected at index %d: %s, %d buttons, %d axes.",
@@ -37,27 +48,23 @@ export default class GamePadHandlerLifecycle {
             e.gamepad.axes.length
         );
         // addPopup(`Joystick detected: ${e.gamepad.id} index: ${e.gamepad.index}`);
-
-        // if (this.gamePadHandler !== null) {
-        //     this.ticker.removeTickable(this.gamePadHandler);
-        // }
 	// only add gamepad if it have a flight axis bound.
 	if (this.axis == null) { return;}
         this.gamePadHandler = new GamePadHandler(e.gamepad.index, this.axis, this.axisIndex);
         this.ticker.addTickable(this.gamePadHandler);
     };
 
+    /**
+    triggered by listener for when gamepad disconnects, calls destroys gamepad handler. 
+     */
+    //TODO: move listener to parent compoenent.
     private readonly onGamepadDisconnected = (e: GamepadEvent) => {
         console.log(
             "Gamepad disconnected from index %d: %s",
             e.gamepad.index,
             e.gamepad.id,
         );
-
-        if (this.gamePadHandler !== null) {
-            this.ticker.removeTickable(this.gamePadHandler);
-            this.gamePadHandler = null;
-        }
+	this.destroyGamepadHandler();
     };
 
     start() {
