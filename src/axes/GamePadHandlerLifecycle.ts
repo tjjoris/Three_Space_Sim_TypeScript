@@ -18,6 +18,16 @@ export default class GamePadHandlerLifecycle {
         this.start();
     }
 
+    /**
+     called when a gamepad axis is unbound from a flight axis. thereby destroying the gamepad class and removing it form the ticker.
+     */
+	public unbindGamepad() {
+        if (this.gamePadHandler !== null) {
+            this.ticker.removeTickable(this.gamePadHandler);
+            this.gamePadHandler = null;
+        }
+	}
+
     private readonly onGamepadConnected = (e: GamepadEvent) => {
         console.log(
             "gamepad connected at index %d: %s, %d buttons, %d axes.",
