@@ -5,12 +5,12 @@ import GamePadHandler from "./gamePadHandler";
 
 export default class GamePadHandlerLifecycle {
     gamePadHandler: GamePadHandler | null;
-    axis: Axis;
+    axis: Axis | null;
     ticker: Ticker;
     axisIndex: number;
     private started = false;
 
-    constructor(gamePadHandler: GamePadHandler | null, axis: Axis, ticker: Ticker, axisIndex: number = 0) {
+    constructor(gamePadHandler: GamePadHandler | null, axis: Axis | null, ticker: Ticker, axisIndex: number = 0) {
         this.gamePadHandler = gamePadHandler;
         this.axis = axis;
         this.ticker = ticker;
@@ -41,7 +41,8 @@ export default class GamePadHandlerLifecycle {
         // if (this.gamePadHandler !== null) {
         //     this.ticker.removeTickable(this.gamePadHandler);
         // }
-
+	// only add gamepad if it have a flight axis bound.
+	if (this.axis == null) { return;}
         this.gamePadHandler = new GamePadHandler(e.gamepad.index, this.axis, this.axisIndex);
         this.ticker.addTickable(this.gamePadHandler);
     };
