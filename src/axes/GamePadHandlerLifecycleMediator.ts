@@ -4,6 +4,14 @@ import GamePadHandler from "./gamePadHandler";
 import GamePadHandlerLifecycle from "./GamePadHandlerLifecycle";
 import GamePadDetector from "./GamePadDetector";
 
+/**
+ GamePadHandlerLifecycleMediator.ts
+ @Author: Luke Johnson
+ This class stores all flight axes, and active gamepads. for each flight axis it has a GamePadHandlerLifecycle, and passes it the gamepad id, and axis id.
+ The GamePadHandlerLifecycle then sends those to the gamepad handler.
+ TODO: add a gamepadIdentifier class for each connected gamepad.
+ maybe it should handle gamepad connects and disconnects, and it should talk to this class.
+ */
 export default class GamePadHandlerLifeCycleMediator {
     horizontalAxis: Axis;
     verticalAxis: Axis;
