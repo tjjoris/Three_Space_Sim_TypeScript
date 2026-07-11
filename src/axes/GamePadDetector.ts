@@ -33,7 +33,7 @@ export default class GamePadDetector {
             e.gamepad.index,
             e.gamepad.id,
         );
-        addPopup(`Joystick detected: ${e.gamepad.id} index: ${e.gamepad.index}`);
+        addPopup(`Joystick disconnected: ${e.gamepad.id} index: ${e.gamepad.index}`);
 
         // if (this.gamePadHandler !== null) {
         //     this.ticker.removeTickable(this.gamePadHandler);
