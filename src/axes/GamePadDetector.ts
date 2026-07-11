@@ -17,7 +17,7 @@ export default class GamePadDetector {
             e.gamepad.buttons.length,
             e.gamepad.axes.length
         );
-        addPopup(`Joystick detected: ${e.gamepad.id} index: ${e.gamepad.index}`);
+        addPopup(`Joystick connected: ${e.gamepad.id} index: ${e.gamepad.index}`);
         VJoyUsedTracker.getVJoyUsedTracker().setVJoyToUsed();
         // if (this.gamePadHandler !== null) {
         //     this.ticker.removeTickable(this.gamePadHandler);
@@ -33,6 +33,7 @@ export default class GamePadDetector {
             e.gamepad.index,
             e.gamepad.id,
         );
+        addPopup(`Joystick detected: ${e.gamepad.id} index: ${e.gamepad.index}`);
 
         // if (this.gamePadHandler !== null) {
         //     this.ticker.removeTickable(this.gamePadHandler);
