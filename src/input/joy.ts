@@ -11,6 +11,12 @@ export default class Joy{
 	private joyName:string|null;
 	private enabled:boolean;
 
+	/*
+	constructor for Joy
+	@parm:joyId:number|null
+	@parm:joyName:number|null
+	@parm:enabled:boolean
+	 */
 	public constructor(
 		joyId:number|null,
 		joyName:string|null,
