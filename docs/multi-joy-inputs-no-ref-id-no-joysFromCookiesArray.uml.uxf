@@ -28,7 +28,7 @@ fontsize=10
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>50</x>
+      <x>60</x>
       <y>70</y>
       <w>250</w>
       <h>90</h>
@@ -45,7 +45,7 @@ fontsize=10
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
+      <x>10</x>
       <y>320</y>
       <w>250</w>
       <h>120</h>
@@ -64,46 +64,48 @@ fontsize=10
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>40</x>
+      <x>0</x>
       <y>500</y>
       <w>270</w>
       <h>120</h>
     </coordinates>
     <panel_attributes>JoyBinding: Tickable {abstract}
 --
--joy:Joy
+-joy:Joy|null
 -
-+constructor(joy:Joy)
++constructor(joy:Joy|null)
 +tick(dt):void
-+getJoyId:int</panel_attributes>
++getJoyId:int
++setJoy(joy:Joy|null)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>30</x>
+      <x>40</x>
       <y>850</y>
       <w>290</w>
       <h>190</h>
     </coordinates>
     <panel_attributes>JoyAxisBinding: Tickable
 --
--joy:Joy
+-joy:Joy|null
 -joyAxis:int|null
 -flightAxis:FlightAxis
 -
-+constructor(joy:Joy, flightAxis:FlightAxis)
++constructor(joy:Joy|null, flightAxis:FlightAxis)
 +tick(dt):void
 +getBindingActive():bool
 +getJoyId():int
 +getJoyAxis():int
-+setJoyAxis(int)</panel_attributes>
++setJoyAxis(int|null)
++setJoy(joy:Joy|null)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>150</x>
+      <x>110</x>
       <y>610</y>
       <w>30</w>
       <h>260</h>
@@ -114,8 +116,8 @@ fontsize=10
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>350</x>
-      <y>940</y>
+      <x>360</x>
+      <y>930</y>
       <w>300</w>
       <h>200</h>
     </coordinates>
@@ -141,67 +143,45 @@ passed diff with this one, if this one is greater, true.
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>950</x>
+      <x>960</x>
       <y>50</y>
       <w>510</w>
       <h>520</h>
     </coordinates>
-    <panel_attributes>Requirements:
-bg=gray
+    <panel_attributes>bg=gray
 fontsize=16
-
-BindingSetter: static function, accessable from React
-, receives binding name, joyId, joyAxisId.
-
 InputDifferenceJoysticks: must export store the result of 
-inputs on tick, but only when the menu is open and that 
-joysick is connected. it's ticking is enabled and disabled
-while a binding is being set.
+inputs on tick, but only when joysick is connected. it's ticking 
+is enabled and disabled while a binding is being set.
+
+React is the UI for setting a binding, removing an old joy, ignoring
+a newly connected joy, or swapping joys.
 
 joy cookie stores a delimited string containing the joy names in
-order of the joy ids. when we get joy cookie, we check for 
-duplicate joys, and sore that in JoyDuplicatables, 
-when a joy is connected, it checks if the name matches a non 
-duplicate joy and gets JoyConnectables[joyCookieId] and sets its
-name, and id and moves it to the correct array position. rewriting the 
-joyCookie. If connected joy is a duplicate, it sets the joyId to for
-the first joy from the cookies matching that name.
+order of the joy ids. 
 
-Bindings exist for all Flight Axes, even if not set, they store 
-the flight axis, but tick does nothing if not set.
+Bindings exist for all Flight Axes, always stores flight axis,
+if it's Joy is set, it returns an id, and has an axisId,
+tick uses the axisValue to set the flight axis.
 
-TODO: there is a problem with duplicate joys, connecting an earlier 
-joy, how do you match it with the key bindings?
-Do i actually need a refId.
-what happens when you connect a joy and it is not in the cookies?
-the joy is added to connectable joys when connected.
-the binding does not contain the joy until the binding is set.
-to set a binding, i get the joy for that joyId, and add it to the 
-binding.
-If you have 4 joys saved in cookies, and you connect a new joy,
-what happens?
-you  must remove one of the saved joys from cookies.
-you choose what joy to remove from cookies.
+When you connect a joy, if the set name from cookies matches, 
+sets the id for that joy, if the id does not match the cookies,
+it may Swap joy may need to happen for the bindings and joys.
+If no name match, checks if an unnamed 
+slot, if not tells React to ask to delete  a joy, or ignore the new 
+one. if there is an unnamed slot, sets the joy name and id. 
+After a joy changes, the joys array is re-ordered.
+Cookies are updated whenever a joy or binding changes.
 
-soppose i can connect 4 joys, and theres 4 ref ids.
-the first joy i connect is ref id 1.
-a binding does not have a reference to it until set.
-
-when bindings are loaded, the joys contain a name but no id.
-for duplicate joys, the index id is the order the connected joys are
-added in.
-so when a joy is disconnected, it is set to inactive.
-i don't need a dupplicate var.
-i don't need a cookies joys array
-if a joy is connected, and it does not match a name, and there are
-no null names, you must remove a joy.
-</panel_attributes>
+A binding may not have a joy, a joy is set when the binding is set.
+A binding may have an unenabled joy, it becomes enabled when the joy
+is connected.</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>120</x>
+      <x>130</x>
       <y>430</y>
       <w>50</w>
       <h>90</h>
@@ -214,12 +194,12 @@ m2=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>340</x>
-      <y>750</y>
+      <x>350</x>
+      <y>740</y>
       <w>310</w>
       <h>150</h>
     </coordinates>
-    <panel_attributes>JoyInputDiffsComparer
+    <panel_attributes>InputDiffsComparerForJoy
 --
 -joyId:int
 -diffeReporters:JoyAxisInputDiffValueReporter[]
@@ -237,14 +217,14 @@ greater than greatest diff.
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>340</x>
+      <x>350</x>
       <y>560</y>
       <w>310</w>
-      <h>130</h>
+      <h>140</h>
     </coordinates>
-    <panel_attributes>InputDifJoysContainer
+    <panel_attributes>InputDiffsComparerForAllJoys
 --
--joys:JoyInputDiffContainer|null[]
+-joys:InputDiffsComparerForJoy|null[]
 -inputReported:JoyAxisInputDifValueReporter|null
 --
 +constructor()
@@ -252,27 +232,28 @@ greater than greatest diff.
 +joyDisconnected(joyId:int)
 +beginBindingCheck()
 +endBindingCheck()
+-tickLoop()
 -getMaxInputDiffForJoy():JoyAxisInputDiffValueReporter</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>480</x>
-      <y>680</y>
+      <x>490</x>
+      <y>690</y>
       <w>50</w>
-      <h>90</h>
+      <h>70</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;&gt;&gt;
 m1=1..n
 m2=1</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>490</x>
-      <y>890</y>
+      <x>500</x>
+      <y>880</y>
       <w>50</w>
       <h>70</h>
     </coordinates>
@@ -283,7 +264,7 @@ m1=1..n</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>370</x>
+      <x>380</x>
       <y>440</y>
       <w>140</w>
       <h>90</h>
@@ -299,7 +280,7 @@ m1=1..n</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>420</x>
+      <x>430</x>
       <y>520</y>
       <w>30</w>
       <h>60</h>
@@ -310,7 +291,7 @@ m1=1..n</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>520</x>
+      <x>530</x>
       <y>440</y>
       <w>310</w>
       <h>90</h>
@@ -326,7 +307,7 @@ m1=1..n</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>270</x>
+      <x>280</x>
       <y>150</y>
       <w>110</w>
       <h>430</h>
@@ -337,7 +318,7 @@ m1=1..n</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>40</x>
+      <x>50</x>
       <y>180</y>
       <w>130</w>
       <h>100</h>
@@ -352,21 +333,21 @@ m1=1..n</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>230</x>
+      <x>240</x>
       <y>150</y>
       <w>680</w>
-      <h>460</h>
+      <h>480</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes>
-    <additional_attributes>660.0;440.0;660.0;270.0;460.0;270.0;460.0;40.0;10.0;40.0;10.0;10.0</additional_attributes>
+    <additional_attributes>660.0;460.0;660.0;270.0;460.0;270.0;460.0;40.0;10.0;40.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>380</x>
-      <y>220</y>
+      <x>390</x>
+      <y>200</y>
       <w>280</w>
-      <h>110</h>
+      <h>130</h>
     </coordinates>
     <panel_attributes>BindingHandler
 --
@@ -376,37 +357,39 @@ m1=1..n</panel_attributes>
 -getBindingsFromCookies()
 +getBindings():JoyBinding[]
 +getBindingForAxis(flightAxis:FlightAxisString):JoyBinding
-+setBinding(JoyBinding, joyId, axisId)</panel_attributes>
++setBinding(bindingName:string, joy:Joy, axisId:int)
++removeJoy(joy:Joy)
++swapJoy(joyIdOne:int, joyIdTwo:two)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>510</x>
+      <x>520</x>
       <y>150</y>
       <w>30</w>
-      <h>90</h>
+      <h>70</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>280</x>
+      <x>290</x>
       <y>320</y>
       <w>160</w>
-      <h>200</h>
+      <h>550</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;&gt;
 m1=1..n
 m2=1</panel_attributes>
-    <additional_attributes>10.0;180.0;10.0;90.0;140.0;90.0;140.0;10.0</additional_attributes>
+    <additional_attributes>10.0;530.0;10.0;90.0;140.0;90.0;140.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>360</x>
+      <x>370</x>
       <y>0</y>
       <w>1100</w>
       <h>50</h>
@@ -419,8 +402,8 @@ style=wordwrap</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1230</x>
-      <y>820</y>
+      <x>1240</x>
+      <y>850</y>
       <w>320</w>
       <h>80</h>
     </coordinates>
@@ -435,18 +418,18 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>620</x>
+      <x>630</x>
       <y>320</y>
       <w>750</w>
-      <h>520</h>
+      <h>550</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>730.0;500.0;730.0;260.0;290.0;260.0;290.0;60.0;10.0;60.0;10.0;10.0</additional_attributes>
+    <additional_attributes>730.0;530.0;730.0;260.0;290.0;260.0;290.0;60.0;10.0;60.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>90</x>
+      <x>100</x>
       <y>270</y>
       <w>30</w>
       <h>70</h>
@@ -457,7 +440,7 @@ style=wordwrap</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1240</x>
+      <x>1250</x>
       <y>1050</y>
       <w>310</w>
       <h>50</h>
@@ -471,116 +454,78 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1520</x>
-      <y>890</y>
+      <x>1530</x>
+      <y>920</y>
       <w>30</w>
-      <h>180</h>
+      <h>150</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>10.0;160.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;130.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>990</x>
-      <y>840</y>
+      <x>800</x>
+      <y>1000</y>
       <w>160</w>
-      <h>120</h>
+      <h>150</h>
     </coordinates>
     <panel_attributes>Joy
 -
 -joyId:int|null
--refId:int
 -joyName:string|null
+-enabled:bool
 -
 +setJoyId(id:string)
 +setJoyName(name:string)
 +getJoyId():int
-+getJoyName():string</panel_attributes>
++getJoyName():string
++setEnabled(enable:bool)
++getEnabled():bool</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>850</x>
-      <y>590</y>
+      <x>860</x>
+      <y>610</y>
       <w>370</w>
-      <h>190</h>
+      <h>210</h>
     </coordinates>
     <panel_attributes>JoysHandler
 -connectableJoys:JoyConnectable[]
--joysFromCookies:JoyDuplicatable|null[]
 -
-+validateJoysFromCookies()
--getJoysFromCookies()
--checkForDuplicateJoys()
++getJoyCookiesSetJoys()
++joyConnected(joyId:int, joyName:string)
++getDisconnectedJoyMatchingName(joyName:string):Joy
++enableJoy(joy:Joy)
++swapJoys(joyIdOne:int, JoyIdTwo:int)
++checkForEmptyJoySlot():bool
++askReactToRemoveJoy(joys:Joy[])
++addNewJoy(joyId:int, joyName:string)
++ignoreJoy(joyId:int)
++removeJoy(joyId:int)
++joyDisconnected(joyId:int)
+-disableJoy(joy:Joy)
 +GetJoyConnectableById(joyid):JoyConnectable)
--getMatchingNonDuplicateJoyFromCookieJoys(joyName:string):joy|null
--getMatchingDuplicateJoyFromCookieJoys(connectedJoy:Joy):Joy|null
--getFirstUnusedDuplicateJoyCookieIndex(joyName:string):int
-+SetJoyConnected(connectedJoy:Joy, name:string, id:int)
-+setJoyDisconnected(connectedJoy:Joy)
-+swapJoys(joyIdOne:int, JoyIdTwo:int)</panel_attributes>
+-reOrderJoysArray()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1160</x>
-      <y>770</y>
+      <x>1170</x>
+      <y>810</y>
       <w>110</w>
-      <h>180</h>
+      <h>190</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>90.0;160.0;90.0;140.0;10.0;140.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1040</x>
-      <y>990</y>
-      <w>160</w>
-      <h>130</h>
-    </coordinates>
-    <panel_attributes>JoyDuplicatable:Joy
--
--joyId:int|nul
--joyName:string|null
--duplicate:bool
--
-+setJoyId(id:string)
-+setJoyName(name:string)
-+getJoyId():int
-+getJoyName():string</panel_attributes>
-    <additional_attributes/>
+    <additional_attributes>90.0;170.0;90.0;140.0;10.0;140.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1050</x>
-      <y>950</y>
-      <w>30</w>
-      <h>50</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1150</x>
-      <y>770</y>
-      <w>40</w>
-      <h>240</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
-m2=1.n</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;220.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>610</x>
+      <x>620</x>
       <y>320</y>
       <w>30</w>
       <h>140</h>
@@ -591,82 +536,50 @@ m2=1.n</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>260</x>
+      <x>220</x>
       <y>610</y>
-      <w>600</w>
-      <h>400</h>
+      <w>650</w>
+      <h>410</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;100.0;580.0;100.0;580.0;380.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0;630.0;100.0;630.0;390.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>890</x>
-      <y>970</y>
-      <w>250</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>10.0;20.0;10.0;10.0;230.0;10.0;230.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>800</x>
-      <y>990</y>
-      <w>160</w>
-      <h>160</h>
-    </coordinates>
-    <panel_attributes>JoyConnectable:Joy
--
--joyId:int|null
--joyName:string|null
--isConnected:bool
--
-+setJoyId(id:string)
-+setJoyName(name:string)
-+getJoyId():int
-+getJoyName():string
-+connectJoy()
-+disconnectJoy</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>860</x>
-      <y>770</y>
+      <x>910</x>
+      <y>810</y>
       <w>50</w>
-      <h>240</h>
+      <h>210</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m2=1..n</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;220.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;190.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>380</x>
-      <y>70</y>
+      <x>390</x>
+      <y>40</y>
       <w>330</w>
-      <h>90</h>
+      <h>120</h>
     </coordinates>
     <panel_attributes>_Functions_
 -
 -bindingHandler:BindingHandler
 -
 +setBindingHandler(bindingHandler:BindingHandler)
-+setBinding(bindingName:string, joyRefId:int, joyAxis:int)
++setBinding(bindingName:string, joyId:int, joyAxis:int)
 +swapJoys(JoyIdOne:int, JoyIdTwo:int)
-+disconnectJoy(joyid:int)</panel_attributes>
++removeJoy(joyid:int)
++ignoreJoy(joyId:int)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1210</x>
-      <y>930</y>
+      <x>1220</x>
+      <y>980</y>
       <w>280</w>
       <h>50</h>
     </coordinates>
@@ -679,40 +592,40 @@ m2=1..n</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1270</x>
-      <y>970</y>
+      <x>1280</x>
+      <y>1020</y>
       <w>30</w>
-      <h>100</h>
+      <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;30.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>590</x>
+      <x>600</x>
       <y>150</y>
       <w>360</w>
-      <h>460</h>
+      <h>480</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;30.0;340.0;30.0;340.0;440.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0;340.0;30.0;340.0;460.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1180</x>
-      <y>770</y>
+      <x>1190</x>
+      <y>810</y>
       <w>120</w>
-      <h>70</h>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>100.0;50.0;100.0;30.0;10.0;30.0;10.0;10.0</additional_attributes>
+    <additional_attributes>100.0;40.0;100.0;20.0;10.0;20.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>20</x>
+      <x>30</x>
       <y>1090</y>
       <w>310</w>
       <h>40</h>
@@ -725,7 +638,7 @@ m2=1..n</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>670</x>
+      <x>680</x>
       <y>800</y>
       <w>160</w>
       <h>80</h>
@@ -734,18 +647,44 @@ m2=1..n</panel_attributes>
 --
 -state:{joyId:int, axisId:int}
 --
-+export():{joyId:int, axisId:int}</panel_attributes>
++export(state)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>590</x>
-      <y>680</y>
+      <x>600</x>
+      <y>690</y>
       <w>140</w>
-      <h>140</h>
+      <h>130</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>120.0;120.0;120.0;50.0;10.0;50.0;10.0;10.0</additional_attributes>
+    <additional_attributes>120.0;110.0;120.0;40.0;10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>950</x>
+      <y>900</y>
+      <w>220</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>_UseSyncExternalStore_
+--
+-state:[{joyId:int, joyName:string}|null]
+--
++askToRemoveJoy(state)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>990</x>
+      <y>810</y>
+      <w>30</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>
