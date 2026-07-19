@@ -9,23 +9,28 @@
 export default class Joy{
 	private joyId:number|null;
 	private joyName:string|null;
+	//TODO: remove enabled.
 	private enabled:boolean;
+	private gamepad:Gamepad|null;
 
 	/*
 	constructor for Joy
 	@parm:joyId:number|null
 	@parm:joyName:number|null
 	@parm:enabled:boolean
+	@parm:gamePad:Gamepad|null
 	 */
 	public constructor(
 		joyId:number|null,
 		joyName:string|null,
-		enabled:boolean
+		enabled:boolean,
+		gamepad:Gamepad|null
 	)
 	{
 		this.joyId = joyId;
 		this.joyName = joyName;
 		this.enabled = enabled;
+		this.gamepad = gamepad;
 	}
 
 	public getJoyId():number|null {
@@ -38,5 +43,26 @@ export default class Joy{
 
 	public getEnabled():boolean{
 		return this.enabled;
+	}
+
+	public getGamepad():Gamepad|null{
+		return this.gamepad;
+	}
+	/*
+	 connect the joy based on it's id.
+	 */
+	public connectJoy(joyId:number){
+		
+		//set get gamePad from joy.
+        	this.gamepad = navigator.getGamepads()[joyId]
+		this.enabled = true;
+	}
+
+	/*
+	disconnect the current joy. 
+	 */
+	public disconnectJoy(){
+		this.gamepad = null;
+		this.enabled = false;
 	}
 }
