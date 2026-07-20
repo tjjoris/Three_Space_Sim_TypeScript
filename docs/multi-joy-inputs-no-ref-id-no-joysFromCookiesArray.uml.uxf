@@ -493,10 +493,11 @@ style=wordwrap</panel_attributes>
       <x>860</x>
       <y>610</y>
       <w>370</w>
-      <h>210</h>
+      <h>220</h>
     </coordinates>
     <panel_attributes>JoysHandler
--connectableJoys:JoyConnectable[]
+-
+-connectableJoys:Joy[]
 -
 +getJoyCookiesSetJoys()
 +joyConnected(joyId:int, joyName:string)
@@ -518,12 +519,12 @@ style=wordwrap</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1170</x>
-      <y>810</y>
+      <y>820</y>
       <w>110</w>
-      <h>190</h>
+      <h>180</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>90.0;170.0;90.0;140.0;10.0;140.0;10.0;10.0</additional_attributes>
+    <additional_attributes>90.0;160.0;90.0;130.0;10.0;130.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -551,13 +552,13 @@ style=wordwrap</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>870</x>
-      <y>810</y>
+      <y>820</y>
       <w>50</w>
-      <h>150</h>
+      <h>140</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m2=1..n</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -618,12 +619,12 @@ m2=1..n</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1190</x>
-      <y>810</y>
+      <y>820</y>
       <w>120</w>
-      <h>60</h>
+      <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>100.0;40.0;100.0;20.0;10.0;20.0;10.0;10.0</additional_attributes>
+    <additional_attributes>100.0;30.0;100.0;10.0;10.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -683,12 +684,12 @@ m2=1..n</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>990</x>
-      <y>810</y>
+      <y>820</y>
       <w>30</w>
-      <h>110</h>
+      <h>100</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>

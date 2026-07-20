@@ -48,6 +48,12 @@ export default class Joy{
 	public getGamepad():Gamepad|null{
 		return this.gamepad;
 	}
+	public setJoyId(joyId:number) {
+		this.joyId = joyId;
+	}
+	public setJoyName(joyName:string) {
+		this.joyName = joyName;
+	}
 	/*
 	 connect the joy based on it's id.
 	 */

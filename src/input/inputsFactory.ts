@@ -12,9 +12,10 @@ export default class InputsFactory{
 	get the joys that are instantiated by this factory. normally they would be
 	blank and set by the cookies, for testing, they have values set.
 	 */
-	public getJoys():Joy{
-		let localJoy = new Joy(1, null, false);
-		return localJoy;
+	public getJoys():Joy[]{
+		let joyOne = new Joy(null, null, false);
+		let joyTwo = new Joy(null, null, false);
+		return [joyOne, joyTwo];
 	}
 
 }
