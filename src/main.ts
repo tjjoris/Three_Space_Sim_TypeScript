@@ -14,6 +14,7 @@ import CastRay from './axes/castRay.ts'
 import RightVJoyInput from './ui/vjoy/rightVJoyInput.ts'
 import LeftVJoyInput from './ui/vjoy/leftVJoyInput.ts'
 import Axis from './axes/axis.ts';
+import InputsFactory from "./input/inputsFactory";
 import DustHandler from './spaceDust/dustHandler.ts'
 import Mover from './ship/movement/mover.ts'
 import CameraRig from './camera/cameraRig.ts'
@@ -152,6 +153,11 @@ const smartYaw: SmartYaw = new SmartYaw(0.1, 0.3, 0, 0.3, pitchAxis, rollAxis, v
 export function setVerticalInversion(value: boolean) {
   verticalAxis?.setInverseFromBoolean(value);
 }
+
+//inputs factory for creating joys bindings and setting modules:
+const inputsFactory = new InputsFactory(pitchAxis);
+//calling it to remove syntax error.
+inputsFactory;
 
 //new inputs
 

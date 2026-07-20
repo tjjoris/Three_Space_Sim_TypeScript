@@ -13,7 +13,13 @@ export default class JoyAxisBinding implements Tickable{
 	private joyAxis: number|null;
 	private flightAxis: Axis;
 
-	private constructor(joy:Joy|null, joyAxis: number|null, flightAxis:Axis){
+	/*
+	 * constructor for joyAxisBinding
+	@param:joy - the Joy for this binding, can be null.
+	@param:joyAxis - the axis number, can be null.
+	@param:flightAxis - the flight axis.
+	 */
+	public constructor(joy:Joy|null, joyAxis: number|null, flightAxis:Axis){
 		this.joy = joy;
 		this.joyAxis = joyAxis;
 		this.flightAxis = flightAxis;
