@@ -8,11 +8,13 @@ sometimes an array of instances.
 import Joy from "./joy";
 import JoyAxisBinding from "./joyAxisBinding";
 import Axis from "../axes/axis"
+import JoyConnector from "./joyConnector";
 
 export default class InputsFactory{
 
 	private joys:Joy[];
 	private joyAxisBindings:JoyAxisBinding[];
+	private joyConnector:JoyConnector;
 	constructor(pitchAxis: Axis) {
 		let joyOne = new Joy(null, null, false, null);
 		let joyTwo = new Joy(null, null, false, null);
@@ -20,6 +22,8 @@ export default class InputsFactory{
 
 		let pitchBinding = new JoyAxisBinding(joyOne, 0, pitchAxis);
 		this.joyAxisBindings = [pitchBinding];
+		this.joyConnector = new JoyConnector(this.joys);
+
 	}
 
 	/*
@@ -32,6 +36,10 @@ export default class InputsFactory{
 
 	getBindings():JoyAxisBinding[] {
 		return this.joyAxisBindings;
+	}
+
+	getJoyConnector():JoyConnector {
+		return this.joyConnector;
 	}
 	
 	

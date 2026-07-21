@@ -24,9 +24,8 @@ connect joy called when the gampad is connected from the listener.
 converts the gampad id to a number and uses it to enable the joy.
  */
 	private connectJoy(e:GamepadEvent):void {
-		console.log("joy connector, game pad id: ", e.gamepad.id)
-		let joyIdUnknown:unknown = e.gamepad.id as unknown;
-		let joyId:number = joyIdUnknown as number;
+		console.log("joy connector, game pad id: ", e.gamepad.index)
+		let joyId:number = e.gamepad.index;
 		this.joys[joyId].connectJoy(joyId);
 	}
 	

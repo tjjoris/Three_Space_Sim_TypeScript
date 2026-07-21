@@ -288,9 +288,10 @@ ticker.addTickable(mover as Tickable);
 ticker.addTickable(dustHandler as Tickable);
 ticker.addTickable(powerUpTicker as Tickable);
 
-let gamePadHandlerLifecycleMediator = new GamePadHandlerLifeCycleMediator(horizontalAxis, verticalAxis, pitchAxis, rollAxis, gamePadHandlerHorizontal, gamePadHandlerVertical, gamePadHandlerPitch, gamePadHandlerRoll, ticker);
+//GAME PAD LIFE CYCLE MEDIATOR temporarly in line for new joystick inputs.
+//let gamePadHandlerLifecycleMediator = new GamePadHandlerLifeCycleMediator(horizontalAxis, verticalAxis, pitchAxis, rollAxis, gamePadHandlerHorizontal, gamePadHandlerVertical, gamePadHandlerPitch, gamePadHandlerRoll, ticker);
 //simpley calling it so build errors don't happen.
-gamePadHandlerLifecycleMediator;
+//gamePadHandlerLifecycleMediator;
 
 
 let currentTime = Date.now();

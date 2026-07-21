@@ -8,6 +8,7 @@ GamePadHandlerLifecycle.ts
 @Author: Luke Johnson
  exists for each game pad axis with a binding.
  controls the lifecycle of a gamepad handler for this gamepad axis and flight axis.
+ note that when a joystick is connected, this is added to the ticker.
  */
 export default class GamePadHandlerLifecycle {
     gamePadHandler: GamePadHandler | null;
