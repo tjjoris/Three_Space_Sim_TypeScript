@@ -10,6 +10,7 @@ import JoyAxisBinding from "./joyAxisBinding";
 import Axis from "../axes/axis"
 import JoyConnector from "./joyConnector";
 import BindingsTicker from "./bindingsTicker";
+import type Tickable from "../game/tickable";
 
 export default class InputsFactory{
 
@@ -22,20 +23,27 @@ export default class InputsFactory{
 		    rollAxis: Axis, 
 		    verticalAxis: Axis,
 		   horizontalAxis: Axis) {
+		let joyZero = new Joy(null, null, false, null);
 		let joyOne = new Joy(null, null, false, null);
 		let joyTwo = new Joy(null, null, false, null);
-		this.joys = [joyOne, joyTwo]; 
+		let joyThree = new Joy(null, null, false, null);
+		let joyFour = new Joy(null, null, false, null);
+		this.joys = [joyZero, joyOne, joyTwo, joyThree, joyFour]; 
 
 		let pitchBinding = new JoyAxisBinding(joyOne, 0, pitchAxis);
 		let rollBinding = new JoyAxisBinding(joyOne, 1, rollAxis);
-		let verticalBinding = new JoyAxisBinding(joyOne, 0, verticalAxis);
-		let horizontalBinding = new JoyAxisBinding(joyOne, 1, horizontalAxis);
+		let verticalBinding = new JoyAxisBinding(joyTwo, 0, verticalAxis);
+		let horizontalBinding = new JoyAxisBinding(joyTwo, 1, horizontalAxis);
 		this.joyAxisBindings = [pitchBinding, 
 			rollBinding, 
 			verticalBinding, 
 			horizontalBinding];
 		this.joyConnector = new JoyConnector(this.joys);
 		this.bindingsTicker = new BindingsTicker();
+		this.bindingsTicker.addTickable(pitchBinding as Tickable);
+		this.bindingsTicker.addTickable(rollBinding as Tickable);
+		this.bindingsTicker.addTickable(verticalBinding as Tickable);
+		this.bindingsTicker.addTickable(horizontalBinding as Tickable);
 	}
 
 	/*

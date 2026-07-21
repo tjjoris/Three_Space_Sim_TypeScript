@@ -5,7 +5,7 @@ bindingTicker.ts
 this class ticks all the eligable joy bindings. it is called by the main ticker.
 Each binding gets the axis value and sets the flight axis. 
  */
-export default class BindingsTicker {
+export default class BindingsTicker implements Tickable{
 	private tickableBindings:Tickable[] = [];
 	
 	/*

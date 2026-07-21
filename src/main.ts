@@ -288,7 +288,7 @@ ticker.addTickable(mover as Tickable);
 ticker.addTickable(dustHandler as Tickable);
 ticker.addTickable(powerUpTicker as Tickable);
 //add bindings ticker from inputs factory.
-ticker.addTickable(inputsFactory.getBindingsTicker());
+ticker.addTickable(inputsFactory.getBindingsTicker() as Tickable);
 
 //GAME PAD LIFE CYCLE MEDIATOR temporarly in line for new joystick inputs.
 //let gamePadHandlerLifecycleMediator = new GamePadHandlerLifeCycleMediator(horizontalAxis, verticalAxis, pitchAxis, rollAxis, gamePadHandlerHorizontal, gamePadHandlerVertical, gamePadHandlerPitch, gamePadHandlerRoll, ticker);

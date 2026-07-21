@@ -12,6 +12,9 @@ export default class JoyAxisBinding implements Tickable{
 	private joy:Joy|null;
 	private joyAxis: number|null;
 	private flightAxis: Axis;
+	//a temporary storager for the axis value to eliminate debug spam.
+	private tempAxisValue: number;
+
 
 	/*
 	 * constructor for joyAxisBinding
@@ -60,7 +63,11 @@ export default class JoyAxisBinding implements Tickable{
 		}
 		//set the axis value from the joyAxis.
 	        const axisValue = gamepad.axes[this.joyAxis] ?? 0;
-       		//  console.log("gamepad axis value ", axisValue);
+		//debug tracker to prevent spam and track axis value.
+		if (this.tempAxisValue != axisValue) {
+       		  console.log("gamepad ", joyId, " axis " , this.joyAxis, " value ", axisValue);
+		  this.tempAxisValue = axisValue;
+		}
 		// set the flight axis value from the local axis value.
 	        this.flightAxis.setValue(axisValue);
  
