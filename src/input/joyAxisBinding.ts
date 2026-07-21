@@ -15,7 +15,8 @@ export default class JoyAxisBinding implements Tickable{
 	//a temporary storager for the axis value to eliminate debug spam.
 	private tempAxisValue: number = 0.4;
 	private showedJoyDisabledError = false;
-	
+	private showedJoyIndexNull = false;
+	private showedJoyIndex = false;
 
 	/*
 	 * constructor for joyAxisBinding
@@ -54,8 +55,20 @@ export default class JoyAxisBinding implements Tickable{
 		let joyId:number|null = this.joy.getJoyId();
 		//end if joyId is null
 		if (joyId == null) {
-			console.error("joyindex in binding is null");
+			//error check boolean so it does not show every tick.
+			if (this.showedJoyIndexNull) {
+				console.error("joyindex in binding is null");
+				this.showedJoyIndexNull = true;
+				this.showedJoyIndex = false;
+			}
 			return;
+		}
+		//reset error check toolean
+		this.showedJoyIndexNull = false;
+		//debug check for showed joy index.
+		if (this.showedJoyIndex == false) {
+			console.log("joy index: ", joyId);
+			this.showedJoyIndex = true;
 		}
 		//set get gamePad from joy.
 	        const gamepad = this.joy.getGamepad();
