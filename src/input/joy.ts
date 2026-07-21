@@ -46,7 +46,12 @@ export default class Joy{
 	}
 
 	public getGamepad():Gamepad|null{
-		return this.gamepad;
+		let joyId = this.joyId;
+		if (joyId == null) {
+			return null;
+		}
+		return navigator.getGamepads()[joyId];
+his.gamepad;
 	}
 	public setJoyId(joyId:number) {
 		this.joyId = joyId;
