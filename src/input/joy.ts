@@ -66,7 +66,6 @@ export default class Joy{
 		//set get gamePad from joy.
 		this.joyId = joyId;
 		this.enabled = true;
-		console.log("joy connected index: ", joyId);
 	}
 
 	/*
