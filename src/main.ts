@@ -155,7 +155,7 @@ export function setVerticalInversion(value: boolean) {
 }
 
 //inputs factory for creating joys bindings and setting modules:
-const inputsFactory = new InputsFactory(pitchAxis);
+const inputsFactory = new InputsFactory(pitchAxis, rollAxis, verticalAxis, horizontalAxis);
 //calling it to remove syntax error.
 inputsFactory;
 
@@ -287,6 +287,8 @@ ticker.addTickable(rotationMediator as Tickable);
 ticker.addTickable(mover as Tickable);
 ticker.addTickable(dustHandler as Tickable);
 ticker.addTickable(powerUpTicker as Tickable);
+//add bindings ticker from inputs factory.
+ticker.addTickable(inputsFactory.getBindingsTicker());
 
 //GAME PAD LIFE CYCLE MEDIATOR temporarly in line for new joystick inputs.
 //let gamePadHandlerLifecycleMediator = new GamePadHandlerLifeCycleMediator(horizontalAxis, verticalAxis, pitchAxis, rollAxis, gamePadHandlerHorizontal, gamePadHandlerVertical, gamePadHandlerPitch, gamePadHandlerRoll, ticker);

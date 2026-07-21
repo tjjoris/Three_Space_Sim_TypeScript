@@ -32,22 +32,26 @@ export default class JoyAxisBinding implements Tickable{
 		deltaTime;//neede to fix build errors.
 		//end if joy is null
 		if (this.joy == null) { 
+//			console.error("joy in binding is null");
 			return;
 		}
 		//end if joy is not enabled
 		if (!this.joy.getEnabled) {
+//			console.error("joy in binding is disabled");
 			return;
 		}
 		//store joyId in a variable so it does not change in this scope.
 		let joyId:number|null = this.joy.getJoyId();
 		//end if joyId is null
 		if (joyId == null) {
+//			console.error("joyindex in binding is null");
 			return;
 		}
 		//set get gamePad from joy.
 	        const gamepad = this.joy.getGamepad();
 	        if (!gamepad) {
 //            this.flightAxis.setValue(0);
+//			console.error("gamepad in binding is null");
        		     return;
         	}
 		//end if joyAxis is null.
@@ -56,7 +60,7 @@ export default class JoyAxisBinding implements Tickable{
 		}
 		//set the axis value from the joyAxis.
 	        const axisValue = gamepad.axes[this.joyAxis] ?? 0;
-       		 // console.log("gamepad axis value ", axisValue);
+       		//  console.log("gamepad axis value ", axisValue);
 		// set the flight axis value from the local axis value.
 	        this.flightAxis.setValue(axisValue);
  

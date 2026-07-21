@@ -9,21 +9,33 @@ import Joy from "./joy";
 import JoyAxisBinding from "./joyAxisBinding";
 import Axis from "../axes/axis"
 import JoyConnector from "./joyConnector";
+import BindingsTicker from "./bindingsTicker";
 
 export default class InputsFactory{
 
 	private joys:Joy[];
 	private joyAxisBindings:JoyAxisBinding[];
 	private joyConnector:JoyConnector;
-	constructor(pitchAxis: Axis) {
+	private bindingsTicker:BindingsTicker;
+
+	constructor(pitchAxis: Axis, 
+		    rollAxis: Axis, 
+		    verticalAxis: Axis,
+		   horizontalAxis: Axis) {
 		let joyOne = new Joy(null, null, false, null);
 		let joyTwo = new Joy(null, null, false, null);
 		this.joys = [joyOne, joyTwo]; 
 
 		let pitchBinding = new JoyAxisBinding(joyOne, 0, pitchAxis);
-		this.joyAxisBindings = [pitchBinding];
+		let rollBinding = new JoyAxisBinding(joyOne, 1, rollAxis);
+		let verticalBinding = new JoyAxisBinding(joyOne, 0, verticalAxis);
+		let horizontalBinding = new JoyAxisBinding(joyOne, 1, horizontalAxis);
+		this.joyAxisBindings = [pitchBinding, 
+			rollBinding, 
+			verticalBinding, 
+			horizontalBinding];
 		this.joyConnector = new JoyConnector(this.joys);
-
+		this.bindingsTicker = new BindingsTicker();
 	}
 
 	/*
@@ -42,5 +54,7 @@ export default class InputsFactory{
 		return this.joyConnector;
 	}
 	
-	
+	getBindingsTicker():BindingsTicker {
+		return this.bindingsTicker;
+	}
 }
