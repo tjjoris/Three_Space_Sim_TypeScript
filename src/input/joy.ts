@@ -11,26 +11,22 @@ export default class Joy{
 	private joyName:string|null;
 	//TODO: remove enabled.
 	private enabled:boolean;
-	private gamepad:Gamepad|null;
 
 	/*
 	constructor for Joy
 	@parm:joyId:number|null
 	@parm:joyName:number|null
 	@parm:enabled:boolean
-	@parm:gamePad:Gamepad|null
 	 */
 	public constructor(
 		joyId:number|null,
 		joyName:string|null,
 		enabled:boolean,
-		gamepad:Gamepad|null
 	)
 	{
 		this.joyId = joyId;
 		this.joyName = joyName;
 		this.enabled = enabled;
-		this.gamepad = gamepad;
 	}
 
 	public getJoyId():number|null {
@@ -45,13 +41,16 @@ export default class Joy{
 		return this.enabled;
 	}
 
+	/*
+	 *note you need to get a new gamepad form the navigator each time you use it.
+	 or it will give you a stale value.
+	 */
 	public getGamepad():Gamepad|null{
 		let joyId = this.joyId;
 		if (joyId == null) {
 			return null;
 		}
 		return navigator.getGamepads()[joyId];
-his.gamepad;
 	}
 	public setJoyId(joyId:number) {
 		this.joyId = joyId;
@@ -65,7 +64,6 @@ his.gamepad;
 	public connectJoy(joyId:number){
 		
 		//set get gamePad from joy.
-        	this.gamepad = navigator.getGamepads()[joyId]
 		this.joyId = joyId;
 		this.enabled = true;
 		console.log("joy connected index: ", joyId);
@@ -75,7 +73,6 @@ his.gamepad;
 	disconnect the current joy. 
 	 */
 	public disconnectJoy(){
-		this.gamepad = null;
 		this.enabled = false;
 	}
 }
