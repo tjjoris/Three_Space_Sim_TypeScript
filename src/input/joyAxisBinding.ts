@@ -67,7 +67,7 @@ export default class JoyAxisBinding implements Tickable{
 		this.showedJoyIndexNull = false;
 		//debug check for showed joy index.
 		if (this.showedJoyIndex == false) {
-			console.log("joy index: ", joyId);
+			console.log("reading joy index: ", joyId);
 			this.showedJoyIndex = true;
 		}
 		//set get gamePad from joy.
