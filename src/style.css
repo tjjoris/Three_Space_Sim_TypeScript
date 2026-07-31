@@ -71,15 +71,6 @@
   background-color: green;
 }
 
-.unselected-header-button {
-  z-index: 10;
-}
-
-.selected-header-button {
-  z-index: 100;
-}
-
-
 .menu-div-column {
   display: flex;
   flex-direction: column;
