@@ -29,7 +29,7 @@ fontsize=10
     <id>UMLClass</id>
     <coordinates>
       <x>60</x>
-      <y>70</y>
+      <y>20</y>
       <w>250</w>
       <h>90</h>
     </coordinates>
@@ -159,7 +159,7 @@ React is the UI for setting a binding, removing an old joy, ignoring
 a newly connected joy, or swapping joys.
 
 joy cookie stores a delimited string containing the joy names in
-order of the joy ids. 
+order of the joy ref ids. 
 
 Bindings exist for all Flight Axes, always stores flight axis,
 if it's Joy is set, it returns an id, and has an axisId,
@@ -173,6 +173,7 @@ slot, if not tells React to ask to delete  a joy, or ignore the new
 one. if there is an unnamed slot, sets the joy name and id. 
 After a joy changes, the joys array is re-ordered.
 Cookies are updated whenever a joy or binding changes.
+Another optin is to have unlimited joys.
 
 A binding may not have a joy, a joy is set when the binding is set.
 A binding may have an unenabled joy, it becomes enabled when the joy
@@ -309,12 +310,12 @@ m1=1..n</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>280</x>
-      <y>150</y>
+      <y>100</y>
       <w>110</w>
-      <h>430</h>
+      <h>480</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes>
-    <additional_attributes>90.0;410.0;90.0;70.0;10.0;70.0;10.0;10.0</additional_attributes>
+    <additional_attributes>90.0;460.0;90.0;120.0;10.0;120.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -335,12 +336,12 @@ m1=1..n</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>240</x>
-      <y>150</y>
+      <y>100</y>
       <w>680</w>
-      <h>480</h>
+      <h>530</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes>
-    <additional_attributes>660.0;460.0;660.0;270.0;460.0;270.0;460.0;40.0;10.0;40.0;10.0;10.0</additional_attributes>
+    <additional_attributes>660.0;510.0;660.0;320.0;460.0;320.0;460.0;90.0;10.0;90.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -404,7 +405,7 @@ style=wordwrap</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>1240</x>
-      <y>850</y>
+      <y>860</y>
       <w>320</w>
       <h>80</h>
     </coordinates>
@@ -422,10 +423,10 @@ style=wordwrap</panel_attributes>
       <x>630</x>
       <y>320</y>
       <w>750</w>
-      <h>550</h>
+      <h>560</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>730.0;530.0;730.0;260.0;290.0;260.0;290.0;60.0;10.0;60.0;10.0;10.0</additional_attributes>
+    <additional_attributes>730.0;540.0;730.0;260.0;290.0;260.0;290.0;60.0;10.0;60.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -456,12 +457,12 @@ style=wordwrap</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1530</x>
-      <y>920</y>
+      <y>930</y>
       <w>30</w>
-      <h>150</h>
+      <h>140</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>10.0;130.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -469,15 +470,17 @@ style=wordwrap</panel_attributes>
       <x>760</x>
       <y>940</y>
       <w>160</w>
-      <h>170</h>
+      <h>200</h>
     </coordinates>
     <panel_attributes>Joy
 -
+-joyRefId:int
 -joyId:int|null
 -joyName:string|null
 -enabled:bool
 -gamepad:Gamepad|null
 -
++getJoyRefId():int
 +setJoyId(id:string)
 +setJoyName(name:string)
 +getJoyId():int
@@ -621,10 +624,10 @@ m2=1..n</panel_attributes>
       <x>1190</x>
       <y>820</y>
       <w>120</w>
-      <h>50</h>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>100.0;30.0;100.0;10.0;10.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>100.0;40.0;100.0;20.0;10.0;20.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
