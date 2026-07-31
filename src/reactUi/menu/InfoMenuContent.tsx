@@ -6,7 +6,7 @@ displayed in the menu.
  */
 export default function InfoMenuContent () {
 	return (
-	<div className="scrollable-div" >
+	<div className="scrollable-div menu-content" >
 		<h1>
 			Three Space Sim (for lack of an actual name)
 		</h1>

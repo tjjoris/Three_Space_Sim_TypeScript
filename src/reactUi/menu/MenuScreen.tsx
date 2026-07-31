@@ -1,10 +1,15 @@
+/*
+ *MenuScreen.tsx
+ @Author: Luke Johnson
+ this is the react menu screen for the main menu. it contains the header and all components.
+ */
 import type {MenuTabsType} from "../../types/menuTabsType"
 import SettingsMenuContent from "./SettingsMenuContent";
 import InfoMenuContent from "./InfoMenuContent";
 import KeybindsMenuContent from "./KeybindsMenuContent";
 import HeaderButton from "./HeaderButton";
 import MenuButton from "./MenuButton";
-import { useState, useRef} from "react";
+import { useState} from "react";
 export default function MenuScreen({
     toggleMenu,
 }: {
@@ -22,20 +27,35 @@ export default function MenuScreen({
 	 @TODO: make this a seperate component.
 	 */
 	function retrunHeaderButtons(): React.ReactElement {
+		//this is the array of react elements to return.
 		let headerButtons: React.ReactElement[] = [];
+		//this is the boolean to check if the button is the current menu.
 		let localHeaderTabPassedTop: boolean = false;
-		let localZIndex:number = 100;
+		//this is the actual z index used in the component it is set to 100 when it is the selected button, otherwise it is 1 if before the selected button, or 49 if after and lowers by 1.
+		let localZIndexToBeUsed:number = 1;
+		//loop all elements i the tabs array of MenuTabsType.
 		for (let headerButtonIndex:number = 0; headerButtonIndex < tabs.length; headerButtonIndex ++) {
+			//true if has already looped past the current button.
 			if (localHeaderTabPassedTop == true) {
-				localZIndex --;
+				localZIndexToBeUsed --;
 			}
+			//check if this is the button for the current tab 
 			if (tabs[headerButtonIndex] == menuTab) {
+				//set the boolean for tracking.
 				localHeaderTabPassedTop = true;
+				//set the z index to appear above the menu
+				localZIndexToBeUsed = 100;
 			}
+			else {
+				//set the z index behind the menu but with room to lower for additional tabs appearing behind this one.
+				localZIndexToBeUsed = 49;
+			}
+			//add a header button to the array.
 			headerButtons.push(
-				<HeaderButton name={tabs[headerButtonIndex]} action={gotoMenuScreen} currentTab={menuTab} zIndex={localZIndex} />);
+				<HeaderButton name={tabs[headerButtonIndex]} action={gotoMenuScreen} currentTab={menuTab} zIndex={localZIndexToBeUsed} />);
 			
 		}
+		//return the array of header buttons.
 		return (<>
 				{headerButtons}
 			</>);
