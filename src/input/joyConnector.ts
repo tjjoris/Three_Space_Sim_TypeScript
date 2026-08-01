@@ -1,4 +1,5 @@
 import Joy from "./joy.ts"
+//import InputDiffsCompareForAllJoys from "./InputDiffsCompareForAllJoys";
 /*
 joyConnector.ts
 @Author:Luke Johnson
@@ -8,6 +9,7 @@ For now joyConnector will talk to joys:Joy[].
  */
 export default class JoyConnector {
 	private joys:Joy[];
+	//private inputDiffsForAllJoys:inputDiffsCompareForAllJoys;
 
 	/*
 	constructor
