@@ -74,7 +74,7 @@ export default class JoyAxisBinding implements Tickable{
 	        const gamepad = this.joy.getGamepad();
 	        if ((!gamepad) || (gamepad == null)) {
 //            this.flightAxis.setValue(0);
-			console.error("gamepad in binding is null");
+			//console.error("gamepad in binding is null");
        		     return;
         	}
 		//end if joyAxis is null.

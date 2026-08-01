@@ -54,7 +54,7 @@ export default class Joy{
 	 */
 	public getGamepad():Gamepad|null{
 		let joyId = this.joyId;
-		if (joyId == null) {
+		if ((!this.enabled) || (joyId == null)) {
 			return null;
 		}
 		return navigator.getGamepads()[joyId];
