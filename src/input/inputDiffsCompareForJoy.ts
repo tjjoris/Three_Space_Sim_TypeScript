@@ -71,4 +71,10 @@ export default class InputDiffsCompareForJoy {
 		});
 	};
 
+	/*
+	 * get the aixs diff reporter.
+	 */
+	public getDiffReporter():JoyAxisInputDiffValueReporter | null {
+		return this.diffReported;
+	}
 }
