@@ -25,7 +25,7 @@ export default class InputDiffsCompareForAllJoys {
 	/*
 	 * called when a joy is connected. creates an instqance of InputDiffsCompareForJoy for the joy, and that creates JoyAxisInputDiffValueReporters for that joys axes.
 	 */
-	joyConnected(joyId: number, joyName: string, axisCount: number) {
+	public joyConnected(joyId: number, joyName: string, axisCount: number) {
 		const joyDiff = new InputDiffsCompareForJoy(joyId, joyName, axisCount);
 		this.joys.push(joyDiff);
 	}
@@ -33,5 +33,18 @@ export default class InputDiffsCompareForAllJoys {
 	/*
 	 * called when a joy is disconnected, calls disconnect function for joy diff, and removes this joy diff from the array.
 	 */
+	public disconnectJoy(discJoy: InputDiffsCompareForJoy) {
+		/*function notDiscJoy(joy: InputDiffsCompareForJoy) : InputDiffsCompareForJoy | null{
+			const discJoy : InputDiffsCompareForJoy = this;
+			if (this != joy) {
+				return joy;
+			}
+			return null;
+		}*/
+		const newJoys: InputDiffsCompareForJoy[] = this.joys.filter(
+			joy => joy != discJoy
+		)
+		this.joys = newJoys;
+	}
 	
 }
