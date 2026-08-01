@@ -57,6 +57,7 @@ export default class InputDiffsCompareForJoy {
 			);
 			return null;
 		}
+		//console.log("diff reporters length: ", this.diffReporters.length);
 		this.diffReporters.forEach(diffReporter => {
 			diffReporter.calculateDifference(gamepad);
 			const axisDiff = diffReporter.getDifference();
@@ -66,6 +67,7 @@ export default class InputDiffsCompareForJoy {
 				diff = axisDiff;
 				//set the diff reporter to this one. this is the object we get to see the greatest one.
 				this.diffReported = diffReporter;
+				//console.log("diff reported in joy ", this.diffReported);
 
 			}	
 		});

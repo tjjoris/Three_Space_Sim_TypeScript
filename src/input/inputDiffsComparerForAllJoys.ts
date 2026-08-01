@@ -29,7 +29,6 @@ export default class InputDiffsComparerForAllJoys {
 	 * called when a joy is connected. creates an instqance of InputDiffsCompareForJoy for the joy, and that creates JoyAxisInputDiffValueReporters for that joys axes.
 	 */
 	public joyConnected(joyId: number, joyName: string, axisCount: number) {
-		console.log("here");
 		const joyDiff = new InputDiffsCompareForJoy(joyId, joyName, axisCount);
 		this.joys.push(joyDiff);
 	}
@@ -72,13 +71,28 @@ export default class InputDiffsComparerForAllJoys {
 		//console.log("joys comparer length: ", this.joys.length);
 		this.joys.forEach(joy => {
 			//console.log("in joy: ", joy.getJoyName(), " ", joy.getJoyId());
-			let tempDiff = joy.calculateGreatestDiff(diff);
-			if ((tempDiff !=null) && (tempDiff > diff)) {
-				diff = tempDiff;	
-				this.inputReported = joy.getDiffReporter();
+			joy.calculateGreatestDiff(diff);
+			let tempDiff = joy.getDiffReporter();
+			if (tempDiff != null){
+				let tempDiffValue = tempDiff.getDifference();
+				if ((tempDiffValue != null) && (tempDiffValue > diff)) {
+				
+					diff = tempDiffValue;	
+					this.inputReported = joy.getDiffReporter();
+					//console.log("in all joys loop diff ", this.inputReported);
+				}
 			}
 
 		});
+		const inputReported = this.inputReported;
+		if (inputReported == null) {
+			//console.log("input reported null");
+			return;
+		}
+		console.log("diff is joyId: ",
+			    inputReported.getJoyId(),
+			   " axis: ",
+			   inputReported.getAxisId());
 	};
 
 	/*

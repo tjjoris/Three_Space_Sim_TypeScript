@@ -90,8 +90,10 @@ export default class JoyAxisInputDiffValueReporter {
 	       //find the difference between the last axis value and this one.
 	       const diff = Math.abs(axisValue - this.axisValue);
 	       this.axisValue = axisValue;
+	       //console.log("axis ", this.axisId, " value ", this.axisValue);
 	       if (diff >= this.threshhold) {
 		       this.diff = diff;
+		       //console.log("diff ", this.diff, " axis ", this.axisId);
 	       }
 	}
 
@@ -99,7 +101,11 @@ export default class JoyAxisInputDiffValueReporter {
 		return this.diff;
 	}
 
-	public getJoyid(): number {
+	public getJoyId(): number {
 		return this.joyId;
+	}
+
+	public getAxisId(): number {
+		return this.axisId;
 	}
 }
