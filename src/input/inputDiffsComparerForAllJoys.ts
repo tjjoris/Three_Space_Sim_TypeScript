@@ -8,10 +8,10 @@ Also it's update loop is disabled in a similar way.
 when the update loop gets a valid diff, it checks if it is different from the previous stored diff, and if it is not, it stores it, and that state sends a signal to UseSyncExternalStore in React which updates the Menu showing the set binding.
 
  */
-import InputDiffsComparerForJoy from "./inputDiffsCompareForJoy";
+import InputDiffsCompareForJoy from "./inputDiffsCompareForJoy";
 import JoyAxisInputDiffValueReporter from "./joyAxisInputDiffValueReporter";
 
-export default class InputDiffsCompareForAllJoys {
+export default class InputDiffsComparerForAllJoys {
 	//if this updater is enabled or not.
 	private enabled: boolean;
 	//the array of joy input diffs.
@@ -29,6 +29,7 @@ export default class InputDiffsCompareForAllJoys {
 	 * called when a joy is connected. creates an instqance of InputDiffsCompareForJoy for the joy, and that creates JoyAxisInputDiffValueReporters for that joys axes.
 	 */
 	public joyConnected(joyId: number, joyName: string, axisCount: number) {
+		console.log("here");
 		const joyDiff = new InputDiffsCompareForJoy(joyId, joyName, axisCount);
 		this.joys.push(joyDiff);
 	}
@@ -68,7 +69,9 @@ export default class InputDiffsCompareForAllJoys {
 			return;
 		}
 		let diff = 0;
+		//console.log("joys comparer length: ", this.joys.length);
 		this.joys.forEach(joy => {
+			//console.log("in joy: ", joy.getJoyName(), " ", joy.getJoyId());
 			let tempDiff = joy.calculateGreatestDiff(diff);
 			if ((tempDiff !=null) && (tempDiff > diff)) {
 				diff = tempDiff;	

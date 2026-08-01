@@ -308,6 +308,7 @@ function animate() {
 
   ticker.tick(dtMult);
   renderer.render(scene, camera);
+  inputsFactory.getInputDiffsComparerForAllJoys().update();
 
   // feedbackEl!.innerText = `forward: ${desiredForwardAxis.getValue()} smart yaw: ${smartYaw.getCalculatedValue()}yaw axis: ${yawAxis.getValue()} pitch axis: ${pitchAxis.getValue()} forward thrust: ${forwardMediator.getAccelerationValue()}
   // vert thrust: ${verticalMediator.getAccelerationValue()} horiz thrust: ${horizontalMediator.getAccelerationValue()} `;

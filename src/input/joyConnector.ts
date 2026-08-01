@@ -1,4 +1,5 @@
 import Joy from "./joy.ts"
+import InputDiffsComparerForAllJoys from "./inputDiffsComparerForAllJoys";
 //import InputDiffsCompareForAllJoys from "./InputDiffsCompareForAllJoys";
 /*
 joyConnector.ts
@@ -9,14 +10,16 @@ For now joyConnector will talk to joys:Joy[].
  */
 export default class JoyConnector {
 	private joys:Joy[];
+	private inputDiffsComparerForAllJoys: InputDiffsComparerForAllJoys;
 	//private inputDiffsForAllJoys:inputDiffsCompareForAllJoys;
 
 	/*
 	constructor
 	@param:joys - the joys to set
 	 */
-	constructor(joys:Joy[]) {
+	constructor(joys:Joy[], inputDiffsComparerForAllJoys: InputDiffsComparerForAllJoys) {
 		this.joys = joys;
+		this.inputDiffsComparerForAllJoys = inputDiffsComparerForAllJoys;
 		window.addEventListener("gamepadconnected", this.onGamepadConnected);
 		window.addEventListener("gamepaddisconnected", this.onGamePadDisconnected);
 	}
@@ -32,9 +35,18 @@ converts the gampad id to a number and uses it to enable the joy.
 		console.log("num axes: ", e.gamepad.axes.length);
 		console.log("gamepad id: ", e.gamepad.id);
 		*/
+	       //loop all joys to see which one has a matching name and activate it.
+		//the loop breaks after a joy is set.
 		for (let joyId = 0; joyId < this.joys.length; joyId++) {
-			this.joys[joyId].connectJoy(e.gamepad.id, e.gamepad.index);
+			if (this.joys[joyId].connectJoy(e.gamepad.id, e.gamepad.index)) {
+				break;
+			}
 		}
+		if (this.inputDiffsComparerForAllJoys == null) {
+			console.log("its null");
+			return;
+		}
+		this.inputDiffsComparerForAllJoys.joyConnected(e.gamepad.index, e.gamepad.id, e.gamepad.axes.length);
 	}
 	
 	/*

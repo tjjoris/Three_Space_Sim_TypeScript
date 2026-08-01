@@ -77,4 +77,12 @@ export default class InputDiffsCompareForJoy {
 	public getDiffReporter():JoyAxisInputDiffValueReporter | null {
 		return this.diffReported;
 	}
+
+	public getJoyId(): number {
+		return this.joyId;
+	}
+
+	public getJoyName(): string {
+		return this.joyName;
+	}
 }

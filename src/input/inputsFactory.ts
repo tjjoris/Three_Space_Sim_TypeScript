@@ -40,13 +40,13 @@ export default class InputsFactory{
 			rollBinding, 
 			verticalBinding, 
 			horizontalBinding];
-		this.joyConnector = new JoyConnector(this.joys);
 		this.bindingsTicker = new BindingsTicker();
 		this.bindingsTicker.addTickable(pitchBinding as Tickable);
 		this.bindingsTicker.addTickable(rollBinding as Tickable);
 		this.bindingsTicker.addTickable(verticalBinding as Tickable);
 		this.bindingsTicker.addTickable(horizontalBinding as Tickable);
 		this.inputDiffsComparerForAllJoys = new InputDiffsComparerForAllJoys();
+		this.joyConnector = new JoyConnector(this.joys, this.inputDiffsComparerForAllJoys);
 	}
 
 	/*
