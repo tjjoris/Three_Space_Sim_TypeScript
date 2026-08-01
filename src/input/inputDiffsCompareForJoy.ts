@@ -14,6 +14,9 @@ export default class InputDiffsCompareForJoy {
 	private diffReporters: JoyAxisInputDiffValueReporter[]; 
 	private diffReported: JoyAxisInputDiffValueReporter | null;
 
+	/*
+	 * called when a joy is connected. sets values so joy can be read, and creates JoyAxisInputDiffValueReporters.
+	 */
 	public constructor (joyId: number, joyName: string, axisCount: number) {
 		this.joyId = joyId;
 		this.joyName = joyName;
@@ -32,5 +35,40 @@ export default class InputDiffsCompareForJoy {
 			this.diffReporters.push(diffReporter);
 		};
 	}
+
+	/*
+	 * called when this joy is disconnected.
+	 * sets all diffReporters to empty so their classes are cleaned up.
+	 */
+	public disconnectJoy() {
+		const emptyDiffReporters : JoyAxisInputDiffValueReporter[] = [];
+		this.diffReporters = emptyDiffReporters;
+	}
+
+	public calculateGreatestDiff(diff: number) {
+		//get the gamepad for this joy.
+		const gamepad = navigator.getGamepads()[this.joyId];
+		if (gamepad == null) {
+			console.error(
+				"game pad in inputDiffsCompareForJoy is null, id: ",
+				this.joyId,
+				", name: ",
+				this.joyName
+			);
+			return null;
+		}
+		this.diffReporters.forEach(diffReporter => {
+			diffReporter.calculateDifference(gamepad);
+			const axisDiff = diffReporter.getDifference();
+			//if this reporters diff is not null and is greater than the last greatest diff.
+			if ((axisDiff != null) && (axisDiff > diff)) {
+				//set the diff which is the parameter and the greates diff so far for all joys to this diff.
+				diff = axisDiff;
+				//set the diff reporter to this one. this is the object we get to see the greatest one.
+				this.diffReported = diffReporter;
+
+			}	
+		});
+	};
 
 }
