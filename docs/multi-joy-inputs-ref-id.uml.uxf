@@ -229,6 +229,7 @@ greater than greatest diff.
 --
 -joys:InputDiffsComparerForJoy|null[]
 -inputReported:JoyAxisInputDifValueReporter|null
+-enabled: bool
 --
 +constructor()
 +joyConnected(joyId:int, axisCount:int)

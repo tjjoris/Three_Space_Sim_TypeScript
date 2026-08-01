@@ -12,12 +12,15 @@ import InputDiffsCompareForJoy from "./inputDiffsCompareForJoy";
 import JoyAxisInputDiffValueReporter from "./joyAxisInputDiffValueReporter";
 
 export default class InputDiffsCompareForAllJoys {
+	//if this updater is enabled or not.
+	private enabled: boolean;
 	//the array of joy input diffs.
 	private joys:InputDiffsCompareForJoy[];
 	//the reported axis input diff which can be null.
 	private inputReported:JoyAxisInputDiffValueReporter | null;
 
 	public constructor() {
+		this.enabled = true;
 		this.joys = [];
 		this.inputReported = null;
 	}
@@ -60,6 +63,10 @@ export default class InputDiffsCompareForAllJoys {
 	 * it calculates the diffs for each diff joy, then gets the greates of them all.
 	 */
 	public update():void {
+		//end if this is disabled.
+		if (!this.enabled) {
+			return;
+		}
 		let diff = 0;
 		this.joys.forEach(joy => {
 			let tempDiff = joy.calculateGreatestDiff(diff);
