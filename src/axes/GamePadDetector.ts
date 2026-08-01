@@ -10,13 +10,14 @@ export default class GamePadDetector {
         this.start();
     }
     private readonly onGamepadConnected = (e: GamepadEvent) => {
-        console.log(
+        /*
+	  console.log(
             "gamepad connected at index %d: %s, %d buttons, %d axes.",
             e.gamepad.index,
             e.gamepad.id,
             e.gamepad.buttons.length,
             e.gamepad.axes.length
-        );
+        );*/
         addPopup(`Joystick connected: ${e.gamepad.id} index: ${e.gamepad.index}`);
         VJoyUsedTracker.getVJoyUsedTracker().setVJoyToUsed();
         // if (this.gamePadHandler !== null) {
@@ -28,11 +29,11 @@ export default class GamePadDetector {
     };
 
     private readonly onGamepadDisconnected = (e: GamepadEvent) => {
-        console.log(
+        /*console.log(
             "Gamepad disconnected from index %d: %s",
             e.gamepad.index,
             e.gamepad.id,
-        );
+        );*/
         addPopup(`Joystick disconnected: ${e.gamepad.id} index: ${e.gamepad.index}`);
 
         // if (this.gamePadHandler !== null) {

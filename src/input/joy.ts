@@ -73,7 +73,7 @@ export default class Joy{
 			//set get gamePad from joy.
 			this.joyId = joyId;
 			this.enabled = true;
-			console.log("connect joy ", joyName);
+			console.log("in joy, connect index: ", joyId, ", name: ", joyName);
 			return true;
 		}
 		return false;
@@ -84,5 +84,6 @@ export default class Joy{
 	 */
 	public disconnectJoy(){
 		this.enabled = false;
+		console.log("joy disconnected, index: ", this.joyId, ", name: ", this.joyName);
 	}
 }
