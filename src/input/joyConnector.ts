@@ -29,8 +29,9 @@ converts the gampad id to a number and uses it to enable the joy.
 		console.log("joy connector, game pad id: ", e.gamepad.index);
 		console.log("num axes: ", e.gamepad.axes.length);
 		console.log("gamepad id: ", e.gamepad.id);
-		let joyId:number = e.gamepad.index;
-		this.joys[joyId].connectJoy(joyId);
+		for (let joyId = 0; joyId < this.joys.length; joyId++) {
+			this.joys[joyId].connectJoy(e.gamepad.id, e.gamepad.index);
+		}
 	}
 	
 	/*

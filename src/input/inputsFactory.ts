@@ -23,17 +23,17 @@ export default class InputsFactory{
 		    rollAxis: Axis, 
 		    verticalAxis: Axis,
 		   horizontalAxis: Axis) {
-		let joyZero = new Joy(null, null, false, null);
-		let joyOne = new Joy(null, null, false, null);
-		let joyTwo = new Joy(null, null, false, null);
-		let joyThree = new Joy(null, null, false, null);
-		let joyFour = new Joy(null, null, false, null);
+		let joyZero = new Joy(null, 0, "CH FLIGHTSTICK PRO (Vendor: 068e Product: 00f6)", false);
+		let joyOne = new Joy(null, 1, "CH FIGHTERSTICK USB  (Vendor: 068e Product: 00f3)", false);
+		let joyTwo = new Joy(null, 2, null, false);
+		let joyThree = new Joy(null, 3, null, false);
+		let joyFour = new Joy(null, 4, null, false);
 		this.joys = [joyZero, joyOne, joyTwo, joyThree, joyFour]; 
 
-		let pitchBinding = new JoyAxisBinding(joyZero, 1, pitchAxis);
-		let rollBinding = new JoyAxisBinding(joyZero, 0, rollAxis);
-		let verticalBinding = new JoyAxisBinding(joyOne, 1, verticalAxis);
-		let horizontalBinding = new JoyAxisBinding(joyOne, 0, horizontalAxis);
+		let pitchBinding = new JoyAxisBinding(joyOne, 1, pitchAxis);
+		let rollBinding = new JoyAxisBinding(joyOne, 0, rollAxis);
+		let verticalBinding = new JoyAxisBinding(joyZero, 1, verticalAxis);
+		let horizontalBinding = new JoyAxisBinding(joyZero, 0, horizontalAxis);
 		this.joyAxisBindings = [pitchBinding, 
 			rollBinding, 
 			verticalBinding, 
