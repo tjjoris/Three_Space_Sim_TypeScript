@@ -47,4 +47,37 @@ export default class InputDiffsCompareForAllJoys {
 		this.joys = newJoys;
 	}
 	
+	/*
+	 * beginBindingCheck begins the loop which calls the update on each frame.
+	 */
+
+	/*
+	 * end binding check ends the loop which calls the update on each frame.
+	 */
+
+	/*
+	 * update loop is updated each frame to checke all joys for diffs.
+	 * it calculates the diffs for each diff joy, then gets the greates of them all.
+	 */
+	public update():void {
+		let diff = 0;
+		this.joys.forEach(joy => {
+			let tempDiff = joy.calculateGreatestDiff(diff);
+			if ((tempDiff !=null) && (tempDiff > diff)) {
+				diff = tempDiff;	
+				this.inputReported = joy.getDiffReporter();
+			}
+
+		});
+	};
+
+	/*
+	 * getDiff gets the diff and prints it to the console.
+	 * TODO: sync useStateExternalStore will be updated and tell react this has changed.
+	 */
+	public getMaxInputDiffForJoy():JoyAxisInputDiffValueReporter | null{
+		console.log("reporting diff: ", this.inputReported);
+		return this.inputReported;
+	}
+
 }
