@@ -8,7 +8,7 @@ Also it's update loop is disabled in a similar way.
 when the update loop gets a valid diff, it checks if it is different from the previous stored diff, and if it is not, it stores it, and that state sends a signal to UseSyncExternalStore in React which updates the Menu showing the set binding.
 
  */
-import InputDiffsCompareForJoy from "./inputDiffsCompareForJoy";
+import InputDiffsComparerForJoy from "./inputDiffsCompareForJoy";
 import JoyAxisInputDiffValueReporter from "./joyAxisInputDiffValueReporter";
 
 export default class InputDiffsCompareForAllJoys {

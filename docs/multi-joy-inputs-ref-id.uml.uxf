@@ -223,7 +223,7 @@ greater than greatest diff.
       <x>350</x>
       <y>560</y>
       <w>310</w>
-      <h>140</h>
+      <h>150</h>
     </coordinates>
     <panel_attributes>InputDiffsComparerForAllJoys
 --
@@ -244,14 +244,14 @@ greater than greatest diff.
     <id>Relation</id>
     <coordinates>
       <x>490</x>
-      <y>690</y>
+      <y>700</y>
       <w>50</w>
-      <h>70</h>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;&gt;&gt;
 m1=1..n
 m2=1</panel_attributes>
-    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -663,12 +663,12 @@ m2=1..n</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>600</x>
-      <y>690</y>
+      <y>700</y>
       <w>140</w>
-      <h>130</h>
+      <h>120</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>120.0;110.0;120.0;40.0;10.0;40.0;10.0;10.0</additional_attributes>
+    <additional_attributes>120.0;100.0;120.0;30.0;10.0;30.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>

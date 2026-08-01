@@ -35,6 +35,7 @@ import SmartForward from "./ship/movement/smartForward.ts"
 import GamePadHandler from './axes/gamePadHandler.ts'
 import GamePadHandlerLifeCycleMediator from './axes/GamePadHandlerLifecycleMediator.ts'
 import Ticker from './game/ticker.ts'
+import inputDiffsCompareerForAllJoys from './input/inputDiffsComparerForAllJoys';
 
 
 

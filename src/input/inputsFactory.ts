@@ -11,6 +11,7 @@ import Axis from "../axes/axis"
 import JoyConnector from "./joyConnector";
 import BindingsTicker from "./bindingsTicker";
 import type Tickable from "../game/tickable";
+import InputDiffsComparerForAllJoys from "./inputDiffsComparerForAllJoys"; 
 
 export default class InputsFactory{
 
@@ -18,6 +19,7 @@ export default class InputsFactory{
 	private joyAxisBindings:JoyAxisBinding[];
 	private joyConnector:JoyConnector;
 	private bindingsTicker:BindingsTicker;
+	private inputDiffsComparerForAllJoys: InputDiffsComparerForAllJoys;
 
 	constructor(pitchAxis: Axis, 
 		    rollAxis: Axis, 
@@ -44,6 +46,7 @@ export default class InputsFactory{
 		this.bindingsTicker.addTickable(rollBinding as Tickable);
 		this.bindingsTicker.addTickable(verticalBinding as Tickable);
 		this.bindingsTicker.addTickable(horizontalBinding as Tickable);
+		this.inputDiffsComparerForAllJoys = new InputDiffsComparerForAllJoys();
 	}
 
 	/*
@@ -64,5 +67,9 @@ export default class InputsFactory{
 	
 	getBindingsTicker():BindingsTicker {
 		return this.bindingsTicker;
+	}
+
+	getInputDiffsComparerForAllJoys():InputDiffsComparerForAllJoys {
+		return this.inputDiffsComparerForAllJoys;
 	}
 }
