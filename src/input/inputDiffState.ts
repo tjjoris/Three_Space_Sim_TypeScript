@@ -11,11 +11,17 @@ type Listener = () => void;
 import JoyAxisInputDiffValueReporter from "./joyAxisInputDiffValueReporter";
 
 export default class InputDiffState {
-	private state: JoyAxisInputDiffValueReporter | null;
+	private static instance: InputDiffState | null = null;
+	private state: JoyAxisInputDiffValueReporter | null = null;
     	private listeners: Listener[] = []; //listeners subscribed to.
 
-	public constructor () {
-		this.state = null;
+	
+
+	public static getInstance(): InputDiffState {
+		if (InputDiffState.instance === null) {
+			InputDiffState.instance = new InputDiffState();
+		}
+		return InputDiffState.instance;
 	}
 	public setState(state: JoyAxisInputDiffValueReporter | null) {
 		this.state = state;

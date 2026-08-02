@@ -7,12 +7,17 @@ Has functions for setting all the keybinds and passes them to child compoenents.
 Stores the keybinds in states.
 Keybinds are linked to the axes.
  */
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
+import useInputDiffStore from "../../stores/UseInputDiffStore";
+import InputDiffState from "../../input/inputDiffState";
 
 type BindType = { id: number, name : string}; 
 
 export default function KeybindsMenuContent() {
 
+	const subscribe=() => {};
+	//const diffState: {joyName: string, joyRefId: number, joyId: number, axisId: number} = useInputDiffStore(InputDiffState.getInstance());
+	const diffState: number | null = useSyncExternalStore(subscribe, () => InputDiffState.getInstance().getState());
 	const [pitchBind, setPitchBind] = useState<BindType>({ id: 0 , name: "this " });
 	return (
 	<div className="menu-content">
