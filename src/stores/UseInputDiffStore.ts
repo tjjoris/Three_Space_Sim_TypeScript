@@ -6,7 +6,7 @@ import InputDiffState from "../input/inputDiffState"
  * @param InputDiffState 
  * @returns 
  */
-export default function useLandscapeStore(inputDiffState: InputDiffState) {
+export default function useInputDiffStore(inputDiffState: InputDiffState) {
     // console.log("ins use sync external store");
     return useSyncExternalStore(
         (callback) => inputDiffState.subscribe(callback),
