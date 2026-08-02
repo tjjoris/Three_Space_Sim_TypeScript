@@ -118,7 +118,7 @@ fontsize=10
     <id>UMLClass</id>
     <coordinates>
       <x>360</x>
-      <y>930</y>
+      <y>950</y>
       <w>300</w>
       <h>200</h>
     </coordinates>
@@ -196,8 +196,8 @@ m2=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>350</x>
-      <y>740</y>
+      <x>340</x>
+      <y>760</y>
       <w>310</w>
       <h>150</h>
     </coordinates>
@@ -221,14 +221,14 @@ greater than greatest diff.
     <id>UMLClass</id>
     <coordinates>
       <x>350</x>
-      <y>560</y>
+      <y>550</y>
       <w>310</w>
-      <h>150</h>
+      <h>170</h>
     </coordinates>
     <panel_attributes>InputDiffsComparerForAllJoys
 --
 -joys:InputDiffsComparerForJoy|null[]
--inputReported:JoyAxisInputDifValueReporter|null
+-inputReported:InputDiffState
 -enabled: bool
 --
 +constructor()
@@ -237,27 +237,28 @@ greater than greatest diff.
 +beginBindingCheck()
 +endBindingCheck()
 -tickLoop()
--getMaxInputDiffForJoy():JoyAxisInputDiffValueReporter</panel_attributes>
+-getMaxInputDiffForJoy():JoyAxisInputDiffValueReporter
++getInputReported():JoyAxisInputDiffValueReporter | null</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>490</x>
-      <y>700</y>
+      <y>710</y>
       <w>50</w>
-      <h>60</h>
+      <h>70</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;&gt;&gt;
 m1=1..n
 m2=1</panel_attributes>
-    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>500</x>
-      <y>880</y>
+      <x>490</x>
+      <y>900</y>
       <w>50</w>
       <h>70</h>
     </coordinates>
@@ -287,16 +288,16 @@ m1=1..n</panel_attributes>
       <x>430</x>
       <y>520</y>
       <w>30</w>
-      <h>60</h>
+      <h>50</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;30.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>780</x>
-      <y>760</y>
+      <y>820</y>
       <w>320</w>
       <h>110</h>
     </coordinates>
@@ -317,10 +318,10 @@ joys:[{name:string, refId:int, id:int}]]
       <x>280</x>
       <y>100</y>
       <w>110</w>
-      <h>480</h>
+      <h>470</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes>
-    <additional_attributes>90.0;460.0;90.0;120.0;10.0;120.0;10.0;10.0</additional_attributes>
+    <additional_attributes>90.0;450.0;90.0;120.0;10.0;120.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -473,7 +474,7 @@ style=wordwrap</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>1030</x>
-      <y>940</y>
+      <y>960</y>
       <w>160</w>
       <h>200</h>
     </coordinates>
@@ -539,11 +540,11 @@ style=wordwrap</panel_attributes>
     <coordinates>
       <x>620</x>
       <y>320</y>
-      <w>280</w>
-      <h>460</h>
+      <w>290</w>
+      <h>520</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes>
-    <additional_attributes>260.0;440.0;260.0;220.0;10.0;220.0;10.0;10.0</additional_attributes>
+    <additional_attributes>270.0;500.0;270.0;220.0;10.0;220.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -551,10 +552,10 @@ style=wordwrap</panel_attributes>
       <x>230</x>
       <y>870</y>
       <w>870</w>
-      <h>90</h>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;30.0;850.0;30.0;850.0;70.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0;850.0;70.0;850.0;90.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -562,11 +563,11 @@ style=wordwrap</panel_attributes>
       <x>1140</x>
       <y>810</y>
       <w>50</w>
-      <h>150</h>
+      <h>170</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m2=1..n</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;150.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -666,12 +667,12 @@ m2=1..n</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>990</x>
-      <y>860</y>
+      <y>920</y>
       <w>30</w>
-      <h>250</h>
+      <h>190</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>10.0;230.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;170.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -700,21 +701,10 @@ m2=1..n</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
   </element>
   <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>600</x>
-      <y>700</y>
-      <w>120</w>
-      <h>240</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>100.0;220.0;100.0;30.0;10.0;30.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
     <id>UMLClass</id>
     <coordinates>
       <x>680</x>
-      <y>920</y>
+      <y>1100</y>
       <w>120</w>
       <h>50</h>
     </coordinates>
@@ -723,5 +713,44 @@ m2=1..n</panel_attributes>
 -
 +notify()</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>670</x>
+      <y>990</y>
+      <w>220</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>InputDiffState
+-
+-state:JoyAxisInputDiffValueReporter | null
+-
++constructor
++setState()
++getState()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>700</x>
+      <y>1060</y>
+      <w>30</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>600</x>
+      <y>710</y>
+      <w>100</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0;80.0;40.0;80.0;280.0</additional_attributes>
   </element>
 </diagram>
