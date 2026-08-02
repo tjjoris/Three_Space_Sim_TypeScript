@@ -144,8 +144,8 @@ passed diff with this one, if this one is greater, true.
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>960</x>
-      <y>50</y>
+      <x>1070</x>
+      <y>40</y>
       <w>510</w>
       <h>520</h>
     </coordinates>
@@ -295,17 +295,20 @@ m1=1..n</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>530</x>
-      <y>440</y>
-      <w>310</w>
-      <h>90</h>
+      <x>780</x>
+      <y>760</y>
+      <w>320</w>
+      <h>110</h>
     </coordinates>
-    <panel_attributes>_UseSyncExternalStore_
+    <panel_attributes>BindingsAndJoysState
 --
--state:[[bindings:{name:string, axisId:int}], 
-[joys:{name:string, refId:int, id:int}]]
+-state:{bindings:[{name:string, axisRefId:int}], 
+joys:[{name:string, refId:int, id:int}]]
 --
-+export():[{name:string, joyName:string, joyId:int, axisId:int}]</panel_attributes>
++constructor()
++setJoy()
++setBinding()
++notify()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -339,11 +342,11 @@ m1=1..n</panel_attributes>
     <coordinates>
       <x>240</x>
       <y>100</y>
-      <w>680</w>
-      <h>530</h>
+      <w>960</w>
+      <h>520</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes>
-    <additional_attributes>660.0;510.0;660.0;320.0;460.0;320.0;460.0;90.0;10.0;90.0;10.0;10.0</additional_attributes>
+    <additional_attributes>940.0;500.0;940.0;490.0;660.0;490.0;660.0;320.0;460.0;320.0;460.0;90.0;10.0;90.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -424,11 +427,11 @@ style=wordwrap</panel_attributes>
     <coordinates>
       <x>630</x>
       <y>320</y>
-      <w>750</w>
+      <w>940</w>
       <h>560</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>730.0;540.0;730.0;260.0;290.0;260.0;290.0;60.0;10.0;60.0;10.0;10.0</additional_attributes>
+    <additional_attributes>920.0;540.0;920.0;260.0;290.0;260.0;290.0;60.0;10.0;60.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -469,7 +472,7 @@ style=wordwrap</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>760</x>
+      <x>1030</x>
       <y>940</y>
       <w>160</w>
       <h>200</h>
@@ -495,8 +498,8 @@ style=wordwrap</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>860</x>
-      <y>610</y>
+      <x>1140</x>
+      <y>600</y>
       <w>370</w>
       <h>220</h>
     </coordinates>
@@ -523,47 +526,47 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1170</x>
-      <y>820</y>
-      <w>110</w>
-      <h>180</h>
+      <x>1210</x>
+      <y>810</y>
+      <w>70</w>
+      <h>190</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>90.0;160.0;90.0;130.0;10.0;130.0;10.0;10.0</additional_attributes>
+    <additional_attributes>50.0;170.0;50.0;140.0;10.0;140.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>620</x>
       <y>320</y>
-      <w>30</w>
-      <h>140</h>
+      <w>280</w>
+      <h>460</h>
     </coordinates>
-    <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes>
+    <additional_attributes>260.0;440.0;260.0;220.0;10.0;220.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>230</x>
       <y>870</y>
-      <w>600</w>
+      <w>870</w>
       <h>90</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;30.0;580.0;30.0;580.0;70.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0;850.0;30.0;850.0;70.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>870</x>
-      <y>820</y>
+      <x>1140</x>
+      <y>810</y>
       <w>50</w>
-      <h>140</h>
+      <h>150</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m2=1..n</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -614,22 +617,22 @@ m2=1..n</panel_attributes>
     <coordinates>
       <x>600</x>
       <y>150</y>
-      <w>360</w>
-      <h>480</h>
+      <w>640</w>
+      <h>470</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;30.0;340.0;30.0;340.0;460.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0;340.0;30.0;340.0;420.0;620.0;420.0;620.0;450.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1190</x>
-      <y>820</y>
-      <w>120</w>
-      <h>60</h>
+      <x>1470</x>
+      <y>810</y>
+      <w>30</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>100.0;40.0;100.0;20.0;10.0;20.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -647,54 +650,28 @@ m2=1..n</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>680</x>
-      <y>800</y>
-      <w>160</w>
-      <h>80</h>
+      <x>810</x>
+      <y>1090</y>
+      <w>210</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>_UseSyncExternalStore_
 --
--state:{joyId:int, axisId:int}
+
 --
-+export(state)</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>600</x>
-      <y>700</y>
-      <w>140</w>
-      <h>120</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>120.0;100.0;120.0;30.0;10.0;30.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>950</x>
-      <y>900</y>
-      <w>220</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>_UseSyncExternalStore_
---
--state:[{joyId:int, joyName:string}|null]
---
-+askToRemoveJoy(state)</panel_attributes>
++notify()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>990</x>
-      <y>820</y>
+      <y>860</y>
       <w>30</w>
-      <h>100</h>
+      <h>250</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;230.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -721,5 +698,30 @@ m2=1..n</panel_attributes>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>600</x>
+      <y>700</y>
+      <w>120</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>100.0;220.0;100.0;30.0;10.0;30.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>680</x>
+      <y>920</y>
+      <w>120</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>UseSyncExternalStore
+-
+-
++notify()</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>

@@ -82,9 +82,9 @@ fontsize=10
     <id>UMLClass</id>
     <coordinates>
       <x>30</x>
-      <y>850</y>
+      <y>730</y>
       <w>290</w>
-      <h>190</h>
+      <h>150</h>
     </coordinates>
     <panel_attributes>JoyAxisBinding: Tickable
 --
@@ -105,16 +105,16 @@ fontsize=10
       <x>150</x>
       <y>610</y>
       <w>30</w>
-      <h>260</h>
+      <h>140</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;240.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>350</x>
-      <y>940</y>
+      <x>160</x>
+      <y>930</y>
       <w>300</w>
       <h>200</h>
     </coordinates>
@@ -245,14 +245,14 @@ m2=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>490</x>
+      <x>350</x>
       <y>880</y>
       <w>50</w>
-      <h>80</h>
+      <h>70</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;&gt;&gt;
 m1=1..n</panel_attributes>
-    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -284,8 +284,8 @@ m1=1..n</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>520</x>
-      <y>440</y>
+      <x>530</x>
+      <y>1040</y>
       <w>310</w>
       <h>90</h>
     </coordinates>
@@ -553,40 +553,40 @@ m2=1.n</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>610</x>
-      <y>320</y>
+      <x>690</x>
+      <y>940</y>
       <w>30</w>
-      <h>140</h>
+      <h>120</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>260</x>
       <y>610</y>
-      <w>580</w>
+      <w>700</w>
       <h>400</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;100.0;560.0;100.0;560.0;380.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0;580.0;80.0;580.0;190.0;680.0;190.0;680.0;380.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>890</x>
+      <x>960</x>
       <y>970</y>
-      <w>250</w>
+      <w>180</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>10.0;20.0;10.0;10.0;230.0;10.0;230.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;10.0;10.0;160.0;10.0;160.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>800</x>
+      <x>870</x>
       <y>990</y>
       <w>160</w>
       <h>160</h>
@@ -609,14 +609,14 @@ m2=1.n</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>860</x>
+      <x>800</x>
       <y>770</y>
-      <w>50</w>
-      <h>240</h>
+      <w>120</w>
+      <h>290</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m2=1..n</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;220.0</additional_attributes>
+    <additional_attributes>100.0;10.0;100.0;210.0;10.0;210.0;10.0;270.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -683,5 +683,34 @@ m2=1..n</panel_attributes>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
     <additional_attributes>100.0;50.0;100.0;30.0;10.0;30.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>660</x>
+      <y>720</y>
+      <w>170</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>BindingsAndJoysState
+--
+-state:{bindings:[{
+   axisName:string, 
+	axisId:number, 
+	joyRefId:number
+	}], joys[{
+	refId:number,
+	joyId:number,
+	joyName:string
+}]}
+--
++constructor(state)
++setBinding(axisName:string, 
+	axisId:number, 
+	joyRefId:number)
++setJoy(joyRefId:number,
+	joyId:number,
+	joyname:string)</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>
