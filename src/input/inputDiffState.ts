@@ -15,7 +15,11 @@ export default class InputDiffState {
 	private state: JoyAxisInputDiffValueReporter | null = null;
     	private listeners: Listener[] = []; //listeners subscribed to.
 
-	
+	/*
+	 * constructor is private to prevent instantiating a new instance of this singleton.
+	 */
+	private constructor () {
+	}
 
 	public static getInstance(): InputDiffState {
 		if (InputDiffState.instance === null) {
