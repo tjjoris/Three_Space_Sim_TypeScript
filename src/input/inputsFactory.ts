@@ -47,8 +47,7 @@ export default class InputsFactory{
 		this.bindingsTicker.addTickable(rollBinding as Tickable);
 		this.bindingsTicker.addTickable(verticalBinding as Tickable);
 		this.bindingsTicker.addTickable(horizontalBinding as Tickable);
-		this.inputDiffState = new InputDiffState();	
-		this.inputDiffsComparerForAllJoys = new InputDiffsComparerForAllJoys(this.inputDiffState);
+		this.inputDiffsComparerForAllJoys = new InputDiffsComparerForAllJoys();
 		this.joyConnector = new JoyConnector(this.joys, this.inputDiffsComparerForAllJoys);
 	}
 

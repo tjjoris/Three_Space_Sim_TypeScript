@@ -25,7 +25,7 @@ export default class InputDiffsComparerForAllJoys {
 		this.enabled = true;
 		this.joys = [];
 		this.inputReported = null;
-		this.inputDiffState = inputDiffState;
+		this.inputDiffState = InputDiffState.getInstance();
 	}
 
 	/*

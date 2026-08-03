@@ -47,6 +47,7 @@ export default class InputDiffState {
      * @param listener 
      */
     	public subscribe(listener: Listener) {
+		//console.log("diff state subscribing: ", listener);
         	this.listeners.push(listener);
         	return () => {
             		this.listeners = this.listeners.filter((l) => l !== listener);
