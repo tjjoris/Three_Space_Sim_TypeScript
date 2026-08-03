@@ -10,14 +10,15 @@ Keybinds are linked to the axes.
 import { useState, useSyncExternalStore } from "react";
 import useInputDiffStore from "../../stores/UseInputDiffStore";
 import InputDiffState from "../../input/inputDiffState";
+import JoyAxisInputDiffValueReporter from "../../input/joyAxisInputDiffValueReporter";
 
 type BindType = { id: number, name : string}; 
 
 export default function KeybindsMenuContent() {
 
-	const subscribe=() => {};
-	//const diffState: {joyName: string, joyRefId: number, joyId: number, axisId: number} = useInputDiffStore(InputDiffState.getInstance());
-	const diffState: number | null = useSyncExternalStore(subscribe, () => InputDiffState.getInstance().getState());
+	//const subscribe=() => {};
+	const diffState: JoyAxisInputDiffValueReporter | null = useInputDiffStore(InputDiffState.getInstance());
+	//const diffState: number | null = useSyncExternalStore(subscribe, () => InputDiffState.getInstance().getState());
 	const [pitchBind, setPitchBind] = useState<BindType>({ id: 0 , name: "this " });
 	return (
 	<div className="menu-content">
@@ -26,6 +27,7 @@ export default function KeybindsMenuContent() {
 		</h1>
 		<div >
 			pitch bound to: { pitchBind.name }
+			{diffState ? diffState.getDifference(): "null"}
 		</div>
 	</div>
 	)

@@ -10,6 +10,7 @@ when the update loop gets a valid diff, it checks if it is different from the pr
  */
 import InputDiffsCompareForJoy from "./inputDiffsCompareForJoy";
 import JoyAxisInputDiffValueReporter from "./joyAxisInputDiffValueReporter";
+import InputDiffState from "./inputDiffState";
 
 export default class InputDiffsComparerForAllJoys {
 	//if this updater is enabled or not.
@@ -18,11 +19,13 @@ export default class InputDiffsComparerForAllJoys {
 	private joys:InputDiffsCompareForJoy[];
 	//the reported axis input diff which can be null.
 	private inputReported:JoyAxisInputDiffValueReporter | null;
+	private inputDiffState: InputDiffState;
 
-	public constructor() {
+	public constructor(inputDiffState: InputDiffState) {
 		this.enabled = true;
 		this.joys = [];
 		this.inputReported = null;
+		this.inputDiffState = inputDiffState;
 	}
 
 	/*
@@ -89,10 +92,11 @@ export default class InputDiffsComparerForAllJoys {
 			//console.log("input reported null");
 			return;
 		}
-		console.log("diff is joyId: ",
+		/*console.log("diff is joyId: ",
 			    inputReported.getJoyId(),
 			   " axis: ",
-			   inputReported.getAxisId());
+			   inputReported.getAxisId());*/
+		this.inputDiffState.setState(inputReported);
 	};
 
 	/*
@@ -100,7 +104,7 @@ export default class InputDiffsComparerForAllJoys {
 	 * TODO: sync useStateExternalStore will be updated and tell react this has changed.
 	 */
 	public getMaxInputDiffForJoy():JoyAxisInputDiffValueReporter | null{
-		console.log("reporting diff: ", this.inputReported);
+		//console.log("reporting diff: ", this.inputReported);
 		return this.inputReported;
 	}
 

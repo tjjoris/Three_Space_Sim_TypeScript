@@ -23,7 +23,17 @@ export default class InputDiffState {
 		}
 		return InputDiffState.instance;
 	}
+
+	public resetState() {
+		this.state = null;
+		this.notify();
+	}
+
 	public setState(state: JoyAxisInputDiffValueReporter | null) {
+		if ((state == null) || (state.getDifference() == null)) {
+			return 
+		}
+		console.log("set input diff state: ", state.getDifference());
 		this.state = state;
 		this.notify();
 	}
@@ -48,7 +58,7 @@ export default class InputDiffState {
      	* notify all listeners
      	*/
     	private notify() {
-        	console.log("in listener");
+        	console.log("in listener, length: ", this.listeners.length);
         	this.listeners.forEach((listener) => listener());
     	}
 
