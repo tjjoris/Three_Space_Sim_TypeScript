@@ -29,6 +29,7 @@ export default class InputDiffsCompareForJoy {
 		for (let axisIndex = 0; axisIndex < axisCount; axisIndex ++) {
 			const diffReporter = new JoyAxisInputDiffValueReporter(
 				this.joyId,
+				this.joyName,
 				axisIndex
 			)
 			//add the axis to the diffReporters array.

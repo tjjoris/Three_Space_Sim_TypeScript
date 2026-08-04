@@ -20,15 +20,21 @@ export default function KeybindsMenuContent() {
 	const diffState: JoyAxisInputDiffValueReporter | null = useInputDiffStore(InputDiffState.getInstance());
 	//const diffState: number | null = useSyncExternalStore(subscribe, () => InputDiffState.getInstance().getState());
 	const [pitchBind, setPitchBind] = useState<BindType>({ id: 0 , name: "this " });
+	if ((diffState) && (diffState.getAxisId() != null)) {
 	return (
 	<div className="menu-content">
 		<h1>
 			Keybinds
 		</h1>
 		<div >
-			pitch bound to: { pitchBind.name }
-			{diffState ? diffState.getDifference(): "null"}
+		binding {pitchBind.name} to Joy: {diffState.getJoyName()} {diffState.getJoyId()} axis: {diffState.getAxisId()}
 		</div>
 	</div>
+	)
+	}
+	return (
+		<div>
+		hello world
+		</div>
 	)
 }

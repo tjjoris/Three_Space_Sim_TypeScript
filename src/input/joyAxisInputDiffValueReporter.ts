@@ -5,14 +5,16 @@
  * input diffs are changes in the axis beyond a threshold, this is used by the keybinding setter in the menu for reading axes to bind inputs to.
  */
 export default class JoyAxisInputDiffValueReporter {
-	private joyId: number;
+	private joyId: number;		
+	private joyName: string;
 	private axisId: number;
 	private diff: number | null;
 	readonly threshhold: number;
 	private axisValue: number;
 
-	public constructor (joyId: number, axisId: number,threshhold: number = 0.2) {
+	public constructor (joyId: number, joyName: string, axisId: number,threshhold: number = 0.2) {
 		this.joyId = joyId;
+		this.joyName = joyName;
 		this.axisId = axisId;
 		this.threshhold = threshhold;
 		this.diff = null;
@@ -107,5 +109,9 @@ export default class JoyAxisInputDiffValueReporter {
 
 	public getAxisId(): number {
 		return this.axisId;
+	}
+
+	public getJoyName(): string {
+		return this.joyName;
 	}
 }
