@@ -15,26 +15,29 @@ import JoyAxisInputDiffValueReporter from "../../input/joyAxisInputDiffValueRepo
 type BindType = { id: number, name : string}; 
 
 export default function KeybindsMenuContent() {
-
-	//const subscribe=() => {};
+	
 	const diffState: JoyAxisInputDiffValueReporter | null = useInputDiffStore(InputDiffState.getInstance());
-	//const diffState: number | null = useSyncExternalStore(subscribe, () => InputDiffState.getInstance().getState());
+
 	const [pitchBind, setPitchBind] = useState<BindType>({ id: 0 , name: "this " });
-	if ((diffState) && (diffState.getAxisId() != null)) {
-	return (
-	<div className="menu-content">
-		<h1>
-			Keybinds
-		</h1>
-		<div >
-		binding {pitchBind.name} to Joy: {diffState.getJoyName()} {diffState.getJoyId()} axis: {diffState.getAxisId()}
-		</div>
-	</div>
-	)
+
+	function returnDiff() {
+		if ((diffState) && (diffState.getAxisId() != null)) {
+		return (
+			<>
+				binding {pitchBind.name} to Joy: {diffState.getJoyName()} {diffState.getJoyId()} axis: {diffState.getAxisId()}
+			</>
+		)
+		}
+		return (
+			<>
+				no input
+				</>
+		)
 	}
+
 	return (
-		<div>
-		hello world
-		</div>
+		<>
+		{returnDiff()}
+		</>
 	)
 }
