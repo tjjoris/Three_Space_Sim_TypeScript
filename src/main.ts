@@ -157,8 +157,9 @@ export function setVerticalInversion(value: boolean) {
 
 //inputs factory for creating joys bindings and setting modules:
 const inputsFactory = new InputsFactory(pitchAxis, rollAxis, verticalAxis, horizontalAxis);
-//calling it to remove syntax error.
-inputsFactory;
+export function getInputDiffsComparerForAllJoys() {
+	return inputsFactory.getInputDiffsComparerForAllJoys();
+}
 
 //new inputs
 

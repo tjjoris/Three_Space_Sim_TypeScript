@@ -118,4 +118,12 @@ export default class InputDiffsComparerForAllJoys {
 		return this.inputReported;
 	}
 
+	public enable() {
+		this.enabled = true;
+	}
+
+	public disable() {
+		this.enabled = false;
+	}
+
 }
