@@ -33,12 +33,9 @@ export default function MenuScreen({
 		let localHeaderTabPassedTop: boolean = false;
 		//this is the actual z index used in the component it is set to 100 when it is the selected button, otherwise it is 1 if before the selected button, or 49 if after and lowers by 1.
 		let localZIndexToBeUsed:number = 1;
+		let zIndexTrackedForStacking = 49;
 		//loop all elements i the tabs array of MenuTabsType.
 		for (let headerButtonIndex:number = 0; headerButtonIndex < tabs.length; headerButtonIndex ++) {
-			//true if has already looped past the current button.
-			if (localHeaderTabPassedTop == true) {
-				localZIndexToBeUsed --;
-			}
 			//check if this is the button for the current tab 
 			if (tabs[headerButtonIndex] == menuTab) {
 				//set the boolean for tracking.
@@ -48,7 +45,11 @@ export default function MenuScreen({
 			}
 			else {
 				//set the z index behind the menu but with room to lower for additional tabs appearing behind this one.
-				localZIndexToBeUsed = 49;
+				localZIndexToBeUsed = zIndexTrackedForStacking;
+			}
+			//true if has already looped past the current button.
+			if (localHeaderTabPassedTop == true) {
+				zIndexTrackedForStacking --;
 			}
 			//add a header button to the array.
 			headerButtons.push(
