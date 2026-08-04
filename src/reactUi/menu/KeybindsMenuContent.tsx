@@ -11,7 +11,7 @@ import { useState, useSyncExternalStore } from "react";
 import useInputDiffStore from "../../stores/UseInputDiffStore";
 import InputDiffState from "../../input/inputDiffState";
 import JoyAxisInputDiffValueReporter from "../../input/joyAxisInputDiffValueReporter";
-import { getInputDiffsComparerForAllJoys } from "../../main";
+import { setDiffEnabled } from "../../main";
 
 type BindType = { id: number, name : string}; 
 
@@ -43,13 +43,21 @@ export default function KeybindsMenuContent() {
 		)
 	}
 
+	function callDisableDiff() {
+		setDiffEnabled(false);
+	}
+
+	function callEnableDiff() {
+		setDiffEnabled(true);
+	}
+
 	return (
 		<>
-		<button className="menu-button" onClick={getInputDiffsComparerForAllJoys().enable} >
+		<button className="menu-button" onClick={callEnableDiff} >
 			Activate
 			</button>
 
-			<button className="menu-button" onClick={getInputDiffsComparerForAllJoys().disable} >
+			<button className="menu-button" onClick={callDisableDiff} >
 			Deactivate	
 			</button>
 

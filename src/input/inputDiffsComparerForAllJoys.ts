@@ -14,7 +14,7 @@ import InputDiffState from "./inputDiffState";
 
 export default class InputDiffsComparerForAllJoys {
 	//if this updater is enabled or not.
-	private enabled: boolean;
+	private diffEnabled: boolean;
 	//the array of joy input diffs.
 	private joys:InputDiffsCompareForJoy[];
 	//the reported axis input diff which can be null.
@@ -22,8 +22,8 @@ export default class InputDiffsComparerForAllJoys {
 	private inputDiffState: InputDiffState;
 	private lastUpdateTimeSignature: number;
 
-	public constructor(inputDiffState: InputDiffState) {
-		this.enabled = true;
+	public constructor() {
+		this.diffEnabled = false;
 		this.joys = [];
 		this.inputReported = null;
 		this.inputDiffState = InputDiffState.getInstance();
@@ -77,7 +77,7 @@ export default class InputDiffsComparerForAllJoys {
 		//set time signature to now because reading for input diff.
 		this.lastUpdateTimeSignature = performance.now();
 		//end if this is disabled.
-		if (!this.enabled) {
+		if (!this.diffEnabled) {
 			return;
 		}
 		let diff = 0;
@@ -118,12 +118,19 @@ export default class InputDiffsComparerForAllJoys {
 		return this.inputReported;
 	}
 
-	public enable() {
-		this.enabled = true;
+	public enableDiff() {
+		this.diffEnabled = true;
 	}
 
-	public disable() {
-		this.enabled = false;
+	public disableDiff() {
+		console.log("disabled by luke");
+		console.log(this.diffEnabled);
+		this.diffEnabled = false;
+	}
+
+	public setDiffEnabled(diffEnabled: boolean): void {
+		this.diffEnabled = diffEnabled;
+		console.log("diff enabled ", this.diffEnabled);
 	}
 
 }

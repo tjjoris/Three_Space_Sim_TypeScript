@@ -12,7 +12,6 @@ import JoyConnector from "./joyConnector";
 import BindingsTicker from "./bindingsTicker";
 import type Tickable from "../game/tickable";
 import InputDiffsComparerForAllJoys from "./inputDiffsComparerForAllJoys"; 
-import InputDiffState from "./inputDiffState";
 
 export default class InputsFactory{
 
@@ -21,7 +20,6 @@ export default class InputsFactory{
 	private joyConnector:JoyConnector;
 	private bindingsTicker:BindingsTicker;
 	private inputDiffsComparerForAllJoys: InputDiffsComparerForAllJoys;
-	private inputDiffState: InputDiffState;
 
 	constructor(pitchAxis: Axis, 
 		    rollAxis: Axis, 

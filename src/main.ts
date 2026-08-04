@@ -35,7 +35,7 @@ import SmartForward from "./ship/movement/smartForward.ts"
 import GamePadHandler from './axes/gamePadHandler.ts'
 import GamePadHandlerLifeCycleMediator from './axes/GamePadHandlerLifecycleMediator.ts'
 import Ticker from './game/ticker.ts'
-import inputDiffsCompareerForAllJoys from './input/inputDiffsComparerForAllJoys';
+import InputDiffsComparerForAllJoys from './input/inputDiffsComparerForAllJoys';
 
 
 
@@ -157,9 +157,15 @@ export function setVerticalInversion(value: boolean) {
 
 //inputs factory for creating joys bindings and setting modules:
 const inputsFactory = new InputsFactory(pitchAxis, rollAxis, verticalAxis, horizontalAxis);
-export function getInputDiffsComparerForAllJoys() {
-	return inputsFactory.getInputDiffsComparerForAllJoys();
+const inputDiffsComparerForAllJoys: InputDiffsComparerForAllJoys = inputsFactory.getInputDiffsComparerForAllJoys();
+export function getInputDiffsComparerForAllJoys(): InputDiffsComparerForAllJoys {
+	console.log("getting input diffs comparer for all ", inputsFactory.getInputDiffsComparerForAllJoys());
+	return inputDiffsComparerForAllJoys
 }
+export function setDiffEnabled(enabled: boolean) {
+	inputDiffsComparerForAllJoys.setDiffEnabled(enabled);
+}
+
 
 //new inputs
 
