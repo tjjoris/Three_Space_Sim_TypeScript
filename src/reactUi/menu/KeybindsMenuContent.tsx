@@ -11,6 +11,7 @@ import { useState, useSyncExternalStore } from "react";
 import useInputDiffStore from "../../stores/UseInputDiffStore";
 import InputDiffState from "../../input/inputDiffState";
 import JoyAxisInputDiffValueReporter from "../../input/joyAxisInputDiffValueReporter";
+import { getInputDiffsComparerForAllJoys } from "../../main";
 
 type BindType = { id: number, name : string}; 
 
@@ -20,6 +21,9 @@ export default function KeybindsMenuContent() {
 
 	const [pitchBind, setPitchBind] = useState<BindType>({ id: 0 , name: "this " });
 
+	/*
+	 *function for returning input diff values to react output.
+	 */
 	function returnDiff() {
 		if ((diffState) && (diffState.getAxisId() != null)) {
 		return (
@@ -27,16 +31,29 @@ export default function KeybindsMenuContent() {
 				binding {pitchBind.name} to Joy: {diffState.getJoyName()} {diffState.getJoyId()} axis: {diffState.getAxisId()}
 			</>
 		)
+
+		/*
+		 * main return function of this compoennt
+		 */
 		}
 		return (
 			<>
-				no input
+							no input
 				</>
 		)
 	}
 
 	return (
 		<>
+		<button className="menu-button" onClick={getInputDiffsComparerForAllJoys().enable} >
+			Activate
+			</button>
+
+			<button className="menu-button" onClick={getInputDiffsComparerForAllJoys().disable} >
+			Deactivate	
+			</button>
+
+
 		{returnDiff()}
 		</>
 	)
