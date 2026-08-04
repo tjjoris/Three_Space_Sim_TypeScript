@@ -20,12 +20,14 @@ export default class InputDiffsComparerForAllJoys {
 	//the reported axis input diff which can be null.
 	private inputReported:JoyAxisInputDiffValueReporter | null;
 	private inputDiffState: InputDiffState;
+	private lastUpdateTimeSignature: number;
 
 	public constructor(inputDiffState: InputDiffState) {
 		this.enabled = true;
 		this.joys = [];
 		this.inputReported = null;
 		this.inputDiffState = InputDiffState.getInstance();
+		this.lastUpdateTimeSignature = performance.now();
 	}
 
 	/*
@@ -66,6 +68,14 @@ export default class InputDiffsComparerForAllJoys {
 	 * it calculates the diffs for each diff joy, then gets the greates of them all.
 	 */
 	public update():void {
+		//get time since last read input diff.
+		const timeDiff = performance.now() - this.lastUpdateTimeSignature;
+		//if difference in time is less than 200 end.
+		if (timeDiff < 200) {
+			return;
+		}
+		//set time signature to now because reading for input diff.
+		this.lastUpdateTimeSignature = performance.now();
 		//end if this is disabled.
 		if (!this.enabled) {
 			return;
