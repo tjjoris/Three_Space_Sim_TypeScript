@@ -33,9 +33,10 @@ import Jerker from './ship/movement/Jerker.ts'
 import RotationMediator from './ship/movement/rotationMediator.ts'
 import SmartForward from "./ship/movement/smartForward.ts"
 import GamePadHandler from './axes/gamePadHandler.ts'
-import GamePadHandlerLifeCycleMediator from './axes/GamePadHandlerLifecycleMediator.ts'
+//import GamePadHandlerLifeCycleMediator from './axes/GamePadHandlerLifecycleMediator.ts'
 import Ticker from './game/ticker.ts'
 import InputDiffsComparerForAllJoys from './input/inputDiffsComparerForAllJoys';
+import FlightAxis from './axes/flightAxis';
 
 
 
@@ -114,12 +115,12 @@ const castRay = new CastRay(renderer, camera);
 
 //new axes
 //deadzone, saturation, inverse.
-const pitchAxis = new Axis(0.15, 1, true);
-const yawAxis = new Axis(0, 1, true);
-const rollAxis = new Axis(0.2, 1, false);
-const verticalAxis = new Axis(0.15, 1, true);
-const horizontalAxis = new Axis(0.15, 1, true);
-const forwardAxis = new Axis(0.15, 1, false);
+const pitchAxis = new FlightAxis(0.15, 1, true, "pitch");
+const yawAxis = new FlightAxis(0, 1, true, "yaw");
+const rollAxis = new FlightAxis(0.2, 1, false, "roll");
+const verticalAxis = new FlightAxis(0.15, 1, true, "vertical");
+const horizontalAxis = new FlightAxis(0.15, 1, true, "horizontal");
+const forwardAxis = new FlightAxis(0.15, 1, false, "forward");
 
 //desired axes, set the min and max rotation speeds.
 const desiredPitchAxis = new DesiredAxis(-0.20, 0.20);
@@ -217,10 +218,10 @@ const rotationMediator = new RotationMediator(pitchMediator, rollMediator, yawMe
  * gamepad
  */
 
-let gamePadHandlerHorizontal: GamePadHandler | null = null;
-let gamePadHandlerVertical: GamePadHandler | null = null;
-let gamePadHandlerPitch: GamePadHandler | null = null;
-let gamePadHandlerRoll: GamePadHandler | null = null;
+//let gamePadHandlerHorizontal: GamePadHandler | null = null;
+//let gamePadHandlerVertical: GamePadHandler | null = null;
+//let gamePadHandlerPitch: GamePadHandler | null = null;
+//let gamePadHandlerRoll: GamePadHandler | null = null;
 
 
 

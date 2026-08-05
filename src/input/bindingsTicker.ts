@@ -30,12 +30,12 @@ export default class BindingsTicker implements Tickable{
 
 	public getBindingsAsObject(): JoysAndBindingsType {
 		this.tickableBindings.forEach((tickable: Tickable ) => {
-			if (tickable instanceof JoyAxisInputDiffValueReporter) {
-			const diffValueReporter =  tickable  as JoyAxisInputDiffValueReporter;
-			if ((diffValueReporter == null) || (diffValueReporter.getAxisId == null) {
+			if (tickable instanceof JoyAxisBinding) {
+			const joyBindingObject =  tickable  as JoyAxisBinding;
+			if ((joyBindingObject == null) || (joyBindingObject.getAxisId == null) {
 				continue;
 			}
-			const axisId = diffValueReporter.getAxisId();
+			const axisId = joyBindingObject.getAxisId();
 
 			let bindings: BindingType[] = []
 			bindings.push(binding); 
