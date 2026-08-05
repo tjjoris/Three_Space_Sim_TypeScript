@@ -89,7 +89,7 @@ export default function KeybindsMenuContent() {
 	return (
 		<>
 		{ returnActivatableButton() }
-		is button active { isButtonActive ? "true": "false" }
+		binding: {returnDiff()}
 		</>
 	)
 }
