@@ -97,4 +97,18 @@ export default class JoyAxisBinding implements Tickable{
 	getFlightAxis(): FlightAxisType {
 		return this.flightAxis.getFlightAxisName();
 	}
+
+	getAxisId(): number | null{
+		if (this.joy == null) {
+			return null;
+		}
+		return this.joy.getJoyId();
+	}
+
+	getJoyRefId(): number | null{
+		if (this.joy == null) {
+			return null;
+		}
+		return this.joy.getJoyRefId();
+	}
 }
