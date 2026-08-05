@@ -6,13 +6,13 @@ If the binding is inactive, it does nothing on tick.
  */
 import type Tickable from "../game/tickable"
 import Joy from "./joy.ts"
-import Axis from "../axes/axis"
+import FlightAxis from "../axes/flightAxis"
 import type {FlightAxisType} from "../types/flightAxisType";
 
 export default class JoyAxisBinding implements Tickable{
 	private joy:Joy|null;
 	private joyAxis: number|null;
-	private flightAxis: Axis;
+	private flightAxis: FlightAxis;
 	//a temporary storager for the axis value to eliminate debug spam.
 	private tempAxisValue: number = 0.4;
 	private showedJoyDisabledError = false;
@@ -25,7 +25,7 @@ export default class JoyAxisBinding implements Tickable{
 	@param:joyAxis - the axis number, can be null.
 	@param:flightAxis - the flight axis.
 	 */
-	public constructor(joy:Joy|null, joyAxis: number|null, flightAxis:Axis){
+	public constructor(joy:Joy|null, joyAxis: number|null, flightAxis:FlightAxis){
 		this.joy = joy;
 		this.joyAxis = joyAxis;
 		this.flightAxis = flightAxis;
@@ -95,6 +95,6 @@ export default class JoyAxisBinding implements Tickable{
 	}
 
 	getFlightAxis(): FlightAxisType {
-		return this.flightAxis;
+		return this.flightAxis.getFlightAxisName();
 	}
 }
