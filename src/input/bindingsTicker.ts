@@ -1,4 +1,6 @@
-import type Tickable from "../game/tickable"
+import type Tickable from "../game/tickable";
+import type { JoysAndBindingsType } from "../types/joysAndBindingsType";
+import JoyAxisInputDiffValueReporter from "./joyAxisInputDiffValueReporter";
 /*
 bindingTicker.ts
 @Author: Luke Johnson
@@ -22,5 +24,13 @@ export default class BindingsTicker implements Tickable{
 		this.tickableBindings.forEach((tickable:Tickable) => {
 			tickable.tick(dt);
 		})	
+	}
+
+	public getBindingsAsObject(): JoysAndBindingsType {
+		this.tickableBindings.forEach((tickable: Tickable ) => {
+			if (tickable instanceof JoyAxisInputDiffValueReporter) {
+			let binding =  tickable  as JoyAxisInputDiffValueReporter;
+
+		}
 	}
 }
