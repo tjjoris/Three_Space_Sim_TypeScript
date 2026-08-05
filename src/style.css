@@ -154,8 +154,15 @@
   }
 }
 
-.diff-button-enabled {
-	width 5px;
-	transition: transform 2s ease-in;
+.diff-button-disabled {
+	background-color: blue;
+	width: 5px;
+	transition: width 1s ease-in-out;
 
+}
+
+.diff-button-enabled {
+	background-color: green;
+	width: 200px;
+	transition: width 1s ease-in-out;
 }

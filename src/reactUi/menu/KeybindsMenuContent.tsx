@@ -60,15 +60,18 @@ export default function KeybindsMenuContent() {
 			<>
 				<button 
 		onTransitionEnd={callDisableDiff}
-		className="menu-button" onClick={callEnableDiff} >
-			Activate
+		className="diff-button-disabled" onClick={callEnableDiff} >
+				Deactivate	
 			</button>
 			</>
 		)}
 		return (
 			<>
-<button className="menu-button diff-button-enabled" onClick={callEnableDiff} >
-			Deactivate	
+<button className="diff-button-enabled"  
+onClick={callEnableDiff} 
+onTransitionEnd={callDisableDiff}
+			>
+				Activate	
 			</button>
 			</>
 		)
@@ -79,22 +82,7 @@ export default function KeybindsMenuContent() {
 	return (
 		<>
 		{ returnActivatableButton() }
-		/*
-		<>
-		<button 
-		onTransitionEnd={callDisableDiff}
-		className="menu-button" onClick={callEnableDiff} >
-			Activate
-			</button>
-
-			<button className="menu-button" onClick={callDisableDiff} >
-			Deactivate	
-			</button>
-
-
-		{returnDiff()}
-		</>
-		*/
+		is button active { isButtonActive ? "true": "false" }
 		</>
 	)
 }
