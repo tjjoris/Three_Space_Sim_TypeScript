@@ -1,5 +1,8 @@
 
 /**
+ * desiredAxis.ts
+ * @Author: Luke Johnson
+ * this should actually be called output axis, or something, becuase it is the axis that moves the ship, not the axis that directly interacts with the controls.
  * class which stores the desired axis value for an axis, which is the normalized 
  * axis value * the max or min.
  */

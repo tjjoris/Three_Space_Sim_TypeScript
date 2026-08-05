@@ -1,7 +1,7 @@
 import type {FlightAxisType}  from "./flightAxisType"
 /**
- *bindingsType.ts
+ *bindingType.ts
  @Author: Luke Johnson
  * a type to store all bindings.
  */
-export type BindingsType = [{ flightAxis: FlightAxisType, refId: number, joyAxisId: number}];
+export type BindingType = { flightAxis: FlightAxisType, refId: number, axisId: number};
