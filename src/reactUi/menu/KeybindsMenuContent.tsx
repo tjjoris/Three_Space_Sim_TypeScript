@@ -61,7 +61,7 @@ export default function KeybindsMenuContent() {
 				<button 
 					className = "menu-button"
 					onClick={callEnableDiff} >
-					Deactivate	
+					Input Binding	
 				<div		
 				onTransitionEnd={callDisableDiff}
 		className="diff-slider diff-button-disabled"/>

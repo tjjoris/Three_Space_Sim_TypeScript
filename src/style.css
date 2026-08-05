@@ -170,12 +170,13 @@
 
 .diff-button-disabled {
 	width: 0%;
-	transition: width 1s ease-in-out;
+	transition: width 5s ease-in-out;
 
 }
 
 .diff-button-enabled {
 	width: 110%;
 	height: 1rem;
+	visibility: hidden;
 	
 }
