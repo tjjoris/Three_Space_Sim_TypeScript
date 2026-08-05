@@ -7,7 +7,7 @@ sometimes an array of instances.
  */
 import Joy from "./joy";
 import JoyAxisBinding from "./joyAxisBinding";
-import Axis from "../axes/axis"
+import FlightAxis from "../axes/flightAxis"
 import JoyConnector from "./joyConnector";
 import BindingsTicker from "./bindingsTicker";
 import type Tickable from "../game/tickable";
@@ -21,10 +21,10 @@ export default class InputsFactory{
 	private bindingsTicker:BindingsTicker;
 	private inputDiffsComparerForAllJoys: InputDiffsComparerForAllJoys;
 
-	constructor(pitchAxis: Axis, 
-		    rollAxis: Axis, 
-		    verticalAxis: Axis,
-		   horizontalAxis: Axis) {
+	constructor(pitchAxis: FlightAxis, 
+		    rollAxis: FlightAxis, 
+		    verticalAxis: FlightAxis,
+		   horizontalAxis: FlightAxis) {
 		let joyZero = new Joy(null, 0, "CH FLIGHTSTICK PRO (Vendor: 068e Product: 00f6)", false);
 		let joyOne = new Joy(null, 1, "CH FIGHTERSTICK USB  (Vendor: 068e Product: 00f3)", false);
 		let joyTwo = new Joy(null, 2, null, false);
