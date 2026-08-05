@@ -153,3 +153,9 @@
     opacity: 0;
   }
 }
+
+.diff-button-enabled {
+	width 5px;
+	transition: transform 2s ease-in;
+
+}

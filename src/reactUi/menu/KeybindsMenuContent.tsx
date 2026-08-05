@@ -18,6 +18,7 @@ type BindType = { id: number, name : string};
 export default function KeybindsMenuContent() {
 	
 	const diffState: JoyAxisInputDiffValueReporter | null = useInputDiffStore(InputDiffState.getInstance());
+	const [isButtonActive, setIsButtonActive] = useState(false);
 
 	const [pitchBind, setPitchBind] = useState<BindType>({ id: 0 , name: "this " });
 
@@ -44,16 +45,45 @@ export default function KeybindsMenuContent() {
 	}
 
 	function callDisableDiff() {
+		setIsButtonActive(false);
 		setDiffEnabled(false);
 	}
 
 	function callEnableDiff() {
+		setIsButtonActive(true);
 		setDiffEnabled(true);
 	}
 
+	function returnActivatableButton() {
+		if (isButtonActive) {
+		return (
+			<>
+				<button 
+		onTransitionEnd={callDisableDiff}
+		className="menu-button" onClick={callEnableDiff} >
+			Activate
+			</button>
+			</>
+		)}
+		return (
+			<>
+<button className="menu-button diff-button-enabled" onClick={callEnableDiff} >
+			Deactivate	
+			</button>
+			</>
+		)
+	}
+
+
+
 	return (
 		<>
-		<button className="menu-button" onClick={callEnableDiff} >
+		{ returnActivatableButton() }
+		/*
+		<>
+		<button 
+		onTransitionEnd={callDisableDiff}
+		className="menu-button" onClick={callEnableDiff} >
 			Activate
 			</button>
 
@@ -63,6 +93,8 @@ export default function KeybindsMenuContent() {
 
 
 		{returnDiff()}
+		</>
+		*/
 		</>
 	)
 }
