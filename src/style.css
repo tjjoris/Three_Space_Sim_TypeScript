@@ -102,6 +102,7 @@
   height: 2em;
   font-size: 1em;
   border-radius: 0.5em;
+  overflow: hidden;
 }
 
 .menu-checkbox {
@@ -158,16 +159,23 @@
 	display-type: flex;
 }
 
+.diff-slider {
+	background-color: green;
+	height: 1rem;
+	margin: 0 -0.5rem;
+	border-width: 1px;
+	border-color: white;
+	border-style: solid;
+}
+
 .diff-button-disabled {
-	background-color: blue;
 	width: 0%;
-	height: 50px;
 	transition: width 1s ease-in-out;
 
 }
 
 .diff-button-enabled {
-	background-color: green;
-	width: 100%;
-	height: 50px;
+	width: 110%;
+	height: 1rem;
+	
 }
