@@ -1,8 +1,5 @@
 import type Tickable from "../game/tickable";
-import type { JoysAndBindingsType } from "../types/joysAndBindingsType";
 //import JoyAxisInputDiffValueReporter from "./joyAxisInputDiffValueReporter";
-import JoyAxisBinding from "./joyAxisBinding";
-import type {BindingType} from "../types/bindingType";
 /*
 bindingTicker.ts
 @Author: Luke Johnson
