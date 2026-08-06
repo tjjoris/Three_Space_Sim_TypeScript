@@ -4,7 +4,7 @@ KeybindsMenuContent.tsx
 component for displaying keybinds. is updated by bindingsAndJoysState thorugh use sync external store.
 Allows setting keybinds through child components.
  */
-import { useState} from "react";
+import UseBindingsStore from "../../stores/UseBindingsStore";
 import KeybindButton from "./KeybindButton";
 
 export default function KeybindsMenuContent() {
