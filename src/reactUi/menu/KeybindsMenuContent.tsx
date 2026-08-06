@@ -5,86 +5,12 @@ component for displaying keybinds. is updated by bindingsAndJoysState thorugh us
 Allows setting keybinds through child components.
  */
 import { useState} from "react";
-import useInputDiffStore from "../../stores/UseInputDiffStore";
-import InputDiffState from "../../input/inputDiffState";
-import JoyAxisInputDiffValueReporter from "../../input/joyAxisInputDiffValueReporter";
-import { setDiffEnabled } from "../../main";
-
-type BindType = { id: number, name : string}; 
+import KeybindButton from "./KeybindButton";
 
 export default function KeybindsMenuContent() {
-	
-	const diffState: JoyAxisInputDiffValueReporter | null = useInputDiffStore(InputDiffState.getInstance());
-	const [isButtonActive, setIsButtonActive] = useState(false);
-
-	const [pitchBind, setPitchBind] = useState<BindType>({ id: 0 , name: "this " });
-
-	/*
-	 *function for returning input diff values to react output.
-	 */
-	function returnDiff() {
-		if ((diffState) && (diffState.getAxisId() != null)) {
-		return (
-			<>
-				binding {pitchBind.name} to Joy: {diffState.getJoyName()} {diffState.getJoyId()} axis: {diffState.getAxisId()}
-			</>
-		)
-
-		/*
-		 * main return function of this compoennt
-		 */
-		}
-		return (
-			<>
-							no input
-				</>
-		)
-	}
-
-	function callDisableDiff() {
-		setIsButtonActive(false);
-		setDiffEnabled(false);
-	}
-
-	function callEnableDiff() {
-		setIsButtonActive(true);
-		setDiffEnabled(true);
-	}
-
-	function returnActivatableButton() {
-		if (isButtonActive) {
-		return (
-			<>
-				<button 
-					className = "menu-button"
-					onClick={callEnableDiff} >
-					Input Binding	
-				<div		
-				onTransitionEnd={callDisableDiff}
-		className="diff-slider diff-button-disabled"/>
-			</button>
-						</>
-		)}
-		return (
-			<>
-				<button
-					className = "menu-button"
-					onClick={callEnableDiff} 
-				>
-					Activate	
-					<div
-					onTransitionEnd={callDisableDiff}
-					className="diff-slider diff-button-enabled"  />
-				</button>
-			</>
-		)
-	}
-
-
 	return (
 		<>
-		{ returnActivatableButton() }
-		binding: {returnDiff()}
+			<KeybindButton />
 		</>
 	)
 }
