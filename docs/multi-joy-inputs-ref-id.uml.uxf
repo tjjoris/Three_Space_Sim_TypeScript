@@ -297,16 +297,18 @@ m1=1..n</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>780</x>
-      <y>850</y>
+      <y>840</y>
       <w>320</w>
-      <h>110</h>
+      <h>130</h>
     </coordinates>
     <panel_attributes>BindingsAndJoysState
 --
 -state:{bindings:[{name:string, axisRefId:int}], 
 joys:[{name:string, refId:int, id:int}]]
+-instance:BindingsAndJoysState
 --
-+constructor()
++getInstance():BindingsAndJoysState
+-constructor()
 +setJoy()
 +setBinding()
 +notify()</panel_attributes>
@@ -613,12 +615,12 @@ m2=1..n</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>990</x>
-      <y>950</y>
+      <y>960</y>
       <w>30</w>
-      <h>160</h>
+      <h>150</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;130.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -725,10 +727,10 @@ m2=1..n</panel_attributes>
       <x>880</x>
       <y>620</y>
       <w>30</w>
-      <h>250</h>
+      <h>240</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;230.0</additional_attributes>
+    <panel_attributes>lt=.&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;220.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -782,9 +784,9 @@ m2=1..n</panel_attributes>
       <x>990</x>
       <y>810</y>
       <w>220</w>
-      <h>60</h>
+      <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>200.0;10.0;200.0;20.0;10.0;20.0;10.0;40.0</additional_attributes>
+    <additional_attributes>200.0;10.0;200.0;20.0;10.0;20.0;10.0;30.0</additional_attributes>
   </element>
 </diagram>
