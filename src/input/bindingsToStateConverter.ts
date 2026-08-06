@@ -38,6 +38,7 @@ export default class BindingsToStateConverter {
 				return null;
 			}
 			const axisId = joyBindingObject.getAxisId();
+			console.log("axisId ", axisId);
 			const axisName = joyBindingObject.getFlightAxis();
 			const refId = joyBindingObject.getJoyRefId();
 			if ((refId == null) || (axisId == null)) {

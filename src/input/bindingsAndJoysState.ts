@@ -38,7 +38,7 @@ export default class BindingsAndJoysState {
 		if (state == null) {
 			return 
 		}
-		console.log("set bindings and joys state: ", state);
+		console.log("set bindings and joys state: ", state.length);
 		this.state = state;
 		this.notify();
 	}

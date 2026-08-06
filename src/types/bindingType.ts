@@ -4,4 +4,4 @@ import type {FlightAxisType}  from "./flightAxisType"
  @Author: Luke Johnson
  * a type to store all bindings.
  */
-export type BindingType = { flightAxis: FlightAxisType, refId: number, axisId: number};
+export type BindingType = { flightAxis: FlightAxisType, refId: number | null, axisId: number | null};
