@@ -29,7 +29,7 @@ fontsize=10
     <id>UMLClass</id>
     <coordinates>
       <x>60</x>
-      <y>20</y>
+      <y>120</y>
       <w>250</w>
       <h>90</h>
     </coordinates>
@@ -46,13 +46,12 @@ fontsize=10
     <id>UMLClass</id>
     <coordinates>
       <x>10</x>
-      <y>320</y>
+      <y>350</y>
       <w>250</w>
       <h>120</h>
     </coordinates>
     <panel_attributes>BindingsTicker:Ticker
 --
--bindings:Binding[]
 -joysHandler:JoysHandler
 --
 +constructor(bindings:JoyBinding[])
@@ -65,7 +64,7 @@ fontsize=10
     <id>UMLClass</id>
     <coordinates>
       <x>0</x>
-      <y>560</y>
+      <y>660</y>
       <w>270</w>
       <h>120</h>
     </coordinates>
@@ -83,7 +82,7 @@ fontsize=10
     <id>UMLClass</id>
     <coordinates>
       <x>40</x>
-      <y>690</y>
+      <y>790</y>
       <w>290</w>
       <h>190</h>
     </coordinates>
@@ -107,7 +106,7 @@ fontsize=10
     <id>Relation</id>
     <coordinates>
       <x>110</x>
-      <y>670</y>
+      <y>770</y>
       <w>30</w>
       <h>40</h>
     </coordinates>
@@ -118,7 +117,7 @@ fontsize=10
     <id>UMLClass</id>
     <coordinates>
       <x>360</x>
-      <y>950</y>
+      <y>1050</y>
       <w>300</w>
       <h>200</h>
     </coordinates>
@@ -145,7 +144,7 @@ passed diff with this one, if this one is greater, true.
     <id>UMLNote</id>
     <coordinates>
       <x>1070</x>
-      <y>40</y>
+      <y>140</y>
       <w>510</w>
       <h>520</h>
     </coordinates>
@@ -183,21 +182,21 @@ is connected.</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>240</x>
-      <y>430</y>
-      <w>80</w>
-      <h>280</h>
+      <x>140</x>
+      <y>460</y>
+      <w>180</w>
+      <h>350</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;&gt;
 m1=1..n
 m2=1</panel_attributes>
-    <additional_attributes>40.0;260.0;40.0;70.0;10.0;70.0;10.0;10.0</additional_attributes>
+    <additional_attributes>140.0;330.0;140.0;140.0;10.0;140.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>340</x>
-      <y>760</y>
+      <y>860</y>
       <w>310</w>
       <h>150</h>
     </coordinates>
@@ -221,7 +220,7 @@ greater than greatest diff.
     <id>UMLClass</id>
     <coordinates>
       <x>350</x>
-      <y>550</y>
+      <y>580</y>
       <w>310</w>
       <h>170</h>
     </coordinates>
@@ -245,20 +244,20 @@ greater than greatest diff.
     <id>Relation</id>
     <coordinates>
       <x>490</x>
-      <y>710</y>
+      <y>740</y>
       <w>50</w>
-      <h>70</h>
+      <h>140</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;&gt;&gt;
 m1=1..n
 m2=1</panel_attributes>
-    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>490</x>
-      <y>900</y>
+      <y>1000</y>
       <w>50</w>
       <h>70</h>
     </coordinates>
@@ -288,16 +287,16 @@ m1=1..n</panel_attributes>
       <x>430</x>
       <y>520</y>
       <w>30</w>
-      <h>50</h>
+      <h>80</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;30.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>780</x>
-      <y>820</y>
+      <y>920</y>
       <w>320</w>
       <h>110</h>
     </coordinates>
@@ -316,18 +315,18 @@ joys:[{name:string, refId:int, id:int}]]
     <id>Relation</id>
     <coordinates>
       <x>280</x>
-      <y>100</y>
+      <y>200</y>
       <w>110</w>
-      <h>470</h>
+      <h>400</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes>
-    <additional_attributes>90.0;450.0;90.0;120.0;10.0;120.0;10.0;10.0</additional_attributes>
+    <additional_attributes>90.0;380.0;90.0;120.0;10.0;120.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>50</x>
-      <y>180</y>
+      <y>220</y>
       <w>130</w>
       <h>100</h>
     </coordinates>
@@ -342,63 +341,29 @@ joys:[{name:string, refId:int, id:int}]]
     <id>Relation</id>
     <coordinates>
       <x>240</x>
-      <y>100</y>
+      <y>200</y>
       <w>960</w>
       <h>520</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes>
-    <additional_attributes>940.0;500.0;940.0;490.0;660.0;490.0;660.0;320.0;460.0;320.0;460.0;90.0;10.0;90.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>390</x>
-      <y>200</y>
-      <w>280</w>
-      <h>130</h>
-    </coordinates>
-    <panel_attributes>BindingHandler
---
--bindings:JoyBinding&lt;map&gt;
---
-+constructor()
--getBindingsFromCookies()
-+getBindings():JoyBinding[]
-+getBindingForAxis(flightAxis:FlightAxisString):JoyBinding
-+setBinding(bindingName:string, joy:Joy, axisId:int)
-+removeJoy(joy:Joy)
-+swapJoy(joyIdOne:int, joyIdTwo:two)</panel_attributes>
-    <additional_attributes/>
+    <additional_attributes>940.0;500.0;940.0;490.0;740.0;490.0;740.0;320.0;670.0;320.0;670.0;110.0;10.0;110.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>520</x>
-      <y>150</y>
-      <w>30</w>
-      <h>70</h>
+      <y>260</y>
+      <w>230</w>
+      <h>320</h>
     </coordinates>
-    <panel_attributes>lt=-&gt;&gt;&gt;&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>290</x>
-      <y>320</y>
-      <w>160</w>
-      <h>390</h>
-    </coordinates>
-    <panel_attributes>lt=-&gt;&gt;&gt;&gt;
-m1=1..n
-m2=1</panel_attributes>
-    <additional_attributes>10.0;370.0;10.0;90.0;140.0;90.0;140.0;10.0</additional_attributes>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes>
+    <additional_attributes>210.0;300.0;210.0;100.0;10.0;100.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Text</id>
     <coordinates>
       <x>370</x>
-      <y>0</y>
+      <y>100</y>
       <w>1100</w>
       <h>50</h>
     </coordinates>
@@ -411,7 +376,7 @@ style=wordwrap</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>1240</x>
-      <y>860</y>
+      <y>960</y>
       <w>320</w>
       <h>80</h>
     </coordinates>
@@ -426,30 +391,19 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>630</x>
-      <y>320</y>
-      <w>940</w>
-      <h>560</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>920.0;540.0;920.0;260.0;290.0;260.0;290.0;60.0;10.0;60.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
       <x>100</x>
-      <y>270</y>
+      <y>310</y>
       <w>30</w>
-      <h>70</h>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>1250</x>
-      <y>1050</y>
+      <y>1150</y>
       <w>310</w>
       <h>50</h>
     </coordinates>
@@ -463,7 +417,7 @@ style=wordwrap</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1530</x>
-      <y>930</y>
+      <y>1030</y>
       <w>30</w>
       <h>140</h>
     </coordinates>
@@ -474,7 +428,7 @@ style=wordwrap</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>1030</x>
-      <y>960</y>
+      <y>1060</y>
       <w>160</w>
       <h>200</h>
     </coordinates>
@@ -500,7 +454,7 @@ style=wordwrap</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>1140</x>
-      <y>600</y>
+      <y>700</y>
       <w>370</w>
       <h>220</h>
     </coordinates>
@@ -528,7 +482,7 @@ style=wordwrap</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1210</x>
-      <y>810</y>
+      <y>910</y>
       <w>70</w>
       <h>190</h>
     </coordinates>
@@ -538,19 +492,8 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>620</x>
-      <y>320</y>
-      <w>290</w>
-      <h>520</h>
-    </coordinates>
-    <panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes>
-    <additional_attributes>270.0;500.0;270.0;220.0;10.0;220.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
       <x>230</x>
-      <y>870</y>
+      <y>970</y>
       <w>870</w>
       <h>110</h>
     </coordinates>
@@ -561,7 +504,7 @@ style=wordwrap</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1140</x>
-      <y>810</y>
+      <y>910</y>
       <w>50</w>
       <h>170</h>
     </coordinates>
@@ -573,16 +516,18 @@ m2=1..n</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>390</x>
-      <y>40</y>
+      <y>140</y>
       <w>330</w>
-      <h>120</h>
+      <h>130</h>
     </coordinates>
     <panel_attributes>_Functions_
 -
 -bindingHandler:BindingHandler
 -
 +setBindingHandler(bindingHandler:BindingHandler)
-+setBinding(bindingName:string, joyId:int, joyAxis:int)
++setBinding(flightAxisName: FlightAxisType,
+	joyId:int, joyRefId:int, joyName: string
+		joyAxis:int)
 +swapJoys(JoyIdOne:int, JoyIdTwo:int)
 +removeJoy(joyid:int)
 +ignoreJoy(joyId:int)</panel_attributes>
@@ -592,7 +537,7 @@ m2=1..n</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>1220</x>
-      <y>980</y>
+      <y>1080</y>
       <w>280</w>
       <h>50</h>
     </coordinates>
@@ -606,7 +551,7 @@ m2=1..n</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1280</x>
-      <y>1020</y>
+      <y>1120</y>
       <w>30</w>
       <h>50</h>
     </coordinates>
@@ -617,18 +562,18 @@ m2=1..n</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>600</x>
-      <y>150</y>
+      <y>260</y>
       <w>640</w>
-      <h>470</h>
+      <h>460</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;30.0;340.0;30.0;340.0;420.0;620.0;420.0;620.0;450.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0;340.0;40.0;340.0;410.0;620.0;410.0;620.0;440.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>1470</x>
-      <y>810</y>
+      <y>910</y>
       <w>30</w>
       <h>70</h>
     </coordinates>
@@ -639,7 +584,7 @@ m2=1..n</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>30</x>
-      <y>1040</y>
+      <y>1140</y>
       <w>310</w>
       <h>40</h>
     </coordinates>
@@ -652,7 +597,7 @@ m2=1..n</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>810</x>
-      <y>1090</y>
+      <y>1190</y>
       <w>210</w>
       <h>60</h>
     </coordinates>
@@ -667,7 +612,7 @@ m2=1..n</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>990</x>
-      <y>920</y>
+      <y>1020</y>
       <w>30</w>
       <h>190</h>
     </coordinates>
@@ -678,7 +623,7 @@ m2=1..n</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>0</x>
-      <y>470</y>
+      <y>570</y>
       <w>120</w>
       <h>50</h>
     </coordinates>
@@ -693,7 +638,7 @@ m2=1..n</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>40</x>
-      <y>510</y>
+      <y>610</y>
       <w>30</w>
       <h>70</h>
     </coordinates>
@@ -704,7 +649,7 @@ m2=1..n</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>680</x>
-      <y>1100</y>
+      <y>1200</y>
       <w>120</w>
       <h>50</h>
     </coordinates>
@@ -718,7 +663,7 @@ m2=1..n</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>670</x>
-      <y>990</y>
+      <y>1090</y>
       <w>220</w>
       <h>80</h>
     </coordinates>
@@ -735,7 +680,7 @@ m2=1..n</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>700</x>
-      <y>1060</y>
+      <y>1160</y>
       <w>30</w>
       <h>60</h>
     </coordinates>
@@ -746,11 +691,77 @@ m2=1..n</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>600</x>
-      <y>710</y>
+      <y>740</y>
       <w>100</w>
-      <h>300</h>
+      <h>370</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;40.0;80.0;40.0;80.0;280.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0;80.0;110.0;80.0;350.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>680</x>
+      <y>560</y>
+      <w>250</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>BindingsStorage
+--
+-bindings:JoyBinding[]
+--
+-getBindingsFromCookies()
++setBinding(axisName:FlightAxisType,
+	joyRefId:int, axisId: in)
++getAllBindingsAsTickables():Tickable[]
++getAllBindingsAsBindingTypes():BindingType[]
++swapJoy</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>230</x>
+      <y>460</y>
+      <w>510</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;
+m1=1..n
+m2=1</panel_attributes>
+    <additional_attributes>470.0;100.0;470.0;80.0;10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>880</x>
+      <y>720</y>
+      <w>30</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>900</x>
+      <y>720</y>
+      <w>440</w>
+      <h>260</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>420.0;240.0;420.0;220.0;220.0;220.0;220.0;160.0;10.0;160.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>290</x>
+      <y>720</y>
+      <w>440</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>420.0;10.0;420.0;50.0;10.0;50.0;10.0;70.0</additional_attributes>
   </element>
 </diagram>
