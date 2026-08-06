@@ -38,7 +38,7 @@ export default class BindingsAndJoysState {
 		if (state == null) {
 			return 
 		}
-		console.log("set bindings and joys state: ", state.length);
+		console.log("set bindings and joys state: ", state[1].flightAxis);
 		this.state = state;
 		this.notify();
 	}

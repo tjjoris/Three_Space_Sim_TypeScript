@@ -34,16 +34,12 @@ export default class BindingsToStateConverter {
 	 *is passed the JoyAxisBinding class object, and converts it to a bindingType object type.
 	 */
 	public convertJoyAxisBindingToBindingType(joyBindingObject:JoyAxisBinding | null): BindingType | null {
-			if ((joyBindingObject == null) || (joyBindingObject.getAxisId == null)) {
+			if (joyBindingObject == null) {
 				return null;
 			}
 			const axisId = joyBindingObject.getAxisId();
-			console.log("axisId ", axisId);
 			const axisName = joyBindingObject.getFlightAxis();
 			const refId = joyBindingObject.getJoyRefId();
-			if ((refId == null) || (axisId == null)) {
-				return null;
-			}
 			const binding : BindingType = {flightAxis : axisName, refId : refId, axisId : axisId};
 			return binding;
 
