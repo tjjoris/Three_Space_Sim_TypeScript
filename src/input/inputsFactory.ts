@@ -12,6 +12,7 @@ import JoyConnector from "./joyConnector";
 import BindingsTicker from "./bindingsTicker";
 import type Tickable from "../game/tickable";
 import InputDiffsComparerForAllJoys from "./inputDiffsComparerForAllJoys"; 
+import BindingsStorage from "./bindingsStorage";
 
 export default class InputsFactory{
 
@@ -20,6 +21,7 @@ export default class InputsFactory{
 	private joyConnector:JoyConnector;
 	private bindingsTicker:BindingsTicker;
 	private inputDiffsComparerForAllJoys: InputDiffsComparerForAllJoys;
+	private bindingsStorage: BindingsStorage;
 
 	constructor(pitchAxis: FlightAxis, 
 		    rollAxis: FlightAxis, 
@@ -41,12 +43,22 @@ export default class InputsFactory{
 			verticalBinding, 
 			horizontalBinding];
 		this.bindingsTicker = new BindingsTicker();
+			/*
 		this.bindingsTicker.addTickable(pitchBinding as Tickable);
 		this.bindingsTicker.addTickable(rollBinding as Tickable);
 		this.bindingsTicker.addTickable(verticalBinding as Tickable);
 		this.bindingsTicker.addTickable(horizontalBinding as Tickable);
+		*/
 		this.inputDiffsComparerForAllJoys = new InputDiffsComparerForAllJoys();
 		this.joyConnector = new JoyConnector(this.joys, this.inputDiffsComparerForAllJoys);
+		//add tickable bindings to bindings ticker
+		//TODO: put this in the constructor.
+		for (let bindingsIndex = 0; bindingsIndex < this.joyAxisBindings.length; bindingsIndex ++) { 
+			this.bindingsTicker.addTickable(this.joyAxisBindings[bindingsIndex] as Tickable);
+		}
+		//new bindings storage
+		this.bindingsStorage = new BindingsStorage(this.joyAxisBindings);
+
 	}
 
 	/*

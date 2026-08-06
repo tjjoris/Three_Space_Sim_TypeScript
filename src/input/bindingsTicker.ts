@@ -32,7 +32,6 @@ export default class BindingsTicker implements Tickable{
 			tickable.tick(dt);
 		})	
 	}
-
 	/*
 	 *gets all bindings and joys as an object of type JoysAndBindingsType.
 	 */
