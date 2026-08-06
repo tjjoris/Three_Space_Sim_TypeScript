@@ -1,8 +1,8 @@
 /**
-KeybindsMenuContent.tsx
+KeybindButton.tsx
 @Author: Luke Johnson
-component for displaying keybinds. is updated by bindingsAndJoysState thorugh use sync external store.
-Allows setting keybinds through child components.
+ * activates when pressed, telling typescript to activate input diff, which reads joystick inputs.
+ updates the inputDiff from the state using useSyncExternalStore.
  */
 import { useState} from "react";
 import useInputDiffStore from "../../stores/UseInputDiffStore";
@@ -12,7 +12,7 @@ import { setDiffEnabled } from "../../main";
 
 type BindType = { id: number, name : string}; 
 
-export default function KeybindsMenuContent() {
+export default function KeybindButton() {
 	
 	const diffState: JoyAxisInputDiffValueReporter | null = useInputDiffStore(InputDiffState.getInstance());
 	const [isButtonActive, setIsButtonActive] = useState(false);
@@ -24,15 +24,13 @@ export default function KeybindsMenuContent() {
 	 */
 	function returnDiff() {
 		if ((diffState) && (diffState.getAxisId() != null)) {
+			//diffState is set so print binding values.
 		return (
 			<>
 				binding {pitchBind.name} to Joy: {diffState.getJoyName()} {diffState.getJoyId()} axis: {diffState.getAxisId()}
 			</>
 		)
-
-		/*
-		 * main return function of this compoennt
-		 */
+		//diffState is not set so print no input.
 		}
 		return (
 			<>
@@ -40,19 +38,23 @@ export default function KeybindsMenuContent() {
 				</>
 		)
 	}
-
+	//call disable off for diabling inputDiff
 	function callDisableDiff() {
 		setIsButtonActive(false);
 		setDiffEnabled(false);
 	}
-
+	//call disable on for enabling input diff.
 	function callEnableDiff() {
 		setIsButtonActive(true);
 		setDiffEnabled(true);
 	}
 
+	/*
+	 * return an activatable button with a different class name, the class name animates it, and when the animation finishes, calls callDisableDiff.
+	 */
 	function returnActivatableButton() {
 		if (isButtonActive) {
+			//button is active
 		return (
 			<>
 				<button 
@@ -65,6 +67,7 @@ export default function KeybindsMenuContent() {
 			</button>
 						</>
 		)}
+		//button is inative
 		return (
 			<>
 				<button
