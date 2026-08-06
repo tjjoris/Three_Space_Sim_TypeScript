@@ -7,7 +7,7 @@ Has functions for setting all the keybinds and passes them to child compoenents.
 Stores the keybinds in states.
 Keybinds are linked to the axes.
  */
-import { useState, useSyncExternalStore } from "react";
+import { useState} from "react";
 import useInputDiffStore from "../../stores/UseInputDiffStore";
 import InputDiffState from "../../input/inputDiffState";
 import JoyAxisInputDiffValueReporter from "../../input/joyAxisInputDiffValueReporter";
@@ -79,11 +79,9 @@ export default function KeybindsMenuContent() {
 					onTransitionEnd={callDisableDiff}
 					className="diff-slider diff-button-enabled"  />
 				</button>
-
 			</>
 		)
 	}
-
 
 
 	return (

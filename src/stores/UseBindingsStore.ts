@@ -1,15 +1,14 @@
 import { useSyncExternalStore } from "react";
-import from "../input/"
+import BindingsAndJoysState from "../input/bindingsAndJoysState"
 
 /**
  * the store for linking the class object to the react component.
  * @param InputDiffState 
  * @returns 
  */
-export default function useInputDiffStore(inputDiffState: InputDiffState) {
-    // console.log("ins use sync external store");
+export default function useBindingStore(bindingState: BindingsAndJoysState) {
     return useSyncExternalStore(
-        (callback) => inputDiffState.subscribe(callback),
-        () => inputDiffState.getState()
+        (callback) => bindingState.subscribe(callback),
+        () => bindingState.getState()
     );
 }
