@@ -32,42 +32,5 @@ export default class BindingsTicker implements Tickable{
 			tickable.tick(dt);
 		})	
 	}
-	/*
-	 *gets all bindings and joys as an object of type JoysAndBindingsType.
-	 */
-	public getBindingsAsObject(): BindingType[] {
-			let bindings: BindingType[] = []
-		for (let tickableIndex = 0; tickableIndex  < this.tickableBindings.length; tickableIndex ++) {
-			const tickable = this.tickableBindings[tickableIndex];
-			if (!(tickable instanceof JoyAxisBinding)) {			
-				continue;
-			}
-				const binding = this.convertJoyAxisBindingToBindingType(tickable as JoyAxisBinding);
-				if (binding == null) {
-					continue;
-				}
-			bindings.push(binding); 
-		}
-		return bindings;
-	}
-
-
-	/*
-	 *is passed the JoyAxisBinding class object, and converts it to a bindingType object type.
-	 */
-	private convertJoyAxisBindingToBindingType(joyBindingObject:JoyAxisBinding): BindingType | null {
-			if ((joyBindingObject == null) || (joyBindingObject.getAxisId == null)) {
-				return null;
-			}
-			const axisId = joyBindingObject.getAxisId();
-			const axisName = joyBindingObject.getFlightAxis();
-			const refId = joyBindingObject.getJoyRefId();
-			if ((refId == null) || (axisId == null)) {
-				return null;
-			}
-			const binding : BindingType = {flightAxis : axisName, refId : refId, axisId : axisId};
-			return binding;
-
-	}
 
 }

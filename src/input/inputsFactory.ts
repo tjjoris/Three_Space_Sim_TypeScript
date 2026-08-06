@@ -84,4 +84,8 @@ export default class InputsFactory{
 	getInputDiffsComparerForAllJoys():InputDiffsComparerForAllJoys {
 		return this.inputDiffsComparerForAllJoys;
 	}
+
+	public getBindingsStorage() : BindingsStorage {
+		return this.bindingsStorage;
+	}
 }
