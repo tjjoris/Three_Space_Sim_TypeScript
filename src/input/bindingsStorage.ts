@@ -9,13 +9,24 @@
  */
 import JoyAxisBinding from "./joyAxisBinding";
 import type {BindingType } from "../types/bindingType";
+import BindingsToStateConverter from "./bindingsToStateConverter";
 
 export default class BindingsStorage {
 
 	private bindings: JoyAxisBinding[]
+	private bindingsToStateConverter: BindingsToStateConverter
 
-	constructor (bindings: JoyAxisBinding[]) {
+	constructor (bindings: JoyAxisBinding[], bindingsToStateConverter: BindingsToStateConverter) {
 		this.bindings = bindings;
+		this.bindingsToStateConverter = bindingsToStateConverter;
+
+	}
+
+	/*
+	 * set bindings to state sets the stored bindings to the state class.
+	 */
+	public setBindingsToState() {
+		const bindingsType: BindingType[] = this.bindingsToStateConverter.convertJoyAxisBindingsToBindingsType(this.bindings);
 	}
 
 }

@@ -13,7 +13,7 @@ export default class BindingsToStateConverter {
 	 *is passed an array of JoyAxisBindings, loops through each one, and runs convertJoyAxisBindingToBindingType on it, and if the return value is null adds it to an array, then returns that array.
 	 */
 
-	public convertJoyAxisBindingsToBindingTypes(joyAxisBindings: JoyAxisBinding[]): BindingType[] {
+	public convertJoyAxisBindingsToBindingsType(joyAxisBindings: JoyAxisBinding[]): BindingType[] {
 		let bindings: BindingType[] = []
 		for (let bindingsIndex = 0; bindingsIndex  < joyAxisBindings.length; bindingsIndex ++) {
 
