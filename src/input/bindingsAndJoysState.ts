@@ -54,6 +54,7 @@ export default class BindingsAndJoysState {
     	public subscribe(listener: Listener) {
 		//console.log("diff state subscribing: ", listener);
         	this.listeners.push(listener);
+		console.log("in bindings and joys subscribe ", this.listeners.length);
         	return () => {
             		this.listeners = this.listeners.filter((l) => l !== listener);
         	}
