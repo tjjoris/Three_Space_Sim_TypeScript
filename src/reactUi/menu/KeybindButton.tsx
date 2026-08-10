@@ -8,11 +8,15 @@ import { useState} from "react";
 import useInputDiffStore from "../../stores/UseInputDiffStore";
 import InputDiffState from "../../input/inputDiffState";
 import JoyAxisInputDiffValueReporter from "../../input/joyAxisInputDiffValueReporter";
-import { setDiffEnabled } from "../../main";
+import { setDiffEnabled, setBinding } from "../../main";
+import type { FlightAxisType } from "../../types/flightAxisType";
 
 type BindType = { id: number, name : string}; 
 
-export default function KeybindButton() {
+type Props = {
+	flightAxis: FlightAxisType;
+}
+export default function KeybindButton(props: Props) {
 	
 	const diffState: JoyAxisInputDiffValueReporter | null = useInputDiffStore(InputDiffState.getInstance());
 	const [isButtonActive, setIsButtonActive] = useState(false);
@@ -50,6 +54,19 @@ export default function KeybindButton() {
 	}
 
 	/*
+	 * the binding setting button css animation has finished, so the binding should be set if one has been inputted.
+	 */
+	function bindingButtonFinished() {
+		callDisableDiff();
+		//check that diffstate isnot null.
+		console.log("about to call main to set binding ");
+		if (diffState == null) {
+			return; }
+			//set the binding in the game.
+		setBinding(props.flightAxis, diffState.getJoyName(), diffState.getJoyId(), diffState.getAxisId());
+	}
+
+	/*
 	 * return an activatable button with a different class name, the class name animates it, and when the animation finishes, calls callDisableDiff.
 	 */
 	function returnActivatableButton() {
@@ -59,10 +76,11 @@ export default function KeybindButton() {
 			<>
 				<button 
 					className = "menu-button"
-					onClick={callEnableDiff} >
+					//onClick={callEnableDiff} 
+				>
 					Input Binding	
 				<div		
-				onTransitionEnd={callDisableDiff}
+				onTransitionEnd={bindingButtonFinished}
 		className="diff-slider diff-button-disabled"/>
 			</button>
 						</>
@@ -76,7 +94,7 @@ export default function KeybindButton() {
 				>
 					Activate	
 					<div
-					onTransitionEnd={callDisableDiff}
+					//onTransitionEnd={bindingButtonFinished}
 					className="diff-slider diff-button-enabled"  />
 				</button>
 			</>

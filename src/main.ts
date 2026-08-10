@@ -37,6 +37,7 @@ import GamePadHandler from './axes/gamePadHandler.ts'
 import Ticker from './game/ticker.ts'
 import InputDiffsComparerForAllJoys from './input/inputDiffsComparerForAllJoys';
 import FlightAxis from './axes/flightAxis';
+import type { FlightAxisType } from './types/flightAxisType';
 
 
 
@@ -165,6 +166,10 @@ export function getInputDiffsComparerForAllJoys(): InputDiffsComparerForAllJoys 
 }
 export function setDiffEnabled(enabled: boolean) {
 	inputDiffsComparerForAllJoys.setDiffEnabled(enabled);
+}
+
+export function setBinding(flightAxis: FlightAxisType, joyName: string, joyId: number, joyAxis: number) {
+	console.log("setting binding ", flightAxis, joyName, joyId, joyAxis);
 }
 
 
