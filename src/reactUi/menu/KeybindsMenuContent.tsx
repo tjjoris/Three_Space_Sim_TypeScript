@@ -20,20 +20,27 @@ export default function KeybindsMenuContent() {
 		if ((bindingsState == null)) {
 			return (<></>);
 		}
+		let bindingsToReturn: BindingType[] = []
+		let bindingsDomToReturn = [];
 		for (
 			let bindingsIndex = 0;
 			bindingsIndex < bindingsState.length;
 			bindingsIndex ++
 		) {
-			return (<>
-					{bindingsState[bindingsIndex].flightAxis}
-					</>)
+			const binding:BindingType = bindingsState[bindingsIndex];
+			//if ((binding == null) || (binding.flightAxis == null)) 
+			bindingsToReturn.push(binding);
+			bindingsDomToReturn.push(<div>{binding.flightAxis}</div>);
 		}
+			return (<>
+					{bindingsDomToReturn}
+					</>)
 
 
 	}
 	return (
 		<>
+		{ returnBindings() }
 			<KeybindButton />
 		</>
 	)
