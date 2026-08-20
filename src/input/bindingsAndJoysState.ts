@@ -34,6 +34,10 @@ export default class BindingsAndJoysState {
 		this.notify();
 	}
 
+	//public updateBinding() {
+
+	//}
+
 	public setState(state: BindingType[] | null) {
 		if (state == null) {
 			return 

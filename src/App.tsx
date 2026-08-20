@@ -4,8 +4,8 @@
  *it pauses and unpauses the game.
  *
  * **/
-import { useRef, useEffect} from "react";
-import { start, stop} from './main';
+import { useRef, useEffect } from "react";
+import { start, stop } from './main';
 import MenuContainer from "./reactUi/menu/MenuContainer.tsx";
 import LandscapeOverlay from "./reactUi/menu/LandscapeOverlay.tsx";
 import VJoyUsedOverlay from "./reactUi/menu/VJoyUsedOverlay.tsx";
@@ -16,10 +16,10 @@ export default function App() {
     //useRef is used to get a reference to the div
     const mountRef = useRef<HTMLDivElement | null>(null);
 
+    //starts the game when the component mounts and stops when it unmounts.
     useEffect(() => {
         //mountRef stands for the div container
         const container = mountRef.current!;
-
         start(container);
         return () => { stop(); };
 
