@@ -14,6 +14,7 @@ import type Tickable from "../game/tickable";
 import InputDiffsComparerForAllJoys from "./inputDiffsComparerForAllJoys"; 
 import BindingsStorage from "./bindingsStorage";
 import BindingsToStateConverter from "./bindingsToStateConverter";
+import GameState from "../ui/menu/gameState";
 
 export default class InputsFactory{
 
@@ -24,6 +25,7 @@ export default class InputsFactory{
 	private inputDiffsComparerForAllJoys: InputDiffsComparerForAllJoys;
 	private bindingsStorage: BindingsStorage;
 	private bindingsToStateConverter: BindingsToStateConverter;
+	private gameState: GameState;
 
 	constructor(pitchAxis: FlightAxis, 
 		    rollAxis: FlightAxis, 
@@ -62,6 +64,7 @@ export default class InputsFactory{
 		this.bindingsToStateConverter = new BindingsToStateConverter();
 		//new bindings storage
 		this.bindingsStorage = new BindingsStorage(this.joyAxisBindings, this.bindingsToStateConverter);
+		this.gameState = new GameState();
 
 	}
 
