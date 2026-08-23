@@ -95,4 +95,8 @@ export default class InputsFactory{
 	public getBindingsStorage() : BindingsStorage {
 		return this.bindingsStorage;
 	}
+
+	public getGameState(): GameState {
+		return this.gameState;
+	}
 }

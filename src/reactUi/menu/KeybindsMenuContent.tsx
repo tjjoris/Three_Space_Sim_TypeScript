@@ -5,6 +5,7 @@ component for displaying keybinds. is updated by bindingsAndJoysState thorugh us
 Allows setting keybinds through child components.
  */
 import UseBindingsStore from "../../stores/UseBindingsStore";
+import useGameStateStore from "../../stores/UseGameStateStore";
 import KeybindButton from "./KeybindButton";
 import type {BindingType} from "../../types/bindingType";
 import BindingsAndJoysState from "../../input/bindingsAndJoysState";
