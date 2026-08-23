@@ -159,6 +159,13 @@ export function setVerticalInversion(value: boolean) {
 
 //inputs factory for creating joys bindings and setting modules:
 const inputsFactory = new InputsFactory(pitchAxis, rollAxis, verticalAxis, horizontalAxis);
+
+//export gameState
+//this is used by App.tsx for use context so components can subscribe to useSyncExternalStore.
+export function getGameState() {
+	return inputsFactory.getGameState();
+};
+
 const inputDiffsComparerForAllJoys: InputDiffsComparerForAllJoys = inputsFactory.getInputDiffsComparerForAllJoys();
 export function getInputDiffsComparerForAllJoys(): InputDiffsComparerForAllJoys {
 	console.log("getting input diffs comparer for all ", inputsFactory.getInputDiffsComparerForAllJoys());

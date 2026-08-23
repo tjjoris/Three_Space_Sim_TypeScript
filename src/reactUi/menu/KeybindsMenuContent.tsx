@@ -6,6 +6,8 @@ Allows setting keybinds through child components.
  */
 import UseBindingsStore from "../../stores/UseBindingsStore";
 import useGameStateStore from "../../stores/UseGameStateStore";
+import { useContext } from "react";
+import { GameStateContext } from "../contexts/GameStateContext";
 import KeybindButton from "./KeybindButton";
 import type {BindingType} from "../../types/bindingType";
 import BindingsAndJoysState from "../../input/bindingsAndJoysState";
@@ -14,6 +16,8 @@ export default function KeybindsMenuContent() {
 	//the const for storing the value set by the binding state.
 	const bindingsState: BindingType[] | null = UseBindingsStore(BindingsAndJoysState.getInstance());
 
+	//the context passed from App.tsx
+	const gameStateContext = useContext(GameStateContext);
 	/*
 	 *return react Dom element based on the bindingsState, if it is null return an empty react element.
 	 */
