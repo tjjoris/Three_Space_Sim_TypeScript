@@ -43,8 +43,10 @@ export default function KeybindsMenuContent() {
 
 
 	}
+	console.log("game state context in react", GameStateContext);
 	return (
 		<>
+		{ gameStateContext }
 		{ returnBindings() }
 			<KeybindButton />
 		</>

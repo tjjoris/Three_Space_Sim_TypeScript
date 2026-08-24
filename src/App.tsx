@@ -4,7 +4,7 @@
  *it pauses and unpauses the game.
  *
  * **/
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useContext } from "react";
 import { start, stop, getGameState } from './main';
 import MenuContainer from "./reactUi/menu/MenuContainer.tsx";
 import LandscapeOverlay from "./reactUi/menu/LandscapeOverlay.tsx";
@@ -15,6 +15,7 @@ import { GameStateContext } from "./reactUi/contexts/GameStateContext";
 
 
 export default function App() {
+	//const gameStateContext = useContext(GameStateContext);
     //mountRef is the div that will contain the renderer
     //useRef is used to get a reference to the div
     const mountRef = useRef<HTMLDivElement | null>(null);
@@ -33,7 +34,7 @@ export default function App() {
 
     return (
         <>
-		<GameStateContext value = {gameState}>
+		<GameStateContext value = "sob">
             		<div className="top-overlay" />
             		<Popup />
             		<LandscapeOverlay />
