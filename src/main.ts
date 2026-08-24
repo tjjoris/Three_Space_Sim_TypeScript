@@ -59,45 +59,6 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 
 //class for setting the renderer size on window resize.
 export const setRendererSize = new SetRendererSize(renderer, camera);
-
-let started = false;
-
-
-export function start(container: HTMLElement) {
-  if (started) return;
-  started = true;
-
-  //add renderer canvas to provided conatiner
-  container.appendChild(renderer.domElement);
-  //attach resize listener
-  const resizeHandler = () => setRendererSize.setSize();
-  window.addEventListener('resize', resizeHandler);
-  setRendererSize.setSize();
-  //remember the handler so we can remove it later
-  //i will convert this to a class variable.
-  (start as any)._resizeHandler = resizeHandler;
-
-  //start the render loop
-  renderer.setAnimationLoop(animate);
-}
-
-export function stop() {
-  if (!started) return;
-  started = false;
-
-  //stop loop
-  renderer.setAnimationLoop(null);
-
-  //remove canvas
-  if (renderer.domElement.parentElement) {
-    renderer.domElement.parentElement.removeChild(renderer.domElement);
-  }
-
-  //remove resize listener
-  const resizeHandler = (start as any)._resizeHandler;
-  if (resizeHandler) window.removeEventListener('resize', resizeHandler);
-}
-
 //add event listener for resize
 // window.addEventListener("resize", () => setRendererSize.setSize());
 
@@ -335,3 +296,46 @@ function animate() {
 }
 
 // renderer.setAnimationLoop(animate);
+//
+
+let started = false;
+
+/*
+ *start game
+ */
+export function start(container: HTMLElement) {
+  if (started) return;
+  started = true;
+
+  //add renderer canvas to provided conatiner
+  container.appendChild(renderer.domElement);
+  //attach resize listener
+  const resizeHandler = () => setRendererSize.setSize();
+  window.addEventListener('resize', resizeHandler);
+  setRendererSize.setSize();
+  //remember the handler so we can remove it later
+  //i will convert this to a class variable.
+  (start as any)._resizeHandler = resizeHandler;
+
+  //start the render loop
+  renderer.setAnimationLoop(animate);
+}
+
+export function stop() {
+  if (!started) return;
+  started = false;
+
+  //stop loop
+  renderer.setAnimationLoop(null);
+
+  //remove canvas
+  if (renderer.domElement.parentElement) {
+    renderer.domElement.parentElement.removeChild(renderer.domElement);
+  }
+
+  //remove resize listener
+  const resizeHandler = (start as any)._resizeHandler;
+  if (resizeHandler) window.removeEventListener('resize', resizeHandler);
+}
+
+

@@ -23,8 +23,8 @@ export default class BindingsStorage {
 	public constructor (bindings: JoyAxisBinding[], bindingsToStateConverter: BindingsToStateConverter, gameState: GameState) {
 		this.bindings = bindings;
 		this.bindingsToStateConverter = bindingsToStateConverter;
-		this.setBindingsToState();
 		this.gameState = gameState;
+		this.setBindingsToState();
 	}
 
 	/*

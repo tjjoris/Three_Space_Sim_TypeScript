@@ -63,8 +63,9 @@ export default class InputsFactory{
 		//new bindings to state converter
 		this.bindingsToStateConverter = new BindingsToStateConverter();
 		//new bindings storage
-		this.bindingsStorage = new BindingsStorage(this.joyAxisBindings, this.bindingsToStateConverter);
 		this.gameState = new GameState();
+		this.bindingsStorage = new BindingsStorage(this.joyAxisBindings, this.bindingsToStateConverter, this.gameState);
+
 
 	}
 
