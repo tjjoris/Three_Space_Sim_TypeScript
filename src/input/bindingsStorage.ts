@@ -10,7 +10,6 @@
 import JoyAxisBinding from "./joyAxisBinding";
 import type {BindingType } from "../types/bindingType";
 import BindingsToStateConverter from "./bindingsToStateConverter";
-import BindingsAndJoysState from "./bindingsAndJoysState";
 import GameState from "../ui/menu/gameState";
 
 export default class BindingsStorage {
@@ -32,7 +31,6 @@ export default class BindingsStorage {
 	 */
 	public setBindingsToState() {
 		const bindingsType: BindingType[] = this.bindingsToStateConverter.convertJoyAxisBindingsToBindingsType(this.bindings);
-		BindingsAndJoysState.getInstance().setState(bindingsType);
 		this.gameState.setStateBindings(bindingsType);
 		console.log("game state ", this.gameState);
 	}
