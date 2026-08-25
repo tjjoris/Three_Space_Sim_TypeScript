@@ -34,7 +34,7 @@ export default function App() {
 
     return (
         <>
-		<GameStateContext value = "sob">
+		<GameStateContext value = { gameState } > 
             		<div className="top-overlay" />
             		<Popup />
             		<LandscapeOverlay />
