@@ -4,14 +4,12 @@ KeybindsMenuContent.tsx
 component for displaying keybinds. is updated by bindingsAndJoysState thorugh use sync external store.
 Allows setting keybinds through child components.
  */
-import UseBindingsStore from "../../stores/UseBindingsStore";
 import UseGameStateStore from "../../stores/UseGameStateStore";
 import { useContext } from "react";
 import { GameStateContext } from "../contexts/GameStateContext";
 import KeybindButton from "./KeybindButton";
 import type {BindingType} from "../../types/bindingType";
 //import BindingsAndJoysState from "../../input/bindingsAndJoysState";
-import GameState from "../../ui/menu/gameState";
 import type { GameStateType } from "../../types/gameStateType";
 
 export default function KeybindsMenuContent() {
@@ -20,8 +18,8 @@ export default function KeybindsMenuContent() {
 	const gameStateContext = useContext(GameStateContext);
 
 	//the const for storing the value set by the binding state.
-		//const bindingsState: BindingType[] | null = UseBindingsStore(BindingsAndJoysState.getInstance());
 		const gameStateType: GameStateType | null = UseGameStateStore(gameStateContext);
+		const bindingsState: BindingType[] | null = gameStateType.bindings;
 	/*
 	 *return react Dom element based on the bindingsState, if it is null return an empty react element.
 	 */
@@ -50,7 +48,6 @@ export default function KeybindsMenuContent() {
 	console.log("game state context in react", GameStateContext);
 	return (
 		<>
-		{ gameStateContext.getState().bindings[0].flightAxis }
 		{ returnBindings() }
 			<KeybindButton />
 		</>
