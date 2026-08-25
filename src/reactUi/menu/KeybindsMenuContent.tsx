@@ -5,19 +5,23 @@ component for displaying keybinds. is updated by bindingsAndJoysState thorugh us
 Allows setting keybinds through child components.
  */
 import UseBindingsStore from "../../stores/UseBindingsStore";
-import useGameStateStore from "../../stores/UseGameStateStore";
+import UseGameStateStore from "../../stores/UseGameStateStore";
 import { useContext } from "react";
 import { GameStateContext } from "../contexts/GameStateContext";
 import KeybindButton from "./KeybindButton";
 import type {BindingType} from "../../types/bindingType";
-import BindingsAndJoysState from "../../input/bindingsAndJoysState";
+//import BindingsAndJoysState from "../../input/bindingsAndJoysState";
+import GameState from "../../ui/menu/gameState";
+import type { GameStateType } from "../../types/gameStateType";
 
 export default function KeybindsMenuContent() {
-	//the const for storing the value set by the binding state.
-	const bindingsState: BindingType[] | null = UseBindingsStore(BindingsAndJoysState.getInstance());
 
 	//the context passed from App.tsx
 	const gameStateContext = useContext(GameStateContext);
+
+	//the const for storing the value set by the binding state.
+		//const bindingsState: BindingType[] | null = UseBindingsStore(BindingsAndJoysState.getInstance());
+		const gameStateType: GameStateType | null = UseGameStateStore(gameStateContext);
 	/*
 	 *return react Dom element based on the bindingsState, if it is null return an empty react element.
 	 */
