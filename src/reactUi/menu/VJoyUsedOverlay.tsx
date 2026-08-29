@@ -1,5 +1,5 @@
-import VJoyUsedTracker from "../../ui/vjoy/vJoyUsedTracker";
-import UseVJoyUsedTrackerStore from "../../stores/UseVJoyUsedTrackerStore"
+import UseGameStateStore from "../../stores/UseGameStateStore";
+import { getGameState } from "../../main.ts";
 
 /**
  * react component for encouraging users to switcht to landscape 
@@ -10,7 +10,9 @@ import UseVJoyUsedTrackerStore from "../../stores/UseVJoyUsedTrackerStore"
  * @returns 
  */
 export default function VJoyUsedOverlay() {
-    const isVJoyAlreadyUsed: boolean = UseVJoyUsedTrackerStore(VJoyUsedTracker.getVJoyUsedTracker());
+	const gameState = getGameState();
+    const gameStateStore = UseGameStateStore(gameState);
+    const isVJoyAlreadyUsed: boolean =  gameStateStore.vJoyUsed;
 
     // console.log("vjoy used component updated");
     return (

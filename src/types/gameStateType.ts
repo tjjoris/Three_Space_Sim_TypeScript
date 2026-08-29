@@ -16,6 +16,8 @@ export type GameStateType = {
 	//input diff for the input difference used by bindings setter.
 	inputDiff: JoyAxisInputDiffValueReporter | null,
 	//landscape mode, true if game is in landscape:
-	landscapeMode: boolean
+	landscapeMode: boolean,
+	//if vjoy has been used
+	vJoyUsed: boolean
 	
 }; 
