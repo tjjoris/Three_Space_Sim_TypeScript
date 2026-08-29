@@ -9,7 +9,6 @@ import { useContext } from "react";
 import { GameStateContext } from "../contexts/GameStateContext";
 import KeybindButton from "./KeybindButton";
 import type {BindingType} from "../../types/bindingType";
-//import BindingsAndJoysState from "../../input/bindingsAndJoysState";
 import type { GameStateType } from "../../types/gameStateType";
 
 export default function KeybindsMenuContent() {
@@ -35,7 +34,6 @@ export default function KeybindsMenuContent() {
 			bindingsIndex ++
 		) {
 			const binding:BindingType = bindingsState[bindingsIndex];
-			//if ((binding == null) || (binding.flightAxis == null)) 
 			bindingsToReturn.push(binding);
 			bindingsDomToReturn.push(<div>{binding.flightAxis}</div>);
 		}

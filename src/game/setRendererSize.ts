@@ -1,8 +1,6 @@
 import * as THREE from 'three';
 import GameState from "../ui/menu/gameState";
 
-type Listener = () => void;
-
 /**
  * sets the renderer and aspect to the window size. called from resize event.
  * uses useSyncExternalStore (../stores/UseGameStateStore.ts) for updating the react component that overlays 
@@ -11,7 +9,6 @@ type Listener = () => void;
 export default class SetRendererSize {
     renderer: THREE.WebGLRenderer;
     camera: THREE.PerspectiveCamera;
-    private listeners: Listener[] = []; //listeners subscribed to.
     private state: boolean = false ;
 	private gameState: GameState;
 
@@ -56,31 +53,9 @@ export default class SetRendererSize {
     changeStateLandscape() {
         const newState: boolean = this.getIsLandscape();
         if (newState !== this.state) {
-            //you need to rewrite the state otherwise react sees the 
-            //mutable state and does not update.
+		//set the state, then send it to gameState which calls the notify for react.
             this.state = newState ;
-            //this.notify();
-	    console.log("set to landscape ", newState);
 	    this.gameState.setStateLandscapeMode( newState ) ;
         }
-    }
-
-    /**
-     * subscribe to listener for useLandscapeStore
-     * @param listener 
-     */
-    public subscribe(listener: Listener) {
-        this.listeners.push(listener);
-        return () => {
-            this.listeners = this.listeners.filter((l) => l !== listener);
-        }
-    }
-
-    /**
-     * notify all listeners
-     */
-    private notify() {
-        console.log("in listener");
-        this.listeners.forEach((listener) => listener());
     }
 }
