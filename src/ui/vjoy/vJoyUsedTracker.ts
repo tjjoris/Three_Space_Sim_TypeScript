@@ -6,18 +6,8 @@ type Listener = () => void;
  * vjoyUsed store.
  */
 export default class VJoyUsedTracker {
-    private static instance: VJoyUsedTracker | null = null;
     private isVJoyAlreadyUsed: boolean = false;
     private listeners: Listener[] = []; //listeners subscribed to.
-
-
-    public static getVJoyUsedTracker(): VJoyUsedTracker {
-        if (this.instance === null) {
-            this.instance = new VJoyUsedTracker();
-            return this.instance;
-        }
-        else return this.instance;
-    }
 
     public setVJoyToUsed() {
         this.isVJoyAlreadyUsed = true;

@@ -1,11 +1,12 @@
 import * as THREE from 'three';
 import VJoyInput from "./vJoyInput";
 import type Axis from '../../axes/axis';
+import VJoyUsedTracker from "./vJoyUsedTracker";
 
 export default class RightVJoyInput extends VJoyInput {
 
-    constructor(renderer: THREE.WebGLRenderer, screenWidthMultiplier: number, boxMultiplier: number, axisX: Axis, axisY: Axis) {
-        super(renderer, screenWidthMultiplier, boxMultiplier, axisX, axisY);
+    constructor(renderer: THREE.WebGLRenderer, screenWidthMultiplier: number, boxMultiplier: number, axisX: Axis, axisY: Axis, vJoyUsedTracker: VJoyUsedTracker) {
+        super(renderer, screenWidthMultiplier, boxMultiplier, axisX, axisY, vJoyUsedTracker);
 
         this.screenWidthMultiplier = 1;
         this.boxLeftMult = -1;

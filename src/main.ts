@@ -13,6 +13,7 @@ import CastRay from './axes/castRay.ts'
 // import VJoyInput from './ui/vjoy/vJoyInput.ts'
 import RightVJoyInput from './ui/vjoy/rightVJoyInput.ts'
 import LeftVJoyInput from './ui/vjoy/leftVJoyInput.ts'
+import VJoyUsedTracker from './ui/vjoy/vJoyUsedTracker.ts';
 import Axis from './axes/axis.ts';
 import InputsFactory from "./input/inputsFactory";
 import DustHandler from './spaceDust/dustHandler.ts'
@@ -142,11 +143,11 @@ export function setBinding(flightAxis: FlightAxisType, joyName: string, joyId: n
 	console.log("setting binding ", flightAxis, joyName, joyId, joyAxis);
 }
 
-
+//new vjoyUsed tracker for tracking if vjoy has been used.
+const vJoyUsedTracker = new VJoyUsedTracker();
 //new inputs
-
-const leftVJoyInput = new LeftVJoyInput(renderer, 1, 1, horizontalAxis, verticalAxis);
-const rightVJoyInput = new RightVJoyInput(renderer, 1, 1, rollAxis, pitchAxis);
+const leftVJoyInput = new LeftVJoyInput(renderer, 1, 1, horizontalAxis, verticalAxis, vJoyUsedTracker);
+const rightVJoyInput = new RightVJoyInput(renderer, 1, 1, rollAxis, pitchAxis, vJoyUsedTracker);
 rightVJoyInput;
 const clickInput = new ClickInput(renderer, leftVJoyInput, rightVJoyInput);
 clickInput;
