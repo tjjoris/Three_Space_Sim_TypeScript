@@ -42,13 +42,6 @@ export default class InputDiffsComparerForAllJoys {
 	 * called when a joy is disconnected, calls disconnect function for joy diff, and removes this joy diff from the array.
 	 */
 	public disconnectJoy(discJoy: InputDiffsCompareForJoy) {
-		/*function notDiscJoy(joy: InputDiffsCompareForJoy) : InputDiffsCompareForJoy | null{
-			const discJoy : InputDiffsCompareForJoy = this;
-			if (this != joy) {
-				return joy;
-			}
-			return null;
-		}*/
 		const newJoys: InputDiffsCompareForJoy[] = this.joys.filter(
 			joy => joy != discJoy
 		)
