@@ -19,6 +19,8 @@ export default function KeybindsMenuContent() {
 	//the const for storing the value set by the binding state.
 		const gameStateType: GameStateType | null = UseGameStateStore(gameStateContext);
 		const bindingsState: BindingType[] | null = gameStateType.bindings;
+
+
 	/*
 	 *return react Dom element based on the bindingsState, if it is null return an empty react element.
 	 */
@@ -35,9 +37,13 @@ export default function KeybindsMenuContent() {
 		) {
 			const binding:BindingType = bindingsState[bindingsIndex];
 			bindingsToReturn.push(binding);
-			bindingsDomToReturn.push(<div>{binding.flightAxis}</div>);
+			bindingsDomToReturn.push(<div>
+					<KeybindButton flightAxis={binding.flightAxis}/>
+
+						 </div>);
 		}
 			return (<>
+				
 					{bindingsDomToReturn}
 					</>)
 
@@ -47,7 +53,6 @@ export default function KeybindsMenuContent() {
 	return (
 		<>
 		{ returnBindings() }
-			<KeybindButton />
 		</>
 	)
 }
