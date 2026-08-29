@@ -57,15 +57,6 @@ const renderer = new THREE.WebGLRenderer();
 
 renderer.setSize(window.innerWidth, window.innerHeight);
 
-//class for setting the renderer size on window resize.
-export const setRendererSize = new SetRendererSize(renderer, camera);
-//add event listener for resize
-// window.addEventListener("resize", () => setRendererSize.setSize());
-
-//removed append because doing it differently with react.
-// document.body.appendChild(renderer.domElement);
-
-
 
 //new vjoy factory
 const leftVJoyFactory = new VJoyFactory(scene);
@@ -126,6 +117,17 @@ const inputsFactory = new InputsFactory(pitchAxis, rollAxis, verticalAxis, horiz
 export function getGameState() {
 	return inputsFactory.getGameState();
 };
+
+
+//class for setting the renderer size on window resize.
+export const setRendererSize = new SetRendererSize(renderer, camera, inputsFactory.getGameState());
+//add event listener for resize
+// window.addEventListener("resize", () => setRendererSize.setSize());
+
+//removed append because doing it differently with react.
+// document.body.appendChild(renderer.domElement);
+
+
 
 const inputDiffsComparerForAllJoys: InputDiffsComparerForAllJoys = inputsFactory.getInputDiffsComparerForAllJoys();
 export function getInputDiffsComparerForAllJoys(): InputDiffsComparerForAllJoys {

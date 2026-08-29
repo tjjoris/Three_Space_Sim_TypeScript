@@ -14,6 +14,8 @@ export type GameStateType = {
 	bindings: BindingType[], 
 	//joys: [{refId: number, joyName: string, joyId: number}],
 	//input diff for the input difference used by bindings setter.
-	inputDiff: JoyAxisInputDiffValueReporter | null 
+	inputDiff: JoyAxisInputDiffValueReporter | null,
+	//landscape mode, true if game is in landscape:
+	landscapeMode: boolean
 	
 }; 

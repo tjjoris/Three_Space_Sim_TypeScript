@@ -1,21 +1,24 @@
 import * as THREE from 'three';
+import GameState from "../ui/menu/gameState";
 
 type Listener = () => void;
 
 /**
  * sets the renderer and aspect to the window size. called from resize event.
- * uses useSyncExternalStore (../stores/UseLandscapeStore.ts) for updating the react component that overlays 
+ * uses useSyncExternalStore (../stores/UseGameStateStore.ts) for updating the react component that overlays 
  * for landscape mode.
  */
 export default class SetRendererSize {
     renderer: THREE.WebGLRenderer;
     camera: THREE.PerspectiveCamera;
     private listeners: Listener[] = []; //listeners subscribed to.
-    private state: { isLandscape: boolean; } = { isLandscape: false };
+    private state: boolean = false ;
+	private gameState: GameState;
 
-    constructor(renderer: THREE.WebGLRenderer, camera: THREE.PerspectiveCamera) {
+    constructor(renderer: THREE.WebGLRenderer, camera: THREE.PerspectiveCamera, gameState: GameState) {
         this.renderer = renderer;
         this.camera = camera;
+	this.gameState = gameState;
     }
 
     setSize() {
@@ -43,7 +46,7 @@ export default class SetRendererSize {
      * @returns state including landscape boolean
      */
     getState() {
-        this.state.isLandscape = this.getIsLandscape();
+        this.state = this.getIsLandscape();
         return this.state;
     }
 
@@ -52,12 +55,13 @@ export default class SetRendererSize {
      */
     changeStateLandscape() {
         const newState: boolean = this.getIsLandscape();
-        if (newState !== this.state.isLandscape) {
-            console.log("resize state changed");
+        if (newState !== this.state) {
             //you need to rewrite the state otherwise react sees the 
             //mutable state and does not update.
-            this.state = { isLandscape: newState };
-            this.notify();
+            this.state = newState ;
+            //this.notify();
+	    console.log("set to landscape ", newState);
+	    this.gameState.setStateLandscapeMode( newState ) ;
         }
     }
 
