@@ -71,9 +71,29 @@ export default function KeybindButton(props: Props) {
 	}
 
 	/*
-	 * return an activatable button with a different class name, the class name animates it, and when the animation finishes, calls callDisableDiff.
+	 * return an activatable button with a different animation div and label based on if it is activated.
 	 */
 	function returnActivatableButton() {
+		return (
+			<>
+				<button
+					className = "menu-button"
+					{ ...!isButtonActive &&
+						{onClick : callEnableDiff}
+					}
+				>
+				{ isButtonActive ? 
+					<>  InputBinding </> : 
+					<> {props.flightAxis} </> }
+				</button>
+			</>
+		)
+	}
+
+	/*
+	 * return an activatable button with a different class name, the class name animates it, and when the animation finishes, calls callDisableDiff.
+	 */
+	function returnActivatableButtonOld() {
 		if (isButtonActive) {
 			//button is active
 		return (
