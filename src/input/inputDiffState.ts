@@ -9,16 +9,19 @@ type Listener = () => void;
 
 
 import JoyAxisInputDiffValueReporter from "./joyAxisInputDiffValueReporter";
+import GameState from "../ui/menu/gameState";
 
 export default class InputDiffState {
 	private static instance: InputDiffState | null = null;
 	private state: JoyAxisInputDiffValueReporter | null = null;
     	private listeners: Listener[] = []; //listeners subscribed to.
+	private gameState: GameState;
 
 	/*
 	 * constructor is private to prevent instantiating a new instance of this singleton.
 	 */
-	private constructor () {
+	public constructor (gameState: GameState) {
+		this.gameState = gameState;
 	}
 
 	public static getInstance(): InputDiffState {
@@ -37,9 +40,12 @@ export default class InputDiffState {
 		if ((state == null) || (state.getDifference() == null)) {
 			return 
 		}
+		this.gameState.setStateInputDiff(state);
+		/*
 		console.log("set input diff state: ", state.getDifference());
 		this.state = state;
 		this.notify();
+		*/
 	}
 
 	public getState(): JoyAxisInputDiffValueReporter | null {

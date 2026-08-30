@@ -4,7 +4,7 @@ import { getGameState } from "../../main.ts";
 /**
  * react component for encouraging users to switcht to landscape 
  * on mobile.
- * uses useSyncExternalStore (UseLandscapeStore.ts) to update from setRendererSize.ts
+ * uses useSyncExternalStore (UseGameStateStore.ts) to update from setRendererSize.ts
  * when the window is resied and orientation changes.
  * @param param0 
  * @returns 

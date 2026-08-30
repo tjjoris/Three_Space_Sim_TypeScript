@@ -113,15 +113,16 @@ export function setVerticalInversion(value: boolean) {
 //inputs factory for creating joys bindings and setting modules:
 const inputsFactory = new InputsFactory(pitchAxis, rollAxis, verticalAxis, horizontalAxis);
 
+const gameState = inputsFactory.getGameState();
 //export gameState
 //this is used by App.tsx for use context so components can subscribe to useSyncExternalStore.
 export function getGameState() {
-	return inputsFactory.getGameState();
+	return gameState; 
 };
 
 
 //class for setting the renderer size on window resize.
-export const setRendererSize = new SetRendererSize(renderer, camera, inputsFactory.getGameState());
+export const setRendererSize = new SetRendererSize(renderer, camera, gameState);
 //add event listener for resize
 // window.addEventListener("resize", () => setRendererSize.setSize());
 
@@ -144,7 +145,7 @@ export function setBinding(flightAxis: FlightAxisType, joyName: string, joyId: n
 }
 
 //new vjoyUsed tracker for tracking if vjoy has been used.
-const vJoyUsedTracker = new VJoyUsedTracker();
+const vJoyUsedTracker = new VJoyUsedTracker(gameState);
 //new inputs
 const leftVJoyInput = new LeftVJoyInput(renderer, 1, 1, horizontalAxis, verticalAxis, vJoyUsedTracker);
 const rightVJoyInput = new RightVJoyInput(renderer, 1, 1, rollAxis, pitchAxis, vJoyUsedTracker);

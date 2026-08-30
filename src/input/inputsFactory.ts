@@ -15,6 +15,7 @@ import InputDiffsComparerForAllJoys from "./inputDiffsComparerForAllJoys";
 import BindingsStorage from "./bindingsStorage";
 import BindingsToStateConverter from "./bindingsToStateConverter";
 import GameState from "../ui/menu/gameState";
+import InputDiffState from "./inputDiffState";
 
 export default class InputsFactory{
 
@@ -26,6 +27,7 @@ export default class InputsFactory{
 	private bindingsStorage: BindingsStorage;
 	private bindingsToStateConverter: BindingsToStateConverter;
 	private gameState: GameState;
+	private inputDiffState: InputDiffState;
 
 	constructor(pitchAxis: FlightAxis, 
 		    rollAxis: FlightAxis, 
@@ -65,7 +67,7 @@ export default class InputsFactory{
 		//new bindings storage
 		this.gameState = new GameState();
 		this.bindingsStorage = new BindingsStorage(this.joyAxisBindings, this.bindingsToStateConverter, this.gameState);
-
+		this.inputDiffState = new InputDiffState(this.gameState);
 
 	}
 
@@ -99,5 +101,9 @@ export default class InputsFactory{
 
 	public getGameState(): GameState {
 		return this.gameState;
+	}
+
+	public getInputDiffState(): InputDiffState {
+		return this.inputDiffState;
 	}
 }

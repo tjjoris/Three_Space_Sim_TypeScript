@@ -20,8 +20,9 @@ export default class GameState {
 	public constructor() {
 		this.state = {
 			bindings: [],
-			inputDiff: null,
 			landscapeMode: false,
+			vJoyUsed: false,
+			inputDiff: null,
 		};
 	}
 
@@ -43,9 +44,19 @@ export default class GameState {
 		this.notify();
 	}
 
+	/*
+	 * set the state for vjoy used for the vjoy used popup.
+	 */
+	public setStateVJoyUsed(state: boolean) {
+		this.state = { ...this.state, vJoyUsed: state };
+		this.notify();
+	}
 
+	/*
+	 * set the state for the input diff for setting bindings.
+	 */
 	public setStateInputDiff(state: JoyAxisInputDiffValueReporter | null) {
-		this.state.inputDiff = state;
+		this.state = { ...this.state, inputDiff: state };
 		this.notify;
 	}
 
