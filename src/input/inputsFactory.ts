@@ -55,8 +55,6 @@ export default class InputsFactory{
 		this.bindingsTicker.addTickable(verticalBinding as Tickable);
 		this.bindingsTicker.addTickable(horizontalBinding as Tickable);
 		*/
-		this.inputDiffsComparerForAllJoys = new InputDiffsComparerForAllJoys();
-		this.joyConnector = new JoyConnector(this.joys, this.inputDiffsComparerForAllJoys);
 		//add tickable bindings to bindings ticker
 		//TODO: put this in the constructor.
 		for (let bindingsIndex = 0; bindingsIndex < this.joyAxisBindings.length; bindingsIndex ++) { 
@@ -68,6 +66,8 @@ export default class InputsFactory{
 		this.gameState = new GameState();
 		this.bindingsStorage = new BindingsStorage(this.joyAxisBindings, this.bindingsToStateConverter, this.gameState);
 		this.inputDiffState = new InputDiffState(this.gameState);
+		this.inputDiffsComparerForAllJoys = new InputDiffsComparerForAllJoys(this.inputDiffState);
+		this.joyConnector = new JoyConnector(this.joys, this.inputDiffsComparerForAllJoys);
 
 	}
 

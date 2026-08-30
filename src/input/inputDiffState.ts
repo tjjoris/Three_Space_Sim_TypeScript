@@ -24,12 +24,13 @@ export default class InputDiffState {
 		this.gameState = gameState;
 	}
 
-	public static getInstance(): InputDiffState {
+	/*public static getInstance(): InputDiffState {
 		if (InputDiffState.instance === null) {
 			InputDiffState.instance = new InputDiffState();
 		}
 		return InputDiffState.instance;
 	}
+	*/
 
 	public resetState() {
 		this.state = null;
@@ -40,6 +41,7 @@ export default class InputDiffState {
 		if ((state == null) || (state.getDifference() == null)) {
 			return 
 		}
+		console.log("SETTING INPUT DIFF STATE: ", state);
 		this.gameState.setStateInputDiff(state);
 		/*
 		console.log("set input diff state: ", state.getDifference());

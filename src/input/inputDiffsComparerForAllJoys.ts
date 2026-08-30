@@ -22,11 +22,11 @@ export default class InputDiffsComparerForAllJoys {
 	private inputDiffState: InputDiffState;
 	private lastUpdateTimeSignature: number;
 
-	public constructor() {
+	public constructor(inputDiffState: InputDiffState) {
 		this.diffEnabled = false;
 		this.joys = [];
 		this.inputReported = null;
-		this.inputDiffState = InputDiffState.getInstance();
+		this.inputDiffState = inputDiffState
 		this.lastUpdateTimeSignature = performance.now();
 	}
 
@@ -36,6 +36,7 @@ export default class InputDiffsComparerForAllJoys {
 	public joyConnected(joyId: number, joyName: string, axisCount: number) {
 		const joyDiff = new InputDiffsCompareForJoy(joyId, joyName, axisCount);
 		this.joys.push(joyDiff);
+		console.log("joy connected ", this.joys.length);
 	}
 
 	/*
@@ -74,7 +75,7 @@ export default class InputDiffsComparerForAllJoys {
 			return;
 		}
 		let diff = 0;
-		//console.log("joys comparer length: ", this.joys.length);
+		console.log("joys comparer length: ", this.joys.length);
 		this.joys.forEach(joy => {
 			//console.log("in joy: ", joy.getJoyName(), " ", joy.getJoyId());
 			joy.calculateGreatestDiff(diff);
@@ -99,6 +100,7 @@ export default class InputDiffsComparerForAllJoys {
 			    inputReported.getJoyId(),
 			   " axis: ",
 			   inputReported.getAxisId());*/
+			  console.log("IN INPUTDIFFSCOMPARER SET STATE", inputReported);
 		this.inputDiffState.setState(inputReported);
 	};
 

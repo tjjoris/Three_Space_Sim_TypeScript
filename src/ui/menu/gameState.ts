@@ -56,6 +56,7 @@ export default class GameState {
 	 * set the state for the input diff for setting bindings.
 	 */
 	public setStateInputDiff(state: JoyAxisInputDiffValueReporter | null) {
+		console.log("in game state, state.inputDiff: ",  this.state.inputDiff);
 		this.state = { ...this.state, inputDiff: state };
 		this.notify;
 	}

@@ -7,6 +7,10 @@ KeybindButton.tsx
 import { useState} from "react";
 import useInputDiffStore from "../../stores/UseInputDiffStore";
 import InputDiffState from "../../input/inputDiffState";
+import UseGameStateStore from "../../stores/UseGameStateStore";
+import GameState from "../../ui/menu/gameState";
+import type {GameStateType} from "../../types/gameStateType";
+import { getGameState } from "../../main.ts"
 import JoyAxisInputDiffValueReporter from "../../input/joyAxisInputDiffValueReporter";
 import { setDiffEnabled, setBinding } from "../../main";
 import type { FlightAxisType } from "../../types/flightAxisType";
@@ -17,8 +21,10 @@ type Props = {
 	flightAxis: FlightAxisType;
 }
 export default function KeybindButton(props: Props) {
-	
-	const diffState: JoyAxisInputDiffValueReporter | null = useInputDiffStore(InputDiffState.getInstance());
+	const gameStateClass: GameState = getGameState();	
+	const gameStateStore: GameStateType = UseGameStateStore(gameStateClass);
+	//const diffState: JoyAxisInputDiffValueReporter | null = useInputDiffStore(InputDiffState.getInstance());
+	const diffState = gameStateStore.inputDiff;
 	const [isButtonActive, setIsButtonActive] = useState(false);
 
 	const [pitchBind, setPitchBind] = useState<BindType>({ id: 0 , name: "this " });
