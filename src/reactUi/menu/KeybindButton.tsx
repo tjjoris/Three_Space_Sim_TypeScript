@@ -85,7 +85,16 @@ export default function KeybindButton(props: Props) {
 				{ isButtonActive ? 
 					<>  InputBinding </> : 
 					<> {props.flightAxis} </> }
+				{ isButtonActive ?
+					<div		
+						onTransitionEnd={bindingButtonFinished}
+						className="diff-slider diff-button-disabled"/> :
+					<div
+					//onTransitionEnd={bindingButtonFinished}
+					className="diff-slider diff-button-enabled"  /> }
+
 				</button>
+
 			</>
 		)
 	}
