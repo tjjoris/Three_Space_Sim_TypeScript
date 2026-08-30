@@ -16,7 +16,6 @@ export default function LandscapeOverlay() {
 	const gameStateType: GameStateType | null = UseGameStateStore(gameStateContext);
 	const state: boolean =  gameStateType.landscapeMode  ;
 
-	console.log("in landscape overlay, gamestatetype: ", gameStateType);
     return (
 
         //if is landscape is false, show the div component
