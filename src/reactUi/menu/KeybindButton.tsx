@@ -82,7 +82,7 @@ export default function KeybindButton(props: Props) {
 					className = "menu-button"
 					//onClick={callEnableDiff} 
 				>
-					Input Binding	
+				{props.flightAxis} Input Binding	
 				<div		
 				onTransitionEnd={bindingButtonFinished}
 		className="diff-slider diff-button-disabled"/>
