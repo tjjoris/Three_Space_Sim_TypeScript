@@ -41,7 +41,7 @@ export default class InputDiffState {
 		if ((state == null) || (state.getDifference() == null)) {
 			return 
 		}
-		console.log("SETTING INPUT DIFF STATE: ", state);
+		//console.log("SETTING INPUT DIFF STATE: ", state);
 		this.gameState.setStateInputDiff(state);
 		/*
 		console.log("set input diff state: ", state.getDifference());

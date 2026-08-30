@@ -75,7 +75,8 @@ export default class InputDiffsComparerForAllJoys {
 			return;
 		}
 		let diff = 0;
-		console.log("joys comparer length: ", this.joys.length);
+		//console.log("joys comparer length: ", this.joys.length);
+		//loop all joys.
 		this.joys.forEach(joy => {
 			//console.log("in joy: ", joy.getJoyName(), " ", joy.getJoyId());
 			joy.calculateGreatestDiff(diff);
@@ -93,14 +94,14 @@ export default class InputDiffsComparerForAllJoys {
 		});
 		const inputReported = this.inputReported;
 		if (inputReported == null) {
-			//console.log("input reported null");
+			console.log("input reported null");
 			return;
 		}
 		/*console.log("diff is joyId: ",
 			    inputReported.getJoyId(),
 			   " axis: ",
 			   inputReported.getAxisId());*/
-			  console.log("IN INPUTDIFFSCOMPARER SET STATE", inputReported);
+			  //console.log("IN INPUTDIFFSCOMPARER SET STATE", inputReported);
 		this.inputDiffState.setState(inputReported);
 	};
 
