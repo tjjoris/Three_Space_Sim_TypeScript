@@ -5,8 +5,6 @@ KeybindButton.tsx
  updates the inputDiff from the state using useSyncExternalStore.
  */
 import { useState} from "react";
-import useInputDiffStore from "../../stores/UseInputDiffStore";
-import InputDiffState from "../../input/inputDiffState";
 import UseGameStateStore from "../../stores/UseGameStateStore";
 import GameState from "../../ui/menu/gameState";
 import type {GameStateType} from "../../types/gameStateType";
@@ -23,8 +21,7 @@ type Props = {
 export default function KeybindButton(props: Props) {
 	const gameStateClass: GameState = getGameState();	
 	const gameStateStore: GameStateType = UseGameStateStore(gameStateClass);
-	//const diffState: JoyAxisInputDiffValueReporter | null = useInputDiffStore(InputDiffState.getInstance());
-	const diffState = gameStateStore.inputDiff;
+	const diffState: JoyAxisInputDiffValueReporter | null = gameStateStore.inputDiff;
 	console.log("diff state ", diffState);
 	const [isButtonActive, setIsButtonActive] = useState(false);
 
