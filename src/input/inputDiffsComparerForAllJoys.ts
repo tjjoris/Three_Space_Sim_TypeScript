@@ -81,6 +81,8 @@ export default class InputDiffsComparerForAllJoys {
 			//console.log("in joy: ", joy.getJoyName(), " ", joy.getJoyId());
 			joy.calculateGreatestDiff(diff);
 			let tempDiff = joy.getDiffReporter();
+			//diff reporter of joy is not null.
+			//console.log("DIFF REP: ", tempDiff);
 			if (tempDiff != null){
 				let tempDiffValue = tempDiff.getDifference();
 				if ((tempDiffValue != null) && (tempDiffValue > diff)) {
@@ -102,7 +104,10 @@ export default class InputDiffsComparerForAllJoys {
 			   " axis: ",
 			   inputReported.getAxisId());*/
 			  //console.log("IN INPUTDIFFSCOMPARER SET STATE", inputReported);
-		this.gameState.setStateInputDiff(inputReported);
+		//diff not 0 so report input diff.	
+		if (diff != 0) {
+			this.gameState.setStateInputDiff(inputReported);
+		}
 	};
 
 	/*

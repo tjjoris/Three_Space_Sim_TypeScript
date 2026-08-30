@@ -22,7 +22,7 @@ export default function KeybindButton(props: Props) {
 	const gameStateClass: GameState = getGameState();	
 	const gameStateStore: GameStateType = UseGameStateStore(gameStateClass);
 	const diffState: JoyAxisInputDiffValueReporter | null = gameStateStore.inputDiff;
-	console.log("diff state ", diffState);
+	//console.log("diff state ", diffState);
 	const [isButtonActive, setIsButtonActive] = useState(false);
 
 	const [pitchBind, setPitchBind] = useState<BindType>({ id: 0 , name: "this " });
