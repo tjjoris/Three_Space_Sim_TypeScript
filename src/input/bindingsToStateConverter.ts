@@ -12,8 +12,24 @@ export default class BindingsToStateConverter {
 	/*
 	 * is passed a Record of flight axis keys and JoyAxisBindings, loops through each one and returns an array of BindingType[].
 	 */
-	public convertJoyAxisBindingsRecordToBindingsType(bindingsRecord: Record<FlightAxisType, JoyAxisBinding>) {
-
+	public convertJoyAxisBindingsRecordToBindingsType(bindingsRecord: Record<FlightAxisType, JoyAxisBinding | null>): BindingType[] {
+		//set the bindingType array to return.
+	let bindingType: BindingType[] = [];
+	//loop through the record
+	for (const [key, value] of Object.entries(bindingsRecord)){
+		//skip this iteration if the value is null.
+		if (value == null) {
+			continue
+		};
+		//call the key to remove build error.
+		key;
+		const binding = this.convertJoyAxisBindingToBindingType(value);
+		//if the bindingType value is not null push it into the bindingType array.
+		if (binding != null) {
+			bindingType.push(binding);
+		}
+	}
+	return bindingType;
 	}
 
 	/*
