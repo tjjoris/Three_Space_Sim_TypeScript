@@ -33,7 +33,6 @@ import DesiredAxis from './ship/movement/desiredAxis.ts'
 import Jerker from './ship/movement/Jerker.ts'
 import RotationMediator from './ship/movement/rotationMediator.ts'
 import SmartForward from "./ship/movement/smartForward.ts"
-import GamePadHandler from './axes/gamePadHandler.ts'
 //import GamePadHandlerLifeCycleMediator from './axes/GamePadHandlerLifecycleMediator.ts'
 import Ticker from './game/ticker.ts'
 import InputDiffsComparerForAllJoys from './input/inputDiffsComparerForAllJoys';
