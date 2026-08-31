@@ -119,6 +119,8 @@ export function getGameState() {
 	return gameState; 
 };
 
+const bindingsStorage = inputsFactory.getBindingsStorage();
+
 
 //class for setting the renderer size on window resize.
 export const setRendererSize = new SetRendererSize(renderer, camera, gameState);
@@ -141,6 +143,7 @@ export function setDiffEnabled(enabled: boolean) {
 
 export function setBinding(flightAxis: FlightAxisType, joyName: string, joyId: number, joyAxis: number) {
 	console.log("setting binding ", flightAxis, joyName, joyId, joyAxis);
+	bindingsStorage.setBinding(flightAxis, 0, joyAxis);
 }
 
 //new vjoyUsed tracker for tracking if vjoy has been used.

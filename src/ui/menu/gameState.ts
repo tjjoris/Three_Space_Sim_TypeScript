@@ -28,11 +28,13 @@ export default class GameState {
 
 
 	public setStateBindings(state: BindingType[] | null) {
+		console.log("paramater ", state);
 		if (state == null) {
 			return
 		}
-		console.log("set bindings and joys state: ", state[1].flightAxis);
 		this.state.bindings = state;
+		this.state = {...this.state, bindings: state};
+		console.log("set bindings and joys state: ", state);
 		this.notify();
 	}
 

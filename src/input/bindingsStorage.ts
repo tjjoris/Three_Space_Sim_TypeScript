@@ -34,8 +34,8 @@ export default class BindingsStorage {
 	 */
 	public setBindingsToState() {
 		const bindingsType: BindingType[] = this.bindingsToStateConverter.convertJoyAxisBindingsRecordToBindingsType(this.bindingsRecord);
+		console.log("bindingsType ", bindingsType);
 		this.gameState.setStateBindings(bindingsType);
-		console.log("game state ", this.gameState);
 	}
 
 	/*
