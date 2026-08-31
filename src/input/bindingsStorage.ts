@@ -15,7 +15,6 @@ import GameState from "../ui/menu/gameState";
 
 export default class BindingsStorage {
 
-	private bindings: JoyAxisBinding[];
 	private bindingsRecord: Record<FlightAxisType, JoyAxisBinding | null> = {
 
 		pitch: null,
@@ -30,7 +29,6 @@ export default class BindingsStorage {
 	
 
 	public constructor (bindings: JoyAxisBinding[], bindingsToStateConverter: BindingsToStateConverter, gameState: GameState) {
-		this.bindings = bindings;
 		//set the bindingsRecord, giving it a key of the flight axis, and value of the JoyAxisBinding
 		bindings.forEach((binding: JoyAxisBinding) => {
 			const flightAxis = binding.getFlightAxis();
