@@ -9,18 +9,35 @@
  */
 import JoyAxisBinding from "./joyAxisBinding";
 import type {BindingType } from "../types/bindingType";
+import type {FlightAxisType} from "../types/flightAxisType";
 import BindingsToStateConverter from "./bindingsToStateConverter";
 import GameState from "../ui/menu/gameState";
 
 export default class BindingsStorage {
 
 	private bindings: JoyAxisBinding[];
+	private bindingsRecord: Record<FlightAxisType, JoyAxisBinding | null> = {
+
+		pitch: null,
+		roll: null,
+		yaw: null,
+		forward: null,
+		vertical: null,
+		horizontal: null
+	};
 	private bindingsToStateConverter: BindingsToStateConverter;
 	private gameState: GameState;
 	
 
 	public constructor (bindings: JoyAxisBinding[], bindingsToStateConverter: BindingsToStateConverter, gameState: GameState) {
 		this.bindings = bindings;
+		//set the bindingsRecord, giving it a key of the flight axis, and value of the JoyAxisBinding
+		bindings.forEach((binding: JoyAxisBinding) => {
+			const flightAxis = binding.getFlightAxis();
+			if (flightAxis != null) {
+			this.bindingsRecord[flightAxis] = binding;
+			}
+		});
 		this.bindingsToStateConverter = bindingsToStateConverter;
 		this.gameState = gameState;
 		this.setBindingsToState();
@@ -34,5 +51,10 @@ export default class BindingsStorage {
 		this.gameState.setStateBindings(bindingsType);
 		console.log("game state ", this.gameState);
 	}
+
+	/*
+	 * set a binding passing it the flight axis, joystick ref id, joy axis, and joy id.
+	 */
+	
 
 }

@@ -6,8 +6,15 @@ this class simply converts from a JoyAxisBinding array  to a BindingType array. 
 
 import JoyAxisBinding from "./joyAxisBinding";
 import type { BindingType } from "../types/bindingType";
+import type { FlightAxisType } from "../types/flightAxisType";
 
 export default class BindingsToStateConverter {
+	/*
+	 * is passed a Record of flight axis keys and JoyAxisBindings, loops through each one and returns an array of BindingType[].
+	 */
+	public convertJoyAxisBindingsRecordToBindingsType(bindingsRecord: Record<FlightAxisType, JoyAxisBinding>) {
+
+	}
 
 	/*
 	 *is passed an array of JoyAxisBindings, loops through each one, and runs convertJoyAxisBindingToBindingType on it, and if the return value is null adds it to an array, then returns that array.
