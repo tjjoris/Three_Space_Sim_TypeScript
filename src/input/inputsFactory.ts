@@ -20,7 +20,6 @@ import type {FlightAxisType } from "../types/flightAxisType";
 export default class InputsFactory{
 
 	private joys:Joy[];
-	private joyAxisBindings:JoyAxisBinding[];
 	private joyAxisBindingsRecord:Record<FlightAxisType, JoyAxisBinding>
 	private joyConnector:JoyConnector;
 	private bindingsTicker:BindingsTicker;
@@ -48,10 +47,6 @@ export default class InputsFactory{
 		let verticalBinding = new JoyAxisBinding(joyZero, 1, verticalAxis);
 		let horizontalBinding = new JoyAxisBinding(joyZero, 0, horizontalAxis);
 		let forwardBinding = new JoyAxisBinding(null, null, forwardAxis);
-		this.joyAxisBindings = [pitchBinding, 
-			rollBinding, 
-			verticalBinding, 
-			horizontalBinding];
 			//set joyAxisBindingsRecrod
 		this.joyAxisBindingsRecord = {
 			pitch: pitchBinding,
@@ -69,15 +64,15 @@ export default class InputsFactory{
 		this.bindingsTicker.addTickable(horizontalBinding as Tickable);
 		*/
 		//add tickable bindings to bindings ticker
-		//TODO: put this in the constructor.
-		for (let bindingsIndex = 0; bindingsIndex < this.joyAxisBindings.length; bindingsIndex ++) { 
-			this.bindingsTicker.addTickable(this.joyAxisBindings[bindingsIndex] as Tickable);
+		for (const [key, value] of Object.entries(this.joyAxisBindingsRecord)) {
+			key;//call for syntax error
+			this.bindingsTicker.addTickable(value as Tickable);
 		}
 		//new bindings to state converter
 		this.bindingsToStateConverter = new BindingsToStateConverter();
 		//new bindings storage
 		this.gameState = new GameState();
-		this.bindingsStorage = new BindingsStorage(this.joyAxisBindings, this.bindingsToStateConverter, this.gameState, this.joyAxisBindingsRecord);
+		this.bindingsStorage = new BindingsStorage(this.bindingsToStateConverter, this.gameState, this.joyAxisBindingsRecord);
 		this.inputDiffsComparerForAllJoys = new InputDiffsComparerForAllJoys(this.gameState);
 		this.joyConnector = new JoyConnector(this.joys, this.inputDiffsComparerForAllJoys);
 
