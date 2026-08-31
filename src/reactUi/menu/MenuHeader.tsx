@@ -50,7 +50,7 @@ export default function MenuHeader (props:Props)  {
 			}
 			//add a header button to the array.
 			headerButtons.push(
-				<HeaderButton name={tabs[headerButtonIndex]} action={props.gotoMenuScreen} currentTab={props.menuTab} zIndex={localZIndexToBeUsed} />);
+				<HeaderButton key={headerButtonIndex} name={tabs[headerButtonIndex]} action={props.gotoMenuScreen} currentTab={props.menuTab} zIndex={localZIndexToBeUsed} />);
 			
 		}
 		//return the array of header buttons.
