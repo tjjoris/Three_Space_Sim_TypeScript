@@ -110,7 +110,7 @@ export function setVerticalInversion(value: boolean) {
 }
 
 //inputs factory for creating joys bindings and setting modules:
-const inputsFactory = new InputsFactory(pitchAxis, rollAxis, verticalAxis, horizontalAxis);
+const inputsFactory = new InputsFactory(pitchAxis, rollAxis, yawAxis, verticalAxis, horizontalAxis, forwardAxis);
 
 const gameState = inputsFactory.getGameState();
 //export gameState

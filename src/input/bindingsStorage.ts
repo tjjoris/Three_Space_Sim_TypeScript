@@ -14,28 +14,33 @@ import BindingsToStateConverter from "./bindingsToStateConverter";
 import GameState from "../ui/menu/gameState";
 
 export default class BindingsStorage {
-
-	private bindingsRecord: Record<FlightAxisType, JoyAxisBinding | null> = {
-
-		pitch: null,
-		roll: null,
-		yaw: null,
-		forward: null,
-		vertical: null,
-		horizontal: null
+/*
+	private bindingsRecord: Record<FlightAxisType, JoyAxisBinding > = {
+		pitch: new JoyAxisBinding(null, null, 'pitch' as FlightAxisType),
+		roll: new JoyAxisBinding(null, null, "roll" as FlightAxisType),
+		yaw: new JoyAxisBinding(null, null, "yaw" as FlightAxisType),
+		forward: new JoyAxisBinding(null, null, "forward" as FlightAxisType),
+		vertical: new JoyAxisBinding(null, null, "vertical" as FlightAxisType),
+		horizontal: new JoyAxisBinding(null, null, "horizontal" as FlightAxisType) 
 	};
+	*/
+       private bindingsRecord: Record<FlightAxisType, JoyAxisBinding>;
 	private bindingsToStateConverter: BindingsToStateConverter;
 	private gameState: GameState;
 	
 
-	public constructor (bindings: JoyAxisBinding[], bindingsToStateConverter: BindingsToStateConverter, gameState: GameState) {
+	public constructor (bindings: JoyAxisBinding[], bindingsToStateConverter: BindingsToStateConverter, gameState: GameState, bindingsRecord: Record<FlightAxisType, JoyAxisBinding>) {
+		/*
 		//set the bindingsRecord, giving it a key of the flight axis, and value of the JoyAxisBinding
 		bindings.forEach((binding: JoyAxisBinding) => {
 			const flightAxis = binding.getFlightAxis();
-			if (flightAxis != null) {
+			//if (flightAxis != null) {
 			this.bindingsRecord[flightAxis] = binding;
-			}
+			//}
 		});
+		*/
+	       bindings;
+	       this.bindingsRecord = bindingsRecord;
 		this.bindingsToStateConverter = bindingsToStateConverter;
 		this.gameState = gameState;
 		this.setBindingsToState();
@@ -45,6 +50,7 @@ export default class BindingsStorage {
 	 * set bindings to state sets the stored bindings to the state class.
 	 */
 	public setBindingsToState() {
+		//console.log("bindings record: ", this.bindingsRecord);
 		const bindingsType: BindingType[] = this.bindingsToStateConverter.convertJoyAxisBindingsRecordToBindingsType(this.bindingsRecord);
 		this.gameState.setStateBindings(bindingsType);
 		console.log("game state ", this.gameState);
@@ -53,6 +59,11 @@ export default class BindingsStorage {
 	/*
 	 * set a binding passing it the flight axis, joystick ref id, joy axis, and joy id.
 	 */
+	public setBinding(flightAxis: FlightAxisType, joyRefId: number, joyAxis: number) {
+		const joyAxisBinding = this.bindingsRecord[flightAxis];
+		joyAxisBinding.setJoyAxisBinding(joyAxis);
+		this.setBindingsToState();
+	}
 	
 
 }

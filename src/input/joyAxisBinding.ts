@@ -32,6 +32,12 @@ export default class JoyAxisBinding implements Tickable{
 	}
 
 	/*
+	 * set the joy axis binding
+	 */
+	public setJoyAxisBinding(joyAxis: number) {
+		this.joyAxis = joyAxis;
+	}
+	/*
 	this function check if the binding is enabled, if not it ends, if it is, it gets the axis value for the stored axis for the stored joy, and sets the flight axis value to this value. 
 	 */
 	public tick(deltaTime:number) {

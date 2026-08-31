@@ -15,11 +15,13 @@ import InputDiffsComparerForAllJoys from "./inputDiffsComparerForAllJoys";
 import BindingsStorage from "./bindingsStorage";
 import BindingsToStateConverter from "./bindingsToStateConverter";
 import GameState from "../ui/menu/gameState";
+import type {FlightAxisType } from "../types/flightAxisType";
 
 export default class InputsFactory{
 
 	private joys:Joy[];
 	private joyAxisBindings:JoyAxisBinding[];
+	private joyAxisBindingsRecord:Record<FlightAxisType, JoyAxisBinding>
 	private joyConnector:JoyConnector;
 	private bindingsTicker:BindingsTicker;
 	private inputDiffsComparerForAllJoys: InputDiffsComparerForAllJoys;
@@ -29,8 +31,10 @@ export default class InputsFactory{
 
 	constructor(pitchAxis: FlightAxis, 
 		    rollAxis: FlightAxis, 
+		    yawAxis: FlightAxis,
 		    verticalAxis: FlightAxis,
-		   horizontalAxis: FlightAxis) {
+		   horizontalAxis: FlightAxis,
+		   forwardAxis: FlightAxis) {
 		let joyZero = new Joy(null, 0, "CH FLIGHTSTICK PRO (Vendor: 068e Product: 00f6)", false);
 		let joyOne = new Joy(null, 1, "CH FIGHTERSTICK USB  (Vendor: 068e Product: 00f3)", false);
 		let joyTwo = new Joy(null, 2, null, false);
@@ -40,12 +44,23 @@ export default class InputsFactory{
 
 		let pitchBinding = new JoyAxisBinding(joyOne, 1, pitchAxis);
 		let rollBinding = new JoyAxisBinding(joyOne, 0, rollAxis);
+		let yawBinding = new JoyAxisBinding(null, null, yawAxis);
 		let verticalBinding = new JoyAxisBinding(joyZero, 1, verticalAxis);
 		let horizontalBinding = new JoyAxisBinding(joyZero, 0, horizontalAxis);
+		let forwardBinding = new JoyAxisBinding(null, null, forwardAxis);
 		this.joyAxisBindings = [pitchBinding, 
 			rollBinding, 
 			verticalBinding, 
 			horizontalBinding];
+			//set joyAxisBindingsRecrod
+		this.joyAxisBindingsRecord = {
+			pitch: pitchBinding,
+			roll: rollBinding,
+			yaw: yawBinding,
+			horizontal: horizontalBinding,
+			vertical: verticalBinding,
+			forward: forwardBinding};
+		console.log("joy axis bindings record ", this.joyAxisBindingsRecord);
 		this.bindingsTicker = new BindingsTicker();
 			/*
 		this.bindingsTicker.addTickable(pitchBinding as Tickable);
@@ -62,7 +77,7 @@ export default class InputsFactory{
 		this.bindingsToStateConverter = new BindingsToStateConverter();
 		//new bindings storage
 		this.gameState = new GameState();
-		this.bindingsStorage = new BindingsStorage(this.joyAxisBindings, this.bindingsToStateConverter, this.gameState);
+		this.bindingsStorage = new BindingsStorage(this.joyAxisBindings, this.bindingsToStateConverter, this.gameState, this.joyAxisBindingsRecord);
 		this.inputDiffsComparerForAllJoys = new InputDiffsComparerForAllJoys(this.gameState);
 		this.joyConnector = new JoyConnector(this.joys, this.inputDiffsComparerForAllJoys);
 
