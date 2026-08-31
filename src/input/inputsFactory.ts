@@ -26,7 +26,6 @@ export default class InputsFactory{
 	private bindingsStorage: BindingsStorage;
 	private bindingsToStateConverter: BindingsToStateConverter;
 	private gameState: GameState;
-	private inputDiffState: InputDiffState;
 
 	constructor(pitchAxis: FlightAxis, 
 		    rollAxis: FlightAxis, 
