@@ -12,11 +12,13 @@ import { getGameState } from "../../main.ts"
 import JoyAxisInputDiffValueReporter from "../../input/joyAxisInputDiffValueReporter";
 import { setDiffEnabled, setBinding } from "../../main";
 import type { FlightAxisType } from "../../types/flightAxisType";
+import type { BindingType } from "../../types/bindingType";
 
 type BindType = { id: number, name : string}; 
 
 type Props = {
 	flightAxis: FlightAxisType;
+	binding:  BindingType;
 }
 export default function KeybindButton(props: Props) {
 	const gameStateClass: GameState = getGameState();	
@@ -27,6 +29,30 @@ export default function KeybindButton(props: Props) {
 
 	const [pitchBind, setPitchBind] = useState<BindType>({ id: 0 , name: "this " });
 
+	/*
+	 * retruns a react friendly dom element for displaying either the axis this binding is set to, or the diff that is currently being set
+	 */
+	function returnDiffOrBindingSetTo() {
+
+		if (isButtonActive) {
+			const returnDiffDom = returnDiff();
+			return returnDiffDom;
+		}
+		const returnBindingSetToDom = returnBindingSetTo();
+		return returnBindingSetToDom;
+	}
+	/*
+	 * function for returning the binding this keybind is set to.
+	 */
+	function returnBindingSetTo() {
+		if ((props.binding == null) || (props.binding.axisId == null)) {
+			return (<>
+				Binding not set
+				</>);
+		}
+		return "axis " + props.binding.axisId;
+		
+	}
 	/*
 	 *function for returning input diff values to react output.
 	 */
@@ -102,7 +128,7 @@ export default function KeybindButton(props: Props) {
 	return (
 		<>
 		{ returnActivatableButton() }
-		binding: {returnDiff()}
+		{ returnDiffOrBindingSetTo() }
 		</>
 	)
 }
