@@ -8,9 +8,8 @@ import { useState} from "react";
 import UseGameStateStore from "../../stores/UseGameStateStore";
 import GameState from "../../ui/menu/gameState";
 import type {GameStateType} from "../../types/gameStateType";
-import { getGameState } from "../../main.ts"
+import { getGameState, setBinding, setDiffEnabled } from "../../main.ts"
 import JoyAxisInputDiffValueReporter from "../../input/joyAxisInputDiffValueReporter";
-import { setDiffEnabled, setBinding } from "../../main";
 import type { FlightAxisType } from "../../types/flightAxisType";
 import type { BindingType } from "../../types/bindingType";
 
