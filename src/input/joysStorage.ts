@@ -105,10 +105,10 @@ export default class JoysStorage {
 	/*
 	 * return the joy from the array if it matches the passed joyId.
 	 */
-	public getJoyById(joyId: number): Joy | null{
+	public getJoyByNameAndId(joyName: string, joyId: number): Joy | null{
 		this.joys.forEach((joy) => {
 			if (joy != null) {
-				if (joy.getJoyId() == joyId) {
+				if ((joy.getJoyId() == joyId) && (joy.getJoyName() == joyName)) {
 					return joy;
 				}
 			}
