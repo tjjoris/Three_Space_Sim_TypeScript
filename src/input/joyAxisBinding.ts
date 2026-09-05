@@ -135,4 +135,5 @@ export default class JoyAxisBinding implements Tickable{
 			return null;
 		}
 		return this.joy.getJoyName();
+	}
 }
