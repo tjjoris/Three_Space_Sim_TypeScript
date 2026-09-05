@@ -8,11 +8,21 @@ import Joy from "./joy";
 
 export default class JoysStorage {
 	private joys: Joy[] = [];
+
+	public constructor() {
+		this.getJoyCookiesSetJoys();
+	}
 	
 	/*
 	 * calls the cookie function to read the joys from cookies and set them.
 	 */
 	public getJoyCookiesSetJoys() {
+		let joyZero = new Joy(null, 0, "CH FLIGHTSTICK PRO (Vendor: 068e Product: 00f6)", false);
+		let joyOne = new Joy(null, 1, "CH FIGHTERSTICK USB  (Vendor: 068e Product: 00f3)", false);
+		this.joys.push(joyZero);
+		this.joys.push(joyOne);
+		
+
 	}
 
 	/*
@@ -29,6 +39,7 @@ export default class JoysStorage {
 		}
 		//add the joy because it did not exist.
 		this.addNewJoy(joyId, joyName, true);
+		console.log("joys storage: ", this.joys);
 	}
 
 	/*
@@ -84,7 +95,7 @@ export default class JoysStorage {
 	/*
 	 * return the joy from the array if it matches the passed joyId.
 	 */
-	getJoyById(joyId: number): Joy | null{
+	public getJoyById(joyId: number): Joy | null{
 		this.joys.forEach((joy) => {
 			if (joy != null) {
 				if (joy.getJoyId() == joyId) {
@@ -93,5 +104,12 @@ export default class JoysStorage {
 			}
 		});
 		return null;
+	}
+
+	/*
+	 * get all the joys in joysStorage
+	 */
+	public getJoys(): Joy[] {
+		return this.joys;
 	}
 }

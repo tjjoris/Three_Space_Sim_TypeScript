@@ -71,6 +71,7 @@ export default class Joy{
 	}
 	/*
 	 connect the joy based on it's id.
+	 TODO: don't use this
 	 */
 	public connectJoy(joyName:string, joyId:number):boolean{
 		if (joyName == this.joyName) {
@@ -85,6 +86,7 @@ export default class Joy{
 
 	/*
 	disconnect the current joy. 
+	TODO: dont use this
 	 */
 	public disconnectJoy(){
 		this.enabled = false;

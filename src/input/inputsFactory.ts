@@ -41,7 +41,8 @@ export default class InputsFactory{
 		let joyTwo = new Joy(null, 2, null, false);
 		let joyThree = new Joy(null, 3, null, false);
 		let joyFour = new Joy(null, 4, null, false);
-		this.joys = [joyZero, joyOne, joyTwo, joyThree, joyFour]; 
+		//this.joys = [joyZero, joyOne, joyTwo, joyThree, joyFour]; 
+		this.joysStorage = new JoysStorage();
 
 		let pitchBinding = new JoyAxisBinding(joyOne, 1, pitchAxis);
 		let rollBinding = new JoyAxisBinding(joyOne, 0, rollAxis);
@@ -74,10 +75,9 @@ export default class InputsFactory{
 		this.bindingsToStateConverter = new BindingsToStateConverter();
 		//new bindings storage
 		this.gameState = new GameState();
-		this.joysStorage = new JoysStorage();
 		this.bindingsStorage = new BindingsStorage(this.bindingsToStateConverter, this.gameState, this.joyAxisBindingsRecord);
 		this.inputDiffsComparerForAllJoys = new InputDiffsComparerForAllJoys(this.gameState);
-		this.joyConnector = new JoyConnector(this.joys, this.inputDiffsComparerForAllJoys);
+		this.joyConnector = new JoyConnector(this.joysStorage.getJoys(), this.inputDiffsComparerForAllJoys);
 
 	}
 	public getJoysStorage(): JoysStorage {
@@ -90,10 +90,6 @@ export default class InputsFactory{
 	 */
 	public getJoys():Joy[]{
 		return this.joys;
-	}
-
-	getBindings():JoyAxisBinding[] {
-		return this.joyAxisBindings;
 	}
 
 	getJoyConnector():JoyConnector {
