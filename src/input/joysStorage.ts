@@ -76,7 +76,7 @@ export default class JoysStorage {
 	/*
 	 * add a new joy because joy does not already exist.
 	 */
-	private addNewJoy(joyId: number, joyName: string, joyEnabled: boolean){
+	private addNewJoy(joyId: number | null, joyName: string, joyEnabled: boolean){
 		//loop all joys
 		for (let joysIndex = 0; joysIndex < this.joys.length; joysIndex ++) {
 			const joy = this.joys[joysIndex];
@@ -89,7 +89,7 @@ export default class JoysStorage {
 				return ;
 			}
 			//if joy values are null, set them for the new joy.
-			if ((joy.getJoyName() == null) || (joy.getJoyId() == null)) {
+			if (joy.getJoyName() == null) {
 				joy.setJoyName(joyName);
 				joy.setJoyId(joyId);
 				joy.setEnabled(joyEnabled);

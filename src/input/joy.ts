@@ -63,7 +63,7 @@ export default class Joy{
 		}
 		return navigator.getGamepads()[joyId];
 	}
-	public setJoyId(joyId:number) {
+	public setJoyId(joyId:number | null) {
 		this.joyId = joyId;
 	}
 	public setJoyName(joyName:string) {
