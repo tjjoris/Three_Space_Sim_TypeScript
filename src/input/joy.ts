@@ -48,6 +48,10 @@ export default class Joy{
 		return this.enabled;
 	}
 
+	public setEnabled(value: boolean) {
+		this.enabled = value;
+	}
+
 	/*
 	 *note you need to get a new gamepad form the navigator each time you use it.
 	 or it will give you a stale value.
