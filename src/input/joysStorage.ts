@@ -11,6 +11,7 @@ export default class JoysStorage {
 
 	public constructor() {
 		this.getJoyCookiesSetJoys();
+		console.log("joys storage constructor ", this.joys);
 	}
 	
 	/*

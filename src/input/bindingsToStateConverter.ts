@@ -26,12 +26,12 @@ export default class BindingsToStateConverter {
 		key;
 		const binding = this.convertJoyAxisBindingToBindingType(value);
 		//if the bindingType value is not null push it into the bindingType array.
-		console.log("binding from converter ", binding);
+		//console.log("binding from converter ", binding);
 		if (binding != null) {
 			bindingType.push(binding);
 		}
 	}
-	console.log("in converter bindingType to return ", bindingType);
+	//console.log("in converter bindingType to return ", bindingType);
 	return bindingType;
 	}
 
@@ -60,7 +60,7 @@ export default class BindingsToStateConverter {
 	 *is passed the JoyAxisBinding class object, and converts it to a bindingType object type.
 	 */
 	public convertJoyAxisBindingToBindingType(joyBindingObject:JoyAxisBinding | null): BindingType | null {
-		console.log("in converter ", joyBindingObject);
+		//console.log("in converter ", joyBindingObject);
 			if (joyBindingObject == null) {
 				console.log("joy binding object is null");
 				return null;
@@ -69,7 +69,7 @@ export default class BindingsToStateConverter {
 			const axisName = joyBindingObject.getFlightAxis();
 			const refId = joyBindingObject.getJoyRefId();
 			const binding : BindingType = {flightAxis : axisName, refId : refId, axisId : axisId};
-			console.log("in converter ", axisId);
+			//console.log("in converter ", axisId);
 			return binding;
 
 	}

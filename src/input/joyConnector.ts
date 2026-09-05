@@ -34,10 +34,10 @@ connect joy called when the gampad is connected from the listener.
 converts the gampad id to a number and uses it to enable the joy.
  */
 	private connectJoy(e:GamepadEvent):void {
-		/*console.log("joy connector, game pad id: ", e.gamepad.index);
+		console.log("joy connector, game pad id: ", e.gamepad.index);
 		console.log("num axes: ", e.gamepad.axes.length);
 		console.log("gamepad id: ", e.gamepad.id);
-		*/
+		
 	       //loop all joys to see which one has a matching name and activate it.
 		//the loop breaks after a joy is set.
 
