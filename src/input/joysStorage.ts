@@ -42,7 +42,7 @@ export default class JoysStorage {
 				continue;
 			}
 			//check if the names match and it is disabled
-			if ((joyName == joy.getJoyName() && (!joy.getEnabled())) {
+			if ((joyName == joy.getJoyName()) && (!joy.getEnabled())) {
 				//set the joy to enabled, and set the joyId.	
 				joy.setEnabled(true);
 				joy.setJoyId(joyId);
@@ -86,11 +86,10 @@ export default class JoysStorage {
 	 */
 	getJoyById(joyId: number): Joy | null{
 		this.joys.forEach((joy) => {
-			if (joy == null) {
-				continue;
-			}
-			if (joy.getJoyId() == joyId) {
-				return joy;
+			if (joy != null) {
+				if (joy.getJoyId() == joyId) {
+					return joy;
+				}
 			}
 		});
 		return null;
