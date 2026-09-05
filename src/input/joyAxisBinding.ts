@@ -37,6 +37,14 @@ export default class JoyAxisBinding implements Tickable{
 	public setJoyAxisBinding(joyAxis: number) {
 		this.joyAxis = joyAxis;
 	}
+
+	/*
+	 * set the joy
+	 */
+	public setJoy(joy: Joy) {
+		this.joy = joy;
+	}
+
 	/*
 	this function check if the binding is enabled, if not it ends, if it is, it gets the axis value for the stored axis for the stored joy, and sets the flight axis value to this value. 
 	 */
@@ -121,4 +129,10 @@ export default class JoyAxisBinding implements Tickable{
 		}
 		return this.joy.getJoyRefId();
 	}
+
+	getJoyName(): string | null {
+		if (this.joy == null) {
+			return null;
+		}
+		return this.joy.getJoyName();
 }
