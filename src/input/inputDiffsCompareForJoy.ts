@@ -13,15 +13,17 @@ export default class InputDiffsCompareForJoy {
 	private joyName: string;
 	private diffReporters: JoyAxisInputDiffValueReporter[]; 
 	private diffReported: JoyAxisInputDiffValueReporter | null;
+	private joyRefId: number;
 
 	/*
 	 * called when a joy is connected. sets values so joy can be read, and creates JoyAxisInputDiffValueReporters.
 	 */
-	public constructor (joyId: number, joyName: string, axisCount: number) {
+	public constructor (joyId: number, joyName: string, axisCount: number, joyRefId: number) {
 		this.joyId = joyId;
 		this.joyName = joyName;
 		this.diffReported = null;
 		this.diffReporters = [];
+		this.joyRefId = joyRefId;
 		/*
 		 * create a JoyAxisInputDiffValueReporter for each axis for this joysitck.
 		 * and add each one to the diffReporters array.
@@ -85,7 +87,23 @@ export default class InputDiffsCompareForJoy {
 		return this.joyId;
 	}
 
+	public setJoyId(value: number) {
+		this.joyId = value;
+	}
+
+	public getJoyRefId(): number {
+		return this.joyRefId;
+	}
+
+	public setJoyRefId(value: number) {
+		this.joyRefId = value;
+	}
+
 	public getJoyName(): string {
 		return this.joyName;
+	}
+
+	public setJoyName(value: string) {
+		this.joyName = value;
 	}
 }

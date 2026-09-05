@@ -34,7 +34,7 @@ export default class InputDiffsComparerForAllJoys {
 	 * called when a joy is connected. creates an instqance of InputDiffsCompareForJoy for the joy, and that creates JoyAxisInputDiffValueReporters for that joys axes.
 	 */
 	public joyConnected(joyId: number, joyName: string, axisCount: number) {
-		const joyDiff = new InputDiffsCompareForJoy(joyId, joyName, axisCount);
+		const joyDiff = new InputDiffsCompareForJoy(joyId, joyName, axisCount, this.joys.length);
 		this.joys.push(joyDiff);
 		console.log("joy connected ", this.joys.length);
 	}
