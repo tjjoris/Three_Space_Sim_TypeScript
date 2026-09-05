@@ -52,7 +52,7 @@ export default class JoyAxisBinding implements Tickable{
 		deltaTime;//neede to fix build errors.
 		//end if joy is null
 		if (this.joy == null) { 
-			console.error("joy in binding is null");
+			//console.error("joy in binding is null");
 			return;
 		}
 		//end if joy is not enabled

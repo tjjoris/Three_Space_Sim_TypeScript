@@ -42,12 +42,21 @@ export default class JoysStorage {
 		console.log("joys storage: ", this.joys);
 	}
 
+	public joyDisconnected(joyId: number, joyName: string) {
+		this.joys.forEach((joy) => {
+			if ((joy != null) && (joy.getJoyId() == joyId) && (joy.getJoyName() == joyName)) {
+				joy.setEnabled(false);
+			}
+		});
+		console.log("joys storage disc ", this.joys);
+	}
+
 	/*
 	 * loop joys to see if the name matches, if it does and it's disabled set it to enabled, if this happens return true. if loops through whole array and a matching name is not already disabled, return false.
 	 */
 	public enableJoyIfInJoys(joyId: number, joyName: string) : boolean {
 		//loop all joys
-		for (let joysIndex = 0; joysIndex < joys.length; joysIndex ++) {
+		for (let joysIndex = 0; joysIndex < this.joys.length; joysIndex ++) {
 			const joy = this.joys[joysIndex];
 			if (joy == null) {
 				continue;

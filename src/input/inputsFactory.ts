@@ -77,7 +77,7 @@ export default class InputsFactory{
 		this.gameState = new GameState();
 		this.bindingsStorage = new BindingsStorage(this.bindingsToStateConverter, this.gameState, this.joyAxisBindingsRecord);
 		this.inputDiffsComparerForAllJoys = new InputDiffsComparerForAllJoys(this.gameState);
-		this.joyConnector = new JoyConnector(this.joysStorage.getJoys(), this.inputDiffsComparerForAllJoys);
+		this.joyConnector = new JoyConnector(this.joysStorage.getJoys(), this.inputDiffsComparerForAllJoys, this.joysStorage);
 
 	}
 	public getJoysStorage(): JoysStorage {

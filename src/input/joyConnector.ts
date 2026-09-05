@@ -1,5 +1,6 @@
 import Joy from "./joy.ts"
 import InputDiffsComparerForAllJoys from "./inputDiffsComparerForAllJoys";
+import JoysStorage from "./joysStorage";
 //import InputDiffsCompareForAllJoys from "./InputDiffsCompareForAllJoys";
 /*
 joyConnector.ts
@@ -10,6 +11,7 @@ For now joyConnector will talk to joys:Joy[].
  */
 export default class JoyConnector {
 	private joys:Joy[];
+	private joysStorage: JoysStorage;
 	private inputDiffsComparerForAllJoys: InputDiffsComparerForAllJoys;
 	//private inputDiffsForAllJoys:inputDiffsCompareForAllJoys;
 
@@ -17,9 +19,10 @@ export default class JoyConnector {
 	constructor
 	@param:joys - the joys to set
 	 */
-	constructor(joys:Joy[], inputDiffsComparerForAllJoys: InputDiffsComparerForAllJoys) {
+	constructor(joys:Joy[], inputDiffsComparerForAllJoys: InputDiffsComparerForAllJoys, joysStorage: JoysStorage) {
 		this.joys = joys;
 		this.inputDiffsComparerForAllJoys = inputDiffsComparerForAllJoys;
+		this.joysStorage = joysStorage;
 		window.addEventListener("gamepadconnected", this.onGamepadConnected);
 		window.addEventListener("gamepaddisconnected", this.onGamePadDisconnected);
 	}
@@ -37,13 +40,18 @@ converts the gampad id to a number and uses it to enable the joy.
 		*/
 	       //loop all joys to see which one has a matching name and activate it.
 		//the loop breaks after a joy is set.
+
+		/*
+		 * dont use this.
 		for (let joyId = 0; joyId < this.joys.length; joyId++) {
 			if (this.joys[joyId].connectJoy(e.gamepad.id, e.gamepad.index)) {
 				break;
 			}
 		}
+		*/
+	       	this.joysStorage.joyConnected(e.gamepad.index, e.gamepad.id);
 		if (this.inputDiffsComparerForAllJoys == null) {
-			console.log("its null");
+			console.log("inputDiffsComparerForAllJoys is null");
 			return;
 		}
 		this.inputDiffsComparerForAllJoys.joyConnected(e.gamepad.index, e.gamepad.id, e.gamepad.axes.length);
@@ -56,6 +64,7 @@ converts the gampad id to a number and uses it to enable the joy.
 	private disconnectJoy(e:GamepadEvent):void {
 		//console.log("joy connector disconnect, game pad index: ", e.gamepad.index)
 		let joyId:number = e.gamepad.index;
-		this.joys[joyId].disconnectJoy();
+		this.joysStorage.joyDisconnected(e.gamepad.index, e.gamepad.id);
+		//this.joys[joyId].disconnectJoy();
 	}
 }
