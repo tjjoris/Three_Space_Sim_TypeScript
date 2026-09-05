@@ -96,7 +96,7 @@ export default class JoysStorage {
 				//return that it's done.
 				return ;
 			}
-			const joyToAdd: Joy = new Joy (joyId, this.joys.length, joyName, joyEnbaled);
+			const joyToAdd: Joy = new Joy (joyId, this.joys.length, joyName, joyEnabled);
 			this.joys.push(joyToAdd);
 			return ;
 		}
