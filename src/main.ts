@@ -16,6 +16,8 @@ import LeftVJoyInput from './ui/vjoy/leftVJoyInput.ts'
 import VJoyUsedTracker from './ui/vjoy/vJoyUsedTracker.ts';
 import Axis from './axes/axis.ts';
 import InputsFactory from "./input/inputsFactory";
+import JoysStorage from "./input/joysStorage";
+import Joy from "./input/joy";
 import DustHandler from './spaceDust/dustHandler.ts'
 import Mover from './ship/movement/mover.ts'
 import CameraRig from './camera/cameraRig.ts'
@@ -143,7 +145,9 @@ export function setDiffEnabled(enabled: boolean) {
 
 export function setBinding(flightAxis: FlightAxisType, joyName: string, joyId: number, joyAxis: number) {
 	console.log("setting binding ", flightAxis, joyName, joyId, joyAxis);
-	bindingsStorage.setBinding(flightAxis, 0, joyAxis);
+	const joysStorage: JoysStorage = inputsFactory.getJoysStorage();
+	const joy: Joy | null = joysStorage.getJoyByNameAndId(joyName, joyId);
+	bindingsStorage.setBinding(flightAxis, joyAxis, joy);
 }
 
 //new vjoyUsed tracker for tracking if vjoy has been used.

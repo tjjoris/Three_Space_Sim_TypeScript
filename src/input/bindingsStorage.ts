@@ -12,6 +12,7 @@ import type {BindingType } from "../types/bindingType";
 import type {FlightAxisType} from "../types/flightAxisType";
 import BindingsToStateConverter from "./bindingsToStateConverter";
 import GameState from "../ui/menu/gameState";
+import Joy from "./joy";
 
 export default class BindingsStorage {
        private bindingsRecord: Record<FlightAxisType, JoyAxisBinding>;
@@ -39,11 +40,15 @@ export default class BindingsStorage {
 	}
 
 	/*
-	 * set a binding passing it the flight axis, joystick ref id, joy axis, and joy id.
+	 * set the binding by passing it the flight axis, and joy.
 	 */
-	public setBinding(flightAxis: FlightAxisType, joyRefId: number, joyAxis: number) {
+	public setBinding(flightAxis: FlightAxisType, joyAxis: number, joy: Joy | null) {
+		if (joy == null) {
+			return;
+		}
 		const joyAxisBinding = this.bindingsRecord[flightAxis];
 		joyAxisBinding.setJoyAxisBinding(joyAxis);
+		joyAxisBinding.setJoy(joy);
 		this.setBindingsToState();
 	}
 	

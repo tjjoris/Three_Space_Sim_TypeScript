@@ -461,7 +461,7 @@ style=wordwrap</panel_attributes>
       <w>370</w>
       <h>220</h>
     </coordinates>
-    <panel_attributes>JoysHandler
+    <panel_attributes>JoysStorage
 -
 -connectableJoys:Joy[]
 -
