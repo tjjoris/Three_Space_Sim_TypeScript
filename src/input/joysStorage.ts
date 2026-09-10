@@ -106,13 +106,17 @@ export default class JoysStorage {
 	 * return the joy from the array if it matches the passed joyId.
 	 */
 	public getJoyByNameAndId(joyName: string, joyId: number): Joy | null{
-		this.joys.forEach((joy) => {
+		for (let joysIndex = 0; joysIndex < this.joys.length; joysIndex ++) {
+			const joy: Joy = this.joys[joysIndex];
 			if (joy != null) {
+				//console.log("getting joy for JoyName: ", joyName, " joyId: ", joyId);
 				if ((joy.getJoyId() == joyId) && (joy.getJoyName() == joyName)) {
+					console.log("return ", joy);
 					return joy;
 				}
 			}
-		});
+		};
+		console.log("still in function");
 		return null;
 	}
 

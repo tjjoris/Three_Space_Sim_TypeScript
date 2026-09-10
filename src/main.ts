@@ -144,9 +144,10 @@ export function setDiffEnabled(enabled: boolean) {
 }
 
 export function setBinding(flightAxis: FlightAxisType, joyName: string, joyId: number, joyAxis: number) {
-	console.log("setting binding ", flightAxis, joyName, joyId, joyAxis);
+	//console.log("setting binding ", flightAxis, joyName, joyId, joyAxis);
 	const joysStorage: JoysStorage = inputsFactory.getJoysStorage();
-	const joy: Joy | null = joysStorage.getJoyByNameAndId(joyName, joyId);
+	let joy: Joy | null = joysStorage.getJoyByNameAndId(joyName, joyId);
+	//console.log("joy in main ", joy);
 	bindingsStorage.setBinding(flightAxis, joyAxis, joy);
 }
 

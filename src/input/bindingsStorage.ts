@@ -35,7 +35,7 @@ export default class BindingsStorage {
 	 */
 	public setBindingsToState() {
 		const bindingsType: BindingType[] = this.bindingsToStateConverter.convertJoyAxisBindingsRecordToBindingsType(this.bindingsRecord);
-		console.log("bindingsType ", bindingsType);
+		//console.log("bindingsType ", bindingsType);
 		this.gameState.setStateBindings(bindingsType);
 	}
 
@@ -44,7 +44,9 @@ export default class BindingsStorage {
 	 */
 	public setBinding(flightAxis: FlightAxisType, joyAxis: number, joy: Joy | null) {
 		if (joy == null) {
+			console.log("joy is null.");
 			return;
+			
 		}
 		const joyAxisBinding = this.bindingsRecord[flightAxis];
 		joyAxisBinding.setJoyAxisBinding(joyAxis);
