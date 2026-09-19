@@ -1,5 +1,6 @@
 import type {BindingType} from "./bindingType";
 import JoyAxisInputDiffValueReporter from "../input/joyAxisInputDiffValueReporter";
+import Joy from "../input/joy";
 //import type {JoysAndBindingsType} from "./joysAndBindingsType";
 /**
  *gameStateType.ts
@@ -12,6 +13,7 @@ export type GameStateType = {
 	//or just remove joys and bindings type
 	//joysAndBindings: JoysAndBindingsType,
 	bindings: BindingType[], 
+	joys: Joy[],
 	//joys: [{refId: number, joyName: string, joyId: number}],
 	//input diff for the input difference used by bindings setter.
 	inputDiff: JoyAxisInputDiffValueReporter | null,

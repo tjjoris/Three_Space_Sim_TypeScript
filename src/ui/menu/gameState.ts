@@ -23,6 +23,7 @@ export default class GameState {
 			landscapeMode: false,
 			vJoyUsed: false,
 			inputDiff: null,
+			joys: [],
 		};
 	}
 
