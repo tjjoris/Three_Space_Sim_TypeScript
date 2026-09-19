@@ -10,6 +10,7 @@ import { GameStateContext } from "../contexts/GameStateContext";
 import KeybindButton from "./KeybindButton";
 import type {BindingType} from "../../types/bindingType";
 import type { GameStateType } from "../../types/gameStateType";
+import Joy from "../../input/joy";
 
 export default function KeybindsMenuContent() {
 
@@ -19,6 +20,14 @@ export default function KeybindsMenuContent() {
 	//the const for storing the value set by the binding state.
 		const gameStateType: GameStateType | null = UseGameStateStore(gameStateContext);
 		const bindingsState: BindingType[] | null = gameStateType.bindings;
+		/**
+		const joys: Joy[] = gameStateType.joys; 
+		let bindingsTouse: { [bindingType: BindingType, joy: Joy] } = [];
+		/**
+		 * loop through each binding and set a binding, and a joy.
+		 
+		for (let bindingsIndex 
+		     */
 
 
 	/*
