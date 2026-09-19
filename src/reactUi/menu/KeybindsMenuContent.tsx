@@ -46,7 +46,9 @@ export default function KeybindsMenuContent() {
 		) {
 			const binding:BindingType = bindingsState[bindingsIndex];
 			bindingsToReturn.push(binding);
-			bindingsDomToReturn.push(<div key={ bindingsIndex } >
+			bindingsDomToReturn.push(<div 
+						 className= "bindings-info"
+						 key={ bindingsIndex } >
 					<KeybindButton flightAxis={binding.flightAxis} binding={binding}/>
 
 					{binding.joy?.getJoyName()}

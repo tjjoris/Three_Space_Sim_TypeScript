@@ -49,7 +49,7 @@ export default function KeybindButton(props: Props) {
 				Binding not set
 				</>);
 		}
-		return "axis " + props.binding.axisId;
+		return " axis " + props.binding.axisId + " ";
 		
 	}
 	/*
@@ -127,7 +127,7 @@ export default function KeybindButton(props: Props) {
 	return (
 		<>
 		{ returnActivatableButton() }
-		{ returnDiffOrBindingSetTo() }
+			{ returnDiffOrBindingSetTo() }
 		</>
 	)
 }

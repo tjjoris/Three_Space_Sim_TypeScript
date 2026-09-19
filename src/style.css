@@ -180,3 +180,11 @@
 	visibility: hidden;
 	
 }
+
+.bindings-info {
+	font-size: 0.2rem;
+	padding: 0.1rem 0rem;
+}
+.bindings-axis {
+	font-color: green;
+}
