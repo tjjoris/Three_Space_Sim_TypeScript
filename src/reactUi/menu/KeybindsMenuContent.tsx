@@ -49,6 +49,7 @@ export default function KeybindsMenuContent() {
 			bindingsDomToReturn.push(<div key={ bindingsIndex } >
 					<KeybindButton flightAxis={binding.flightAxis} binding={binding}/>
 
+					{binding.joy?.getJoyName()}
 						 </div>);
 		}
 			return (<>

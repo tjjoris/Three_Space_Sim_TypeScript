@@ -116,6 +116,10 @@ export default class JoyAxisBinding implements Tickable{
 		return this.joyAxis;
 	}
 
+	getJoy(): Joy | null {
+		return this.joy;
+	}
+
 	getJoyId(): number | null{
 		if (this.joy == null) {
 			return null;

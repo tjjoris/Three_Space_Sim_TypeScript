@@ -7,6 +7,7 @@ this class simply converts from a JoyAxisBinding array  to a BindingType array. 
 import JoyAxisBinding from "./joyAxisBinding";
 import type { BindingType } from "../types/bindingType";
 import type { FlightAxisType } from "../types/flightAxisType";
+import Joy from "./joy";
 
 export default class BindingsToStateConverter {
 	/*
@@ -68,7 +69,8 @@ export default class BindingsToStateConverter {
 			const axisId = joyBindingObject.getAxisId();
 			const axisName = joyBindingObject.getFlightAxis();
 			const refId = joyBindingObject.getJoyRefId();
-			const binding : BindingType = {flightAxis : axisName, refId : refId, axisId : axisId};
+			const joy: Joy | null = joyBindingObject.getJoy();
+			const binding : BindingType = {flightAxis : axisName, refId : refId, axisId : axisId, joy: joy};
 			//console.log("in converter ", axisId);
 			return binding;
 
