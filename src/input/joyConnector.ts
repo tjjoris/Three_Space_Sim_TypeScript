@@ -1,4 +1,3 @@
-import Joy from "./joy.ts"
 import InputDiffsComparerForAllJoys from "./inputDiffsComparerForAllJoys";
 import JoysStorage from "./joysStorage";
 //import InputDiffsCompareForAllJoys from "./InputDiffsCompareForAllJoys";
