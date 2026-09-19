@@ -10,7 +10,6 @@ import { GameStateContext } from "../contexts/GameStateContext";
 import KeybindButton from "./KeybindButton";
 import type {BindingType} from "../../types/bindingType";
 import type { GameStateType } from "../../types/gameStateType";
-import Joy from "../../input/joy";
 
 export default function KeybindsMenuContent() {
 
