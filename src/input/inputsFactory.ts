@@ -84,14 +84,6 @@ export default class InputsFactory{
 		return this.joysStorage;
 	}
 
-	/*
-	get the joys that are instantiated by this factory. normally they would be
-	blank and set by the cookies, for testing, they have values set.
-	 */
-	public getJoys():Joy[]{
-		return this.joys;
-	}
-
 	getJoyConnector():JoyConnector {
 		return this.joyConnector;
 	}
