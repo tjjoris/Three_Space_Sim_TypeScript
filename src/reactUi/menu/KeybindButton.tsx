@@ -46,10 +46,10 @@ export default function KeybindButton(props: Props) {
 	function returnBindingSetTo() {
 		if ((props.binding == null) || (props.binding.axisId == null)) {
 			return (<>
-				Binding not set
+				{" Binding not set"}
 				</>);
 		}
-		return " axis " + props.binding.axisId + " ";
+		return " Axis " + props.binding.axisId + " ";
 		
 	}
 	/*
