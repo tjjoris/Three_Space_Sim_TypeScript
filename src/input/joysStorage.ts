@@ -5,12 +5,15 @@
  * it gets them from cookies or sets them from the bindings and the input diff joy connector.
  */
 import Joy from "./joy";
+import GameState from "../ui/menu/gameState";
 
 export default class JoysStorage {
 	private joys: Joy[] = [];
+	private gameState: GameState;
 
-	public constructor() {
+	public constructor(gameState: GameState) {
 		this.getJoyCookiesSetJoys();
+		this.gameState = gameState;
 		console.log("joys storage constructor ", this.joys);
 	}
 	
@@ -40,6 +43,7 @@ export default class JoysStorage {
 		}
 		//add the joy because it did not exist.
 		this.addNewJoy(joyId, joyName, true);
+		this.updateGameState();
 		console.log("joys storage: ", this.joys);
 	}
 
@@ -49,11 +53,13 @@ export default class JoysStorage {
 				joy.setEnabled(false);
 			}
 		});
+		this.updateGameState();
 		console.log("joys storage disc ", this.joys);
 	}
 
 	/*
 	 * loop joys to see if the name matches, if it does and it's disabled set it to enabled, if this happens return true. if loops through whole array and a matching name is not already disabled, return false.
+	 * TODO: remove this, it's not used.
 	 */
 	public enableJoyIfInJoys(joyId: number, joyName: string) : boolean {
 		//loop all joys
@@ -125,5 +131,12 @@ export default class JoysStorage {
 	 */
 	public getJoys(): Joy[] {
 		return this.joys;
+	}
+
+	/**
+	 * update the game state with joys.
+	 */
+	public updateGameState() {
+		this.gameState.setStateJoys(this.joys);
 	}
 }

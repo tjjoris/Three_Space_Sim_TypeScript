@@ -12,6 +12,7 @@ type Listener = () => void;
 import type { BindingType } from "../../types/bindingType";
 import type { GameStateType } from "../../types/gameStateType";
 import JoyAxisInputDiffValueReporter from "../../input/joyAxisInputDiffValueReporter";
+import Joy from "../../input/joy";
 
 export default class GameState {
 	private state: GameStateType;
@@ -29,16 +30,26 @@ export default class GameState {
 
 
 	public setStateBindings(state: BindingType[] | null) {
-		console.log("paramater ", state);
+		//console.log("paramater ", state);
 		if (state == null) {
 			return
 		}
-		this.state.bindings = state;
+		//this.state.bindings = state;
 		this.state = {...this.state, bindings: state};
-		console.log("set bindings and joys state: ", state);
+		console.log("set bindings and joys state: ", this.state);
 		this.notify();
 	}
 
+	/**
+	 * set the state of the joys.
+	 */
+	public setStateJoys(state: Joy[]) {
+		this.state = {...this.state, joys: state};
+		console.log("set state joys ", this.state);
+		this.notify();
+	}
+
+	
 	/**
 	 *set the state of if device is in landscape mode.
 	 */
@@ -85,7 +96,7 @@ export default class GameState {
 	/**
 	  * notify all listeners
 	  */
-	private notify() {
+	public notify() {
 		console.log("in gameState listener, length: ", this.listeners.length);
 		this.listeners.forEach((listener) => listener());
 	}
