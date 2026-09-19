@@ -14,7 +14,6 @@ import CastRay from './axes/castRay.ts'
 import RightVJoyInput from './ui/vjoy/rightVJoyInput.ts'
 import LeftVJoyInput from './ui/vjoy/leftVJoyInput.ts'
 import VJoyUsedTracker from './ui/vjoy/vJoyUsedTracker.ts';
-import Axis from './axes/axis.ts';
 import InputsFactory from "./input/inputsFactory";
 import JoysStorage from "./input/joysStorage";
 import Joy from "./input/joy";

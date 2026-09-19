@@ -13,7 +13,7 @@ import JoyAxisInputDiffValueReporter from "../../input/joyAxisInputDiffValueRepo
 import type { FlightAxisType } from "../../types/flightAxisType";
 import type { BindingType } from "../../types/bindingType";
 
-type BindType = { id: number, name : string}; 
+//type BindType = { id: number, name : string}; 
 
 type Props = {
 	flightAxis: FlightAxisType;
@@ -26,7 +26,7 @@ export default function KeybindButton(props: Props) {
 	//console.log("diff state ", diffState);
 	const [isButtonActive, setIsButtonActive] = useState(false);
 
-	const [pitchBind, setPitchBind] = useState<BindType>({ id: 0 , name: "this " });
+	//const [pitchBind, setPitchBind] = useState<BindType>({ id: 0 , name: "this " });
 
 	/*
 	 * retruns a react friendly dom element for displaying either the axis this binding is set to, or the diff that is currently being set
@@ -60,7 +60,7 @@ export default function KeybindButton(props: Props) {
 			//diffState is set so print binding values.
 		return (
 			<>
-				binding {pitchBind.name} to Joy: {diffState.getJoyName()} {diffState.getJoyId()} axis: {diffState.getAxisId()}
+				binding {props.flightAxis} to Joy: {diffState.getJoyName()} {diffState.getJoyId()} axis: {diffState.getAxisId()}
 			</>
 		)
 		//diffState is not set so print no input.

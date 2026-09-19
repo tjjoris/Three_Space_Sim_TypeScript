@@ -10,7 +10,6 @@ When that happens, it tells joysHandler, and passes it a joyid:number, and joyNa
 For now joyConnector will talk to joys:Joy[].
  */
 export default class JoyConnector {
-	private joys:Joy[];
 	private joysStorage: JoysStorage;
 	private inputDiffsComparerForAllJoys: InputDiffsComparerForAllJoys;
 	//private inputDiffsForAllJoys:inputDiffsCompareForAllJoys;
@@ -19,8 +18,7 @@ export default class JoyConnector {
 	constructor
 	@param:joys - the joys to set
 	 */
-	constructor(joys:Joy[], inputDiffsComparerForAllJoys: InputDiffsComparerForAllJoys, joysStorage: JoysStorage) {
-		this.joys = joys;
+	constructor(inputDiffsComparerForAllJoys: InputDiffsComparerForAllJoys, joysStorage: JoysStorage) {
 		this.inputDiffsComparerForAllJoys = inputDiffsComparerForAllJoys;
 		this.joysStorage = joysStorage;
 		window.addEventListener("gamepadconnected", this.onGamepadConnected);
@@ -63,7 +61,6 @@ converts the gampad id to a number and uses it to enable the joy.
 	 */
 	private disconnectJoy(e:GamepadEvent):void {
 		//console.log("joy connector disconnect, game pad index: ", e.gamepad.index)
-		let joyId:number = e.gamepad.index;
 		this.joysStorage.joyDisconnected(e.gamepad.index, e.gamepad.id);
 		//this.joys[joyId].disconnectJoy();
 	}
