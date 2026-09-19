@@ -20,7 +20,7 @@ import type {FlightAxisType } from "../types/flightAxisType";
 
 export default class InputsFactory{
 
-	private joys:Joy[];
+	//private joys:Joy[];
 	private joyAxisBindingsRecord:Record<FlightAxisType, JoyAxisBinding>
 	private joyConnector:JoyConnector;
 	private bindingsTicker:BindingsTicker;
@@ -38,9 +38,9 @@ export default class InputsFactory{
 		   forwardAxis: FlightAxis) {
 		let joyZero = new Joy(null, 0, "CH FLIGHTSTICK PRO (Vendor: 068e Product: 00f6)", false);
 		let joyOne = new Joy(null, 1, "CH FIGHTERSTICK USB  (Vendor: 068e Product: 00f3)", false);
-		let joyTwo = new Joy(null, 2, null, false);
-		let joyThree = new Joy(null, 3, null, false);
-		let joyFour = new Joy(null, 4, null, false);
+		//let joyTwo = new Joy(null, 2, null, false);
+		//let joyThree = new Joy(null, 3, null, false);
+		//let joyFour = new Joy(null, 4, null, false);
 		//this.joys = [joyZero, joyOne, joyTwo, joyThree, joyFour]; 
 
 		let pitchBinding = new JoyAxisBinding(joyOne, 1, pitchAxis);
