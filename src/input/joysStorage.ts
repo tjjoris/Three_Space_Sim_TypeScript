@@ -134,6 +134,23 @@ export default class JoysStorage {
 	}
 
 	/**
+	 * get the gamepad by the joyRefId
+	 */
+	public getGamePadByJoyRefId(refId: number):Gamepad | null {
+		for (let joysIndex = 0; joysIndex < this.joys.length; joysIndex ++) {
+			const joy: Joy = this.joys[joysIndex];
+			if (joy == null) { 
+				continue; 
+			}
+			if (joy.getJoyRefId() == refId) {
+				return joy.getGamepad();
+			}
+		}
+		return null;
+
+	}
+
+	/**
 	 * update the game state with joys.
 	 */
 	public updateGameState() {

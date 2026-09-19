@@ -52,6 +52,7 @@ export default class BindingsStorage {
 		const joyAxisBinding = this.bindingsRecord[flightAxis];
 		joyAxisBinding.setJoyAxisBinding(joyAxis);
 		joyAxisBinding.setJoy(joy);
+		console.log("joy axis binding in bindings storage: ", joyAxisBinding);
 		this.setBindingsToState();
 	}
 	
