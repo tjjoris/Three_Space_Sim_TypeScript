@@ -10,11 +10,9 @@
 import JoyAxisBinding from "./joyAxisBinding";
 import type {BindingType } from "../types/bindingType";
 import type {FlightAxisType} from "../types/flightAxisType";
-import type {InputType} from "../types/inputType";
 import BindingsToStateConverter from "./bindingsToStateConverter";
 import GameState from "../ui/menu/gameState";
 import Joy from "./joy";
-import setCookie from "../cookies/setCookie";
 import BindingsAndJoysCookieSetter from "../cookies/bindingsAndJoysCookieSetter";
 
 export default class BindingsStorage {
@@ -58,7 +56,6 @@ export default class BindingsStorage {
 		joyAxisBinding.setJoyAxisBinding(joyAxis);
 		joyAxisBinding.setJoy(joy);
 		console.log("joy axis binding in bindings storage: ", joyAxisBinding);
-		this.setStoredBindingToCookiesFromFlightAxis(flightAxis);
 		this.setBindingsToState();
 	}
 	

@@ -148,6 +148,7 @@ export function setBinding(flightAxis: FlightAxisType, joyName: string, joyId: n
 	let joy: Joy | null = joysStorage.getJoyByNameAndId(joyName, joyId);
 	//console.log("joy in main ", joy);
 	bindingsStorage.setBinding(flightAxis, joyAxis, joy);
+	bindingsStorage.setStoredBindingToCookiesFromFlightAxis(flightAxis);
 }
 
 //new vjoyUsed tracker for tracking if vjoy has been used.
