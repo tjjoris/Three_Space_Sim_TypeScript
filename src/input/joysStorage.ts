@@ -127,6 +127,23 @@ export default class JoysStorage {
 		return null;
 	}
 
+
+	/*
+	 * get joy by name only
+	 */
+	public getJoyByName(joyName: string): Joy | null {
+			for (let joysIndex = 0; joysIndex < this.joys.length; joysIndex ++) {
+			const joy: Joy = this.joys[joysIndex];
+			if (joy != null) {
+				if (joy.getJoyName() == joyName) {
+					console.log("return ", joy);
+					return joy;
+				}
+			}
+		};
+		return null;
+	}
+
 	/*
 	 * get all the joys in joysStorage
 	 */

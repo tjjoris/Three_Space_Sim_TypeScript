@@ -1,5 +1,9 @@
+import Joy from "../input/joy";
+import type { FlightAxisType } from "../types/flightAxisType";
 import BindingsStorage from "../input/bindingsStorage";
 import { FLIGHT_AXIS_CONST } from "../consts/flightAxisConst";
+import { COOKIE_CONSTS } from "../consts/cookieConsts";
+import getCookie from "./getCookie";
 /*
  *bindingsAndJoysCookieGetter.ts
  @Author: Luke Johnson
@@ -9,5 +13,18 @@ import { FLIGHT_AXIS_CONST } from "../consts/flightAxisConst";
 
 export default class BindingsAndJoysCookieGetter {
 
+	/*
+	 * is passed the flightAxisType and uses joysStorage to get a joy based on the joyName and refId of the joy in the cookies for this flightAxis
+	 * returns the joy.
+	 */
+	public getJoyFromCookiesByFlightAxis(flightAxis: FlightAxisType): Joy {
+		const joyNameCookieKey: string = flightAxis + COOKIE_CONSTS.joyName;
+		const joyName: string = getCookie(joyNameCookieKey);
+		if (joyName == "") {
+			return;
+		}
+
+
+	}
 
 }
