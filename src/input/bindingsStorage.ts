@@ -66,6 +66,13 @@ export default class BindingsStorage {
 		const expDays: number = 365;
 		//get the joyAxisBinding for this binding
 		const joyAxisBinding: JoyAxisBinding = this.bindingsRecord[flightAxis];
+		this.setAxisNumberCookie(flightAxis, joyAxisBinding, expDays);
+	}
+
+	/*
+	 * set the axis number cookie
+	 */
+	public setAxisNumberCookie(flightAxis: FlightAxisType, joyAxisBinding: JoyAxisBinding, expDays: number) {
 		//make the cookie key for the flightAxis axis id
 		const axisCookieKey: string = flightAxis + "axis";
 		//get the axis number id for the binding
@@ -75,9 +82,7 @@ export default class BindingsStorage {
 		//convert the axis number to a string
 		const axisNumString: string = axisNumber.toString();
 		//set the axis number to a cookie
-		setCookie(axisCookieKey, axisNumString, expDays);
-
-
+		setCookie(axisCookieKey, axisNumString, expDays);	
 	}
 
 }
