@@ -17,6 +17,7 @@ import BindingsToStateConverter from "./bindingsToStateConverter";
 import GameState from "../ui/menu/gameState";
 import JoysStorage from "./joysStorage";
 import type {FlightAxisType } from "../types/flightAxisType";
+import BindingsAndJoysCookieSetter from "../cookies/bindingsAndJoysCookieSetter";
 
 export default class InputsFactory{
 
@@ -29,6 +30,8 @@ export default class InputsFactory{
 	private bindingsToStateConverter: BindingsToStateConverter;
 	private gameState: GameState;
 	private joysStorage: JoysStorage;
+	private bindingsAndJoysCookieSetter: BindingsAndJoysCookieSetter;	
+	
 
 	constructor(pitchAxis: FlightAxis, 
 		    rollAxis: FlightAxis, 
@@ -74,8 +77,9 @@ export default class InputsFactory{
 		this.bindingsToStateConverter = new BindingsToStateConverter();
 		//new bindings storage
 		this.gameState = new GameState();
+		this.bindingsAndJoysCookieSetter = new BindingsAndJoysCookieSetter();
 		this.joysStorage = new JoysStorage(this.gameState);
-		this.bindingsStorage = new BindingsStorage(this.bindingsToStateConverter, this.gameState, this.joyAxisBindingsRecord);
+		this.bindingsStorage = new BindingsStorage(this.bindingsAndJoysCookieSetter, this.bindingsToStateConverter, this.gameState, this.joyAxisBindingsRecord);
 		this.inputDiffsComparerForAllJoys = new InputDiffsComparerForAllJoys(this.gameState);
 		this.joyConnector = new JoyConnector(this.inputDiffsComparerForAllJoys, this.joysStorage);
 

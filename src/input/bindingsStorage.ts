@@ -15,8 +15,10 @@ import BindingsToStateConverter from "./bindingsToStateConverter";
 import GameState from "../ui/menu/gameState";
 import Joy from "./joy";
 import setCookie from "../cookies/setCookie";
+import BindingsAndJoysCookieSetter from "../cookies/bindingsAndJoysCookieSetter";
 
 export default class BindingsStorage {
+	private bindingsAndJoysCookieSetter;
        private bindingsRecord: Record<FlightAxisType, JoyAxisBinding>;
 	private bindingsToStateConverter: BindingsToStateConverter;
 	private gameState: GameState;
@@ -25,7 +27,8 @@ export default class BindingsStorage {
 	/*
 	 *constrcutor is passed the bindingsToStateconverter, gameState, and bindingsRecord. 
 	 */
-	public constructor (bindingsToStateConverter: BindingsToStateConverter, gameState: GameState, bindingsRecord: Record<FlightAxisType, JoyAxisBinding>) {
+	public constructor (bindingsAndJoysCookieSetter: BindingsAndJoysCookieSetter, bindingsToStateConverter: BindingsToStateConverter, gameState: GameState, bindingsRecord: Record<FlightAxisType, JoyAxisBinding>) {
+		this.bindingsAndJoysCookieSetter = bindingsAndJoysCookieSetter;
 	       this.bindingsRecord = bindingsRecord;
 		this.bindingsToStateConverter = bindingsToStateConverter;
 		this.gameState = gameState;
@@ -55,101 +58,17 @@ export default class BindingsStorage {
 		joyAxisBinding.setJoyAxisBinding(joyAxis);
 		joyAxisBinding.setJoy(joy);
 		console.log("joy axis binding in bindings storage: ", joyAxisBinding);
-		this.setStoredBindingToCookies(flightAxis);
+		this.setStoredBindingToCookiesFromFlightAxis(flightAxis);
 		this.setBindingsToState();
 	}
 	
 	/*
 	 * uses the flightAxis paramater and gets the stored binding and sets it to cookies.
 	 */
-	public setStoredBindingToCookies(flightAxis: FlightAxisType) {
-		//set the number of days the cookies should last
-		const expDays: number = 365;
+	public setStoredBindingToCookiesFromFlightAxis(flightAxis: FlightAxisType) {
 		//get the joyAxisBinding for this binding
 		const joyAxisBinding: JoyAxisBinding = this.bindingsRecord[flightAxis];
-		const joy: Joy | null = joyAxisBinding.getJoy();
-		if (joy == null) {
-			return;
-		}
-		this.setAxisNumberCookie(flightAxis, joyAxisBinding, expDays);
-		this.setInputTypeCookie(flightAxis, "joyAxis", expDays);
-		this.setJoyNameCookie(flightAxis, joy, expDays);
-		this.setJoyIdCookie(flightAxis, joy, expDays);
-		this.setJoyRefIdCookie(flightAxis, joy, expDays);
+		this.bindingsAndJoysCookieSetter.setJoyAxisBindingToCookies(flightAxis, joyAxisBinding);
 	}
 
-	/*
-	 * set the axis number cookie
-	 */
-	public setAxisNumberCookie(flightAxis: FlightAxisType, joyAxisBinding: JoyAxisBinding, expDays: number) {
-		//make the cookie key for the flightAxis axis id
-		const axisCookieKey: string = flightAxis + "axis";
-		//get the axis number id for the binding
-		const axisNumber: number | null = joyAxisBinding.getAxisId();
-		if (axisNumber == null) {
-			return;
-		}
-		//convert the axis number to a string
-		const axisNumString: string = axisNumber.toString();
-		//set the axis number to a cookie
-		setCookie(axisCookieKey, axisNumString, expDays);	
-	}
-
-	/*
-	 * set the input type cookie
-	 */
-	public setInputTypeCookie(flightAxis: FlightAxisType, inputType: InputType, expDays: number) {
-		//parse the cookie key for the input type
-		const inputTypeCookieKey: string = flightAxis + "Type";
-		//set the input type for the flight axis to a cookie
-		setCookie(inputTypeCookieKey, inputType, expDays);
-	}
-
-	/*
-	 * set joy name cookie
-	 */
-	public setJoyNameCookie(flightAxis: FlightAxisType, joy: Joy, expDays: number) {
-		//parse the cookie key for the joyName
-		const joyNameCookieKey: string = flightAxis + "JoyName"
-		//get the joy name string
-		const joyName: string | null = joy.getJoyName();
-		if (joyName == null) {
-			return;
-		}
-		//set the cookie for the joy name
-		setCookie(joyNameCookieKey, joyName, expDays);
-	}
-
-	/**
-	 *set the joy id(index) cookie
-	 */
-	public setJoyIdCookie(flightAxis: FlightAxisType, joy: Joy, expDays: number) {
-		//parse the cookie key for the joyIndex
-		const joyIndexCookieKey: string = flightAxis + "JoyIndex";
-		//get the joyId
-		const joyIdNumber: number | null = joy.getJoyId();
-		if (joyIdNumber == null) {
-			return;
-		}
-		const joyIdString: string = joyIdNumber.toString();
-		//set the cookie for the joyId(index)
-		setCookie(joyIndexCookieKey, joyIdString, expDays);
-	}
-
-	/*
-	 * set the joy ref id cookie
-	 */
-	public setJoyRefIdCookie(flightAxis: FlightAxisType, joy: Joy, expDays: number) {
-		//parse the cookie key for the joyRefId
-		const joyRefIdCookieKey: string = flightAxis + "JoyRefId";
-		//get the joyRefId
-		const joyRefIdNumber: number | null = joy.getJoyRefId();
-		if (joyRefIdNumber == null) {
-			return;
-		}
-		//set the joy ref id number to a string
-		const joyRefIdString: string = joyRefIdNumber.toString();
-		//set the cookie for the joy ref id
-		setCookie(joyRefIdCookieKey, joyRefIdString, expDays);
-	}
 }
