@@ -42,6 +42,8 @@ export default class BindingsAndJoysCookieGetter {
 		joy = this.joysStorage.getJoyByName(joyName);
 		if (joy == null) {
 			joy = this.joysStorage.addNewJoy(joyIdNumber, joyName, false);
+		}
+		return joy;
 	}
 
 
