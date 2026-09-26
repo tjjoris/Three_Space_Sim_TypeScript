@@ -4,6 +4,7 @@ import BindingsStorage from "../input/bindingsStorage";
 import { FLIGHT_AXIS_CONST } from "../consts/flightAxisConst";
 import { COOKIE_CONSTS } from "../consts/cookieConsts";
 import getCookie from "./getCookie";
+import JoysStorage from "../input/joysStorage";
 /*
  *bindingsAndJoysCookieGetter.ts
  @Author: Luke Johnson
@@ -12,19 +13,38 @@ import getCookie from "./getCookie";
  */
 
 export default class BindingsAndJoysCookieGetter {
+	private joysStorage: JoysStorage;
 
+	public constructor (joysStorage: JoysStorage) {
+		this.joysStorage = joysStorage;
+	}
 	/*
 	 * is passed the flightAxisType and uses joysStorage to get a joy based on the joyName and refId of the joy in the cookies for this flightAxis
 	 * returns the joy.
 	 */
-	public getJoyFromCookiesByFlightAxis(flightAxis: FlightAxisType): Joy {
+	public getJoyFromCookiesByFlightAxis(flightAxis: FlightAxisType): Joy | null {
 		const joyNameCookieKey: string = flightAxis + COOKIE_CONSTS.joyName;
 		const joyName: string = getCookie(joyNameCookieKey);
 		if (joyName == "") {
-			return;
+			return null;
 		}
-
-
+		const joyIdCookieKey: string = flightAxis + COOKIE_CONSTS.joyIndex;
+		const joyId: string  = getCookie(joyIdCookieKey);
+		if (joyId == "") {
+			return null;
+		}
+		//convert string to number
+		const joyIdNumber: number = +joyId;
+		let joy: Joy | null = this.joysStorage.getJoyByNameAndId(joyName, joyIdNumber);
+		if (joy != null) {
+			return joy;
+		}
+		joy = this.joysStorage.getJoyByName(joyName);
+		if (joy == null) {
+			joy = this.joysStorage.addNewJoy(joyIdNumber, joyName, false);
 	}
+
+
+
 
 }
