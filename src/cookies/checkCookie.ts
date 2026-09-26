@@ -7,6 +7,7 @@ import setCookie from "./setCookie";
  * this script has been modified from the source. It has been changed from JS to TS, and variable names have been changed for clarity. comments have been added.
  */
 export default function checkCookie() {
+	console.log("check cookie");
 	//get username from cookie of key=username 
 	const username : string = getCookie("username");
 	//if the cookie value returned is not empty, show an alert with the user name value.

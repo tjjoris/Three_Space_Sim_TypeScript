@@ -1,3 +1,4 @@
+import checkCookie from "../../cookies/checkCookie";
 /**
 InfoMenuContent.tsx 
 @Authro: Luke Johnson
@@ -22,12 +23,12 @@ export default function InfoMenuContent () {
 			<br/>
 				Drag finger on bottom right v-joy to control pitch and roll.
 		<h3>
-			Gamepad
+				Joystick
 		</h3>
 		<p>
-			plug in your gamepad and activate it by pressing a button on it.
+			plug in your gamepad or joystick and activate it by pressing a button on it.
 			<br/>
-			By default, bottom left stick controls vertical and horizontal strafe, and bottom right stick controls pitch and roll.
+			Go into the keybinds menu, and bind the axes to control pitch, roll, vertical, and horizontal.
 		</p>
 		<h3>
 			Forward acceleration
@@ -65,5 +66,6 @@ export default function InfoMenuContent () {
 				New Game Modes.
 			</li>
 		</ul>
+		<button onClick = {() => {checkCookie()}}> Check Cookie </button>
 	</div>
 )}
