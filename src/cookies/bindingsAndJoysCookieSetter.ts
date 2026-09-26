@@ -4,6 +4,11 @@ import JoyAxisBinding from "../input/joyAxisBinding";
 import Joy from "../input/joy";
 import setCookie from "../cookies/setCookie";
 
+/*
+ *bindingsAndJoysCookieSetter.ts
+ @Author: Luke Johnson
+ this class sets the cookies for a particular flight axis and joy axis binding, setting the input type, axis id, joy name, joy ref id, and joy id.
+ */
 export default class BindingsAndJoysCookieSetter {
 	
 	/*
