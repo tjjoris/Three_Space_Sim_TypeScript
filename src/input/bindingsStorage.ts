@@ -14,9 +14,11 @@ import BindingsToStateConverter from "./bindingsToStateConverter";
 import GameState from "../ui/menu/gameState";
 import Joy from "./joy";
 import BindingsAndJoysCookieSetter from "../cookies/bindingsAndJoysCookieSetter";
+import BindingsAndJoysCookieGetter from "../cookies/bindingsAndJoysCookieGetter";
 
 export default class BindingsStorage {
 	private bindingsAndJoysCookieSetter;
+	private bindingsAndJoysCookieGetter;
        private bindingsRecord: Record<FlightAxisType, JoyAxisBinding>;
 	private bindingsToStateConverter: BindingsToStateConverter;
 	private gameState: GameState;
@@ -25,13 +27,18 @@ export default class BindingsStorage {
 	/*
 	 *constrcutor is passed the bindingsToStateconverter, gameState, and bindingsRecord. 
 	 */
-	public constructor (bindingsAndJoysCookieSetter: BindingsAndJoysCookieSetter, bindingsToStateConverter: BindingsToStateConverter, gameState: GameState, bindingsRecord: Record<FlightAxisType, JoyAxisBinding>) {
+	public constructor (bindingsAndJoysCookieSetter: BindingsAndJoysCookieSetter, bindingsAndJoysCookieGetter: BindingsAndJoysCookieGetter, bindingsToStateConverter: BindingsToStateConverter, gameState: GameState, bindingsRecord: Record<FlightAxisType, JoyAxisBinding>) {
 		this.bindingsAndJoysCookieSetter = bindingsAndJoysCookieSetter;
+		this.bindingsAndJoysCookieGetter = bindingsAndJoysCookieGetter;
 	       this.bindingsRecord = bindingsRecord;
 		this.bindingsToStateConverter = bindingsToStateConverter;
 		this.gameState = gameState;
 		this.setBindingsToState();
 	}
+
+	/*
+	 *goes through all the bindings in bindingsRecord and calls the cookie getter, passing it the flight axis, then sets the binding.
+	 */
 
 	/*
 	 * set bindings to state sets the stored bindings to the state class.

@@ -3,6 +3,7 @@ import type {InputType} from "../types/inputType";
 import JoyAxisBinding from "../input/joyAxisBinding";
 import Joy from "../input/joy";
 import setCookie from "../cookies/setCookie";
+import { COOKIE_CONSTS } from "../consts/cookieConsts";
 
 /*
  *bindingsAndJoysCookieSetter.ts
@@ -33,7 +34,7 @@ export default class BindingsAndJoysCookieSetter {
 	 */
 	public setAxisNumberCookie(flightAxis: FlightAxisType, joyAxisBinding: JoyAxisBinding, expDays: number) {
 		//make the cookie key for the flightAxis axis id
-		const axisCookieKey: string = flightAxis + "axis";
+		const axisCookieKey: string = flightAxis + COOKIE_CONSTS.axis;
 		//get the axis number id for the binding
 		const axisNumber: number | null = joyAxisBinding.getAxisId();
 		if (axisNumber == null) {
@@ -50,7 +51,7 @@ export default class BindingsAndJoysCookieSetter {
 	 */
 	public setInputTypeCookie(flightAxis: FlightAxisType, inputType: InputType, expDays: number) {
 		//parse the cookie key for the input type
-		const inputTypeCookieKey: string = flightAxis + "Type";
+		const inputTypeCookieKey: string = flightAxis + COOKIE_CONSTS.type;
 		//set the input type for the flight axis to a cookie
 		setCookie(inputTypeCookieKey, inputType, expDays);
 	}
@@ -60,7 +61,7 @@ export default class BindingsAndJoysCookieSetter {
 	 */
 	public setJoyNameCookie(flightAxis: FlightAxisType, joy: Joy, expDays: number) {
 		//parse the cookie key for the joyName
-		const joyNameCookieKey: string = flightAxis + "JoyName"
+		const joyNameCookieKey: string = flightAxis + COOKIE_CONSTS.joyName; 
 		//get the joy name string
 		const joyName: string | null = joy.getJoyName();
 		if (joyName == null) {
@@ -75,7 +76,7 @@ export default class BindingsAndJoysCookieSetter {
 	 */
 	public setJoyIdCookie(flightAxis: FlightAxisType, joy: Joy, expDays: number) {
 		//parse the cookie key for the joyIndex
-		const joyIndexCookieKey: string = flightAxis + "JoyIndex";
+		const joyIndexCookieKey: string = flightAxis + COOKIE_CONSTS.joyIndex;
 		//get the joyId
 		const joyIdNumber: number | null = joy.getJoyId();
 		if (joyIdNumber == null) {
@@ -91,7 +92,7 @@ export default class BindingsAndJoysCookieSetter {
 	 */
 	public setJoyRefIdCookie(flightAxis: FlightAxisType, joy: Joy, expDays: number) {
 		//parse the cookie key for the joyRefId
-		const joyRefIdCookieKey: string = flightAxis + "JoyRefId";
+		const joyRefIdCookieKey: string = flightAxis + COOKIE_CONSTS.joyRefId;
 		//get the joyRefId
 		const joyRefIdNumber: number | null = joy.getJoyRefId();
 		if (joyRefIdNumber == null) {
