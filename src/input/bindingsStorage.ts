@@ -13,6 +13,7 @@ import type {FlightAxisType} from "../types/flightAxisType";
 import BindingsToStateConverter from "./bindingsToStateConverter";
 import GameState from "../ui/menu/gameState";
 import Joy from "./joy";
+import setCookie from "../cookies/setCookie";
 
 export default class BindingsStorage {
        private bindingsRecord: Record<FlightAxisType, JoyAxisBinding>;
@@ -53,8 +54,30 @@ export default class BindingsStorage {
 		joyAxisBinding.setJoyAxisBinding(joyAxis);
 		joyAxisBinding.setJoy(joy);
 		console.log("joy axis binding in bindings storage: ", joyAxisBinding);
+		this.setStoredBindingToCookies(flightAxis);
 		this.setBindingsToState();
 	}
 	
+	/*
+	 * uses the flightAxis paramater and gets the stored binding and sets it to cookies.
+	 */
+	public setStoredBindingToCookies(flightAxis: FlightAxisType) {
+		//set the number of days the cookies should last
+		const expDays: number = 365;
+		//get the joyAxisBinding for this binding
+		const joyAxisBinding: JoyAxisBinding = this.bindingsRecord[flightAxis];
+		//make the cookie key for the flightAxis axis id
+		const axisCookieKey: string = flightAxis + "axis";
+		//get the axis number id for the binding
+		const axisNumber: number | null = joyAxisBinding.getAxisId();
+		if (axisNumber == null) {
+			return; }
+		//convert the axis number to a string
+		const axisNumString: string = axisNumber.toString();
+		//set the axis number to a cookie
+		setCookie(axisCookieKey, axisNumString, expDays);
+
+
+	}
 
 }
