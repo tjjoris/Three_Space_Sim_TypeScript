@@ -36,6 +36,11 @@ export default class BindingsStorage {
 		this.setBindingsToState();
 	}
 
+	pulbic getBindingsAndJoysFromCookies() {
+		for (const [key, value] of Object.entries(this.bindingsRecord) as [FlightAxisType, JoyAxisBinding][]) {
+			const joy: Joy = this.bindingsAndJoysCookieGetter.getJoyFromCookiesByFlightAxis(key);
+		}
+
 	/*
 	 *goes through all the bindings in bindingsRecord and calls the cookie getter, passing it the flight axis, then sets the binding.
 	 */
