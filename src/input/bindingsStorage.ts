@@ -41,12 +41,16 @@ export default class BindingsStorage {
 	 */
 	public setBindingsAndJoysFromCookies() {
 		for (const [key, joyAxisBinding] of Object.entries(this.bindingsRecord) as [FlightAxisType, JoyAxisBinding][]) {
+			//get the input type.
+			const isJoyAxis: boolean = this.bindingsAndJoysCookieGetter.getIsJoyAxisByFlightAxis(key);	
+			//if input type is joy axis.
+			if (isJoyAxis) {
 			const joy: Joy | null = this.bindingsAndJoysCookieGetter.getJoyByFlightAxis(key);
 			if (joy != null) {
 			    console.log("flight axis: " + key + ", joy: " + joy.getJoyName());
 			}
-			const isJoyAxis: boolean = this.bindingsAndJoysCookieGetter.getIsJoyAxisByFlightAxis(key);	
 
+			}
 		}
 	}
 
