@@ -51,7 +51,9 @@ export default class BindingsStorage {
 			    if (joy != null) {
 				console.log("flight axis: " + key + ", joy: " + joy.getJoyName());
 			    }
-			
+			    //the axis id
+			    const axisId: number = this.bindingsAndJoysCookieGetter.getAxisIdByFlightAxis(key);
+			    console.log("axis " + axisId);
 			}
 		}
 	}

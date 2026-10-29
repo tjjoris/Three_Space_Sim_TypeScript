@@ -52,7 +52,6 @@ export default class BindingsAndJoysCookieGetter {
 	 * get if bining is a joy axis binding
 	 */
 	public getIsJoyAxisByFlightAxis(flightAxis: FlightAxisType): boolean {
-	    flightAxis;
 	    const cookieKey: string = flightAxis + COOKIE_CONSTS.type;
 	    const inputType: string = getCookie(cookieKey);
 	    if (inputType ==  INPUT_CONSTS.joyAxis) {
@@ -62,6 +61,16 @@ export default class BindingsAndJoysCookieGetter {
 	    return false
 	}
 
+	/*
+	 * get the axis id from flight axis
+	 */
+	public getAxisIdByFlightAxis(flightAxis: FlightAxis): number {
+	   const cookieKey: string = flightAxis + COOKIE_CONSTS.axis; 
+	   const axisString: string = getCookie(cookieKey);
+	   //convert from string to number
+	   const axis: number = +axisString;
+	   return axis;
+	}
 
 
 }
