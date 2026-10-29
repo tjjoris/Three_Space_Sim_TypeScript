@@ -1,5 +1,6 @@
 import Joy from "../input/joy";
 import type { FlightAxisType } from "../types/flightAxisType";
+import type { InputType } from "../types/inputType";
 import BindingsStorage from "../input/bindingsStorage";
 import { FLIGHT_AXIS_CONST } from "../consts/flightAxisConst";
 import { COOKIE_CONSTS } from "../consts/cookieConsts";
@@ -22,7 +23,7 @@ export default class BindingsAndJoysCookieGetter {
 	 * is passed the flightAxisType and uses joysStorage to get a joy based on the joyName and refId of the joy in the cookies for this flightAxis
 	 * returns the joy.
 	 */
-	public getJoyFromCookiesByFlightAxis(flightAxis: FlightAxisType): Joy | null {
+	public getJoyByFlightAxis(flightAxis: FlightAxisType): Joy | null {
 		const joyNameCookieKey: string = flightAxis + COOKIE_CONSTS.joyName;
 		const joyName: string = getCookie(joyNameCookieKey);
 		if (joyName == "") {
@@ -46,6 +47,16 @@ export default class BindingsAndJoysCookieGetter {
 		return joy;
 	}
 
+	/*
+	 * get if bining is a joy axis binding
+	 */
+	public getIsJoyAxisBindingByFlightAxis(flightAxis: FlightAxisType): boolean {
+	    flightAxis;
+	    const cookieKey: string = flightAxis + COOKIE_CONSTS.type;
+	    const inputType: string = getCookie(cookieKey);
+	    //if (axisType ==  
+	    return false
+	}
 
 
 
