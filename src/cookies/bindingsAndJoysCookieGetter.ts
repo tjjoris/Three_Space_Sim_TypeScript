@@ -35,6 +35,7 @@ export default class BindingsAndJoysCookieGetter {
 		}
 		//convert string to number
 		const joyIdNumber: number = +joyId;
+		console.log("joys storage " + this.joysStorage);
 		let joy: Joy | null = this.joysStorage.getJoyByNameAndId(joyName, joyIdNumber);
 		if (joy != null) {
 			return joy;

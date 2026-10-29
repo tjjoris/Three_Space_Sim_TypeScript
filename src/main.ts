@@ -122,6 +122,8 @@ export function getGameState() {
 
 const bindingsStorage = inputsFactory.getBindingsStorage();
 
+//set bindings from cookies
+bindingsStorage.setBindingsAndJoysFromCookies();
 
 //class for setting the renderer size on window resize.
 export const setRendererSize = new SetRendererSize(renderer, camera, gameState);
