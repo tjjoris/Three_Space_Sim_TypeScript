@@ -40,7 +40,7 @@ export default class BindingsStorage {
 		for (const [key, joyAxisBinding] of Object.entries(this.bindingsRecord) as [FlightAxisType, JoyAxisBinding][]) {
 			const joy: Joy | null = this.bindingsAndJoysCookieGetter.getJoyFromCookiesByFlightAxis(key);
 			if (joy != null) {
-			    console.log("flight axis: " + key + ", joy: " + joy.toString());
+			    console.log("flight axis: " + key + ", joy: " + joy.getJoyName());
 			}
 		}
 	}
