@@ -4,6 +4,7 @@ InfoMenuContent.tsx
 contains the latest info about the game.
 displayed in the menu.
  */
+import { ToggleMenuContext } from "../contexts/ToggleMenuContext";
 export default function InfoMenuContent () {
 	return (
 	<div className="scrollable-div menu-content" >

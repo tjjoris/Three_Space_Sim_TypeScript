@@ -10,6 +10,7 @@ import InfoMenuContent from "./InfoMenuContent";
 import KeybindsMenuContent from "./KeybindsMenuContent";
 import MenuButton from "./MenuButton";
 import { useState} from "react";
+import InternalToggleMenuButton from "./InternalToggleMenuButton";
 
 export default function MenuScreen({
     toggleMenu,
@@ -35,6 +36,7 @@ export default function MenuScreen({
 		{menuTab === "settings" &&	    
 		<SettingsMenuContent />  }
 		<MenuButton name="Close Menu" onClick={toggleMenu} />
+		<InternalToggleMenuButton />
         </div >
     </>)
 }
