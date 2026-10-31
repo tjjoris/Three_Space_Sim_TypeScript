@@ -19,8 +19,42 @@ export default function InfoMenuContent () {
 
 		</p>
 		<h2>
+			Gameplay
+		</h2>
+			<p>
+				The current gameplay is to fly through the rings.
+					<br/>
+			</p>
+
+		<h2>
 			Controls
 		</h2>
+		<h3>
+		    Rotation
+		</h3>
+		<p>
+		    You can only rotate in pitch and roll to give this more of a cinematic aircraft like feel.  
+		</p>
+		<h3>
+		   Translational Acceleration
+		</h3>
+		<p>
+		    You can control your vertical and horizontal strafe for more of a 6 degrees of freedom space sim feel. 
+
+		</p>
+		<h3>
+			Forward acceleration
+		</h3>
+			<p>
+				Forward acceleration is automatic, but vertical or horizontal acceleration subtracts from forward acceleration.
+			</p>
+		<h3>
+			Yaw
+		</h3>
+			<p>
+				Yaw is automatic, it's a result of your roll, and other inputs.
+			</p>
+
 		<h3>
 			Touch
 		</h3>
@@ -51,38 +85,6 @@ export default function InfoMenuContent () {
 		<p>
 		    Keybinds and settings are stored in cookies, so next time you open the space sim in the same browser on the same device, it will remember them. At least until you clear your cookies.
 		</p>
-		<h3>
-		    Rotation
-		</h3>
-		<p>
-		    You can only rotate in pitch and roll to give this more of a cinematic aircraft like feel.  
-		</p>
-		<h3>
-		   Translational Acceleration
-		</h3>
-		<p>
-		    You can control your vertical and horizontal strafe for more of a 6 degrees of freedom space sim feel. 
-
-		</p>
-		<h3>
-			Forward acceleration
-		</h3>
-			<p>
-				Forward acceleration is automatic, but vertical or horizontal acceleration subtracts from forward acceleration.
-			</p>
-		<h3>
-			Yaw
-		</h3>
-			<p>
-				Yaw is automatic, it's a result of your roll, and other inputs.
-			</p>
-		<h2>
-			Gameplay
-		</h2>
-			<p>
-				The current gameplay is to fly through the rings.
-					<br/>
-			</p>
 		<h2>
 			Planned upcoming features
 		</h2>

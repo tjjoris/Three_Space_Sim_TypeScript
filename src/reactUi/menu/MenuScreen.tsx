@@ -8,15 +8,9 @@ import MenuHeader from "./MenuHeader";
 import SettingsMenuContent from "./SettingsMenuContent";
 import InfoMenuContent from "./InfoMenuContent";
 import KeybindsMenuContent from "./KeybindsMenuContent";
-import MenuButton from "./MenuButton";
 import { useState} from "react";
-import InternalToggleMenuButton from "./InternalToggleMenuButton";
 
-export default function MenuScreen({
-    toggleMenu,
-}: {
-    toggleMenu: () => void,
-}) {
+export default function MenuScreen() {
 	//menu tab state for storing menu tab your in.
 	const [menuTab, setMenuTab] = useState<MenuTabsType>("info"); 
 	//function to navigate to menu screen on tab click
@@ -35,7 +29,6 @@ export default function MenuScreen({
 			<KeybindsMenuContent /> }
 		{menuTab === "settings" &&	    
 		<SettingsMenuContent />  }
-		<InternalToggleMenuButton />
         </div >
     </>)
 }
