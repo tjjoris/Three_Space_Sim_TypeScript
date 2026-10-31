@@ -95,7 +95,7 @@ export default class JoyAxisInputDiffValueReporter {
 	       //console.log("axis ", this.axisId, " value ", this.axisValue);
 	       if (diff >= this.threshhold) {
 		       this.diff = diff;
-		       //console.log("diff ", this.diff, " axis ", this.axisId);
+		       console.log("diff ", this.diff, " axis ", this.axisId, " joy: ", gamepad.id);
 	       }
 	}
 
