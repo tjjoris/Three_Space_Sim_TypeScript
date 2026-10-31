@@ -120,6 +120,8 @@
 
 .top-overlay {
   padding-top: 1em;
+  position: absolute;
+  z-index: 1000;
 }
 
 .overlay {
@@ -130,7 +132,10 @@
   padding-bottom: 0.7em;
   margin: 0.5em;
   border-radius: 0.5em;
-  background-color: #444347;
+  background-color: #44434700;
+  position: absolute;
+  z-index: 1000;
+
 }
 
 .popup {
