@@ -54,6 +54,8 @@ export default class BindingsStorage {
 			    //the axis id
 			    const axisId: number = this.bindingsAndJoysCookieGetter.getAxisIdByFlightAxis(key);
 			    console.log("axis " + axisId);
+			    //set the axis for the JoyAxisBinding
+			    joyAxisBinding.
 			}
 		}
 	}
@@ -82,7 +84,7 @@ export default class BindingsStorage {
 			
 		}
 		const joyAxisBinding = this.bindingsRecord[flightAxis];
-		joyAxisBinding.setJoyAxisBinding(joyAxis);
+		joyAxisBinding.setJoyAxisNumber(joyAxis);
 		joyAxisBinding.setJoy(joy);
 		console.log("joy axis binding in bindings storage: ", joyAxisBinding);
 		this.setBindingsToState();

@@ -32,9 +32,9 @@ export default class JoyAxisBinding implements Tickable{
 	}
 
 	/*
-	 * set the joy axis binding
+	 * set the joy axis number  
 	 */
-	public setJoyAxisBinding(joyAxis: number) {
+	public setJoyAxisNumber(joyAxis: number) {
 		this.joyAxis = joyAxis;
 	}
 
