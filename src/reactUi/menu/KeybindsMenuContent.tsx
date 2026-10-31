@@ -10,6 +10,7 @@ import { GameStateContext } from "../contexts/GameStateContext";
 import KeybindButton from "./KeybindButton";
 import type {BindingType} from "../../types/bindingType";
 import type { GameStateType } from "../../types/gameStateType";
+import InternalToggleMenuButton from "./InternalToggleMenuButton";
 
 export default function KeybindsMenuContent() {
 
@@ -63,7 +64,8 @@ export default function KeybindsMenuContent() {
 	//console.log("game state context in react", GameStateContext);
 	return (
 		<div className="menu-content">
-		{ returnBindings() }
+		    { returnBindings() }
+		    <InternalToggleMenuButton/>
 		</div>
 	)
 }

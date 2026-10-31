@@ -1,4 +1,5 @@
 import VerticalInverter from "./VerticalInverter";
+import InternalToggleMenuButton from "./InternalToggleMenuButton";
 /**
 SettingsMenuContent.tsx 
 @Author: Luke Johnson
@@ -14,6 +15,7 @@ export default function SettingsMenuContent() {
 		    	<VerticalInverter />
                     </div>
                 </div>
+		<InternalToggleMenuButton/>
 	    </div>
 	)
 }

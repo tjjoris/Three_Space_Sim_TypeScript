@@ -4,7 +4,7 @@ InfoMenuContent.tsx
 contains the latest info about the game.
 displayed in the menu.
  */
-import { ToggleMenuContext } from "../contexts/ToggleMenuContext";
+import InternalToggleMenuButton from "./InternalToggleMenuButton";
 export default function InfoMenuContent () {
 	return (
 	<div className="scrollable-div menu-content" >
@@ -103,5 +103,6 @@ export default function InfoMenuContent () {
 			    Plenty more ideas but will need to build these first and see how it feels.
 			</li>
 		</ul>
+		<InternalToggleMenuButton/>
 	</div>
 )}

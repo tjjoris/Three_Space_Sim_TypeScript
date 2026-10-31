@@ -35,7 +35,6 @@ export default function MenuScreen({
 			<KeybindsMenuContent /> }
 		{menuTab === "settings" &&	    
 		<SettingsMenuContent />  }
-		<MenuButton name="Close Menu" onClick={toggleMenu} />
 		<InternalToggleMenuButton />
         </div >
     </>)
