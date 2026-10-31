@@ -50,12 +50,14 @@ export default class BindingsStorage {
 			    //if joy is not null
 			    if (joy != null) {
 				console.log("flight axis: " + key + ", joy: " + joy.getJoyName());
+				//the axis id
+				const axisId: number = this.bindingsAndJoysCookieGetter.getAxisIdByFlightAxis(key);
+				console.log("axis " + axisId);
+				//set the axis for the JoyAxisBinding
+				joyAxisBinding.setJoyAxisNumber(axisId)
+				//set the joy for the JoyAxisBinding
+				joyAxisBinding.setJoy(joy);
 			    }
-			    //the axis id
-			    const axisId: number = this.bindingsAndJoysCookieGetter.getAxisIdByFlightAxis(key);
-			    console.log("axis " + axisId);
-			    //set the axis for the JoyAxisBinding
-			    joyAxisBinding.setJoyAxisNumber(axisId);
 			}
 		}
 	}
