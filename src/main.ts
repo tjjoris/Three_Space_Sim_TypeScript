@@ -13,7 +13,10 @@ import CastRay from './axes/castRay.ts'
 // import VJoyInput from './ui/vjoy/vJoyInput.ts'
 import RightVJoyInput from './ui/vjoy/rightVJoyInput.ts'
 import LeftVJoyInput from './ui/vjoy/leftVJoyInput.ts'
-import Axis from './axes/axis.ts';
+import VJoyUsedTracker from './ui/vjoy/vJoyUsedTracker.ts';
+import InputsFactory from "./input/inputsFactory";
+import JoysStorage from "./input/joysStorage";
+import Joy from "./input/joy";
 import DustHandler from './spaceDust/dustHandler.ts'
 import Mover from './ship/movement/mover.ts'
 import CameraRig from './camera/cameraRig.ts'
@@ -31,9 +34,11 @@ import DesiredAxis from './ship/movement/desiredAxis.ts'
 import Jerker from './ship/movement/Jerker.ts'
 import RotationMediator from './ship/movement/rotationMediator.ts'
 import SmartForward from "./ship/movement/smartForward.ts"
-import GamePadHandler from './axes/gamePadHandler.ts'
-import GamePadHandlerLifeCycleMediator from './axes/GamePadHandlerLifecycleMediator.ts'
+//import GamePadHandlerLifeCycleMediator from './axes/GamePadHandlerLifecycleMediator.ts'
 import Ticker from './game/ticker.ts'
+import InputDiffsComparerForAllJoys from './input/inputDiffsComparerForAllJoys';
+import FlightAxis from './axes/flightAxis';
+import type { FlightAxisType } from './types/flightAxisType';
 
 
 
@@ -53,54 +58,6 @@ const renderer = new THREE.WebGLRenderer();
 
 renderer.setSize(window.innerWidth, window.innerHeight);
 
-//class for setting the renderer size on window resize.
-export const setRendererSize = new SetRendererSize(renderer, camera);
-
-let started = false;
-
-
-export function start(container: HTMLElement) {
-  if (started) return;
-  started = true;
-
-  //add renderer canvas to provided conatiner
-  container.appendChild(renderer.domElement);
-  //attach resize listener
-  const resizeHandler = () => setRendererSize.setSize();
-  window.addEventListener('resize', resizeHandler);
-  setRendererSize.setSize();
-  //remember the handler so we can remove it later
-  //i will convert this to a class variable.
-  (start as any)._resizeHandler = resizeHandler;
-
-  //start the render loop
-  renderer.setAnimationLoop(animate);
-}
-
-export function stop() {
-  if (!started) return;
-  started = false;
-
-  //stop loop
-  renderer.setAnimationLoop(null);
-
-  //remove canvas
-  if (renderer.domElement.parentElement) {
-    renderer.domElement.parentElement.removeChild(renderer.domElement);
-  }
-
-  //remove resize listener
-  const resizeHandler = (start as any)._resizeHandler;
-  if (resizeHandler) window.removeEventListener('resize', resizeHandler);
-}
-
-//add event listener for resize
-// window.addEventListener("resize", () => setRendererSize.setSize());
-
-//removed append because doing it differently with react.
-// document.body.appendChild(renderer.domElement);
-
-
 
 //new vjoy factory
 const leftVJoyFactory = new VJoyFactory(scene);
@@ -112,12 +69,12 @@ const castRay = new CastRay(renderer, camera);
 
 //new axes
 //deadzone, saturation, inverse.
-const pitchAxis = new Axis(0.15, 1, true);
-const yawAxis = new Axis(0, 1, true);
-const rollAxis = new Axis(0.2, 1, false);
-const verticalAxis = new Axis(0.15, 1, true);
-const horizontalAxis = new Axis(0.15, 1, true);
-const forwardAxis = new Axis(0.15, 1, false);
+const pitchAxis = new FlightAxis(0.15, 1, true, "pitch");
+const yawAxis = new FlightAxis(0, 1, true, "yaw");
+const rollAxis = new FlightAxis(0.2, 1, false, "roll");
+const verticalAxis = new FlightAxis(0.15, 1, true, "vertical");
+const horizontalAxis = new FlightAxis(0.15, 1, true, "horizontal");
+const forwardAxis = new FlightAxis(0.15, 1, false, "forward");
 
 //desired axes, set the min and max rotation speeds.
 const desiredPitchAxis = new DesiredAxis(-0.20, 0.20);
@@ -153,10 +110,54 @@ export function setVerticalInversion(value: boolean) {
   verticalAxis?.setInverseFromBoolean(value);
 }
 
-//new inputs
+//inputs factory for creating joys bindings and setting modules:
+const inputsFactory = new InputsFactory(pitchAxis, rollAxis, yawAxis, verticalAxis, horizontalAxis, forwardAxis);
 
-const leftVJoyInput = new LeftVJoyInput(renderer, 1, 1, horizontalAxis, verticalAxis);
-const rightVJoyInput = new RightVJoyInput(renderer, 1, 1, rollAxis, pitchAxis);
+const gameState = inputsFactory.getGameState();
+//export gameState
+//this is used by App.tsx for use context so components can subscribe to useSyncExternalStore.
+export function getGameState() {
+	return gameState; 
+};
+
+const bindingsStorage = inputsFactory.getBindingsStorage();
+
+//set bindings from cookies
+bindingsStorage.setBindingsAndJoysFromCookies();
+
+//class for setting the renderer size on window resize.
+export const setRendererSize = new SetRendererSize(renderer, camera, gameState);
+//add event listener for resize
+// window.addEventListener("resize", () => setRendererSize.setSize());
+
+//removed append because doing it differently with react.
+// document.body.appendChild(renderer.domElement);
+
+
+
+const inputDiffsComparerForAllJoys: InputDiffsComparerForAllJoys = inputsFactory.getInputDiffsComparerForAllJoys();
+export function getInputDiffsComparerForAllJoys(): InputDiffsComparerForAllJoys {
+	console.log("getting input diffs comparer for all ", inputsFactory.getInputDiffsComparerForAllJoys());
+	return inputDiffsComparerForAllJoys
+}
+export function setDiffEnabled(enabled: boolean) {
+	inputDiffsComparerForAllJoys.setDiffEnabled(enabled);
+}
+
+export function setBinding(flightAxis: FlightAxisType, joyName: string, joyId: number, joyAxis: number) {
+	//console.log("setting binding ", flightAxis, joyName, joyId, joyAxis);
+	const joysStorage: JoysStorage = inputsFactory.getJoysStorage();
+	let joy: Joy | null = joysStorage.getJoyByNameAndId(joyName, joyId);
+	//console.log("joy in main ", joy);
+	bindingsStorage.setBinding(flightAxis, joyAxis, joy);
+	bindingsStorage.setStoredBindingToCookiesFromFlightAxis(flightAxis);
+}
+
+//new vjoyUsed tracker for tracking if vjoy has been used.
+const vJoyUsedTracker = new VJoyUsedTracker(gameState);
+//new inputs
+const leftVJoyInput = new LeftVJoyInput(renderer, 1, 1, horizontalAxis, verticalAxis, vJoyUsedTracker);
+const rightVJoyInput = new RightVJoyInput(renderer, 1, 1, rollAxis, pitchAxis, vJoyUsedTracker);
 rightVJoyInput;
 const clickInput = new ClickInput(renderer, leftVJoyInput, rightVJoyInput);
 clickInput;
@@ -203,10 +204,10 @@ const rotationMediator = new RotationMediator(pitchMediator, rollMediator, yawMe
  * gamepad
  */
 
-let gamePadHandlerHorizontal: GamePadHandler | null = null;
-let gamePadHandlerVertical: GamePadHandler | null = null;
-let gamePadHandlerPitch: GamePadHandler | null = null;
-let gamePadHandlerRoll: GamePadHandler | null = null;
+//let gamePadHandlerHorizontal: GamePadHandler | null = null;
+//let gamePadHandlerVertical: GamePadHandler | null = null;
+//let gamePadHandlerPitch: GamePadHandler | null = null;
+//let gamePadHandlerRoll: GamePadHandler | null = null;
 
 
 
@@ -281,10 +282,13 @@ ticker.addTickable(rotationMediator as Tickable);
 ticker.addTickable(mover as Tickable);
 ticker.addTickable(dustHandler as Tickable);
 ticker.addTickable(powerUpTicker as Tickable);
+//add bindings ticker from inputs factory.
+ticker.addTickable(inputsFactory.getBindingsTicker() as Tickable);
 
-let gamePadHandlerLifecycleMediator = new GamePadHandlerLifeCycleMediator(horizontalAxis, verticalAxis, pitchAxis, rollAxis, gamePadHandlerHorizontal, gamePadHandlerVertical, gamePadHandlerPitch, gamePadHandlerRoll, ticker);
+//GAME PAD LIFE CYCLE MEDIATOR temporarly in line for new joystick inputs.
+//let gamePadHandlerLifecycleMediator = new GamePadHandlerLifeCycleMediator(horizontalAxis, verticalAxis, pitchAxis, rollAxis, gamePadHandlerHorizontal, gamePadHandlerVertical, gamePadHandlerPitch, gamePadHandlerRoll, ticker);
 //simpley calling it so build errors don't happen.
-gamePadHandlerLifecycleMediator;
+//gamePadHandlerLifecycleMediator;
 
 
 let currentTime = Date.now();
@@ -298,9 +302,53 @@ function animate() {
 
   ticker.tick(dtMult);
   renderer.render(scene, camera);
+  inputsFactory.getInputDiffsComparerForAllJoys().update();
 
   // feedbackEl!.innerText = `forward: ${desiredForwardAxis.getValue()} smart yaw: ${smartYaw.getCalculatedValue()}yaw axis: ${yawAxis.getValue()} pitch axis: ${pitchAxis.getValue()} forward thrust: ${forwardMediator.getAccelerationValue()}
   // vert thrust: ${verticalMediator.getAccelerationValue()} horiz thrust: ${horizontalMediator.getAccelerationValue()} `;
 }
 
 // renderer.setAnimationLoop(animate);
+//
+
+let started = false;
+
+/*
+ *start game
+ */
+export function start(container: HTMLElement) {
+  if (started) return;
+  started = true;
+
+  //add renderer canvas to provided conatiner
+  container.appendChild(renderer.domElement);
+  //attach resize listener
+  const resizeHandler = () => setRendererSize.setSize();
+  window.addEventListener('resize', resizeHandler);
+  setRendererSize.setSize();
+  //remember the handler so we can remove it later
+  //i will convert this to a class variable.
+  (start as any)._resizeHandler = resizeHandler;
+
+  //start the render loop
+  renderer.setAnimationLoop(animate);
+}
+
+export function stop() {
+  if (!started) return;
+  started = false;
+
+  //stop loop
+  renderer.setAnimationLoop(null);
+
+  //remove canvas
+  if (renderer.domElement.parentElement) {
+    renderer.domElement.parentElement.removeChild(renderer.domElement);
+  }
+
+  //remove resize listener
+  const resizeHandler = (start as any)._resizeHandler;
+  if (resizeHandler) window.removeEventListener('resize', resizeHandler);
+}
+
+

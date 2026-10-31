@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState} from "react";
+import { ToggleMenuContext } from "../contexts/ToggleMenuContext";
 import MenuHamburger from "./MenuHamburger";
 import MenuScreen from "./MenuScreen";
 import { isPaused, setPaused } from "../../game/pause";
@@ -15,10 +16,14 @@ export default function MenuContainer(
         setIsOpen(!isOpen);
         setPaused(!isPaused());
     };
+
+    //context for toggling menu.
     return (<>
-        {isOpen ?
-            <MenuScreen
-                toggleMenu={toggleMenu} />
-            : <MenuHamburger toggleMenu={toggleMenu} />}
+	<ToggleMenuContext.Provider value = {toggleMenu}  >
+	    {isOpen ?
+		<MenuScreen
+		    toggleMenu={toggleMenu} />
+		: <MenuHamburger toggleMenu={toggleMenu} />}
+	</ToggleMenuContext.Provider>
     </>);
 }

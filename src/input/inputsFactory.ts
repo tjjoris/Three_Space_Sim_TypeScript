@@ -1,0 +1,113 @@
+/*
+inputsFactory.ts
+@Author:Luke Johnson
+This is the factory class for creating all the instances of the classes needed for the inputs 
+namespace. each function instantiates a concrete instnace of a class, and return it.
+sometimes an array of instances.
+ */
+import Joy from "./joy";
+import JoyAxisBinding from "./joyAxisBinding";
+import FlightAxis from "../axes/flightAxis"
+import JoyConnector from "./joyConnector";
+import BindingsTicker from "./bindingsTicker";
+import type Tickable from "../game/tickable";
+import InputDiffsComparerForAllJoys from "./inputDiffsComparerForAllJoys"; 
+import BindingsStorage from "./bindingsStorage";
+import BindingsToStateConverter from "./bindingsToStateConverter";
+import GameState from "../ui/menu/gameState";
+import JoysStorage from "./joysStorage";
+import type {FlightAxisType } from "../types/flightAxisType";
+import BindingsAndJoysCookieSetter from "../cookies/bindingsAndJoysCookieSetter";
+import BindingsAndJoysCookieGetter from "../cookies/bindingsAndJoysCookieGetter";
+
+export default class InputsFactory{
+
+	//private joys:Joy[];
+	private joyAxisBindingsRecord:Record<FlightAxisType, JoyAxisBinding>
+	private joyConnector:JoyConnector;
+	private bindingsTicker:BindingsTicker;
+	private inputDiffsComparerForAllJoys: InputDiffsComparerForAllJoys;
+	private bindingsStorage: BindingsStorage;
+	private bindingsToStateConverter: BindingsToStateConverter;
+	private gameState: GameState;
+	private joysStorage: JoysStorage;
+	private bindingsAndJoysCookieSetter: BindingsAndJoysCookieSetter;	
+	private bindingsAndJoysCookieGetter: BindingsAndJoysCookieGetter;
+	
+
+	constructor(pitchAxis: FlightAxis, 
+		    rollAxis: FlightAxis, 
+		    yawAxis: FlightAxis,
+		    verticalAxis: FlightAxis,
+		   horizontalAxis: FlightAxis,
+		   forwardAxis: FlightAxis) {
+		let joyZero = new Joy(null, 0, "CH FLIGHTSTICK PRO (Vendor: 068e Product: 00f6)", false);
+		let joyOne = new Joy(null, 1, "CH FIGHTERSTICK USB  (Vendor: 068e Product: 00f3)", false);
+		//let joyTwo = new Joy(null, 2, null, false);
+		//let joyThree = new Joy(null, 3, null, false);
+		//let joyFour = new Joy(null, 4, null, false);
+		//this.joys = [joyZero, joyOne, joyTwo, joyThree, joyFour]; 
+
+		let pitchBinding = new JoyAxisBinding(joyOne, 1, pitchAxis);
+		let rollBinding = new JoyAxisBinding(joyOne, 0, rollAxis);
+		let yawBinding = new JoyAxisBinding(null, null, yawAxis);
+		let verticalBinding = new JoyAxisBinding(joyZero, 1, verticalAxis);
+		let horizontalBinding = new JoyAxisBinding(joyZero, 0, horizontalAxis);
+		let forwardBinding = new JoyAxisBinding(null, null, forwardAxis);
+			//set joyAxisBindingsRecrod
+		this.joyAxisBindingsRecord = {
+			pitch: pitchBinding,
+			roll: rollBinding,
+			yaw: yawBinding,
+			horizontal: horizontalBinding,
+			vertical: verticalBinding,
+			forward: forwardBinding};
+		console.log("joy axis bindings record ", this.joyAxisBindingsRecord);
+		this.bindingsTicker = new BindingsTicker();
+			/*
+		this.bindingsTicker.addTickable(pitchBinding as Tickable);
+		this.bindingsTicker.addTickable(rollBinding as Tickable);
+		this.bindingsTicker.addTickable(verticalBinding as Tickable);
+		this.bindingsTicker.addTickable(horizontalBinding as Tickable);
+		*/
+		//add tickable bindings to bindings ticker
+		for (const [key, value] of Object.entries(this.joyAxisBindingsRecord)) {
+			key;//call for syntax error
+			this.bindingsTicker.addTickable(value as Tickable);
+		}
+		//new bindings to state converter
+		this.bindingsToStateConverter = new BindingsToStateConverter();
+		//new bindings storage
+		this.gameState = new GameState();
+		this.joysStorage = new JoysStorage(this.gameState);
+		this.bindingsAndJoysCookieSetter = new BindingsAndJoysCookieSetter();
+		this.bindingsAndJoysCookieGetter = new BindingsAndJoysCookieGetter(this.joysStorage);
+		this.bindingsStorage = new BindingsStorage(this.bindingsAndJoysCookieSetter, this.bindingsAndJoysCookieGetter, this.bindingsToStateConverter, this.gameState, this.joyAxisBindingsRecord);
+		this.inputDiffsComparerForAllJoys = new InputDiffsComparerForAllJoys(this.gameState);
+		this.joyConnector = new JoyConnector(this.inputDiffsComparerForAllJoys, this.joysStorage);
+
+	}
+	public getJoysStorage(): JoysStorage {
+		return this.joysStorage;
+	}
+
+	getJoyConnector():JoyConnector {
+		return this.joyConnector;
+	}
+	
+	getBindingsTicker():BindingsTicker {
+		return this.bindingsTicker;
+	}
+
+	getInputDiffsComparerForAllJoys():InputDiffsComparerForAllJoys {
+		return this.inputDiffsComparerForAllJoys;
+	}
+
+	public getBindingsStorage() : BindingsStorage {
+		return this.bindingsStorage;
+	}
+
+	public getGameState(): GameState {
+		return this.gameState;
+	}
+}

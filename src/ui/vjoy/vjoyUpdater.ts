@@ -1,3 +1,7 @@
+/**
+ * this renders the update of the vjoy on the screen.
+ * TODO: attach the vjoy sprite to the cameara and simplify the render calculations.
+ */
 import * as THREE from "three";
 import type Tickable from "../../game/tickable";
 import type CastRay from "../../axes/castRay";

@@ -71,15 +71,6 @@
   background-color: green;
 }
 
-.unselected-header-button {
-  z-index: 10;
-}
-
-.selected-header-button {
-  z-index: 100;
-}
-
-
 .menu-div-column {
   display: flex;
   flex-direction: column;
@@ -103,7 +94,6 @@
 
 .scrollable-div {
 	overflow-y: scroll;
-	font-size: 0.3em;
 }
 
 .menu-button {
@@ -111,6 +101,7 @@
   height: 2em;
   font-size: 1em;
   border-radius: 0.5em;
+  overflow: hidden;
 }
 
 .menu-checkbox {
@@ -161,4 +152,38 @@
   to {
     opacity: 0;
   }
+}
+
+.diff-button-container {
+	display-type: flex;
+}
+
+.diff-slider {
+	background-color: green;
+	height: 1rem;
+	margin: 0 -0.5rem;
+	border-width: 1px;
+	border-color: white;
+	border-style: solid;
+}
+
+.diff-button-disabled {
+	width: 0%;
+	transition: width 5s ease-in-out;
+
+}
+
+.diff-button-enabled {
+	width: 110%;
+	height: 1rem;
+	visibility: hidden;
+	
+}
+
+.bindings-info {
+	font-size: 0.2rem;
+	padding: 0.1rem 0rem;
+}
+.bindings-axis {
+	font-color: green;
 }

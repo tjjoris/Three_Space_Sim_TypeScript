@@ -36,11 +36,12 @@ export default abstract class VJoyInput {
     protected innerPaddingMult: number = 1;
     protected rightPaddingMult: number = 0;
     protected boxRightMult: number = 0;
+    protected vJoyUsedTracker: VJoyUsedTracker;
     private axisX: Axis;
     private axisY: Axis;
 
 
-    constructor(renderer: THREE.WebGLRenderer, screenWidthMultiplier: number, boxMultiplier: number, axisX: Axis, axisY: Axis) {
+    constructor(renderer: THREE.WebGLRenderer, screenWidthMultiplier: number, boxMultiplier: number, axisX: Axis, axisY: Axis, vJoyUsedTracker: VJoyUsedTracker) {
         this.renderer = renderer;
         this.screenWidthMultiplier = screenWidthMultiplier;
         this.boxMultiplier = boxMultiplier;
@@ -50,6 +51,7 @@ export default abstract class VJoyInput {
         this.boxMultiplier;
         this.axisX = axisX;
         this.axisY = axisY;
+	this.vJoyUsedTracker = vJoyUsedTracker;
     }
 
     /**
@@ -70,7 +72,7 @@ export default abstract class VJoyInput {
             this.origionalClickPoint.copy(pos);
             this.isDownId = id;
             this.updateScreenPointAndAxes(pos);
-            VJoyUsedTracker.getVJoyUsedTracker().setVJoyToUsed();
+            this.vJoyUsedTracker.setVJoyToUsed();
         }
     }
 

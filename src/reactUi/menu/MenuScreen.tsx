@@ -1,18 +1,18 @@
+/*
+ *MenuScreen.tsx
+ @Author: Luke Johnson
+ this is the react menu screen for the main menu. it contains the header and all components.
+ */
 import type {MenuTabsType} from "../../types/menuTabsType"
+import MenuHeader from "./MenuHeader";
 import SettingsMenuContent from "./SettingsMenuContent";
 import InfoMenuContent from "./InfoMenuContent";
-import HeaderButton from "./HeaderButton";
-import MenuButton from "./MenuButton";
+import KeybindsMenuContent from "./KeybindsMenuContent";
 import { useState} from "react";
-export default function MenuScreen({
-    toggleMenu,
-}: {
-    toggleMenu: () => void,
-}) {
 
-	//tabs state for different menu screens.
+export default function MenuScreen() {
+	//menu tab state for storing menu tab your in.
 	const [menuTab, setMenuTab] = useState<MenuTabsType>("info"); 
-	
 	//function to navigate to menu screen on tab click
 //the arrow syntax is more common in react and no {} are needed because it is only calling one function.
 	const gotoMenuScreen = (screenName: MenuTabsType) => {
@@ -22,16 +22,13 @@ export default function MenuScreen({
     return (<>
         <div className="menu-screen">
 
-            <div className="menu-header">
-		<HeaderButton name="info" action={gotoMenuScreen} currentTab ={menuTab} />
-		<HeaderButton name="keybinds" action={gotoMenuScreen} currentTab={menuTab} />
-		<HeaderButton name="settings" action={gotoMenuScreen} currentTab={menuTab} />
-            </div>
-		{menuTab === "settings" &&	    
-		<SettingsMenuContent />  }
+	<MenuHeader menuTab = {menuTab} gotoMenuScreen = {gotoMenuScreen} setMenuTab = {setMenuTab} />
 		{menuTab === "info" &&
 			<InfoMenuContent />}
-		<MenuButton name="Close Menu" onClick={toggleMenu} />
+		{menuTab === "keybinds" &&
+			<KeybindsMenuContent /> }
+		{menuTab === "settings" &&	    
+		<SettingsMenuContent />  }
         </div >
     </>)
 }
