@@ -1,9 +1,6 @@
 import Joy from "../input/joy";
 import type { FlightAxisType } from "../types/flightAxisType";
-import type { InputType } from "../types/inputType";
 import { INPUT_CONSTS } from "../consts/inputConsts";
-import BindingsStorage from "../input/bindingsStorage";
-import { FLIGHT_AXIS_CONST } from "../consts/flightAxisConst";
 import { COOKIE_CONSTS } from "../consts/cookieConsts";
 import getCookie from "./getCookie";
 import JoysStorage from "../input/joysStorage";
