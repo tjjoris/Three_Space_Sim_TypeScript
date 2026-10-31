@@ -40,7 +40,7 @@ export default function App() {
             		<LandscapeOverlay />
             		<VJoyUsedOverlay />
             		<MenuContainer />
-            		<div ref={mountRef} style={{ width: '100vw', height: '100vh' }} />
+            		<div ref={mountRef} style={{ position: 'relative', width: '100vw', height: '100vh' }} />
 	    </GameStateContext>
         </>
     );
