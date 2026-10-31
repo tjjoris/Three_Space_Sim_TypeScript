@@ -64,6 +64,9 @@ export default function KeybindsMenuContent() {
 	//console.log("game state context in react", GameStateContext);
 	return (
 		<div className="menu-content">
+		    <p>
+			Note: binding forward and yaw will have no effect.
+		    </p>
 		    { returnBindings() }
 		    <InternalToggleMenuButton/>
 		</div>
