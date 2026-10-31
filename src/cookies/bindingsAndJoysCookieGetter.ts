@@ -63,7 +63,7 @@ export default class BindingsAndJoysCookieGetter {
 	/*
 	 * get the axis id from flight axis
 	 */
-	public getAxisIdByFlightAxis(flightAxis: FlightAxis): number {
+	public getAxisIdByFlightAxis(flightAxis: FlightAxisType): number {
 	   const cookieKey: string = flightAxis + COOKIE_CONSTS.axis; 
 	   const axisString: string = getCookie(cookieKey);
 	   //convert from string to number
