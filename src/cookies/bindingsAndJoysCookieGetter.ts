@@ -55,7 +55,6 @@ export default class BindingsAndJoysCookieGetter {
 	    const cookieKey: string = flightAxis + COOKIE_CONSTS.type;
 	    const inputType: string = getCookie(cookieKey);
 	    if (inputType ==  INPUT_CONSTS.joyAxis) {
-		console.log("hooray");
 		return true;
 	    }
 	    return false
