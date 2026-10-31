@@ -62,8 +62,8 @@ export default function KeybindsMenuContent() {
 	}
 	//console.log("game state context in react", GameStateContext);
 	return (
-		<>
+		<div className="menu-content">
 		{ returnBindings() }
-		</>
+		</div>
 	)
 }
